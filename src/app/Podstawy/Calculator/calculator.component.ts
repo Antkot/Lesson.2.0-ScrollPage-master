@@ -1,3 +1,5 @@
+import {Component, OnInit} from '@angular/core';
+
 @Component({
   selector: 'app-calc',
   templateUrl: './calculator.component.html',
@@ -10,7 +12,7 @@ export class CalculatorComponent implements OnInit {
   digitOne = '';
   digitTwo = '';
   sign = '';
-  deletable = false;
+  counted = false;
 
   constructor() {
   }
@@ -20,9 +22,8 @@ export class CalculatorComponent implements OnInit {
   }
 
   buttonUse(button: string) {
-    // this.deleteCheck();
+    console.log('kliknięto', button);
     if (['/', '*', '+', '-', 'del', 'C', '='].indexOf(button) !== -1) {
-      console.log('Kliknąłeś znak', button);
       switch (button) {
         case 'del':
           this.screen = this.screen.substr(0, this.screen.length - 1);
@@ -33,65 +34,64 @@ export class CalculatorComponent implements OnInit {
           this.digitOne = '';
           this.digitTwo = '';
           this.sign = '';
+          this.counted = false;
           break;
         case '=':
-          this.signCheck();
+          this.countMe(button);
           break;
         default:
-          this.signCheck();
+          this.screen = '';
+          if (this.sign) {
+            this.countMe(button);
+          }
           this.sign = button;
-          // this.digitTwo = '';
           break;
       }
     } else {
-      console.log('Kliknąłeś liczbę', button);
-      this.sign === '' ? this.digitOne += button : this.digitTwo += button;
-      this.screen += button;
-      console.log('długość b i znaku: ', this.digitTwo.length, this.sign.length);
-      // this.deleteCheck();
-      // ((this.digitTwo.length === 0 || this.digitTwo.length === 0) && this.sign.length !== 0) ? this.screen = this.digitOne : this.screen = this.digitTwo;
+      if (this.sign === '') {
+        this.digitOne += button;
+        this.screen = this.digitOne;
+      } else {
+        if (this.counted === true) {
+          this.digitTwo = '';
+          this.sign = '';
+          this.counted = false;
+          this.digitOne = button;
+          this.screen = this.digitOne;
+        }else{
+          this.digitTwo += button;
+          this.screen = this.digitTwo;
+        }
+      }
     }
-    console.log('a: ', this.digitOne, 'znak:', this.sign, 'b: ', this.digitTwo);
+    console.log(' digitOne: ', this.digitOne, '\n', 'sign: ', this.sign, '\n', 'digitTwo: ', this.digitTwo, '\n', 'counted: ', this.counted);
   }
 
-  signCheck() {
-    switch (this.sign) {
-      case '+':
-        this.screen = String(Number(this.digitOne) + Number(this.digitTwo));
-        this.digitOne = String(Number(this.digitOne) + Number(this.digitTwo));
-        console.log('wykonano dodawanie', this.digitOne);
-        break;
-      case '-':
-        this.screen = String(Number(this.digitOne) - Number(this.digitTwo));
-        this.digitOne = String(Number(this.digitOne) - Number(this.digitTwo));
-        console.log('wykonano odejmowanie', this.digitOne);
-        break;
-      case '*':
-        this.screen = String(Number(this.digitOne) * Number(this.digitTwo));
-        this.digitOne = String(Number(this.digitOne) * Number(this.digitTwo));
-        console.log('wykonano mnożenie', this.digitOne);
-        break;
-      case '/':
-        this.screen = String(Number(this.digitOne) / Number(this.digitTwo));
-        this.digitOne = String(Number(this.digitOne) / Number(this.digitTwo));
-        console.log('wykonano dzielenie', this.digitOne);
-        break;
-      default:
-        console.log('wykonano działanie bez znaku');
-        // this.screen = this.digitOne;
-        this.screen = '';
-        break;
-    }
-    this.deletable = true;
-    // this.deleteCheck();
-  }
+  countMe(button: string) {
+    if (this.counted === false || button === '=') {
+      switch (this.sign) {
+        case '+':
+          this.digitOne = String(Number(this.digitOne) + Number(this.digitTwo));
+          break;
+        case '-':
+          this.digitOne = String(Number(this.digitOne) - Number(this.digitTwo));
+          break;
+        case '*':
+          this.digitOne = String(Number(this.digitOne) * Number(this.digitTwo));
+          break;
+        case '/':
+          this.digitOne = String(Number(this.digitOne) / Number(this.digitTwo));
+          break;
+      }
+      this.screen = this.digitOne;
 
-//   deleteCheck() {
-//     if (this.deletable) {
-//       this.deletable = false;
-//       this.screen = '';
-//     }
-//   }
+      button === '=' ? this.counted = true : this.counted = false;
+    } else {
+      this.counted = false;
+    }
+    if (button !== '=') {
+      this.digitTwo = '';
+    }
+  }
 }
 
-import { Component, OnInit } from '@angular/core';
