@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="screen">
+    {{screen}}
+  </div>
+  <div class="singleButton" *ngFor='let button of buttons' (click)="buttonUse(button)">
+    {{button}}
+  </div>
+</div>
