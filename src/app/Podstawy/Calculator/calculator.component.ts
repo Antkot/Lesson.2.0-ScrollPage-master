@@ -27,7 +27,6 @@ export class CalculatorComponent implements OnInit {
       switch (button) {
         case 'del':
           this.screen = this.screen.substr(0, this.screen.length - 1);
-          this.sign = '';
           break;
         case 'C':
           this.screen = '';
@@ -52,23 +51,26 @@ export class CalculatorComponent implements OnInit {
         this.digitOne += button;
         this.screen = this.digitOne;
       } else {
-        if (this.counted === true) {
+        if (this.counted) {
           this.digitTwo = '';
           this.sign = '';
           this.counted = false;
           this.digitOne = button;
           this.screen = this.digitOne;
-        }else{
+        } else {
           this.digitTwo += button;
           this.screen = this.digitTwo;
         }
       }
     }
-    console.log(' digitOne: ', this.digitOne, '\n', 'sign: ', this.sign, '\n', 'digitTwo: ', this.digitTwo, '\n', 'counted: ', this.counted);
+    console.log(' digitOne: ', this.digitOne,
+      '\n', 'sign: ', this.sign,
+      '\n', 'digitTwo: ', this.digitTwo,
+      '\n', 'counted: ', this.counted);
   }
 
   countMe(button: string) {
-    if (this.counted === false || button === '=') {
+    if (!this.counted || button === '=') {
       switch (this.sign) {
         case '+':
           this.digitOne = String(Number(this.digitOne) + Number(this.digitTwo));
@@ -84,8 +86,7 @@ export class CalculatorComponent implements OnInit {
           break;
       }
       this.screen = this.digitOne;
-
-      button === '=' ? this.counted = true : this.counted = false;
+      this.counted = button === '=';
     } else {
       this.counted = false;
     }
