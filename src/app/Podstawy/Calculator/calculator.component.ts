@@ -7,12 +7,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class CalculatorComponent implements OnInit {
 
-  buttons = ['1', '2', '3', '+', '4', '5', '6', '-', '7', '8', '9', '/', 'del', '0', 'C', '*', '='];
+  buttons = ['1', '2', '3', '+', '4', '5', '6', '-', '7', '8', '9', '/', 'del', '0', 'C', '*', '.', '='];
   screen = '';
   digitOne = '';
   digitTwo = '';
   sign = '';
   counted = false;
+  readyToClean = false;
 
   constructor() {
   }
@@ -22,24 +23,34 @@ export class CalculatorComponent implements OnInit {
   }
 
   buttonUse(button: string) {
+    if (this.readyToClean) {
+      this.clean();
+    }
     console.log('kliknięto', button);
     if (['/', '*', '+', '-', 'del', 'C', '='].indexOf(button) !== -1) {
       switch (button) {
         case 'del':
-          this.screen = this.screen.substr(0, this.screen.length - 1);
+          if (this.digitTwo !== '' && !this.counted) {
+            this.digitTwo = this.digitTwo.substr(0, this.screen.length - 1);
+            this.screen = this.digitTwo;
+          } else {
+            this.digitOne = this.digitOne.substr(0, this.screen.length - 1);
+            this.screen = this.digitOne;
+          }
           break;
         case 'C':
-          this.screen = '';
-          this.digitOne = '';
-          this.digitTwo = '';
-          this.sign = '';
-          this.counted = false;
+          this.clean();
           break;
         case '=':
           this.countMe(button);
           break;
         default:
-          this.screen = '';
+          if (this.digitOne === '' && button === '-') {
+            this.digitOne += button;
+            this.screen = this.digitOne;
+            return;
+          }
+          this.screen = this.digitOne;
           if (this.sign) {
             this.countMe(button);
           }
@@ -48,6 +59,11 @@ export class CalculatorComponent implements OnInit {
       }
     } else {
       if (this.sign === '') {
+        if (this.digitOne.length > 15) {
+          this.screen = 'Za długa liczba';
+          this.readyToClean = true;
+          return;
+        }
         this.digitOne += button;
         this.screen = this.digitOne;
       } else {
@@ -71,6 +87,9 @@ export class CalculatorComponent implements OnInit {
 
   countMe(button: string) {
     if (!this.counted || button === '=') {
+      if (!this.digitTwo) {
+        return;
+      }
       switch (this.sign) {
         case '+':
           this.digitOne = String(Number(this.digitOne) + Number(this.digitTwo));
@@ -83,6 +102,11 @@ export class CalculatorComponent implements OnInit {
           break;
         case '/':
           this.digitOne = String(Number(this.digitOne) / Number(this.digitTwo));
+          if (this.digitOne === '-Infinity' || this.digitOne === 'Infinity' || this.digitOne === 'NaN') {
+            this.screen = 'Nie dziel przez zero';
+            this.readyToClean = true;
+            return;
+          }
           break;
       }
       this.screen = this.digitOne;
@@ -94,5 +118,15 @@ export class CalculatorComponent implements OnInit {
       this.digitTwo = '';
     }
   }
+
+  clean() {
+    this.screen = '';
+    this.digitOne = '';
+    this.digitTwo = '';
+    this.sign = '';
+    this.counted = false;
+    this.readyToClean = false;
+  }
+
 }
 

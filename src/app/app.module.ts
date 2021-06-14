@@ -16,13 +16,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ToDoListComponent } from './Podstawy/to-do-list/to-do-list.component';
 import { CalculatorComponent } from './Podstawy/Calculator/calculator.component';
+import { TicTacToeComponent } from './Podstawy/tic-tac-toe/tic-tac-toe.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ToDoListComponent,
-    CalculatorComponent
+    CalculatorComponent,
+    TicTacToeComponent
   ],
   imports: [
     BrowserModule,
