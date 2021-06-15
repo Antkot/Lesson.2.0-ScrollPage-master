@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CalculatorComponent } from '../Calculator/calculator.component';
+import {TicTacToeComponent} from '../tic-tac-toe/tic-tac-toe.component';
 
 export interface tablicaToDo {
     text: string;
@@ -22,7 +23,7 @@ const fejkteksty: Array<tablicaToDo> = [
   { text: 'Podlać kwiatki', lenght: 5, state: false }
 ];
 const decoration: NgModule = {
-  declarations: [ToDoListComponent, CalculatorComponent],
+  declarations: [ToDoListComponent, CalculatorComponent, TicTacToeComponent],
   imports: [
     FormsModule, ReactiveFormsModule, MatFormFieldModule, MatButtonModule, MatInputModule, FormsModule, MatCheckboxModule
   ],

@@ -8,10 +8,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {TicTacToeComponent} from '../tic-tac-toe/tic-tac-toe.component';
 
 
 const decoration: NgModule = {
-  declarations: [CalculatorComponent, ToDoListComponent],
+  declarations: [CalculatorComponent, ToDoListComponent, TicTacToeComponent],
   imports: [
     FormsModule, ReactiveFormsModule, MatFormFieldModule, MatButtonModule, MatInputModule, FormsModule, MatCheckboxModule
   ],

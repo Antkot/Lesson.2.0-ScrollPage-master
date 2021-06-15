@@ -58,6 +58,22 @@ export class CalculatorComponent implements OnInit {
           break;
       }
     } else {
+      if (button === '.') {
+        if (this.counted || this.digitTwo === '') {
+          if (this.digitOne.includes('.')) {
+            return;
+          }
+          this.digitOne += button;
+          this.screen = this.digitOne;
+        } else {
+          if (this.digitTwo.includes('.')) {
+            return;
+          }
+          this.digitTwo += button;
+          this.screen = this.digitTwo;
+        }
+        return;
+      }
       if (this.sign === '') {
         if (this.digitOne.length > 15) {
           this.screen = 'Za długa liczba';
