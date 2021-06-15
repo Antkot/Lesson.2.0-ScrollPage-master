@@ -10,38 +10,34 @@
 
 .container {
   margin: 10% 10%;
+  width: 100%;
   max-width: 320px;
   height: 500px;
-  min-height: 500px;
-  width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 24%);
   grid-template-rows: repeat(6, 70px);
   column-gap: 1%;
   row-gap: 0.5%;
-  //margin: 3%;
   padding: 2%;
   background: linear-gradient(180deg, rgb(203, 203, 206) 0%, rgb(232, 232, 236) 35%, rgb(192, 201, 203) 70%);
 
   :last-child {
-    grid-column: 2 / 5;
+    grid-column: 3 / 5;
   }
 }
 
-//@media (max-width: 520px) {
-//  .container {
-//    grid-template-rows: repeat(6, 30px);
-//
-//    :last-child {
-//      height: 10%;
-//    }
-//  }
-//  .screen{
-//    max-height: 200%;
-//    min-height: 200%;
-//    margin-bottom: 120px;
-//  }
-//}
+.screen {
+  word-break: break-all;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: xx-large;
+  grid-column: 1 / 5;
+  grid-row: 1 / 3;
+  margin: 5% 2%;
+  max-height: 80%;
+  min-height: 80%;
+}
 
 div {
   text-align: center;
@@ -62,16 +58,57 @@ div {
   background-color: lightsteelblue;
 }
 
-.screen {
-  word-break: break-all;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: xx-large;
-  grid-column: 1 / 5;
-  grid-row: 1 / 3;
-  margin: 5% 2%;
-  max-height: 80%;
-  min-height: 80%;
+
+@media (max-width: 600px), (max-height: 600px) {
+  :host {
+    background: whitesmoke;
+  }
+  .container {
+    align-items: center;
+    justify-content: center;
+    height: 92%;
+    margin: 1% 5% 10% 20%;
+    padding: 1%;
+    grid-template-rows: repeat(6, 14%);
+    column-gap: 0%;
+    row-gap: 0%;
+  }
+  .screen {
+    margin: 1%;
+    padding: 1%;
+  }
+}
+
+
+@media (max-height: 300px) {
+  :host > div {
+    border-radius: 0px;
+  }
+  .container {
+    align-items: center;
+    justify-content: center;
+    min-width: 98%;
+    max-width: 98%;
+    grid-template-columns: repeat(7, 12%);
+    grid-template-rows: repeat(4, 24%);
+    column-gap: 0%;
+    row-gap: 0%;
+    padding: 1%;
+
+    :first-child {
+      background: papayawhip;
+      grid-column: 1 / 8;
+      grid-row: 1 / 2;
+    }
+
+    :last-child {
+      grid-column: 5 / 8;
+    }
+  }
+  .screen {
+    margin: 0px;
+    padding: 0px;
+
+  }
 }
 

@@ -12,6 +12,7 @@
   position: absolute;
   left: 25%;
   top: 25%;
+  max-width: 300px;
   min-width: 50%;
   min-height: 50%;
   background: saddlebrown;
@@ -35,4 +36,31 @@
 .board > span {
   background-color: lightsteelblue;
   padding: 10px;
+  z-index: 0;
+
+}
+.board > span:hover {
+  background: steelblue;
+  margin: -15px;
+  z-index: 10;
+
+}
+.board > span:active {
+  margin: -7px;
+  background: steelblue;
+  z-index: 10;
+}
+
+@media (max-width: 600px), (max-height: 600px) {
+  .container {
+    position: absolute;
+    left: 0%;
+    top: 0%;
+    min-width: 100%;
+    min-height: 100%;
+    background: saddlebrown;
+    align-items: center;
+    justify-content: center;
+  }
+
 }
