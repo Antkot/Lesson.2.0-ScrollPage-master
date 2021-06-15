@@ -64,10 +64,9 @@ div {
     background: whitesmoke;
   }
   .container {
-    align-items: center;
     justify-content: center;
     height: 92%;
-    margin: 1% 5% 10% 20%;
+    margin: 0px;
     padding: 1%;
     grid-template-rows: repeat(6, 14%);
     column-gap: 0%;
@@ -77,6 +76,9 @@ div {
     margin: 1%;
     padding: 1%;
   }
+  .singleButton {
+    height: 50%;
+  }
 }
 
 
@@ -85,6 +87,9 @@ div {
     border-radius: 0px;
   }
   .container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
     align-items: center;
     justify-content: center;
     min-width: 98%;
@@ -94,6 +99,7 @@ div {
     column-gap: 0%;
     row-gap: 0%;
     padding: 1%;
+    margin: 0px;
 
     :first-child {
       background: papayawhip;
