@@ -11,7 +11,7 @@
   <mat-error
   *ngIf='form.controls.text.touched && form.controls.text.errors?.minlength'>Daj mi więcej literek
   </mat-error>
-  <div *ngFor='let zmienna of table; index as i' class='lista'>
+  <div *ngFor='let zmienna of table$ | async; index as i' class='lista'>
     <div class="txtwrapEnded" *ngIf='zmienna.state'>
       {{zmienna.text}}
     </div>
@@ -20,9 +20,11 @@
       <!--      <pre>{{zmienna | json}}</pre>-->
     </div>
     <div class="options">
-      <mat-checkbox (change)="changeState(i)" [checked]="zmienna.state"></mat-checkbox>
-      <button mat-raised-button (click)='edit(i)' class="remed">Edit</button>
-      <button mat-raised-button color="warn" (click)='remove(i)' class="remed" >Remove</button>
+      <mat-checkbox (change)="changeState(zmienna.textId)" [checked]="zmienna.state"></mat-checkbox>
+      <button mat-raised-button (click)='edit(zmienna.textId)' class="remed">Edit</button>
+      <button mat-raised-button color="warn" (click)='remove(zmienna.textId)' class="remed" [disabled]="editable" >Remove</button>
     </div>
   </div>
 </div>
+<!--TODO nie usuwanie edytowanego rekordu-->
+<!--TODO po dodaniu tekstu nie czyści inputa  -->

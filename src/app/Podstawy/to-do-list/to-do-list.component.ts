@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { tablicaToDo } from './to-do-list.component.stories';
+import { Observable } from 'rxjs';
+import { ToDoListService } from './to-do-list.service';
 
 @Component({
   selector: 'app-to-do-list',
@@ -8,50 +10,40 @@ import { tablicaToDo } from './to-do-list.component.stories';
   styleUrls: ['./to-do-list.component.scss']
 })
 export class ToDoListComponent implements OnInit {
-  table: Array<tablicaToDo> = [];
+  table$: Observable<Array<tablicaToDo>> = this.service.table$;
   form = this.fb.group({ text: ['', [Validators.minLength(5), Validators.required]] });
   editable = false;
-  id: number = null;
+  textId = '';
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private service: ToDoListService) {
   }
 
   ngOnInit(): void {
   }
 
+
   add() {
-    this.table.push({ text: this.form.get(['text']).value, lenght: this.form.get(['text']).value.length, state: false });
-    console.log('something', this.form.value);
-    console.log('something', this.table);
-    this.form.reset();
+    this.service.add(this.form.get(['text']).value);
   }
 
-  remove(i: number) {
-    this.table.splice(i, 1);
+  remove(textId: string) {
+    this.service.remove(textId);
   }
 
-  edit(i: number) {
-    this.form.patchValue({ text: this.table.find(((value, index) => index === i)).text });
+//
+  edit(textId: string) {
+    this.form.patchValue({ text: this.service.edit(textId) });
     this.editable = true;
-    this.id = i;
+    this.textId = textId;
   }
 
   confirm() {
-    if (this.id || this.id === 0) {
-      this.table.find(((value, index) => index === this.id)).text = this.form.get(['text']).value;
-      this.table.find(((value, index) => index === this.id)).lenght = this.form.get(['text']).value.lenght;
-      // this.table.find(((value, index) => index === this.id)) = {
-      //   text: this.form.get(['text']).value,
-      //   lenght: this.form.get(['text']).value.lenght
-      // };
-      this.editable = false;
-      this.form.reset();
-    }
+    this.service.confirm(this.form.get(['text']).value, this.textId);
+    this.editable = false;
+    this.form.reset();
   }
 
-  changeState(i: number) {
-    this.table.find(((value, index) => index === i)).state
-      = !this.table.find(((value, index) => index === i)).state;
-    console.table(this.table)
+  changeState(textId: string) {
+    this.service.changeState(textId);
   }
 }
