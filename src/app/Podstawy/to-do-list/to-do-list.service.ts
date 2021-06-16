@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { tablicaToDo } from './to-do-list.component.stories';
 import * as cuid from 'cuid';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,15 @@ export class ToDoListService {
 // { text: 'Podlać kwiatki', textId: '3333', state: false }
 
   constructor() {
+    if (!!localStorage.ToDo) {
+      this.table$.next(
+        JSON.parse(localStorage.ToDo)
+      );
+      this.table$.subscribe(table => {
+        console.log(111111111);
+        localStorage.ToDo = JSON.stringify(table);
+      });
+    }
   }
 
   add(text: string) {
