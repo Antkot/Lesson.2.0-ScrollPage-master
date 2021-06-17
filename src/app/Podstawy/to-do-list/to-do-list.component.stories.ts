@@ -9,13 +9,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CalculatorComponent } from '../Calculator/calculator.component';
 import { TicTacToeComponent } from '../tic-tac-toe/tic-tac-toe.component';
-import { BehaviorSubject } from 'rxjs';
 
 export interface tablicaToDo {
   text: string;
   textId: string;
   state: boolean;
-  // priority
+}
+
+export interface tableData {
+  tableId: string;
+  toDo: Array<tablicaToDo>;
 }
 
 const decoration: NgModule = {

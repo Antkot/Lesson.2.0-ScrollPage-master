@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { tablicaToDo } from './to-do-list.component.stories';
+import { tableData } from './to-do-list.component.stories';
 import { Observable } from 'rxjs';
 import { ToDoListService } from './to-do-list.service';
 
@@ -10,7 +10,7 @@ import { ToDoListService } from './to-do-list.service';
   styleUrls: ['./to-do-list.component.scss']
 })
 export class ToDoListComponent implements OnInit {
-  table$: Observable<Array<tablicaToDo>> = this.service.table$;
+  table$: Observable<tableData> = this.service.table$;
   form = this.fb.group({ text: ['', [Validators.minLength(5), Validators.required]] });
   editable = false;
   textId = '';
@@ -24,6 +24,7 @@ export class ToDoListComponent implements OnInit {
 
   add() {
     this.service.add(this.form.get(['text']).value);
+    this.form.reset();
   }
 
   remove(textId: string) {

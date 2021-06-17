@@ -132,7 +132,7 @@ export class CalculatorComponent implements OnInit {
           break;
         case '/':
           this.digitOne = String(Number(this.digitOne) / Number(this.digitTwo));
-          if (this.digitTwo === '-Infinity' || this.digitOne === 'Infinity' || this.digitOne === 'NaN') {
+          if (this.digitTwo === '0') {
             this.screen = 'Nie dziel przez zero';
             this.readyToClean = true;
             return;

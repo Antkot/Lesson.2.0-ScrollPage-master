@@ -1,13 +1,17 @@
 <div class="container">
-  <div class="board">
-    <span (click)="onClick()"></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+  <div class="buttonDiv">
+    <button (click)="smaller()" class="button">-</button>
+    <button (click)="build()" class="button">Reset</button>
+    <button (click)="bigger()" class="button">+</button>
+  </div>
+  <div class="notify">
+    {{note}}
+  </div>
+  <div class="flat">
+    <div class="board" [ngStyle]="{'grid-template-columns': newsdas}">
+      <div class="tile" *ngFor='let tile of tiles; index as i' (click)="onClick(i)">
+        <div [ngStyle]="{'font-size.px': 300/size}">{{tiles[i].sign}}</div>
+      </div>
+    </div>
   </div>
 </div>

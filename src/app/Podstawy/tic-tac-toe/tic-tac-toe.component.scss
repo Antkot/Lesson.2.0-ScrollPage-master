@@ -1,66 +1,88 @@
 :host {
-  position: absolute;
-  height: 100%;
+  height: 100vh;
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
   user-select: none;
 }
-
-.container {
-  position: absolute;
-  left: 25%;
-  top: 25%;
-  max-width: 300px;
-  min-width: 50%;
-  min-height: 50%;
-  background: saddlebrown;
-  align-items: center;
+.container{
+  height: 100%;
+  width: 100%;
+}
+.buttonDiv{
+  position: relative;
+  float: left;
+  width: 100vw;
+  height: 14%;
+  margin: 2% 0;
+  text-align: center;
+}
+.flat {
+  position: relative;
+  margin: 2% 0;
+  display: flex;
+  width: 100vw;
+  height: 63%;
   justify-content: center;
+  align-items: center
 }
-
-.board {
-  position: absolute;
-  left: 10%;
-  top: 10%;
-  width: 80%;
-  height: 80%;
-  background: dimgrey;
-  display: grid;
-  grid-template-columns: repeat(3, 32%);
-  grid-template-rows: repeat(3, 32%);
-  column-gap: 2%;
-  row-gap: 2%;
-}
-.board > span {
-  background-color: lightsteelblue;
-  padding: 10px;
-  z-index: 0;
-
-}
-.board > span:hover {
-  background: steelblue;
-  margin: -15px;
-  z-index: 10;
-
-}
-.board > span:active {
-  margin: -7px;
-  background: steelblue;
-  z-index: 10;
-}
-
-@media (max-width: 600px), (max-height: 600px) {
-  .container {
-    position: absolute;
-    left: 0%;
-    top: 0%;
-    min-width: 100%;
-    min-height: 100%;
-    background: saddlebrown;
-    align-items: center;
-    justify-content: center;
+  .board {
+    width: 30%;
+    display: grid;
   }
 
-}
+  .tile {
+    position: relative;
+    padding-top: 100%;
+    border: dashed #CE5937 3px;
+    margin: -3px;
+    :first-child{
+      display: flex;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      //top: 50%;
+      //left: 50%;
+      top: 0;
+      left: 0;
+      padding-top: 0;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .notify{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2%;
+    width: 100vw;
+  }
+
+  .board > div {
+    background-color: lightsteelblue;
+    z-index: 0;
+
+  }
+
+  .board > div:hover {
+    background: lightsteelblue;
+    margin: -15px;
+    z-index: 10;
+
+  }
+
+  .board > div:active {
+    margin: -7px;
+    border: dashed #DE380AFF 5px;
+    background: steelblue;
+    z-index: 10;
+  }
+
+  .button{
+    padding: 2% 5%;
+    z-index: 11;
+  }
+
+  @media (max-width: 600px), (max-height: 600px) {
+  }
