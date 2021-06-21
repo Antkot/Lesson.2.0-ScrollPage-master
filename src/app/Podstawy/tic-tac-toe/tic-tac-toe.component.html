@@ -1,10 +1,13 @@
 <div class="container">
+  <div class="banner" *ngIf="ended===1">{{note}}</div>
   <div class="buttonDiv">
     <button (click)="smaller()" class="button">-</button>
     <button (click)="build()" class="button">Reset</button>
     <button (click)="bigger()" class="button">+</button>
   </div>
   <div class="notify">
+    Symobls in a row to win:    {{winStreak}}
+    <br><br>
     {{note}}
   </div>
   <div class="flat">

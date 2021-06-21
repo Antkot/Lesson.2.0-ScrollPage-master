@@ -5,11 +5,13 @@
   justify-content: center;
   user-select: none;
 }
-.container{
+
+.container {
   height: 100%;
   width: 100%;
 }
-.buttonDiv{
+
+.buttonDiv {
   position: relative;
   float: left;
   width: 100vw;
@@ -17,6 +19,7 @@
   margin: 2% 0;
   text-align: center;
 }
+
 .flat {
   position: relative;
   margin: 2% 0;
@@ -26,63 +29,82 @@
   justify-content: center;
   align-items: center
 }
-  .board {
-    width: 30%;
-    display: grid;
-  }
 
-  .tile {
-    position: relative;
-    padding-top: 100%;
-    border: dashed #CE5937 3px;
-    margin: -3px;
-    :first-child{
-      display: flex;
-      position: absolute;
-      height: 100%;
-      width: 100%;
-      //top: 50%;
-      //left: 50%;
-      top: 0;
-      left: 0;
-      padding-top: 0;
-      justify-content: center;
-      align-items: center;
-    }
-  }
+.board {
+  width: 30%;
+  display: grid;
+}
 
-  .notify{
+.tile {
+  position: relative;
+  padding-top: 100%;
+  border: dashed #CE5937 3px;
+  margin: -3px;
+
+  :first-child {
     display: flex;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    padding-top: 0;
     justify-content: center;
     align-items: center;
-    height: 2%;
-    width: 100vw;
   }
+}
 
-  .board > div {
-    background-color: lightsteelblue;
-    z-index: 0;
+.notify {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2%;
+  width: 100vw;
+}
 
+.board > div {
+  background-color: lightsteelblue;
+  z-index: 0;
+
+}
+
+.board > div:hover {
+  background: lightsteelblue;
+  margin: -15px;
+  z-index: 10;
+
+}
+
+.board > div:active {
+  margin: -7px;
+  border: dashed #DE380AFF 5px;
+  background: steelblue;
+  z-index: 10;
+}
+
+.button {
+  padding: 2% 5%;
+  z-index: 11;
+}
+
+.banner {
+  border: dashed firebrick;
+  top: 40%;
+  padding: 5% 0;
+  text-align: center;
+  width: 100%;
+  z-index: 12;
+  font-size: 64px;
+  position: fixed;
+  background-color: rgba(245,245,245,0.9);
+}
+
+@media (max-width: 600px), (max-height: 600px) {
+  :host{
+    background: crimson;
   }
-
-  .board > div:hover {
-    background: lightsteelblue;
-    margin: -15px;
-    z-index: 10;
-
+  div{
+    border: double rebeccapurple;
+    background-color: rgba(245,245,245,0.2);
   }
-
-  .board > div:active {
-    margin: -7px;
-    border: dashed #DE380AFF 5px;
-    background: steelblue;
-    z-index: 10;
-  }
-
-  .button{
-    padding: 2% 5%;
-    z-index: 11;
-  }
-
-  @media (max-width: 600px), (max-height: 600px) {
-  }
+}
