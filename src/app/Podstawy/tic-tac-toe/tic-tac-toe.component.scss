@@ -58,7 +58,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 2%;
   width: 100vw;
 }
 
@@ -96,15 +95,34 @@
   z-index: 12;
   font-size: 64px;
   position: fixed;
-  background-color: rgba(245,245,245,0.9);
+  background-color: rgba(245, 245, 245, 0.9);
 }
 
 @media (max-width: 600px), (max-height: 600px) {
-  :host{
+  :host {
     background: crimson;
   }
-  div{
+  div {
     border: double rebeccapurple;
-    background-color: rgba(245,245,245,0.2);
+    background-color: rgba(245, 245, 245, 0.2);
+  }
+}
+
+@media (max-width: 600px) {
+  :host{
+    display: inline;
+  }
+  .buttonDiv{
+    height: auto;
+    margin: 0px;
+  }
+  .board {
+    width: 70%;
+    margin: 0px;
+    padding: 0;
+  }
+  .flat{
+    height: available;
+    padding: 0px;
   }
 }
