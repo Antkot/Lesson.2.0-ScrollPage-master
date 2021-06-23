@@ -6,9 +6,10 @@
   font-family: Monaco, "Lucida Console", monospace;
 }
 
-.inputField{
+.inputField {
   //font-family: Serif;
 }
+
 .lista {
   text-shadow: 11px 9px 3px #CE5937;
   display: flex;
@@ -49,7 +50,7 @@
   white-space: nowrap;
   min-width: 50%;
   max-width: calc(100% - 198.33px);
-  //background-color: blue;
+  cursor: pointer;
 }
 
 .txtwrapEnded {

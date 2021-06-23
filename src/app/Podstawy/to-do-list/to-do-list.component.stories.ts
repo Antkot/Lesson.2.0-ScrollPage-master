@@ -1,14 +1,22 @@
 import { ToDoListComponent } from './to-do-list.component';
 import { moduleMetadata, storiesOf } from '@storybook/angular';
-import { NgModule } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { withKnobs } from '@storybook/addon-knobs';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { CalculatorComponent } from '../Calculator/calculator.component';
-import { TicTacToeComponent } from '../tic-tac-toe/tic-tac-toe.component';
+import { Router, RouterModule } from '@angular/router';
+import { AppModule } from '../../app.module';
+
+@Component({
+  selector: 'loader',
+  template: ``
+})
+export class LoadingComponent implements OnInit {
+  constructor(public myRouter: Router) {
+  }
+
+  ngOnInit() {
+    this.myRouter.navigate(['/todo']);
+  }
+}
 
 export interface tablicaToDo {
   text: string;
@@ -22,9 +30,9 @@ export interface tableData {
 }
 
 const decoration: NgModule = {
-  declarations: [ToDoListComponent, CalculatorComponent, TicTacToeComponent],
+  declarations: [LoadingComponent],
   imports: [
-    FormsModule, ReactiveFormsModule, MatFormFieldModule, MatButtonModule, MatInputModule, FormsModule, MatCheckboxModule
+    AppModule, RouterModule
   ],
   providers: []
 };
@@ -35,5 +43,9 @@ storiesOf('Podstawy / Pierwsze kroki', module)
   .add('ListaToDo', () => ({
     props: {} as Partial<ToDoListComponent>,
 
-    component: ToDoListComponent
+    component: ToDoListComponent,
+    template: `
+<loader></loader>
+<router-outlet></router-outlet>
+`
   }));

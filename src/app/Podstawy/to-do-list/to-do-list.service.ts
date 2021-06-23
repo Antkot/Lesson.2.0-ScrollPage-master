@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { tableData, tablicaToDo } from './to-do-list.component.stories';
+import { tableData } from './to-do-list.component.stories';
 import * as cuid from 'cuid';
 
 @Injectable({
@@ -11,22 +11,22 @@ export class ToDoListService {
   table$ = new BehaviorSubject<tableData>({ tableId: '', toDo: [] });
 
   constructor() {
-    // if (!!localStorage.toDo) {
-    //   this.table$.next(
-    //     JSON.parse(localStorage.toDo)
-    //   );
-    //   this.table$.subscribe(table => {
-    //     console.log('zmodyfikowano ciasteczko');
-    //     localStorage.toDo = JSON.stringify(table);
-    //   });
-    // }
+    if (!!localStorage.toDo) {
+      this.table$.next(
+        JSON.parse(localStorage.toDo)
+      );
+    }
+      this.table$.subscribe(table => {
+        localStorage.toDo = JSON.stringify({ ...table });
+      });
   }
 
   add(text: string) {
     const current = this.table$.value;
     this.table$.next(
       {
-        tableId: current.tableId,
+        tableId: cuid(),
+        // tableId: current.tableId,
         toDo: [
           ...current.toDo,
           {

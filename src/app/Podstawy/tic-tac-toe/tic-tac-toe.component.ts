@@ -49,9 +49,7 @@ export class TicTacToeComponent implements OnInit {
     this.ended = this.winCheck();
     console.log('Stan ended:', this.ended);
     if (this.ended === 1) {
-      // console.log(111111);
       const ref = this.dialog.open(this.winner);
-      // console.log(222222);
       ref.afterClosed().subscribe(() => {
         this.build();
       });

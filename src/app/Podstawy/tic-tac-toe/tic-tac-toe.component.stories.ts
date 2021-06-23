@@ -1,24 +1,33 @@
-import {moduleMetadata, storiesOf} from '@storybook/angular';
-import {Component, NgModule, OnInit} from '@angular/core';
-import {withKnobs} from '@storybook/addon-knobs';
-import {CalculatorComponent} from '../Calculator/calculator.component';
-import {AppModule} from '../../app.module';
-import {RouterModule} from '@angular/router';
+import { moduleMetadata, storiesOf } from '@storybook/angular';
+import { Component, NgModule, OnInit } from '@angular/core';
+import { AppModule } from '../../app.module';
+import { Router, RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'loader',
+  template: ``
+})
+export class LoadingComponent implements OnInit {
+  constructor(public myRouter: Router) {
+  }
+
+  ngOnInit() {
+    this.myRouter.navigate(['/ticTacToe']);
+  }
+}
 
 const decoration: NgModule = {
-  declarations: [],
+  declarations: [LoadingComponent],
   imports: [AppModule, RouterModule],
-  exports: [],
+  exports: []
 };
 
 storiesOf('Podstawy / Pierwsze kroki', module)
   .addDecorator(moduleMetadata(decoration))
   .add('ticTacToe', () => ({
-    props: {},
-    template: `
-<button [routerLink]="'/ticTacToe'">pierwszy</button>
-<button [routerLink]="'/calculator'">dddd</button>
-<button [routerLink]="'/todo'">55555</button>
-<router-outlet></router-outlet>
+      props: {},
+      template: `
+  <loader></loader>
+  <router-outlet></router-outlet>
 `
   }));

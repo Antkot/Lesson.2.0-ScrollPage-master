@@ -16,8 +16,8 @@
       {{zmienna.text}}
     </div>
     <div class="txtwrap" *ngIf='!zmienna.state'>
+<!--    <div class="txtwrap" *ngIf='!zmienna.state' [routerLink]="['/todo/:todoId']">-->
       {{i + 1}} {{zmienna.text}}
-      <!--      <pre>{{zmienna | json}}</pre>-->
     </div>
     <div class="options">
       <mat-checkbox (change)="changeState(zmienna.textId)" [checked]="zmienna.state"></mat-checkbox>
