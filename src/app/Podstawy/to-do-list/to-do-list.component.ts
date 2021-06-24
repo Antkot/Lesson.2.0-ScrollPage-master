@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { tableData } from './to-do-list.component.stories';
+import { TableData } from './to-do-list.component.stories';
 import { Observable } from 'rxjs';
 import { ToDoListService } from './to-do-list.service';
+import { first, map, pluck, tap } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-to-do-list',
@@ -10,15 +12,18 @@ import { ToDoListService } from './to-do-list.service';
   styleUrls: ['./to-do-list.component.scss']
 })
 export class ToDoListComponent implements OnInit {
-  table$: Observable<tableData> = this.service.table$;
+  table$: Observable<TableData> = this.service.table$;
   form = this.fb.group({ text: ['', [Validators.minLength(5), Validators.required]] });
   editable = false;
   textId = '';
+  todoId$ = this.route.url.pipe(
+    map(value => value[1].path));
 
-  constructor(private fb: FormBuilder, private service: ToDoListService) {
+  constructor(private fb: FormBuilder, private service: ToDoListService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.todoId$.pipe().subscribe(todoId => console.log('TODO ID: ', todoId));
   }
 
 
@@ -46,5 +51,9 @@ export class ToDoListComponent implements OnInit {
 
   changeState(textId: string) {
     this.service.changeState(textId);
+  }
+
+  reRun(textId: string) {
+    this.service.reRun(textId);
   }
 }

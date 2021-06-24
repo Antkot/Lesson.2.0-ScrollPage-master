@@ -26,7 +26,7 @@ const links = [
   },
   {
     component: ToDoListComponent,
-    path: 'todo'
+    path: 'todo/:tableId',
   }
 ];
 

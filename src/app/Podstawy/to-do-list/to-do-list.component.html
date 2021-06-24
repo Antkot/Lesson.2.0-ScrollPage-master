@@ -15,9 +15,10 @@
     <div class="txtwrapEnded" *ngIf='zmienna.state'>
       {{zmienna.text}}
     </div>
-    <div class="txtwrap" *ngIf='!zmienna.state'>
-<!--    <div class="txtwrap" *ngIf='!zmienna.state' [routerLink]="['/todo/:todoId']">-->
+    <div class="txtwrap" *ngIf='!zmienna.state' [routerLink]="['/todo', zmienna.textId]" (click)='reRun(zmienna.textId)'>
       {{i + 1}} {{zmienna.text}}
+      <br><br>
+      <div style="text-shadow: none; font-size: xx-small">textId: {{zmienna.textId}}</div>
     </div>
     <div class="options">
       <mat-checkbox (change)="changeState(zmienna.textId)" [checked]="zmienna.state"></mat-checkbox>
@@ -25,4 +26,8 @@
       <button mat-raised-button color="warn" (click)='remove(zmienna.textId)' class="remed" [disabled]="editable" >Remove</button>
     </div>
   </div>
-</div>
+  <div style="font-size: x-small; margin-top: 10px">
+    Table ID: {{(table$ | async).tableId}}
+  </div>
+  </div>
+<!--<pre>ID: {{todoId$ | async | json}}</pre>-->
