@@ -18,6 +18,7 @@ export class ToDoListService {
       console.table('tutaj: ', JSON.parse(this.LocalStorageService.getItem('toDo')));
       console.log('tutaj: ', this.LocalStorageService.getItem('toDo'));
       this.table$.value.toDo = (JSON.parse(this.LocalStorageService.getItem('toDo')));
+      // this.table$.value.tableId = (JSON.parse(this.LocalStorageService.getItem('toDo')).value.tableId);
     }
   }
 
@@ -34,7 +35,7 @@ export class ToDoListService {
             state: false
           }]
       });
-    this.LocalStorageService.setItem(this.table$.value.tableId, JSON.stringify(this.table$.value.toDo));
+    this.LocalStorageService.setItem(this.table$.value.tableId, JSON.stringify(this.table$.value));
     //this.table$.value.tableId ciągle się zmienia a wczoraj się nie zmieniało
     // this.LocalStorageService.setItem(this.table$.value.toDo[0].textId, JSON.stringify(this.table$.value.toDo[0]));
   }
@@ -63,8 +64,7 @@ export class ToDoListService {
       ]
     });
     this.LocalStorageService.removeItem(textId);
-    this.LocalStorageService.
-    setItem('toDo');
+    this.LocalStorageService.setItem('toDo',  JSON.stringify(this.table$.value.toDo));
   }
 
 
