@@ -1,33 +1,39 @@
-<div [formGroup]='form' class="container">
+<div [formGroup]='form' class='container'>
   <mat-form-field>
     <mat-label>Tekst</mat-label>
-    <input class="inputField" formControlName='text' matInput placeholder='Ten tekst'>
+    <input class='inputField' formControlName='text' matInput placeholder='Ten tekst'>
   </mat-form-field>
-  <button class="remed" mat-raised-button (click)='add()' [disabled]='form.invalid' *ngIf='!editable'>Add Task</button>
-  <button class="remed" mat-raised-button (click)='confirm()' [disabled]='form.invalid' *ngIf='editable'>Confirm</button>
+  <button class='remed' mat-raised-button (click)='add()' [disabled]='form.invalid' *ngIf='!editable'>Add Task</button>
+  <button class='remed' mat-raised-button (click)='confirm()' [disabled]='form.invalid' *ngIf='editable'>Confirm
+  </button>
   <mat-error *ngIf='form.controls.text.touched && form.controls.text.errors?.required'>
     Daj literkę
   </mat-error>
   <mat-error
-  *ngIf='form.controls.text.touched && form.controls.text.errors?.minlength'>Daj mi więcej literek
+    *ngIf='form.controls.text.touched && form.controls.text.errors?.minlength'>Daj mi więcej literek
   </mat-error>
   <div *ngFor='let zmienna of (table$ | async).toDo; index as i' class='lista'>
-    <div class="txtwrapEnded" *ngIf='zmienna.state'>
+    <div class='txtwrapEnded' *ngIf='zmienna.state'>
       {{zmienna.text}}
     </div>
-    <div class="txtwrap" *ngIf='!zmienna.state' [routerLink]="['/todo', zmienna.textId]" (click)='reRun(zmienna.textId)'>
+    <div class='txtwrap' *ngIf='!zmienna.state' [routerLink]="['/todo', zmienna.textId]"
+         (click)='reRun(zmienna.textId)'>
       {{i + 1}} {{zmienna.text}}
       <br><br>
-      <div style="text-shadow: none; font-size: xx-small">textId: {{zmienna.textId}}</div>
+      <div style='text-shadow: none; font-size: xx-small'>textId: {{zmienna.textId}}</div>
     </div>
-    <div class="options">
-      <mat-checkbox (change)="changeState(zmienna.textId)" [checked]="zmienna.state"></mat-checkbox>
-      <button mat-raised-button (click)='edit(zmienna.textId)' class="remed">Edit</button>
-      <button mat-raised-button color="warn" (click)='remove(zmienna.textId)' class="remed" [disabled]="editable" >Remove</button>
+    <div class='options'>
+      <mat-checkbox (change)='changeState(zmienna.textId)' [checked]='zmienna.state'></mat-checkbox>
+      <button mat-raised-button (click)='edit(zmienna.textId)' class='remed'>Edit</button>
+      <button mat-raised-button color='warn' (click)='remove(zmienna.textId)' class='remed' [disabled]='editable'>
+        Remove
+      </button>
     </div>
   </div>
-  <div style="font-size: x-small; margin-top: 10px">
+  <div style='font-size: x-small; margin-top: 10px'>
     Table ID: {{(table$ | async).tableId}}
+          <button mat-stroked-button *ngIf="(table$ | async).tableId !== 'toDo'" (click)='reRun("toDo")'>Main List</button>
+          <button mat-stroked-button *ngIf="(table$ | async).tableId !== 'toDo'" (click)='reRun(lastParentId)'>Back</button>
   </div>
-  </div>
-<!--<pre>ID: {{todoId$ | async | json}}</pre>-->
+</div>
+<pre>{{table$ | async | json}}</pre>

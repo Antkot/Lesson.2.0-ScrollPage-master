@@ -11,22 +11,31 @@ export class ToDoListService {
 
   table$ = new BehaviorSubject<TableData>({ tableId: '', toDo: [] });
 
-  // tslint:disable-next-line:no-shadowed-variable
-  constructor(private LocalStorageService: LocalStorageService) {
-
+  constructor(private localStorageService: LocalStorageService) {
+    this.table$.value.tableId = 'toDo';
     if (!!localStorage.toDo) {
-      console.table('tutaj: ', JSON.parse(this.LocalStorageService.getItem('toDo')));
-      console.log('tutaj: ', this.LocalStorageService.getItem('toDo'));
-      this.table$.value.toDo = (JSON.parse(this.LocalStorageService.getItem('toDo')));
+      console.table('tutaj: ', JSON.parse(this.localStorageService.getItem('toDo')));
+      console.log('tutaj: ', this.localStorageService.getItem('toDo'));
+      // this.table$.value.toDo = (JSON.parse(this.localStorageService.getItem('toDo')));
+      const current = JSON.parse(this.localStorageService.getItem('toDo'));
+      this.table$.next(
+        {
+          tableId: current.tableId,
+          toDo: [
+            ...current.toDo
+          ]
+        });
       // this.table$.value.tableId = (JSON.parse(this.LocalStorageService.getItem('toDo')).value.tableId);
     }
   }
 
   add(text: string) {
     const current = this.table$.value;
+    console.log('dodajemy do tablicy', current.tableId);
     this.table$.next(
       {
-        tableId: current.tableId.length ? current.tableId : 'toDo',
+        // tableId: current.tableId.length ? current.tableId : 'toDo',
+        tableId: current.tableId,
         toDo: [
           ...current.toDo,
           {
@@ -35,24 +44,54 @@ export class ToDoListService {
             state: false
           }]
       });
-    this.LocalStorageService.setItem(this.table$.value.tableId, JSON.stringify(this.table$.value));
-    //this.table$.value.tableId ciągle się zmienia a wczoraj się nie zmieniało
+    this.localStorageService.setItem(this.table$.value.tableId, JSON.stringify(this.table$.value));
     // this.LocalStorageService.setItem(this.table$.value.toDo[0].textId, JSON.stringify(this.table$.value.toDo[0]));
   }
 
   reRun(textId: string) {
+    // this.lastParentId = this.table$.value.tableId;
     console.log('Tabela stara:', this.table$.value.tableId);
     console.log('Tabela nowa:', textId);
-    const current = this.table$.value;
-    current.tableId = textId;
-    console.log(!!this.LocalStorageService.getItem(textId), 'STAN');
-    if (!this.LocalStorageService.getItem(textId)) {
-      this.LocalStorageService.setItem(this.table$.value.tableId, '');
-      this.table$.value.toDo = null;
-      2;
+    // const current = this.table$.value;
+    // current.tableId = textId;
+    // this.table$.value.tableId = textId;
+    // console.log('istnieje', !!this.localStorageService.getItem(textId));
+    if (!!this.localStorageService.getItem(textId)) {
+      console.log('wczytujemy cookie');
+      const current = JSON.parse(this.localStorageService.getItem(textId));
+      this.table$.next(
+        {
+          tableId: textId,
+          toDo: [
+            ...current.toDo
+          ]
+        });
     } else {
-      this.table$.value.toDo = (JSON.parse(this.LocalStorageService.getItem(textId)));
+      this.table$.next(
+        {
+          tableId: textId,
+          toDo: [
+          ]
+        });
     }
+    // console.log('Last parent ID:', this.lastParentId);
+    //Fragment z ifem tworzącym cookie lub wczytującym
+    //    if (!this.localStorageService.getItem(textId)) {
+    //      console.log('tworzymy cookie', 'bo nie istnieje cookie o kluczu: ', textId);
+    //      this.localStorageService.setItem(this.table$.value.tableId, '');
+    //      this.table$.value.toDo = null;
+    //    } else {
+    //      console.log('wczytujemy cookie');
+    //      // this.table$.value.toDo = (JSON.parse(this.localStorageService.getItem(textId)));
+    //      const currentLoad = JSON.parse(this.localStorageService.getItem('toDo'));
+    //      this.table$.next(
+    //        {
+    //          tableId: currentLoad.tableId,
+    //          toDo: [
+    //            ...currentLoad.toDo
+    //          ]
+    //        });
+    //    }
   }
 
   remove(textId: string) {
@@ -63,8 +102,8 @@ export class ToDoListService {
         ...current.toDo.filter(record => record.textId !== textId)
       ]
     });
-    this.LocalStorageService.removeItem(textId);
-    this.LocalStorageService.setItem('toDo',  JSON.stringify(this.table$.value.toDo));
+    this.localStorageService.removeItem(textId);
+    this.localStorageService.setItem('toDo', JSON.stringify(this.table$.value.toDo));
   }
 
 

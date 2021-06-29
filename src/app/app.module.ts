@@ -14,6 +14,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ToDoListComponent } from './Podstawy/to-do-list/to-do-list.component';
 import { CalculatorComponent } from './Podstawy/Calculator/calculator.component';
 import { TicTacToeComponent } from './Podstawy/tic-tac-toe/tic-tac-toe.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 const links = [
   {
@@ -41,7 +42,7 @@ const links = [
     RouterModule.forRoot(links, { useHash: true }),
     BrowserAnimationsModule, ReactiveFormsModule, FormsModule,
     MatButtonModule, MatInputModule, MatSelectModule, MatCheckboxModule,
-    MatListModule, MatIconModule, MatMenuModule, MatDialogModule
+    MatListModule, MatIconModule, MatMenuModule, MatDialogModule, MatButtonToggleModule
 
   ],
   exports: [

@@ -18,12 +18,13 @@ export class ToDoListComponent implements OnInit {
   textId = '';
   todoId$ = this.route.url.pipe(
     map(value => value[1].path));
+  lastParentId = 'toDo';
 
   constructor(private fb: FormBuilder, private service: ToDoListService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.todoId$.pipe().subscribe(todoId => console.log('TODO ID: ', todoId));
+    // this.todoId$.pipe().subscribe(todoId => console.log('TODO ID: ', todoId));
   }
 
 
@@ -54,6 +55,10 @@ export class ToDoListComponent implements OnInit {
   }
 
   reRun(textId: string) {
+    console.log('KOMPONENT PARENT przed rerunem');
+    console.table( this.lastParentId);
     this.service.reRun(textId);
+    console.log('KOMPONENT PARENT porerune', this.lastParentId);
+    this.lastParentId = textId;
   }
 }
