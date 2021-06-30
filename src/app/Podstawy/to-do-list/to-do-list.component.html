@@ -6,13 +6,15 @@
   <button class='remed' mat-raised-button (click)='add()' [disabled]='form.invalid' *ngIf='!editable'>Add Task</button>
   <button class='remed' mat-raised-button (click)='confirm()' [disabled]='form.invalid' *ngIf='editable'>Confirm
   </button>
+  <button mat-stroked-button *ngIf="(table$ | async).tableId !== 'toDo'" (click)='reRun("toDo")'>Main List</button>
+  <button mat-stroked-button *ngIf="(table$ | async).tableId !== 'toDo'" (click)='back()'>Back</button>
   <mat-error *ngIf='form.controls.text.touched && form.controls.text.errors?.required'>
     Daj literkę
   </mat-error>
   <mat-error
     *ngIf='form.controls.text.touched && form.controls.text.errors?.minlength'>Daj mi więcej literek
   </mat-error>
-  <div *ngFor='let zmienna of (table$ | async).toDo; index as i' class='lista'>
+  <div *ngFor='let zmienna   of (table$ | async).toDo; index as i' class='lista'>
     <div class='txtwrapEnded' *ngIf='zmienna.state'>
       {{zmienna.text}}
     </div>
@@ -32,8 +34,6 @@
   </div>
   <div style='font-size: x-small; margin-top: 10px'>
     Table ID: {{(table$ | async).tableId}}
-          <button mat-stroked-button *ngIf="(table$ | async).tableId !== 'toDo'" (click)='reRun("toDo")'>Main List</button>
-          <button mat-stroked-button *ngIf="(table$ | async).tableId !== 'toDo'" (click)='reRun(lastParentId)'>Back</button>
   </div>
 </div>
 <pre>{{table$ | async | json}}</pre>

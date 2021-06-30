@@ -34,6 +34,7 @@ export interface TablicaToDo {
 
 export interface TableData {
   tableId: string;
+  parentId: string;
   toDo: Array<TablicaToDo>;
 }
 

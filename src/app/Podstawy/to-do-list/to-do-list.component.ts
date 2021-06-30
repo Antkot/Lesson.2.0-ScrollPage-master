@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { TableData } from './to-do-list.component.stories';
 import { Observable } from 'rxjs';
 import { ToDoListService } from './to-do-list.service';
-import { first, map, pluck, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -18,15 +18,14 @@ export class ToDoListComponent implements OnInit {
   textId = '';
   todoId$ = this.route.url.pipe(
     map(value => value[1].path));
-  lastParentId = 'toDo';
+  lastParentId = 'back';
 
   constructor(private fb: FormBuilder, private service: ToDoListService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    // this.todoId$.pipe().subscribe(todoId => console.log('TODO ID: ', todoId));
+    this.todoId$.pipe().subscribe(todoId => console.log('TODO ID: ', todoId));
   }
-
 
   add() {
     this.service.add(this.form.get(['text']).value);
@@ -37,7 +36,6 @@ export class ToDoListComponent implements OnInit {
     this.service.remove(textId);
   }
 
-//
   edit(textId: string) {
     this.form.patchValue({ text: this.service.edit(textId) });
     this.editable = true;
@@ -55,10 +53,13 @@ export class ToDoListComponent implements OnInit {
   }
 
   reRun(textId: string) {
-    console.log('KOMPONENT PARENT przed rerunem');
-    console.table( this.lastParentId);
     this.service.reRun(textId);
-    console.log('KOMPONENT PARENT porerune', this.lastParentId);
-    this.lastParentId = textId;
+    // this.lastParentId = textId; // teraz nast\epuje zepsucie
   }
+
+  back() {
+    this.service.reRun(this.lastParentId);
+  }
+
+
 }
