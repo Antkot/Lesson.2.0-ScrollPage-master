@@ -8,8 +8,7 @@ import { LocalStorageService } from './local-storage-service';
   providedIn: 'root'
 })
 export class ToDoListService {
-  lastParent = 'toDo';
-  table$ = new BehaviorSubject<TableData>({ tableId: '', parentId: '', toDo: [] });
+  table$ = new BehaviorSubject<TableData>({ tableId: '', toDo: [] });
 
   constructor(private localStorageService: LocalStorageService) {
     this.table$.value.tableId = 'toDo';
@@ -18,7 +17,6 @@ export class ToDoListService {
       this.table$.next(
         {
           tableId: current.tableId,
-          parentId: current.parentId,
           toDo: [
             ...current.toDo
           ]
@@ -28,12 +26,9 @@ export class ToDoListService {
 
   add(text: string) {
     const current = this.table$.value;
-    console.log('parent:', this.lastParent);
-    //^to siem zepsulo
     this.table$.next(
       {
         tableId: current.tableId,
-        parentId: this.lastParent,
         toDo: [
           ...current.toDo,
           {
@@ -46,17 +41,11 @@ export class ToDoListService {
   }
 
   reRun(textId: string) {
-    this.lastParent = this.table$.value.parentId;
-    if (textId === 'back') {
-      textId = this.table$.value.parentId;
-      console.log(textId);
-    }
     if (!!this.localStorageService.getItem(textId)) {
       const current = JSON.parse(this.localStorageService.getItem(textId));
       this.table$.next(
         {
           tableId: textId,
-          parentId: this.table$.value.tableId,
           toDo: [
             ...current.toDo
           ]
@@ -65,7 +54,6 @@ export class ToDoListService {
       this.table$.next(
         {
           tableId: textId,
-          parentId: this.table$.value.parentId,
           toDo: []
         });
     }
@@ -75,7 +63,6 @@ export class ToDoListService {
     const current = this.table$.value;
     this.table$.next({
       tableId: current.tableId,
-      parentId: current.parentId,
       toDo: [
         ...current.toDo.filter(record => record.textId !== textId)
       ]
@@ -92,7 +79,6 @@ export class ToDoListService {
     const current = this.table$.value;
     this.table$.next({
       tableId: current.tableId,
-      parentId: current.parentId,
       toDo: [
         ...current.toDo.map(({ text, textId, state }) => ({ textId, state, text: textId === editId ? editText : text }))
       ]
@@ -104,7 +90,6 @@ export class ToDoListService {
     const current = this.table$.value;
     this.table$.next({
       tableId: current.tableId,
-      parentId: current.parentId,
       toDo: [
         ...current.toDo.map(({ text, textId, state }) => ({ textId, text, state: textId === checkId ? !state : state }))
       ]

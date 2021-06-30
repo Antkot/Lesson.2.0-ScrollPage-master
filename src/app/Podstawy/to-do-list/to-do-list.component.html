@@ -6,7 +6,7 @@
   <button class='remed' mat-raised-button (click)='add()' [disabled]='form.invalid' *ngIf='!editable'>Add Task</button>
   <button class='remed' mat-raised-button (click)='confirm()' [disabled]='form.invalid' *ngIf='editable'>Confirm
   </button>
-  <button mat-stroked-button *ngIf="(table$ | async).tableId !== 'toDo'" (click)='reRun("toDo")'>Main List</button>
+  <button mat-stroked-button *ngIf="(table$ | async ).tableId !== 'toDo'" (click)='reRun("toDo")'>Main List</button>
   <button mat-stroked-button *ngIf="(table$ | async).tableId !== 'toDo'" (click)='back()'>Back</button>
   <mat-error *ngIf='form.controls.text.touched && form.controls.text.errors?.required'>
     Daj literkę

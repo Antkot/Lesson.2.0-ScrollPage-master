@@ -18,7 +18,6 @@ export class ToDoListComponent implements OnInit {
   textId = '';
   todoId$ = this.route.url.pipe(
     map(value => value[1].path));
-  lastParentId = 'back';
 
   constructor(private fb: FormBuilder, private service: ToDoListService, private route: ActivatedRoute) {
   }
@@ -54,11 +53,10 @@ export class ToDoListComponent implements OnInit {
 
   reRun(textId: string) {
     this.service.reRun(textId);
-    // this.lastParentId = textId; // teraz nast\epuje zepsucie
   }
 
   back() {
-    this.service.reRun(this.lastParentId);
+    // this.service.reRun();
   }
 
 
