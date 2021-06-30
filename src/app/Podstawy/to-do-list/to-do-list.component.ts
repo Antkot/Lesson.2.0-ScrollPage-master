@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { TableData } from './to-do-list.component.stories';
 import { Observable } from 'rxjs';
 import { ToDoListService } from './to-do-list.service';
-import { map } from 'rxjs/operators';
+import { find, map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -53,10 +53,12 @@ export class ToDoListComponent implements OnInit {
 
   reRun(textId: string) {
     this.service.reRun(textId);
+    this.form.reset();
+    this.editable = false;
   }
 
   back() {
-    // this.service.reRun();
+    this.service.back();
   }
 
 
