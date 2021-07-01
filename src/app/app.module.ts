@@ -50,7 +50,8 @@ const links = [
   exports: [
     ToDoListComponent,
     CalculatorComponent,
-    TicTacToeComponent]
+    TicTacToeComponent,
+    ChessComponent]
 })
 export class AppModule {
 }

@@ -1,1 +1,8 @@
-<p>chess works!</p>
+<div class="container">
+  <ng-container *ngFor="let symbol of letters; index as i" class="boardSide">{{letters[i]}}</ng-container>
+  <div class="board">
+    <div  *ngFor='let tile of tiles; index as i'>
+      <div>{{tiles[i].sign}}</div>
+    </div>
+  </div>
+</div>

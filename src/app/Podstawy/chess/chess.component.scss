@@ -1,0 +1,67 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+  color: floralwhite;
+  font-size: xx-large;
+}
+
+.container {
+  background: aqua;
+  height: 100vh;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  //transform: scale(-1, -1);
+}
+
+.boardSide{
+  position: flex;
+  letter-spacing: 120px;
+}
+
+.board {
+  align-self: center;
+  //justify-self: center;
+  width: 80%;
+  height: 80%;
+  background: #CE5937;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr [col-start]);
+  grid-template-rows: repeat(8, 1fr [row-start]);
+  column-gap: 1px;
+  row-gap: 1px;
+  //margin: -1px;
+  //align-content: stretch;
+  //justify-content: stretch;
+
+  > div {
+    background: rebeccapurple;
+    position: relative;
+    height: 0;
+    width: 100%;
+    padding-top: 100%;
+
+    :first-child {
+      position: absolute;
+      top: 0;
+      left: 0;
+      text-align: center;
+      align-self: center;
+      justify-self: center;
+    }
+  }
+
+  > div:hover {
+    background: mediumpurple;
+    color: hotpink;
+    font-size: xxx-large;
+  }
+
+  //.col-start 2 {
+
+//}
+}
