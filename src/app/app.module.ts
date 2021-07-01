@@ -15,6 +15,7 @@ import { ToDoListComponent } from './Podstawy/to-do-list/to-do-list.component';
 import { CalculatorComponent } from './Podstawy/Calculator/calculator.component';
 import { TicTacToeComponent } from './Podstawy/tic-tac-toe/tic-tac-toe.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { ChessComponent } from './Podstawy/chess/chess.component';
 
 const links = [
   {
@@ -35,7 +36,8 @@ const links = [
   declarations: [
     ToDoListComponent,
     CalculatorComponent,
-    TicTacToeComponent
+    TicTacToeComponent,
+    ChessComponent
   ],
   imports: [
     BrowserModule,

@@ -59,6 +59,8 @@ export class ToDoListComponent implements OnInit {
 
   back() {
     this.service.back();
+    this.form.reset();
+    this.editable = false;
   }
 
 
