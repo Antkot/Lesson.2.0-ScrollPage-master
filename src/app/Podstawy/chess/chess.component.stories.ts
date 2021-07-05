@@ -2,7 +2,6 @@ import { moduleMetadata, storiesOf } from '@storybook/angular';
 import { Component, NgModule, OnInit } from '@angular/core';
 import { AppModule } from '../../app.module';
 import { ChessComponent } from './chess.component';
-import { CalculatorComponent } from '../Calculator/calculator.component';
 
 @Component({
   selector: 'chess',

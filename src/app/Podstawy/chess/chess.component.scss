@@ -53,18 +53,9 @@
 }
 
 .board {
-  :not(:nth-child(16n)) ~ *,
-  :nth-child(14n) {
-    background: black;
-  }
-
-  //:nth-child(7n) {
-  //  background: white;
-  //}
   z-index: 1;
   float: left;
   align-self: center;
-  //justify-self: center;
   width: 88%;
   height: 88%;
   background: #CE5937;
@@ -73,19 +64,15 @@
   grid-template-rows: repeat(8, 1fr [row-start]);
   column-gap: 1px;
   row-gap: 1px;
-  //margin: -1px;
-  //align-content: stretch;
-  //justify-content: stretch;
 
-  > div:active{
+  > div:active {
     z-index: 24;
     margin: -3px;
     border: dashed 3px violet;
   }
+
   > div {
-    background: white;
     position: relative;
-    //height: 0;
     width: 100%;
     padding-top: 100%;
 
@@ -96,6 +83,8 @@
       text-align: center;
       align-self: center;
       justify-self: center;
+      text-align: right;
+      font-size: small;
     }
   }
 
@@ -106,13 +95,13 @@
   }
 
   .black {
-    background: black;
+    background: #444;
     width: 100%;
     height: 100%;
   }
 
   .black:hover {
-    background: radial-gradient(circle closest-side, black, red, black);
+    background: radial-gradient(circle closest-side, #444, red, #444);
   }
 
   .white {

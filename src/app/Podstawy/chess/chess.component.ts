@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { stringify } from 'querystring';
-import { sign } from 'crypto';
 
 @Component({
   selector: 'app-chess',
@@ -9,13 +7,10 @@ import { sign } from 'crypto';
 })
 export class ChessComponent implements OnInit {
 
-  tiles: Array<{ sign: string, color: string, figure: String }> = [];
+  tiles: Array<{ letter: string, numeric: string, color: string, figure: string }> = [];
   size = 8;
   numbers: Array<number> = [8, 7, 6, 5, 4, 3, 2, 1];
   letters: Array<string> = [];
-
-  // StringfromCharCode
-
 
   constructor() {
   }
@@ -30,25 +25,35 @@ export class ChessComponent implements OnInit {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
         if (i % 2 === 0 && j % 2 !== 0 || (i % 2 !== 0 && j % 2 === 0)) {
-          this.tiles.push({ sign: String(i) + '.' + String(j), color: 'black', figure: null });
+          this.tiles.push({ letter: String(this.letters[j]), numeric: String(this.numbers[i]), color: 'black', figure: 'null' });
         } else {
-          this.tiles.push({ sign: String(i) + '.' + String(j), color: 'white', figure: null  });
+          this.tiles.push({ letter: String(this.letters[j]), numeric: String(this.numbers[i]), color: 'white', figure: 'null' });
         }
       }
     }
+    const objIndex = this.tiles.findIndex((obj => obj.figure === 'null'));
+    this.tiles[objIndex].figure = 'Chess_rdt45.svg';
+    this.tiles[1].figure = 'Chess_ndt45.svg';
+    this.tiles[2].figure = 'Chess_bdt45.svg';
+    this.tiles[5].figure = 'Chess_bdt45.svg';
+    this.tiles[6].figure = 'Chess_ndt45.svg';
+    this.tiles[7].figure = 'Chess_ndt45.svg';
+    // this.tiles.map((value, index) => value.number === '7');
 
-    // for (let i = 0; i < this.size; i++) {
-    //   for (let j = 0; j < this.size; j++) {
-    //     if ((i === 0 || i === this.size - 1) && j + 1 !== this.size && j !== 0) {
-    //       this.tiles.push({ sign: this.letters[j] });
-    //     } else if ((j === 0 || j === this.size - 1) && i + 1 !== this.size && i !== 0) {
-    //         this.tiles.push({ sign: String(this.numbers[i-1]) });
-    //     } else {
-    //       this.tiles.push({ sign: null });
-    //       // this.tiles.push({ sign: 'X' });
-    //     }
-    //   }
+
+    this.tiles.map(({ letter, numeric, color, figure }) => ({ letter, numeric, color, figure: numeric === '7' ? 'Chess_pdt45.svg' : null }));
+
+    // for(let i = 0; i<this.size; i++){
+    //
     // }
+
+    // const current = this.tiles;
+    // this.tiles.next({
+    //   letter: current.letter,
+    //   number: current.number,
+    //   color: current.color,
+    //   figure: []
+    // });
 
   }
 

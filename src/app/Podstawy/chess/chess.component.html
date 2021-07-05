@@ -7,8 +7,10 @@
   </div>
   <div class='board'>
     <div *ngFor='let tile of tiles; index as i'>
-      <div  class='{{tiles[i].color}}'></div>
-<!--      <div  class='{{tiles[i].color}}'>{{tiles[i].sign}}</div>-->
+      <div  class='{{tiles[i].color}}'>
+        <img *ngIf='tiles[i].figure !== "null"' class="images" src="../../../assets/chessFigures/{{tiles[i].figure}}"/>
+        <div  class='{{tiles[i].color}}'>{{tiles[i].letter}}{{tiles[i].numeric}}</div>
+      </div>
     </div>
   </div>
   <div class='boardSide' style='transform: scale(-1, -1)'>
