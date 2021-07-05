@@ -9,7 +9,7 @@ import { sign } from 'crypto';
 })
 export class ChessComponent implements OnInit {
 
-  tiles: Array<{ sign: string }> = [];
+  tiles: Array<{ sign: string, color: string, figure: String }> = [];
   size = 8;
   numbers: Array<number> = [8, 7, 6, 5, 4, 3, 2, 1];
   letters: Array<string> = [];
@@ -21,7 +21,7 @@ export class ChessComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    for (let x = 64; x < 65 + this.size; x++) {
+    for (let x = 65; x < 65 + this.size; x++) {
       this.letters.push(String.fromCharCode(x));
     }
     console.log('witam');
@@ -29,7 +29,11 @@ export class ChessComponent implements OnInit {
 
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
-        this.tiles.push({ sign: String(i) + '.' +String(j) });
+        if (i % 2 === 0 && j % 2 !== 0 || (i % 2 !== 0 && j % 2 === 0)) {
+          this.tiles.push({ sign: String(i) + '.' + String(j), color: 'black', figure: null });
+        } else {
+          this.tiles.push({ sign: String(i) + '.' + String(j), color: 'white', figure: null  });
+        }
       }
     }
 

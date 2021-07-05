@@ -1,8 +1,20 @@
-<div class="container">
-  <ng-container *ngFor="let symbol of letters; index as i" class="boardSide">{{letters[i]}}</ng-container>
-  <div class="board">
-    <div  *ngFor='let tile of tiles; index as i'>
-      <div>{{tiles[i].sign}}</div>
+<div class='container'>
+  <div class='boardEdge'>
+    <div *ngFor='let symbol of letters; index as i'>{{letters[i]}}</div>
+  </div>
+  <div class='boardSide'>
+    <div *ngFor='let symbol of numbers; index as i' class='boardSide'>{{numbers[i]}}</div>
+  </div>
+  <div class='board'>
+    <div *ngFor='let tile of tiles; index as i'>
+      <div  class='{{tiles[i].color}}'></div>
+<!--      <div  class='{{tiles[i].color}}'>{{tiles[i].sign}}</div>-->
     </div>
+  </div>
+  <div class='boardSide' style='transform: scale(-1, -1)'>
+    <div *ngFor='let symbol of numbers; index as i'>{{numbers[7 - i]}}</div>
+  </div>
+  <div class='boardEdge' style='transform: scale(-1, -1)'>
+    <div *ngFor='let symbol of letters; index as i' class='boardSide'>{{letters[7 - i]}}</div>
   </div>
 </div>
