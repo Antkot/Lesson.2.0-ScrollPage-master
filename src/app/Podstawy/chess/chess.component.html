@@ -7,10 +7,22 @@
   </div>
   <div class='board'>
     <div *ngFor='let tile of tiles; index as i'>
-      <div  class='{{tiles[i].color}}'>
-        <img *ngIf='tiles[i].figure !== "null"' class="images" src="../../../assets/chessFigures/{{tiles[i].figure}}"/>
-        <div  class='{{tiles[i].color}}'>{{tiles[i].letter}}{{tiles[i].numeric}}</div>
+      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='oldSelect === i' style='border: double red 10px; margin: -10px; z-index: 26'>
+        <img *ngIf='tiles[i].figure !== "null"' class='images'
+             src='../../../assets/chessFigures/{{tiles[i].figure}}' />
       </div>
+      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='oldSelect !== i'>
+        <img *ngIf='tiles[i].figure !== "null"' class='images'
+             src='../../../assets/chessFigures/{{tiles[i].figure}}' />
+      </div>
+
+
+<!--&lt;!&ndash;      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='selected === false'>&ndash;&gt;-->
+<!--              <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='selected === true' style='background: red'>-->
+<!--        {{tiles[i].letter}}{{tiles[i].numeric}}<br>{{tiles[i].figureColor}}-->
+<!--        <img *ngIf='tiles[i].figure !== "null"' class='images'-->
+<!--             src='../../../assets/chessFigures/{{tiles[i].figure}}' />-->
+<!--      </div>-->
     </div>
   </div>
   <div class='boardSide' style='transform: scale(-1, -1)'>
@@ -20,3 +32,8 @@
     <div *ngFor='let symbol of letters; index as i' class='boardSide'>{{letters[7 - i]}}</div>
   </div>
 </div>
+<div style='position: absolute; left: 0'>
+  {{this.selected}}
+</div>
+
+
