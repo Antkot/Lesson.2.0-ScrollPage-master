@@ -7,22 +7,30 @@
   </div>
   <div class='board'>
     <div *ngFor='let tile of tiles; index as i'>
-      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='oldSelect === i' style='border: double red 10px; margin: -10px; z-index: 26'>
+      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='oldSelect === i'
+           style='border: double red 10px; margin: -10px; z-index: 26'>
         <img *ngIf='tiles[i].figure !== "null"' class='images'
              src='../../../assets/chessFigures/{{tiles[i].figure}}' />
       </div>
-      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='oldSelect !== i'>
+      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='oldSelect !== i && tiles[i].toMove === false'>
         <img *ngIf='tiles[i].figure !== "null"' class='images'
              src='../../../assets/chessFigures/{{tiles[i].figure}}' />
       </div>
 
+      <!--      NIŻEJ ROZWALA -->
+      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='tiles[i].toMove === true'  style='border: double blue 5px; padding: -10px; z-index: 24'>
+        <img *ngIf='tiles[i].figure !== "null"' class='images'
+             src='../../../assets/chessFigures/{{tiles[i].figure}}' />
+      </div>
+      <!--      ^^^^^-->
 
-<!--&lt;!&ndash;      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='selected === false'>&ndash;&gt;-->
-<!--              <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='selected === true' style='background: red'>-->
-<!--        {{tiles[i].letter}}{{tiles[i].numeric}}<br>{{tiles[i].figureColor}}-->
-<!--        <img *ngIf='tiles[i].figure !== "null"' class='images'-->
-<!--             src='../../../assets/chessFigures/{{tiles[i].figure}}' />-->
-<!--      </div>-->
+
+      <!--&lt;!&ndash;      <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='selected === false'>&ndash;&gt;-->
+      <!--              <div class='{{tiles[i].color}}' style='justify-content: center;' (click)='move(i)' *ngIf='selected === true' style='background: red'>-->
+      <!--        {{tiles[i].letter}}{{tiles[i].numeric}}<br>{{tiles[i].figureColor}}-->
+      <!--        <img *ngIf='tiles[i].figure !== "null"' class='images'-->
+      <!--             src='../../../assets/chessFigures/{{tiles[i].figure}}' />-->
+      <!--      </div>-->
     </div>
   </div>
   <div class='boardSide' style='transform: scale(-1, -1)'>

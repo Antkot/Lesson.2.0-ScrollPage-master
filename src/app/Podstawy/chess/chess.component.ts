@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChessInstance } from 'chess.js';
 
 @Component({
   selector: 'app-chess',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChessComponent implements OnInit {
 
-  tiles: Array<{ letter: string, numeric: string, color: string, figure: string, figureColor }> = [];
+  tiles: Array<{ letter: string, numeric: string, color: string, figure: string, figureColor: string, toMove: boolean }> = [];
   size = 8;
   numbers: Array<number> = [8, 7, 6, 5, 4, 3, 2, 1];
   letters: Array<string> = [];
@@ -19,6 +20,8 @@ export class ChessComponent implements OnInit {
 
   constructor() {
   }
+  //szachy biblioteka
+  // game: ChessInstance = new Chess();
 
   ngOnInit(): void {
     for (let x = 65; x < 65 + this.size; x++) {
@@ -29,9 +32,23 @@ export class ChessComponent implements OnInit {
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
         if (i % 2 === 0 && j % 2 !== 0 || (i % 2 !== 0 && j % 2 === 0)) {
-          this.tiles.push({ letter: String(this.letters[j]), numeric: String(this.numbers[i]), color: 'black', figure: 'null', figureColor: 'null' });
+          this.tiles.push({
+            letter: String(this.letters[j]),
+            numeric: String(this.numbers[i]),
+            color: 'black',
+            figure: 'null',
+            figureColor: 'null',
+            toMove: false
+          });
         } else {
-          this.tiles.push({ letter: String(this.letters[j]), numeric: String(this.numbers[i]), color: 'white', figure: 'null', figureColor: 'null' });
+          this.tiles.push({
+            letter: String(this.letters[j]),
+            numeric: String(this.numbers[i]),
+            color: 'white',
+            figure: 'null',
+            figureColor: 'null',
+            toMove: false
+          });
         }
       }
     }
@@ -54,13 +71,10 @@ export class ChessComponent implements OnInit {
     // }
 
 
-
-
     for (let i = 8; i < this.size + 8; i++) {
       this.tiles[i].figure = 'Chess_pdt45.svg';
       this.tiles[i].figureColor = 'black';
     }
-
 
 
     for (let x = 0; x < this.size * this.size; x++) {
@@ -87,7 +101,9 @@ export class ChessComponent implements OnInit {
     if (this.selected) {
       console.log('Teraz wykonamy ruch');
       console.log('Czy pole ma inny kolor niż figura? ', this.tiles[i].figureColor !== this.movedFigureColor);
-      if (this.tiles[i].figure === 'null'  || this.tiles[i].figureColor !== this.movedFigureColor) {
+      // TUTAJ RUSZANIE FIGUR
+      if ((this.tiles[i].figure === 'null' || this.tiles[i].figureColor !== this.movedFigureColor) && this.tiles[i].toMove === true) {
+        // if (this.tiles[i].figure === 'null' || this.tiles[i].figureColor !== this.movedFigureColor) {
         this.tiles[this.oldSelect].figure = 'null';
         this.tiles[this.oldSelect].figureColor = 'null';
         this.tiles[i].figure = this.movedFigure;
@@ -95,6 +111,9 @@ export class ChessComponent implements OnInit {
       }
       this.oldSelect = null;
       this.selected = false;
+      for (let x = 0; x < this.size * this.size; x++) {
+        this.tiles[x].toMove = false;
+      }
     } else {
       if (this.tiles[i].figure === 'null') {
         console.log('To puste pole!');
@@ -105,6 +124,18 @@ export class ChessComponent implements OnInit {
       this.movedFigureColor = this.tiles[i].figureColor;
       this.selected = true;
       this.oldSelect = i;
+      for (let x = 0; x < this.size * this.size; x++) {
+        //wieża zrobić case dla figur
+        if (this.movedFigure.includes('r')) {
+          if (
+            (this.tiles[i].numeric === this.tiles[x].numeric || this.tiles[i].letter === this.tiles[x].letter)
+            && !(this.tiles[i].numeric === this.tiles[x].numeric && this.tiles[i].letter === this.tiles[x].letter)
+            && this.tiles[x].figureColor !== this.movedFigureColor
+          ) {
+            this.tiles[x].toMove = true;
+          }
+        }
+      }
     }
   }
 }
