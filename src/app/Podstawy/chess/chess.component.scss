@@ -1,12 +1,10 @@
 :host {
+  user-select: none;
   display: flex;
   justify-content: center;
   align-content: center;
   height: 100%;
   width: 100%;
-  user-select: none;
-  color: #CE5937;
-  font-size: xx-large;
 }
 
 .container {
@@ -52,6 +50,12 @@
   }
 }
 
+.x {
+  transform: scale(-1, -1);
+  //flex-direction: column-reverse;
+  flex-direction: row-reverse;
+}
+
 .board {
   z-index: 1;
   float: left;
@@ -94,6 +98,8 @@
   }
 
   .black {
+    //display: flex;
+    //align-items: center;
     background: #444;
     width: 100%;
     height: 100%;
@@ -108,12 +114,14 @@
     width: 100%;
     height: 100%;
   }
-  .true{
-      background: darkcyan;
-      width: 100%;
-      height: 100%;
+
+  .true {
+    background: darkcyan;
+    width: 100%;
+    height: 100%;
   }
-  .true{
+
+  .true {
     background: lightpink;
     width: 100%;
     height: 100%;
@@ -124,5 +132,5 @@
   }
 }
 
-.images{
+.images {
 }
