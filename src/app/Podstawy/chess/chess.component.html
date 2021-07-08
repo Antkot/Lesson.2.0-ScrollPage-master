@@ -6,28 +6,22 @@
     <div *ngFor='let number of numbers' class='boardSide'>{{number}}</div>
   </aside>
   <div class='board'>
-    <div *ngFor='let tile of tiles'>
-      <div class='{{tile.color}} {{tile | aaa: selected}}' style='justify-content: center;'>
+    <div *ngFor='let tile of tiles;
+         index as i
+    '>
+      <!--      <div class='{{tile.color}} {{tile.toMove | aaa: selected}}'-->
+      <div class='{{tile.color}}'
+           (click)="move(i)"
+      >
         <img *ngIf='tile.figure' class='images'
              src='../../../assets/chessFigures/{{tile.figure}}' />
       </div>
-<!--      <div class='{{tile.color}}' style='justify-content: center;'-->
-<!--           *ngIf='oldSelect !== i && tile.toMove === false'>-->
-<!--        <img *ngIf='tile.figure !== "null"' class='images'-->
-<!--             src='../../../assets/chessFigures/{{tile.figure}}' />-->
-<!--      </div>-->
-<!---->
-<!--      <div class='{{tile.color}}' style='justify-content: center;' (click)='move(i)' *ngIf='tile.toMove === true'-->
-<!--           style='border: double blue 5px; padding: -10px; z-index: 24'>-->
-<!--        <img *ngIf='tile.figure !== "null"' class='images'-->
-<!--             src='../../../assets/chessFigures/{{tile.figure}}' />-->
-<!--      </div>-->
     </div>
   </div>
-  <aside class='boardSide x'>
+  <aside class='boardSide side'>
     <div *ngFor='let symbol of numbers'>{{symbol}}</div>
   </aside>
-  <footer class='boardEdge x'>
+  <footer class='boardEdge down'>
     <div *ngFor='let symbol of letters' class='boardSide'>{{symbol}}</div>
   </footer>
 </div>

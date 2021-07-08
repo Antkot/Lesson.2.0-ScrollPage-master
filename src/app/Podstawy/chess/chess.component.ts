@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ChessInstance } from 'chess.js';
+import { ChessInstance, Square } from 'chess.js';
+import { from } from 'rxjs';
+import { any } from 'codelyzer/util/function';
 
 declare var require;
 const Chess = require('chess.js');
@@ -27,14 +29,17 @@ export class ChessComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(11111111);
+    console.log('Game Board: ');
     console.table(this.game.board());
+    console.log(this.game.board());
+
+    // this.draw();
 
     for (let x = 65; x < 65 + this.size; x++) {
       this.letters.push(String.fromCharCode(x));
     }
-    console.log('witam');
-
+    // console.log('witam');
+    //
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
         const color = i % 2 === 0 && j % 2 !== 0 || (i % 2 !== 0 && j % 2 === 0) ? 'black' : 'white';
@@ -48,8 +53,6 @@ export class ChessComponent implements OnInit {
         });
       }
     }
-    // const objIndex = this.tiles.findIndex((obj => obj.figure === 'null'));
-    // this.tiles[objIndex].figure = 'Chess_rdt45.svg';
     for (let i = 0; i < this.size; i++) {
       this.tiles[i].figure = 'Chess_' + this.figures[i] + 'dt45.svg';
       this.tiles[i].figureColor = 'black';
@@ -57,82 +60,59 @@ export class ChessComponent implements OnInit {
       this.tiles[i + 56].figureColor = 'white';
     }
 
-    // for (let x = 0; x < this.size * this.size; x++) {
-    //   if (this.tiles[x].numeric === '1') {
-    //     this.tiles[x].figure = 'Chess_' + this.figures[x] + 'lt45.svg';
-    //     this.tiles[x].figureColor = 'white';
-    //   }
-    // }
-
-
     for (let i = 8; i < this.size + 8; i++) {
       this.tiles[i].figure = 'Chess_pdt45.svg';
       this.tiles[i].figureColor = 'black';
     }
-
-
     for (let x = 0; x < this.size * this.size; x++) {
       if (this.tiles[x].numeric === '2') {
         this.tiles[x].figure = 'Chess_plt45.svg';
         this.tiles[x].figureColor = 'white';
       }
     }
-
-    console.table(this.tiles);
-
-    // const current = this.tiles;
-    // this.tiles.next({
-    //   letter: current.letter,
-    //   number: current.number,
-    //   color: current.color,
-    //   figure: []
-    // });
-
   }
-
   move(i: number) {
-    console.log('KLIKNIĘTO');
     if (this.selected) {
-      console.log('Teraz wykonamy ruch');
-      console.log('Czy pole ma inny kolor niż figura? ', this.tiles[i].figureColor !== this.movedFigureColor);
-      // TUTAJ RUSZANIE FIGUR
-      if ((this.tiles[i].figure === 'null' || this.tiles[i].figureColor !== this.movedFigureColor) && this.tiles[i].toMove === true) {
-        // if (this.tiles[i].figure === 'null' || this.tiles[i].figureColor !== this.movedFigureColor) {
-        this.tiles[this.oldSelect].figure = 'null';
-        this.tiles[this.oldSelect].figureColor = 'null';
+      const x = `${this.tiles[this.oldSelect].letter.toLowerCase()}${this.tiles[this.oldSelect].numeric}` as Square;
+      const to = `${this.tiles[i].letter.toLowerCase()}${this.tiles[i].numeric}` as Square;
+      console.log('Ruch', this.game.move({ from: x, to }));       //brak danych => zwraca null
+      if ((this.tiles[i].figure === null || this.tiles[i].figureColor !== this.movedFigureColor) && this.tiles[i].toMove === true) {
+        this.tiles[this.oldSelect].figure = null;
+        this.tiles[this.oldSelect].figureColor = null;
         this.tiles[i].figure = this.movedFigure;
         this.tiles[i].figureColor = this.movedFigureColor;
       }
+      console.log('Dane', x, to);         //dobre dane
       this.oldSelect = null;
       this.selected = false;
-      for (let x = 0; x < this.size * this.size; x++) {
-        this.tiles[x].toMove = false;
-      }
+      // for (let x = 0; x < this.size * this.size; x++) {
+      //   this.tiles[x].toMove = true;
+      // }
+      this.draw();
+      console.log(this.game.turn());          //dobre dane
     } else {
-      if (this.tiles[i].figure === 'null') {
-        console.log('To puste pole!');
+      if (this.tiles[i].figure === null) {
         return;
       }
-      console.log('Teraz zaznaczono figurę');
       this.movedFigure = this.tiles[i].figure;
       this.movedFigureColor = this.tiles[i].figureColor;
       this.selected = true;
       this.oldSelect = i;
-      for (let x = 0; x < this.size * this.size; x++) {
-        //wieża zrobić case dla figur
-        if (this.movedFigure.includes('r')) {
-            this.tiles[x].toMove = !!((this.tiles[i].numeric === this.tiles[x].numeric || this.tiles[i].letter === this.tiles[x].letter)
-              && !(this.tiles[i].numeric === this.tiles[x].numeric && this.tiles[i].letter === this.tiles[x].letter)
-              && this.tiles[x].figureColor !== this.movedFigureColor);
+    }
+  }
+
+  draw() {
+    const tableBoard = (this.game.board());
+    for (let i = 0; i < this.size; i++) {
+      for (let x = 0; x < this.size; x++) {
+        if (!!tableBoard[i][x]) {
+          this.tiles[8 * i + x].figureColor = tableBoard[i]?.[x].color;
+          this.tiles[8 * i + x].figure = 'Chess_' + String(tableBoard[i]?.[x].type) + tableBoard[i]?.[x].color + 't45.svg';
+        } else {
+          this.tiles[8 * i + x].figureColor = null;
+          this.tiles[8 * i + x].figure = null;
         }
       }
     }
   }
 }
-
-/**
- * centrowanie obrazków figur
- * ruchy figur
- * warunek zwycięstwa
- * gracz
- */

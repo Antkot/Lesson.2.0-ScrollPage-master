@@ -4,9 +4,24 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'aaa'
 })
 export class AaaPipe implements PipeTransform {
-
-  transform(value1: number, value2: boolean): string {
-    return `${value1}${Number(value2) * 2 - 5}`;
+  transform(toMove: boolean, selected: boolean): string {
+    switch (String(toMove) + String(selected)) {
+      case 'truetrue': {
+        return 'selected';
+        break;
+      }
+      case 'falsetrue': {
+        return null;
+        break;
+      }
+      case 'falsefalse': {
+        return null;
+        break;
+      }
+      case 'truefalse': {
+        return 'movable';
+        break;
+      }
+    }
   }
-
 }
