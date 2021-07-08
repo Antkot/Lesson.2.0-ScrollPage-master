@@ -13,7 +13,7 @@ const Chess = require('chess.js');
 })
 export class ChessComponent implements OnInit {
 
-  tiles: Array<{ letter: string, numeric: string, color: string, figure: string, figureColor: string, toMove: boolean }> = [];
+  tiles: Array<{ letter: string, numeric: string, color: string, figure: string, figureColor: string }> = [];
   size = 8;
   numbers: Array<number> = [8, 7, 6, 5, 4, 3, 2, 1];
   letters: Array<string> = [];
@@ -28,18 +28,10 @@ export class ChessComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    console.log('Game Board: ');
-    console.table(this.game.board());
-    console.log(this.game.board());
-
     // this.draw();
-
     for (let x = 65; x < 65 + this.size; x++) {
       this.letters.push(String.fromCharCode(x));
     }
-    // console.log('witam');
-    //
     for (let i = 0; i < this.size; i++) {
       for (let j = 0; j < this.size; j++) {
         const color = i % 2 === 0 && j % 2 !== 0 || (i % 2 !== 0 && j % 2 === 0) ? 'black' : 'white';
@@ -48,8 +40,8 @@ export class ChessComponent implements OnInit {
           numeric: String(this.numbers[i]),
           color,
           figure: null,
-          figureColor: null,
-          toMove: false
+          figureColor: null
+          // toMove: false
         });
       }
     }
@@ -71,17 +63,20 @@ export class ChessComponent implements OnInit {
       }
     }
   }
+
   move(i: number) {
     if (this.selected) {
       const x = `${this.tiles[this.oldSelect].letter.toLowerCase()}${this.tiles[this.oldSelect].numeric}` as Square;
       const to = `${this.tiles[i].letter.toLowerCase()}${this.tiles[i].numeric}` as Square;
-      console.log('Ruch', this.game.move({ from: x, to }));       //brak danych => zwraca null
-      if ((this.tiles[i].figure === null || this.tiles[i].figureColor !== this.movedFigureColor) && this.tiles[i].toMove === true) {
-        this.tiles[this.oldSelect].figure = null;
-        this.tiles[this.oldSelect].figureColor = null;
-        this.tiles[i].figure = this.movedFigure;
-        this.tiles[i].figureColor = this.movedFigureColor;
-      }
+      console.log('Dozwolone ruchy z tego pola', this.game.moves({square: x}));
+      console.log('Ruch', this.game.move({ from: x, to, promotion: 'q'}));
+      // console.log('Ruch', this.game.move({ from: x, to}, { sloppy: true }));       //brak danych => zwraca null
+      // if ((this.tiles[i].figure === null || this.tiles[i].figureColor !== this.movedFigureColor) && this.tiles[i].toMove === true) {
+      //   this.tiles[this.oldSelect].figure = null;
+      //   this.tiles[this.oldSelect].figureColor = null;
+      //   this.tiles[i].figure = this.movedFigure;
+      //   this.tiles[i].figureColor = this.movedFigureColor;
+      // }
       console.log('Dane', x, to);         //dobre dane
       this.oldSelect = null;
       this.selected = false;
@@ -89,6 +84,7 @@ export class ChessComponent implements OnInit {
       //   this.tiles[x].toMove = true;
       // }
       this.draw();
+      console.log(this.game.game_over());
       console.log(this.game.turn());          //dobre dane
     } else {
       if (this.tiles[i].figure === null) {
