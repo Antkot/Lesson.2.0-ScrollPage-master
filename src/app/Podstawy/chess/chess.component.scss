@@ -1,174 +1,97 @@
 :host {
-  user-select: none;
   display: flex;
   justify-content: center;
   align-content: center;
-  //height: 100%;
-  width: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
+  align-items: center;
 }
-
 .container {
-  background-image: linear-gradient(315deg, #772f1a 14%, #3F250B 84%, #f2a65a 99%);
-  //height: 100vh;
-  //height: auto;
-  width: 50%;
-  display: block;
+  height: min(100vw, 100vh);
+  width: min(100vw, 100vh);
+  background: brown;
+  display: grid;
+  grid-template-columns: 10% 80% 10%;
+  grid-template-rows: 10% 80% 10%;
+  justify-items: stretch;
   justify-content: center;
-  overflow: hidden;
 }
 
-@media (max-height: 600px) {
-  .container {
-    width: 30%;
-  }
-}
-
-
-.boardEdge {
-  color: white;
-  height: 6%;
-  width: 88%;
-  margin: 0 6%;
-  align-content: space-around;
-  display: flex;
+.board {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  background: red;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
 
   > div {
-    text-align: center;
-    width: 12.5%;
-    height: 100%;
-    //line-height: 175%;
+    width: min(100%, 100wv/10);
   }
 }
 
 .boardSide {
-  color: white;
-  justify-content: space-around;
-  display: block;
-  float: left;
-  height: 88%;
-  width: 6%;
+  height: 100%;
+  grid-column: 1 / 2;
+  grid-row: 2 / 3;
 
   > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     text-align: center;
-    width: 100%;
     height: 12.5%;
-    //line-height: 350%;
+    width: 100%;
+  }
+}
+
+.side {
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+}
+
+.boardEdge {
+  height: 100%;
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  float: left;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
   }
 }
 
 .down {
-  transform: scale(-1, -1);
-  flex-direction: row-reverse;
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
+.images{
+  display: flex;
+  width: 100%;
+}
+.black{
+  width: min(100%, 100wv/10);
+  height: 100%;
+  background: #444;
+}
+.white{
+  height: 100%;
+  background: wheat;
 }
 
-.side {
-  transform: scale(-1, -1);
-  flex-direction: column-reverse;
-}
-
-.board {
-  z-index: 1;
-  float: left;
-  align-self: center;
-  width: 88%;
-  //height: 88%;
-  background: #CE5937;
-  display: grid;
-  grid-template-columns: repeat(8, 1fr [col-start]);
-  grid-template-rows: repeat(8, 1fr [row-start]);
-  column-gap: 1px;
-  row-gap: 1px;
-
-  > div:active {
-    z-index: 24;
-    margin: -3px;
-    border: dashed 3px violet;
-  }
-
-  > div {
-    position: relative;
-    width: 100%;
-    padding-top: 100%;
-
-    :first-child {
-      position: absolute;
-      top: 0;
-      left: 0;
-      align-self: center;
-      justify-self: center;
-      text-align: right;
-      font-size: small;
-    }
-  }
-
-  > div:hover {
-    background: mediumpurple;
-    color: hotpink;
-    font-size: xxx-large;
-  }
-
-  .black {
-    //display: flex;
-    //align-items: center;
-    background: #444;
-    width: 100%;
-    height: 100%;
-  }
-
-  .black:hover {
-    background: radial-gradient(circle closest-side, #444, red, #444);
-  }
-
-  .white {
-    background: white;
-    width: 100%;
-    height: 100%;
-  }
-
-  .true {
-    background: darkcyan;
-    width: 100%;
-    height: 100%;
-  }
-
-  .true {
-    background: lightpink;
-    width: 100%;
-    height: 100%;
-  }
-
-  .white:hover {
-    background: radial-gradient(circle closest-side, white, red, white);;
-  }
-}
-
-.selected {
-  border: double red 10px;
-  margin: -50px;
-  margin: -10px;
-  z-index: 26;
-}
-
-.movable {
-  border: double blue 5px;
-  padding: -10px;
-  z-index: 24;
-}
-.container:before{
-  content: "";
-  float: left;
-  padding-top: 100%;
-}
-
-.images {
-height: 100%;
-}
-
-@media (max-height: 567px), (max-width: 319px){
+@media (max-height: 300px), (max-width: 300px) {
   .container{
-    height: 0px;
+    font-size: x-small;
   }
-
-
-
 }
+
+//  !important

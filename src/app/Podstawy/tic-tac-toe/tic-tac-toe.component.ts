@@ -1,9 +1,9 @@
-import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
-import {Subject} from 'rxjs';
-import {MatDialog} from '@angular/material/dialog';
-import {takeUntil} from 'rxjs/operators';
-import {CalculatorComponent} from '../Calculator/calculator.component';
-import {ToDoListComponent} from '../to-do-list/to-do-list.component';
+import { Component, EventEmitter, OnInit, ViewChild } from '@angular/core';
+import { Subject } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { takeUntil } from 'rxjs/operators';
+import { CalculatorComponent } from '../Calculator/calculator.component';
+import { ToDoListComponent } from '../to-do-list/to-do-list.component';
 
 @Component({
   selector: 'app-tic-tac-toe',
@@ -134,7 +134,7 @@ export class TicTacToeComponent implements OnInit {
         diagonals1.push([]);
       }
     }
-    this.tiles.forEach(({sign}, index) => {
+    this.tiles.forEach(({ sign }, index) => {
       const column = index % this.size; // reszta z dzielenia
       const row = Math.floor(index / this.size);
       // console.log('liczba skosów: ', (this.size * 2 - 1));
@@ -200,7 +200,7 @@ export class TicTacToeComponent implements OnInit {
     this.newsdas = `repeat( ${this.size}, 1fr)`;
     console.log(this.newsdas);
     for (let i = 0; i < this.size * this.size; i++) {
-      this.tiles.push({sign: null});
+      this.tiles.push({ sign: null });
     }
     this.player = 1;
     this.note = 'Welcome player one (X)';

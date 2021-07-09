@@ -11,11 +11,11 @@ export class AaaPipe implements PipeTransform {
         break;
       }
       case 'falsetrue': {
-        return null;
+        return 'nothing';
         break;
       }
       case 'falsefalse': {
-        return null;
+        return 'nothing';
         break;
       }
       case 'truefalse': {
