@@ -17,6 +17,9 @@ import { TicTacToeComponent } from './Podstawy/tic-tac-toe/tic-tac-toe.component
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ChessComponent } from './Podstawy/chess/chess.component';
 import { AaaPipe } from './Podstawy/chess/aaa.pipe';
+import {DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag} from '@angular/cdk/drag-drop';
+import { SelectedPipe } from './Podstawy/chess/selected.pipe';
+
 
 const links = [
   {
@@ -39,14 +42,19 @@ const links = [
     CalculatorComponent,
     TicTacToeComponent,
     ChessComponent,
-    AaaPipe
+    AaaPipe,
+    SelectedPipe
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(links, { useHash: true }),
     BrowserAnimationsModule, ReactiveFormsModule, FormsModule,
     MatButtonModule, MatInputModule, MatSelectModule, MatCheckboxModule,
-    MatListModule, MatIconModule, MatMenuModule, MatDialogModule, MatButtonToggleModule
+    MatListModule, MatIconModule, MatMenuModule, MatDialogModule, MatButtonToggleModule,
+    DragDropModule
+    // ,
+    // moveItemInArray, transferArrayItem,
+    // CdkDrag,CdkDragDrop,
 
   ],
   exports: [
@@ -54,7 +62,8 @@ const links = [
     CalculatorComponent,
     TicTacToeComponent,
     ChessComponent,
-    AaaPipe]
+    AaaPipe,
+    SelectedPipe]
 })
 export class AppModule {
 }

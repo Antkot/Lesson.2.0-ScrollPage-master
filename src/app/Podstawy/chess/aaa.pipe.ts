@@ -4,10 +4,10 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'aaa'
 })
 export class AaaPipe implements PipeTransform {
-  transform(toMove: boolean, selected: boolean): string {
+  transform(toMove: any, selected: any): string {
     switch (String(toMove) + String(selected)) {
       case 'truetrue': {
-        return 'selected';
+        return 'movable';
         break;
       }
       case 'falsetrue': {
@@ -19,7 +19,15 @@ export class AaaPipe implements PipeTransform {
         break;
       }
       case 'truefalse': {
-        return 'movable';
+        return 'movable'; //nie ma
+        break;
+      }
+      case 'bb': {
+        return 'bTurn';
+        break;
+      }
+      case 'ww': {
+        return 'wTurn';
         break;
       }
     }
