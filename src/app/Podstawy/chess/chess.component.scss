@@ -6,6 +6,7 @@
   margin-bottom: auto;
   align-items: center;
 }
+
 .container {
   user-select: none;
   height: min(98vw, 98vh);
@@ -24,13 +25,17 @@
   max-height: 100%;
   grid-column: 2 / 3;
   grid-row: 2 / 3;
-  background: red;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
   grid-template-rows: repeat(8, 1fr);
 
   > div {
-    width: min(100%, 100wv/10);
+    position: relative;
+    width: min(100%, 100wv / 10);
+    height: min(100%, 100wv / 10);
+    //display: flex;
+    //justify-content: center;
+    //align-content: center;
   }
 }
 
@@ -74,55 +79,65 @@
   grid-column: 2 / 3;
   grid-row: 3 / 4;
 }
-.images{
+
+.images {
   display: flex;
   width: 100%;
 }
-.black{
-  width: min(100%, 100wv/10);
+
+.black {
+  width: min(100%, 100wv / 10);
   height: 100%;
   background: #444;
 }
-.white{
+
+.white {
   height: 100%;
   background: wheat;
 }
 
 @media (max-height: 300px), (max-width: 300px) {
-  .container{
+  .container {
     font-size: x-small;
   }
 }
-.bTurn{
+
+.bTurn {
   transition: background-color 3s ease-out;
   background: black;
   color: ghostwhite;
-  border: 2px ghostwhite solid;
+  border: min(1vh, 1vw) ghostwhite solid;
 }
-.wTurn{
+
+.wTurn {
   transition: background-color 3s ease-out;
   background: ghostwhite;
   color: black;
-  border: 2px black solid;
-}
-.movable{
-  background: red;
-}
-.selected{
-background: violet;
-}
-//  !important
-#draggable {
-  width: 200px;
-  height: 20px;
-  text-align: center;
-  background: white;
+  border: min(1vh, 1vw) black solid;
 }
 
-.dropzone {
-  width: 200px;
-  height: 20px;
-  background: blueviolet;
-  margin-bottom: 10px;
-  padding: 10px;
+.movable {
+  padding: - 10px;
+  //border: blue ridge 10px;
+  opacity: 0.4;
+  z-index: 0;
 }
+
+.selected {
+  max-height: 100%;
+  max-width: 100%;
+  z-index: 100;
+  background: darkgoldenrod;
+}
+.invisible{
+  margin: 10%;
+  display: flex;
+  justify-self: center;
+  align-self: center;
+  position: absolute;
+  height: 80%;
+  width: 80%;
+}
+
+
+//  !important

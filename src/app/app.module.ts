@@ -17,8 +17,9 @@ import { TicTacToeComponent } from './Podstawy/tic-tac-toe/tic-tac-toe.component
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ChessComponent } from './Podstawy/chess/chess.component';
 import { AaaPipe } from './Podstawy/chess/aaa.pipe';
-import {DragDropModule, CdkDragDrop, moveItemInArray, transferArrayItem, CdkDrag} from '@angular/cdk/drag-drop';
-import { SelectedPipe } from './Podstawy/chess/selected.pipe';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import { SelectorPipe } from './Podstawy/chess/selector.pipe';
+import { MovablePipe } from './Podstawy/chess/movable.pipe';
 
 
 const links = [
@@ -43,7 +44,8 @@ const links = [
     TicTacToeComponent,
     ChessComponent,
     AaaPipe,
-    SelectedPipe
+    SelectorPipe,
+    MovablePipe,
   ],
   imports: [
     BrowserModule,
@@ -52,9 +54,6 @@ const links = [
     MatButtonModule, MatInputModule, MatSelectModule, MatCheckboxModule,
     MatListModule, MatIconModule, MatMenuModule, MatDialogModule, MatButtonToggleModule,
     DragDropModule
-    // ,
-    // moveItemInArray, transferArrayItem,
-    // CdkDrag,CdkDragDrop,
 
   ],
   exports: [
@@ -63,7 +62,8 @@ const links = [
     TicTacToeComponent,
     ChessComponent,
     AaaPipe,
-    SelectedPipe]
+    SelectorPipe
+  ]
 })
 export class AppModule {
 }

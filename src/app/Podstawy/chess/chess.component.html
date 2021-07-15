@@ -5,12 +5,12 @@
   <aside class='boardSide'>
     <div *ngFor='let number of numbers'>{{number}}</div>
   </aside>
-  <div class='board'>
-    <div *ngFor='let tile of tiles; index as i' class='{{tile.color}} {{tile.toMove | aaa: selected}} {{oldSelect | selected: i}}' (click)="move(i)">
+  <div class='board' #board>
+    <div *ngFor='let tile of tiles; index as i' class='{{tile.color}} {{oldSelect | selector: i}} {{oldSelect | movable: this.tiles[i].toMove}}' (click)="move(i)">
+        <div *ngIf="oldSelect === i" class="invisible {{tile.color}}">
+        </div>
       <div class="example-box" cdkDrag (cdkDragEnded)="drop($event)" (cdkDragStarted)='drag($event, i)'>
-<!--        {{tile.toMove | aaa: selected}}-->
-<!--        {{tile.toMove}}{{selected}}-->
-        <img *ngIf='tile.figure' class='images' src='../../../assets/chessFigures/{{tile.figure}}' />
+      <img *ngIf='tile.figure' class='images' src='../../../assets/chessFigures/{{tile.figure}}' />
       </div>
     </div>
   </div>
@@ -26,22 +26,15 @@
   <a *ngIf="this.game.in_check()">Check</a>
   <a *ngIf="this.game.in_checkmate()">mate</a>
 </ng-template>
-
-
 <!--<div class=''>-->
 <!--Selected:  {{this.selected}}<br>-->
 <!--  Width: {{this.innerWidth}}<br>-->
 <!--  Height: {{this.innerHeight}}-->
 <!--</div>-->
 
+<!--{{board.offsetHeight}}-->
 
-
-<!--<div class="dropzone">-->
-<!--  <div id="draggable" draggable="true" ondragstart="event.dataTransfer.setData('text/plain',null)">-->
-<!--    This div is draggable-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div class="dropzone"></div>-->
-<!--<div class="dropzone"></div>-->
-<!--<div class="dropzone"></div>-->
-
+<div style="position:absolute; left: 0; top: 0">
+  Zaznaczenie: {{this.selected}}<br>
+  old i: {{this.oldSelect}}
+</div>
