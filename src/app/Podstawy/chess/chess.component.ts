@@ -82,24 +82,7 @@ export class ChessComponent implements OnInit {
         });
       }
     }
-    for (let i = 0; i < this.size; i++) {
-      this.tiles[i].figure = 'Chess_' + this.figures[i] + 'bt45.svg';
-      this.tiles[i].figureColor = 'black';
-      this.tiles[i + 56].figure = 'Chess_' + this.figures[i] + 'wt45.svg';
-      this.tiles[i + 56].figureColor = 'white';
-    }
-
-    for (let i = 8; i < this.size + 8; i++) {
-      this.tiles[i].figure = 'Chess_pbt45.svg';
-      this.tiles[i].figureColor = 'b';
-    }
-    for (let x = 0; x < this.size * this.size; x++) {
-      if (this.tiles[x].numeric === '2') {
-        this.tiles[x].figure = 'Chess_pwt45.svg';
-        this.tiles[x].figureColor = 'w';
-      }
-    }
-    this.draw();
+    this.newGame();
   }
 
   move(i: number) {
@@ -132,10 +115,18 @@ export class ChessComponent implements OnInit {
       if (this.tiles[i].figure === null) {
         return;
       }
-      // this.selected = true;
-      // this.oldSelect = i;
-      // console.log('Poprawnie zaznaczono pole');
-      // console.log('Dozwolone ruchy z tego pola', this.game.moves({ square: x }));
+      this.selected = true;
+      this.oldSelect = i;
+      const available = `${this.tiles[this.oldSelect].letter.toLowerCase()}${this.tiles[this.oldSelect].numeric}` as Square;
+      console.table(this.game.moves({ square: available }));
+      for (let j = 0; j < this.size * this.size; j++) {
+        const tileChecked = `${this.tiles[j].letter.toLowerCase()}${this.tiles[j].numeric}` as Square;
+        this.game.moves({ square: available }).forEach(element => {
+          if (element.indexOf(tileChecked) > -1) {
+            this.tiles[j].toMove = true;
+          }
+        });
+      }
     }
   }
 
@@ -152,7 +143,6 @@ export class ChessComponent implements OnInit {
       this.game.moves({ square: available }).forEach(element => {
         if (element.indexOf(tileChecked) > -1) {
           this.tiles[j].toMove = true;
-          console.log('Pole jest do ruszenia', tileChecked);
         }
       });
     }
@@ -197,5 +187,26 @@ export class ChessComponent implements OnInit {
         }
       }
     }
+  }
+  newGame() {
+    this.game.reset();
+    for (let i = 0; i < this.size; i++) {
+      this.tiles[i].figure = 'Chess_' + this.figures[i] + 'bt45.svg';
+      this.tiles[i].figureColor = 'black';
+      this.tiles[i + 56].figure = 'Chess_' + this.figures[i] + 'wt45.svg';
+      this.tiles[i + 56].figureColor = 'white';
+    }
+
+    for (let i = 8; i < this.size + 8; i++) {
+      this.tiles[i].figure = 'Chess_pbt45.svg';
+      this.tiles[i].figureColor = 'b';
+    }
+    for (let x = 0; x < this.size * this.size; x++) {
+      if (this.tiles[x].numeric === '2') {
+        this.tiles[x].figure = 'Chess_pwt45.svg';
+        this.tiles[x].figureColor = 'w';
+      }
+    }
+    this.draw();
   }
 }

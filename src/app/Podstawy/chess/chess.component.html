@@ -28,16 +28,14 @@
   <a *ngIf="this.game.in_check()">Check</a>
   <a *ngIf="this.game.in_checkmate()"> Mate</a>
 </ng-template>
-<!--<div class=''>-->
-<!--Selected:  {{this.selected}}<br>-->
-<!--  Width: {{this.innerWidth}}<br>-->
-<!--  Height: {{this.innerHeight}}-->
-<!--</div>-->
 
-<!--{{board.offsetHeight}}-->
+{{board.offsetHeight}}
 
 <div style="position:absolute; left: 0; top: 0">
-<!--  <button (click)='newGame()'>New Game</button><br>-->
-  Zaznaczenie: {{this.selected}}<br>
-  old i: {{this.oldSelect}}
+  Zaznaczenie: {{this.selected}}<br><br>
+  old i: {{this.oldSelect}}<br><br>
+  Selected:  {{this.selected}}<br><br>
+    Width: {{this.innerWidth}}<br><br>
+    Height: {{this.innerHeight}}<br><br>
+  <button (click)='newGame()'>New Game</button><br><br>
 </div>
