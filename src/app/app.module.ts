@@ -20,6 +20,7 @@ import { AaaPipe } from './Podstawy/chess/aaa.pipe';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { SelectorPipe } from './Podstawy/chess/selector.pipe';
 import { MovablePipe } from './Podstawy/chess/movable.pipe';
+import { CookBookComponent } from './Podstawy/cook-book/cook-book.component';
 
 
 const links = [
@@ -46,6 +47,7 @@ const links = [
     AaaPipe,
     SelectorPipe,
     MovablePipe,
+    CookBookComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ChessInstance, Square } from 'chess.js';
-import { fromEvent, Observable, Subscription } from 'rxjs';
-import { debounceTime, first } from 'rxjs/operators';
+import { combineLatest, fromEvent, Observable, Subscription } from 'rxjs';
+import { debounceTime, first, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragStart } from '@angular/cdk/drag-drop';
 
@@ -56,20 +56,16 @@ export class ChessComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.game.put({ type: this.game.QUEEN, color: this.game.BLACK }, 'd5');
-    // this.game.put({ type: this.game.QUEEN, color: this.game.WHITE }, 'e4');
     this.innerWidth = window.innerWidth;
     this.innerHeight = window.innerHeight;
 
 
     this.resizeObservable$ = fromEvent(window, 'resize');
     this.resizeSubscription$ = this.resizeObservable$.pipe(debounceTime(10)).subscribe(evt => {
-      // console.log('event: ', evt);
       this.innerWidth = window.innerWidth;
       this.innerHeight = window.innerHeight;
     });
 
-    // this.draw();
     for (let x = 65; x < 65 + this.size; x++) {
       this.letters.push(String.fromCharCode(x));
     }
@@ -103,8 +99,7 @@ export class ChessComponent implements OnInit {
         this.tiles[x].figureColor = 'w';
       }
     }
-
-
+    this.draw();
   }
 
   move(i: number) {
@@ -124,8 +119,6 @@ export class ChessComponent implements OnInit {
         this.tiles[h].toMove = false;
       }
       this.draw();
-
-
       if (this.game.in_check()) {
         this.dialog.open(this.winner);
       }
@@ -136,10 +129,8 @@ export class ChessComponent implements OnInit {
         this.dialog.open(this.winner);
       }
     } else {
-      // console.log('wykryto br  ak zaznaczenia');
       if (this.tiles[i].figure === null) {
         return;
-        // console.log('Błędne zaznaczenie');
       }
       // this.selected = true;
       // this.oldSelect = i;
@@ -149,18 +140,21 @@ export class ChessComponent implements OnInit {
   }
 
   drag(event: CdkDragStart, i) {
+    for (let j = 0; j < this.size * this.size; j++) {
+      this.tiles[j].toMove = false;
+    }
     this.oldSelect = i;
     this.savedPosition = this.oldSelect;
-
     const available = `${this.tiles[this.oldSelect].letter.toLowerCase()}${this.tiles[this.oldSelect].numeric}` as Square;
+    console.table(this.game.moves({ square: available }));
     for (let j = 0; j < this.size * this.size; j++) {
       const tileChecked = `${this.tiles[j].letter.toLowerCase()}${this.tiles[j].numeric}` as Square;
-      if (this.game.moves({ square: available }).includes(tileChecked)) {
-        this.tiles[j].toMove = true;
-        console.log('Pole jest do ruszenia', tileChecked);
-      } else {
-        this.tiles[j].toMove = false;
-      }
+      this.game.moves({ square: available }).forEach(element => {
+        if (element.indexOf(tileChecked) > -1) {
+          this.tiles[j].toMove = true;
+          console.log('Pole jest do ruszenia', tileChecked);
+        }
+      });
     }
   }
 

@@ -7,8 +7,10 @@
   </aside>
   <div class='board' #board>
     <div *ngFor='let tile of tiles; index as i' class='{{tile.color}} {{oldSelect | selector: i}} {{oldSelect | movable: this.tiles[i].toMove}}' (click)="move(i)">
-        <div *ngIf="oldSelect === i" class="invisible {{tile.color}}">
-        </div>
+      <div *ngIf="oldSelect === i" class="invisible {{tile.color}}">
+      </div>
+      <div *ngIf="tile.toMove === true" class="invisible {{tile.color}}">
+      </div>
       <div class="example-box" cdkDrag (cdkDragEnded)="drop($event)" (cdkDragStarted)='drag($event, i)'>
       <img *ngIf='tile.figure' class='images' src='../../../assets/chessFigures/{{tile.figure}}' />
       </div>
@@ -24,7 +26,7 @@
 <ng-template #winner>
   <a *ngIf="this.game.in_draw()">Draw</a>
   <a *ngIf="this.game.in_check()">Check</a>
-  <a *ngIf="this.game.in_checkmate()">mate</a>
+  <a *ngIf="this.game.in_checkmate()"> Mate</a>
 </ng-template>
 <!--<div class=''>-->
 <!--Selected:  {{this.selected}}<br>-->
@@ -35,6 +37,7 @@
 <!--{{board.offsetHeight}}-->
 
 <div style="position:absolute; left: 0; top: 0">
+  <button (click)='newGame()'>New Game</button><br>
   Zaznaczenie: {{this.selected}}<br>
   old i: {{this.oldSelect}}
 </div>
