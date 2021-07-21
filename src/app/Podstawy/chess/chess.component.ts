@@ -3,7 +3,8 @@ import { ChessInstance, Square } from 'chess.js';
 import { combineLatest, fromEvent, Observable, Subscription } from 'rxjs';
 import { debounceTime, first, map } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
-import { CdkDragStart } from '@angular/cdk/drag-drop';
+import { CdkDragEnd, CdkDragStart } from '@angular/cdk/drag-drop';
+import { element } from 'protractor';
 
 declare var require;
 const Chess = require('chess.js');
@@ -38,7 +39,6 @@ export class ChessComponent implements OnInit {
   letters: Array<string> = [];
   figures: Array<string> = ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'];
   selected = false;
-  movedFigure = null;
   movedFigureColor = null;
   oldSelect = null;
   game: ChessInstance = new Chess();
@@ -47,7 +47,10 @@ export class ChessComponent implements OnInit {
   public innerWidth: any;
   public innerHeight: any;
   @ViewChild('board') board: ElementRef<HTMLElement>;
-  firstPosition: number = null;
+  moveTo: number = null;
+  positionX = null;
+  positionY = null;
+
 
   resizeObservable$: Observable<Event>;
   resizeSubscription$: Subscription;
@@ -86,16 +89,12 @@ export class ChessComponent implements OnInit {
   }
 
   move(i: number) {
-    console.log('funkcja move odpalona dla: ', i);
+    this.movedFigureColor = this.tiles[i].figureColor;
     const to = `${this.tiles[i].letter.toLowerCase()}${this.tiles[i].numeric}` as Square;
     if (this.selected) {
       // const available = `${this.tiles[this.oldSelect].letter.toLowerCase()}${this.tiles[this.oldSelect].numeric}` as Square;
       const x = `${this.tiles[this.oldSelect].letter.toLowerCase()}${this.tiles[this.oldSelect].numeric}` as Square;
-      // console.log('wykryto zaznaczenie');
-      // if (this.tiles[i].figure === null || this.tiles[i].figureColor !== this.tiles[this.oldSelect].figureColor) {
-      // console.log('wykonujemy ruch na puste pole');
       console.log('Ruch', this.game.move({ from: x, to, promotion: 'q' }));
-      this.draw();
       this.oldSelect = null;
       this.selected = false;
       for (let h = 0; h < this.size * this.size; h++) {
@@ -117,61 +116,41 @@ export class ChessComponent implements OnInit {
       }
       this.selected = true;
       this.oldSelect = i;
-      const available = `${this.tiles[this.oldSelect].letter.toLowerCase()}${this.tiles[this.oldSelect].numeric}` as Square;
-      console.table(this.game.moves({ square: available }));
-      for (let j = 0; j < this.size * this.size; j++) {
-        const tileChecked = `${this.tiles[j].letter.toLowerCase()}${this.tiles[j].numeric}` as Square;
-        this.game.moves({ square: available }).forEach(element => {
-          if (element.indexOf(tileChecked) > -1) {
-            this.tiles[j].toMove = true;
-          }
-        });
-      }
+      this.tileLighter();
     }
   }
 
   drag(event: CdkDragStart, i) {
+    this.movedFigureColor = this.tiles[i].figureColor;
     for (let j = 0; j < this.size * this.size; j++) {
       this.tiles[j].toMove = false;
     }
     this.oldSelect = i;
     this.savedPosition = this.oldSelect;
-    const available = `${this.tiles[this.oldSelect].letter.toLowerCase()}${this.tiles[this.oldSelect].numeric}` as Square;
-    console.table(this.game.moves({ square: available }));
-    for (let j = 0; j < this.size * this.size; j++) {
-      const tileChecked = `${this.tiles[j].letter.toLowerCase()}${this.tiles[j].numeric}` as Square;
-      this.game.moves({ square: available }).forEach(element => {
-        if (element.indexOf(tileChecked) > -1) {
-          this.tiles[j].toMove = true;
-        }
-      });
-    }
+    this.tileLighter();
+    const realValueX = (this.innerWidth - this.board.nativeElement.clientWidth) / 2;
+    const realValueY = (this.innerHeight - this.board.nativeElement.clientHeight) / 2;
+    fromEvent<MouseEvent>(window, 'mousemove').pipe(first()).subscribe(({ x, y }) => {
+
+      this.positionX = x - realValueX;
+      this.positionY = y - realValueY;
+      event.source._dragRef.reset();
+      this.selected = true;
+    });
   }
 
 
-  drop(event) {
-    const realValueX = (this.innerWidth - this.board.nativeElement.clientWidth) / 2;
-    const realValueY = (this.innerHeight - this.board.nativeElement.clientHeight) / 2;
+  drop(event: CdkDragEnd) {
     const tileDimensions = this.board.nativeElement.offsetHeight / 8;
-    fromEvent<MouseEvent>(window, 'mousemove').pipe(first()).subscribe(x => {
-      console.log('szerokoóśc', x.x - realValueX);
-      console.log('wysokość', x.y - realValueY);
-      const positionX = x.x - realValueX;
-      const positionY = x.y - realValueY;
-      const axisX = Math.floor(positionX / tileDimensions);
-      const axisY = Math.floor(positionY / tileDimensions);
-      const i = this.size * axisY + axisX;
-      console.log('Nowe pole: ', `${this.tiles[i].letter.toLowerCase()}${this.tiles[i].numeric}`);
-      if (!(this.letters[axisX]) || !(this.numbers[axisY])) {
-        console.log('error');
-        event.source._dragRef.reset();
-        return;
-      }
+    const axisX = Math.floor((this.positionX + event.distance.x) / tileDimensions);
+    const axisY = Math.floor((this.positionY + event.distance.y) / tileDimensions);
+    this.moveTo = this.size * axisY + axisX;
+    if (!(this.letters[axisX]) || !(this.numbers[axisY])) {
       event.source._dragRef.reset();
-      console.log(i);
-      this.selected = true;
-      this.move(i);
-    });
+      return;
+    }
+    event.source._dragRef.reset();
+    this.move(this.moveTo);
   }
 
   draw() {
@@ -188,6 +167,7 @@ export class ChessComponent implements OnInit {
       }
     }
   }
+
   newGame() {
     this.game.reset();
     for (let i = 0; i < this.size; i++) {
@@ -208,5 +188,31 @@ export class ChessComponent implements OnInit {
       }
     }
     this.draw();
+  }
+
+  tileLighter() {
+    const available = `${this.tiles[this.oldSelect].letter.toLowerCase()}${this.tiles[this.oldSelect].numeric}` as Square;
+    for (let j = 0; j < this.size * this.size; j++) {
+      const tileChecked = `${this.tiles[j].letter.toLowerCase()}${this.tiles[j].numeric}` as Square;
+      this.game.moves({ square: available }).forEach(toMove => {
+        if (toMove.indexOf(tileChecked) > -1) {
+          this.tiles[j].toMove = true;
+        }
+      });
+    }
+    if (this.game.moves({ square: available }).includes('O-O')) {
+      if (this.movedFigureColor === 'b') {
+        this.tiles[6].toMove = true;
+      } else {
+        this.tiles[62].toMove = true;
+      }
+    }
+    if (this.game.moves({ square: available }).includes('O-O-O')) {
+      if (this.movedFigureColor === 'b') {
+        this.tiles[2].toMove = true;
+      } else {
+        this.tiles[58].toMove = true;
+      }
+    }
   }
 }

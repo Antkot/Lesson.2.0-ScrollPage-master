@@ -109,14 +109,14 @@
 }
 
 .bTurn {
-  transition: background-color 3s ease-out;
+  transition: all 3s ease-out;
   background: black;
   color: ghostwhite;
   border: min(1vh, 1vw) ghostwhite solid;
 }
 
 .wTurn {
-  transition: background-color 3s ease-out;
+  transition: all 3s ease-out;
   background: ghostwhite;
   color: black;
   border: min(1vh, 1vw) black solid;
@@ -146,17 +146,6 @@
   height: 92%;
   width: 92%;
 }
-
-//.invisibleMove {
-//  z-index: 0;
-//  margin: 5%;
-//  display: flex;
-//  justify-self: center;
-//  align-self: center;
-//  position: absolute;
-//  height: 90%;
-//  width: 90%;
-//}
 
 .images {
   display: flex;
