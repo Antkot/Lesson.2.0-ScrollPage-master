@@ -30,6 +30,7 @@ class Tiles {
   selector: 'app-chess',
   templateUrl: './chess.component.html',
   styleUrls: ['./chess.component.scss']
+  styleUrls: ['./chess.component.scss']
 })
 export class ChessComponent implements OnInit {
 
@@ -125,6 +126,7 @@ export class ChessComponent implements OnInit {
     for (let j = 0; j < this.size * this.size; j++) {
       this.tiles[j].toMove = false;
     }
+    // event.source.element.nativeElement.   drag start mouse position
     this.oldSelect = i;
     this.savedPosition = this.oldSelect;
     this.tileLighter();

@@ -8,7 +8,6 @@
 }
 
 .container {
-
   position: absolute;
   margin: auto;
   left: 0;
@@ -42,9 +41,6 @@
     position: relative;
     width: min(100%, 100wv / 10);
     height: min(100%, 100wv / 10);
-    //display: flex;
-    //justify-content: center;
-    //align-content: center;
   }
 }
 
@@ -109,14 +105,14 @@
 }
 
 .bTurn {
-  transition: all 3s ease-out;
+  transition: color, background-color 3s ease-out;
   background: black;
   color: ghostwhite;
   border: min(1vh, 1vw) ghostwhite solid;
 }
 
 .wTurn {
-  transition: all 3s ease-out;
+  transition: color, background-color 3s ease-out;
   background: ghostwhite;
   color: black;
   border: min(1vh, 1vw) black solid;
@@ -125,8 +121,6 @@
 .movable {
   z-index: 2;
   padding: - 10px;
-  //opacity: 0.5;
-  background: blue;
 }
 
 .selected {
@@ -134,17 +128,24 @@
   max-height: 100%;
   max-width: 100%;
   background: darkgoldenrod;
+
+  > div {
+    background: darkgoldenrod;
+    z-index: -7;
+  }
 }
 
 .invisible {
-  z-index: -7;
-  margin: 4%;
+  margin: 35%;
   display: flex;
   justify-self: center;
   align-self: center;
   position: absolute;
-  height: 92%;
-  width: 92%;
+  height: 30%;
+  width: 30%;
+  background: dodgerblue;
+  opacity: 0.6;
+  border-radius: 50%;
 }
 
 .images {

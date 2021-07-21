@@ -7,13 +7,9 @@
   </aside>
   <div class='board' #board>
     <div *ngFor='let tile of tiles; index as i' class='{{tile.color}} {{oldSelect | selector: i}} {{oldSelect | movable: this.tiles[i].toMove}}' (click)="move(i)">
-      <div *ngIf="oldSelect === i" class="invisible {{tile.color}}">
-      </div>
-      <div *ngIf="tile.toMove === true" class="invisible {{tile.color}}">
-      </div>
-      <div class="example-box" cdkDrag (cdkDragEnded)="drop($event)" (cdkDragStarted)='drag($event, i)'>
-      <img *ngIf='tile.figure' class='images' src='../../../assets/chessFigures/{{tile.figure}}' />
-      </div>
+      <div *ngIf="oldSelect === i" class="invisible {{tile.color}}"></div>
+      <div *ngIf="tile.toMove === true" class="invisible {{tile.color}}"></div>
+      <img *ngIf='tile.figure' class='images example box' src='../../../assets/chessFigures/{{tile.figure}}' cdkDrag (cdkDragEnded)="drop($event)" (cdkDragStarted)='drag($event, i)'/>
     </div>
   </div>
   <aside class='boardSide side'>
