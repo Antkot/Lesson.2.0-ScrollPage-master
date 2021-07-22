@@ -21,6 +21,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import { SelectorPipe } from './Podstawy/chess/selector.pipe';
 import { MovablePipe } from './Podstawy/chess/movable.pipe';
 import { MenuComponent } from './Podstawy/cook-book/part-components/menu/menu.component';
+import { PhotoGeometryComponent } from './Podstawy/photo-geometry/photo-geometry.component';
 
 
 const links = [
@@ -35,6 +36,10 @@ const links = [
   {
     component: ToDoListComponent,
     path: 'todo/:tableId',
+  },
+  {
+    component: PhotoGeometryComponent,
+    path: 'PhotoGeometryComponent',
   }
 ];
 
@@ -48,6 +53,7 @@ const links = [
     SelectorPipe,
     MovablePipe,
     MenuComponent,
+    PhotoGeometryComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +69,7 @@ const links = [
     CalculatorComponent,
     TicTacToeComponent,
     ChessComponent,
+    PhotoGeometryComponent,
     AaaPipe,
     SelectorPipe
   ]

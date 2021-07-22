@@ -53,11 +53,11 @@ export class PhotoGeometryComponent implements OnInit {
       if (this.img.nativeElement.offsetHeight - y < y) {
         this.y2 = this.img.nativeElement.offsetHeight - y;
       }
-      this.marginLeft = -x + this.widthScreen / 2;
-      this.marginTop = -y + this.heightScreen / 2;
-      // console.log('mniejszy poziom:', this.x2, 'mniejszy pion:', this.y2);
       const k = this.x2 / this.y2;
       const q = this.widthScreen / this.heightScreen;
+      this.marginLeft = (-x + this.widthScreen / 2); // / k
+      this.marginTop = (-y + this.heightScreen / 2); // / q
+      // console.log('mniejszy poziom:', this.x2, 'mniejszy pion:', this.y2);
       console.log('skala k:', k);
       console.log('skala q:', q);
       if (k < q) {
@@ -89,13 +89,15 @@ export class PhotoGeometryComponent implements OnInit {
     this.photo$.next({
       'transform': `scale(${this.scaled}) translate(${this.marginLeft}px, ${this.marginTop}px)`,
       // 'transform': `translate(${this.marginLeft}px, ${this.marginTop}px)`,
-      'object-fit': `cover`,
       // 'transform': `scale(${this.scaled})`,
-    // 'transform': ` translate(${this.sideCut}px, ${this.updownCut}px)`,
+      // 'transform': ` translate(${this.sideCut}px, ${this.updownCut}px)`,
       // 'margin-top': `${this.marginTop}px`,
       // 'margin-left': `-${this.marginLeft}px`,
       'width': `${this.x}px`,
       'height': `${this.y}px`
+      // 'width': `${this.widthScreen}px`,
+      // 'height': `${this.heightScreen}px`,
+      // 'object-fit': `cover`
     });
   }
 }
