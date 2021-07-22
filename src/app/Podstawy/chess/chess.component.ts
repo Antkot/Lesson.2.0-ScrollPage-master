@@ -30,7 +30,6 @@ class Tiles {
   selector: 'app-chess',
   templateUrl: './chess.component.html',
   styleUrls: ['./chess.component.scss']
-  styleUrls: ['./chess.component.scss']
 })
 export class ChessComponent implements OnInit {
 

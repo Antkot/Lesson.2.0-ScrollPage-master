@@ -1,0 +1,9 @@
+<div class="righter">
+  <img #img src="{{photo}}" width="{{x}}" height="{{y}}" (click)="check()">
+  width={{x}}, height={{y}}
+</div>
+<div class="righter">
+  <div class="screen" [ngStyle]="css$ | async" style="float: right">
+    <img src="{{photo}}" class="rescaled" [ngStyle]="photo$ | async">
+  </div>
+</div>
