@@ -10,10 +10,10 @@ import { number } from '@storybook/addon-knobs';
 })
 export class PhotoGeometryComponent implements OnInit {
   @Input() photo = '';
-  @Input() x = '';
-  @Input() y = '';
-  @Input() widthScreen = null;
-  @Input() heightScreen = null;
+  @Input() x = 0;
+  @Input() y = 0;
+  @Input() widthScreen = 0;
+  @Input() heightScreen = 0;
   css$ = new BehaviorSubject({});
   photo$ = new BehaviorSubject({});
   css = '';
@@ -25,13 +25,14 @@ export class PhotoGeometryComponent implements OnInit {
   updownCut = 0;
   marginTop = 0;
   marginLeft = 0;
+  klik = 1;
 
   constructor(private elRef: ElementRef<HTMLElement>
   ) {
   }
 
   ngOnInit() {
-    this.check();
+    // this.check();
     this.css$.next({
       'width': `${this.widthScreen}px`,
       'height': `${this.heightScreen}px`
@@ -85,14 +86,23 @@ export class PhotoGeometryComponent implements OnInit {
     // console.log(this.marginLeft, 'left');
     console.log(this.marginTop, 'top');
     console.log(this.scaled, 'to skala');
+    this.klik += 1;
 
     this.photo$.next({
-      'transform': `scale(${this.scaled}) translate(${this.marginLeft}px, ${this.marginTop}px)`,
+      // 'transform': `scale(${this.scaled}) translate(${this.marginLeft}px, ${this.marginTop}px)`,
+      // 'transform': `scale(2) translate(${this.marginLeft}px, ${this.marginTop}px)`,
       // 'transform': `translate(${this.marginLeft}px, ${this.marginTop}px)`,
+      // 'transform': `scale(${this.klik}) translate(${this.x / this.klik}px, ${this.y / this.klik}px)`,
       // 'transform': `scale(${this.scaled})`,
+      // 'transform': `scale(${this.klik})`,
+      'transform': `translate(${this.widthScreen * (this.klik - 1)}px, ${this.heightScreen * (this.klik - 1)}px) scale(${this.klik})`,
+      // 'transform': `scale(2)`,
+      // 'transform': `translate(300px, 300px) scale(2) `,
       // 'transform': ` translate(${this.sideCut}px, ${this.updownCut}px)`,
+      // 'margin-top': `0`,
       // 'margin-top': `${this.marginTop}px`,
       // 'margin-left': `-${this.marginLeft}px`,
+      // 'margin-left': `0`,
       'width': `${this.x}px`,
       'height': `${this.y}px`
       // 'width': `${this.widthScreen}px`,

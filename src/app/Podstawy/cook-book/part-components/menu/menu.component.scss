@@ -1,0 +1,37 @@
+:host{
+  user-select: none;
+}
+.wraper{
+  height: 50px;
+  width: 100%;
+  align-content: center;
+  background: aliceblue;
+}
+.option{
+  color: white;
+  text-align: center;
+  background: dodgerblue;
+  width: calc(15% - 2px);
+  border: 1px blue solid;
+  height: 80%;
+  float: left;
+}
+.option:hover{
+  background: cornflowerblue;
+}
+.option:active{
+  background: royalblue;
+}
+.searchBar{
+  width: calc(30% - 2px);
+  float: right;
+}
+
+@media (max-width: 720px){
+  .option{
+    width: calc(25% - 4px);
+  }
+  .searchBar{
+    width: calc(50% - 4px);
+  }
+}

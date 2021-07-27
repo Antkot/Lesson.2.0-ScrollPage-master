@@ -22,6 +22,7 @@ import { SelectorPipe } from './Podstawy/chess/selector.pipe';
 import { MovablePipe } from './Podstawy/chess/movable.pipe';
 import { MenuComponent } from './Podstawy/cook-book/part-components/menu/menu.component';
 import { PhotoGeometryComponent } from './Podstawy/photo-geometry/photo-geometry.component';
+import { SideFilterComponent } from './Podstawy/cook-book/part-components/side-filter/side-filter.component';
 
 
 const links = [
@@ -40,6 +41,14 @@ const links = [
   {
     component: PhotoGeometryComponent,
     path: 'PhotoGeometryComponent',
+  },
+  {
+    component: MenuComponent,
+    path: 'MenuComponent',
+  },
+  {
+    component: SideFilterComponent,
+    path: 'SideFilterComponent',
   }
 ];
 
@@ -54,6 +63,7 @@ const links = [
     MovablePipe,
     MenuComponent,
     PhotoGeometryComponent,
+    SideFilterComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +80,9 @@ const links = [
     TicTacToeComponent,
     ChessComponent,
     PhotoGeometryComponent,
+    SideFilterComponent,
     AaaPipe,
+    MenuComponent,
     SelectorPipe
   ]
 })
