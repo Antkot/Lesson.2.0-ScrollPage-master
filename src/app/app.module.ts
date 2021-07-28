@@ -22,8 +22,7 @@ import { SelectorPipe } from './Podstawy/chess/selector.pipe';
 import { MovablePipe } from './Podstawy/chess/movable.pipe';
 import { MenuComponent } from './Podstawy/cook-book/part-components/menu/menu.component';
 import { PhotoGeometryComponent } from './Podstawy/photo-geometry/photo-geometry.component';
-import { SideFilterComponent } from './Podstawy/cook-book/part-components/side-filter/side-filter.component';
-
+import { CookBookModule } from './Podstawy/cook-book/cook-book.module';
 
 const links = [
   {
@@ -42,14 +41,6 @@ const links = [
     component: PhotoGeometryComponent,
     path: 'PhotoGeometryComponent',
   },
-  {
-    component: MenuComponent,
-    path: 'MenuComponent',
-  },
-  {
-    component: SideFilterComponent,
-    path: 'SideFilterComponent',
-  }
 ];
 
 @NgModule({
@@ -63,7 +54,7 @@ const links = [
     MovablePipe,
     MenuComponent,
     PhotoGeometryComponent,
-    SideFilterComponent,
+    CookBookModule
   ],
   imports: [
     BrowserModule,
@@ -71,7 +62,7 @@ const links = [
     BrowserAnimationsModule, ReactiveFormsModule, FormsModule,
     MatButtonModule, MatInputModule, MatSelectModule, MatCheckboxModule,
     MatListModule, MatIconModule, MatMenuModule, MatDialogModule, MatButtonToggleModule,
-    DragDropModule
+    DragDropModule,
 
   ],
   exports: [
@@ -80,10 +71,9 @@ const links = [
     TicTacToeComponent,
     ChessComponent,
     PhotoGeometryComponent,
-    SideFilterComponent,
     AaaPipe,
     MenuComponent,
-    SelectorPipe
+    SelectorPipe,
   ]
 })
 export class AppModule {

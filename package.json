@@ -13,6 +13,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-slider/ngx-slider": "^2.0.3",
     "@angular/animations": "~9.0.7",
     "@angular/cdk": "^9.2.0",
     "@angular/common": "~9.0.7",
@@ -23,15 +24,15 @@
     "@angular/platform-browser": "~9.0.7",
     "@angular/platform-browser-dynamic": "~9.0.7",
     "@angular/router": "~9.0.7",
+    "@ngrx/store": "^9.2.0",
+    "@ngrx/store-devtools": "^9.2.0",
     "chess.js": "^0.10.3",
     "cuid": "^2.1.8",
     "fuse.js": "^5.2.3",
+    "lodash": "^4.17.19",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "@ngrx/store": "^9.2.0",
-    "@ngrx/store-devtools": "^9.2.0",
-    "lodash": "^4.17.19"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.7",
