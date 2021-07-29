@@ -1,5 +1,5 @@
 <mat-form-field class="example-chip-list" appearance="fill">
-  <mat-label>Favorite Allergens</mat-label>
+  <mat-label>Allergens</mat-label>
   <mat-chip-list #chipList aria-label="Allergen selection">
     <mat-chip
       *ngFor="let allergen of allergens"
@@ -9,7 +9,8 @@
       {{allergen}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
-    <input
+    <input *ngIf="removable"
+           maxlength="32"
       placeholder="New allergen..."
       #allergenInput
       [formControl]="allergenCtrl"

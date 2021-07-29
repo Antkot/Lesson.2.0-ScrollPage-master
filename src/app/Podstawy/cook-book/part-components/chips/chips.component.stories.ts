@@ -33,7 +33,7 @@ storiesOf('Podstawy / cook', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips [removable]="true">;
+<app-chips [removable]="true" [allergens]="[]">;
 `
   }));
 storiesOf('Podstawy / cook', module)
@@ -43,6 +43,6 @@ storiesOf('Podstawy / cook', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips [removable]="false">;
+<app-chips [removable]="false" [allergens]="['Lactose', 'Peanuts', 'Sesame', 'Soybeans', 'Lupin']">;
 `
   }));

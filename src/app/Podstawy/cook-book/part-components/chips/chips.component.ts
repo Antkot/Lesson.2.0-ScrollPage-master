@@ -20,7 +20,7 @@ export class ChipsComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   allergenCtrl = new FormControl();
   filteredAllergens: Observable<string[]>;
-  allergens: string[] = ['Lactose'];
+  @Input() allergens: string[] = ['Lactose'];
   allAllergens: string[] = ['Lactose', 'Peanuts', 'Sesame', 'Soybeans', 'Lupin'];
 
   @ViewChild('allergenInput') allergenInput: ElementRef<HTMLInputElement>;
@@ -34,7 +34,11 @@ export class ChipsComponent {
   add(event: MatChipInputEvent): void {
     let value = (event.value || '').trim();
     value = titleCaseWord(value);
-    // Add our allergen
+    console.log(value.length);
+    // if (value.length > 32) {
+    //   console.log(111111111111111);
+    //   value = value.slice(0, 32);
+    // }
     if (value) {
       if (!this.allergens.includes(value)) {
         this.allergens.push(value);
@@ -43,16 +47,12 @@ export class ChipsComponent {
         this.allAllergens.push(value);
       }
     }
-
-    // Clear the input value
     event.input.value = '';
-
     this.allergenCtrl.setValue(null);
   }
 
   remove(allergen: string): void {
     const index = this.allergens.indexOf(allergen);
-
     if (index >= 0) {
       this.allergens.splice(index, 1);
     }
@@ -69,7 +69,6 @@ export class ChipsComponent {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.allAllergens.filter(allergen => allergen.toLowerCase().includes(filterValue));
   }
 }
