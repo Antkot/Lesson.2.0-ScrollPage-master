@@ -10,12 +10,10 @@ import { MenuComponent } from './part-components/menu/menu.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { ChipsComponent } from './part-components/chips/chips.component';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 
 @NgModule({
@@ -39,13 +37,10 @@ import { MatOptionModule } from '@angular/material/core';
     NgxSliderModule,
     MatCheckboxModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
     MatChipsModule,
     MatAutocompleteModule,
-    BrowserAnimationsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
     MatOptionModule
   ]
 })

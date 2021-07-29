@@ -1,5 +1,5 @@
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {MatChipInputEvent} from '@angular/material/chips';
@@ -16,7 +16,7 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class ChipsComponent {
   selectable = true;
-  removable = true;
+  @Input() removable = false;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   fruitCtrl = new FormControl();
   filteredFruits: Observable<string[]>;
@@ -37,6 +37,7 @@ export class ChipsComponent {
     // Add our fruit
     if (value) {
       this.fruits.push(value);
+      this.allFruits.push(value);
     }
 
     // Clear the input value
