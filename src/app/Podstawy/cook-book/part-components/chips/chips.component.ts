@@ -32,8 +32,8 @@ export class ChipsComponent {
   }
 
   add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-
+    let value = (event.value || '').trim();
+    value = titleCaseWord(value);
     // Add our allergen
     if (value) {
       if (!this.allergens.includes(value)) {
@@ -59,8 +59,9 @@ export class ChipsComponent {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    if (!this.allergens.includes(event.option.viewValue)) {
-      this.allergens.push(event.option.viewValue);
+    const added = titleCaseWord(event.option.viewValue);
+    if (!this.allergens.includes(added)) {
+      this.allergens.push(added);
     }
     this.allergenInput.nativeElement.value = '';
     this.allergenCtrl.setValue(null);
@@ -71,4 +72,11 @@ export class ChipsComponent {
 
     return this.allAllergens.filter(allergen => allergen.toLowerCase().includes(filterValue));
   }
+}
+
+function titleCaseWord(word: string) {
+  if (!word) {
+    return word;
+  }
+  return word[0].toUpperCase() + word.substr(1).toLowerCase();
 }
