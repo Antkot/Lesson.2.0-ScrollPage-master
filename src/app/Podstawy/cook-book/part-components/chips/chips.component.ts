@@ -1,10 +1,10 @@
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, Input, ViewChild } from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {MatChipInputEvent} from '@angular/material/chips';
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 
 /**
  * @title Chips Autocomplete
@@ -12,57 +12,63 @@ import {map, startWith} from 'rxjs/operators';
 @Component({
   selector: 'app-chips',
   templateUrl: 'chips.component.html',
-  styleUrls: ['chips.component.scss'],
+  styleUrls: ['chips.component.scss']
 })
 export class ChipsComponent {
   selectable = true;
   @Input() removable = false;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  fruitCtrl = new FormControl();
-  filteredFruits: Observable<string[]>;
-  fruits: string[] = ['Lemon'];
-  allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
+  allergenCtrl = new FormControl();
+  filteredAllergens: Observable<string[]>;
+  allergens: string[] = ['Lactose'];
+  allAllergens: string[] = ['Lactose', 'Peanuts', 'Sesame', 'Soybeans', 'Lupin'];
 
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('allergenInput') allergenInput: ElementRef<HTMLInputElement>;
 
   constructor() {
-    this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
+    this.filteredAllergens = this.allergenCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.allFruits.slice()));
+      map((allergen: string | null) => allergen ? this._filter(allergen) : this.allAllergens.slice()));
   }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
 
-    // Add our fruit
+    // Add our allergen
     if (value) {
-      this.fruits.push(value);
-      this.allFruits.push(value);
+      if (!this.allergens.includes(value)) {
+        this.allergens.push(value);
+      }
+      if (!this.allAllergens.includes(value)) {
+        this.allAllergens.push(value);
+      }
     }
 
     // Clear the input value
     event.input.value = '';
 
-    this.fruitCtrl.setValue(null);
+    this.allergenCtrl.setValue(null);
   }
 
-  remove(fruit: string): void {
-    const index = this.fruits.indexOf(fruit);
+  remove(allergen: string): void {
+    const index = this.allergens.indexOf(allergen);
 
     if (index >= 0) {
-      this.fruits.splice(index, 1);
+      this.allergens.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.fruits.push(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
-    this.fruitCtrl.setValue(null);
+    if (!this.allergens.includes(event.option.viewValue)) {
+      this.allergens.push(event.option.viewValue);
+    }
+    this.allergenInput.nativeElement.value = '';
+    this.allergenCtrl.setValue(null);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
+    return this.allAllergens.filter(allergen => allergen.toLowerCase().includes(filterValue));
   }
 }
