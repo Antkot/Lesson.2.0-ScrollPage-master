@@ -17,10 +17,9 @@ import { TicTacToeComponent } from './Podstawy/tic-tac-toe/tic-tac-toe.component
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { ChessComponent } from './Podstawy/chess/chess.component';
 import { AaaPipe } from './Podstawy/chess/aaa.pipe';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SelectorPipe } from './Podstawy/chess/selector.pipe';
 import { MovablePipe } from './Podstawy/chess/movable.pipe';
-import { MenuComponent } from './Podstawy/cook-book/part-components/menu/menu.component';
 import { PhotoGeometryComponent } from './Podstawy/photo-geometry/photo-geometry.component';
 import { CookBookModule } from './Podstawy/cook-book/cook-book.module';
 
@@ -35,12 +34,12 @@ const links = [
   },
   {
     component: ToDoListComponent,
-    path: 'todo/:tableId',
+    path: 'todo/:tableId'
   },
   {
     component: PhotoGeometryComponent,
-    path: 'PhotoGeometryComponent',
-  },
+    path: 'PhotoGeometryComponent'
+  }
 ];
 
 @NgModule({
@@ -52,9 +51,7 @@ const links = [
     AaaPipe,
     SelectorPipe,
     MovablePipe,
-    MenuComponent,
-    PhotoGeometryComponent,
-    CookBookModule
+    PhotoGeometryComponent
   ],
   imports: [
     BrowserModule,
@@ -62,8 +59,7 @@ const links = [
     BrowserAnimationsModule, ReactiveFormsModule, FormsModule,
     MatButtonModule, MatInputModule, MatSelectModule, MatCheckboxModule,
     MatListModule, MatIconModule, MatMenuModule, MatDialogModule, MatButtonToggleModule,
-    DragDropModule,
-
+    DragDropModule
   ],
   exports: [
     ToDoListComponent,
@@ -72,8 +68,7 @@ const links = [
     ChessComponent,
     PhotoGeometryComponent,
     AaaPipe,
-    MenuComponent,
-    SelectorPipe,
+    SelectorPipe
   ]
 })
 export class AppModule {

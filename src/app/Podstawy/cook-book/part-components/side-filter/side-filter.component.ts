@@ -11,9 +11,11 @@ import { Dish, Levels } from '../../types';
 export class SideFilterComponent implements OnInit {
   dishes$: Observable<Array<Dish>> = this.service.dishes$;
   levels$: Observable<Array<Levels>> = this.service.levels$;
+
   counter(i: number) {
     return new Array(i);
   }
+
   constructor(private service: LoadingService) {
 
   }
