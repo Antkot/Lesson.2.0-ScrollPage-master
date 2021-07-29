@@ -9,11 +9,21 @@
           Wybór posiłku
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <p><mat-radio-button>Śniadanie</mat-radio-button></p>
-      <p><mat-radio-button>Obiad</mat-radio-button></p>
-      <p><mat-radio-button>Kolacja</mat-radio-button></p>
-      <p><mat-radio-button>Deser</mat-radio-button></p>
-      <p><mat-radio-button>Inne</mat-radio-button></p>
+      <p>
+        <mat-radio-button>Śniadanie</mat-radio-button>
+      </p>
+      <p>
+        <mat-radio-button>Obiad</mat-radio-button>
+      </p>
+      <p>
+        <mat-radio-button>Kolacja</mat-radio-button>
+      </p>
+      <p>
+        <mat-radio-button>Deser</mat-radio-button>
+      </p>
+      <p>
+        <mat-radio-button>Inne</mat-radio-button>
+      </p>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -40,13 +50,10 @@
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Czas gotowania
+          Maksymalny czas przygotowania
         </mat-panel-title>
-        <mat-panel-description>
-          zasięg od do
-        </mat-panel-description>
       </mat-expansion-panel-header>
-      <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+      <app-time-slider [value]="2"></app-time-slider>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -56,33 +63,33 @@
       </mat-expansion-panel-header>
       <section>
         <p>
-          <mat-checkbox>
-            <mat-icon> local_pizza</mat-icon>
+          <mat-checkbox checked="true">
+            <mat-icon>local_pizza</mat-icon>
           </mat-checkbox>
         </p>
         <p>
-          <mat-checkbox>
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-          </mat-checkbox>
-        </p>
-        <p>
-          <mat-checkbox>
-            <mat-icon> local_pizza</mat-icon>
+          <mat-checkbox checked="true">
             <mat-icon> local_pizza</mat-icon>
             <mat-icon> local_pizza</mat-icon>
           </mat-checkbox>
         </p>
         <p>
-          <mat-checkbox>
-            <mat-icon> local_pizza</mat-icon>
+          <mat-checkbox checked="true">
             <mat-icon> local_pizza</mat-icon>
             <mat-icon> local_pizza</mat-icon>
             <mat-icon> local_pizza</mat-icon>
           </mat-checkbox>
         </p>
         <p>
-          <mat-checkbox>
+          <mat-checkbox checked="true">
+            <mat-icon> local_pizza</mat-icon>
+            <mat-icon> local_pizza</mat-icon>
+            <mat-icon> local_pizza</mat-icon>
+            <mat-icon> local_pizza</mat-icon>
+          </mat-checkbox>
+        </p>
+        <p>
+          <mat-checkbox checked="true">
             <mat-icon> local_pizza</mat-icon>
             <mat-icon> local_pizza</mat-icon>
             <mat-icon> local_pizza</mat-icon>

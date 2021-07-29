@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { LabelType, Options } from '@angular-slider/ngx-slider';
+import { Component, OnInit } from '@angular/core';
+import { DishesService } from '../services/dishes.service';
+import { Observable } from 'rxjs';
+import { Dish } from '../../types';
 
 @Component({
   selector: 'app-side-filter',
@@ -7,26 +9,15 @@ import { LabelType, Options } from '@angular-slider/ngx-slider';
   styleUrls: ['./side-filter.component.scss']
 })
 export class SideFilterComponent implements OnInit {
-  @Input() minValue = 0;
-  @Input() maxValue = 100;
-  options: Options = {
-    floor: 0,
-    ceil: 500,
-    translate: (value: number, label: LabelType): string => {
-      switch (label) {
-        case LabelType.Low:
-          return '<b>Min price:</b> $' + value;
-        case LabelType.High:
-          return '<b>Max price:</b> $' + value;
-        default:
-          return '$' + value;
-      }
-    }
-  };
-  constructor() { }
+  dishes$: Observable<Array<Dish>> = this.service.dishes$;
+
+  constructor(private service: DishesService) {
+
+  }
 
   ngOnInit(): void {
   }
 
 }
+
 

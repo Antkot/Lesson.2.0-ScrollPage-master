@@ -8,12 +8,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
-import { CustomHtmlDisplayFunctionSliderComponent } from '../services/custom-html-display-function-slider';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { TimeSliderComponent } from '../time-slider/time-slider.component';
 
 
 const decoration: NgModule = {
-  declarations: [SideFilterComponent, CustomHtmlDisplayFunctionSliderComponent],
+  declarations: [SideFilterComponent, TimeSliderComponent],
   imports: [MatDividerModule, MatExpansionModule, BrowserAnimationsModule, MatCheckboxModule, MatIconModule,
     MatRadioModule, NgxSliderModule],
   providers: []

@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { TableData } from './to-do-list.component.stories';
 import { Observable } from 'rxjs';
 import { ToDoListService } from './to-do-list.service';
-import { find, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
