@@ -17,10 +17,7 @@ export interface Timer {
   timeId: string;
   name: string;
 }
-export interface Level {
+export interface Levels {
   levelId: string;
-  name: string;
-}
-export interface Dishes {
-  dish: Array<Dish>;
+  level: number;
 }

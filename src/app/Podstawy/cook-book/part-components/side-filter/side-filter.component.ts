@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { DishesService } from '../services/dishes.service';
+import { LoadingService } from '../services/loading.service';
 import { Observable } from 'rxjs';
-import { Dish } from '../../types';
+import { Dish, Levels } from '../../types';
 
 @Component({
   selector: 'app-side-filter',
@@ -10,8 +10,11 @@ import { Dish } from '../../types';
 })
 export class SideFilterComponent implements OnInit {
   dishes$: Observable<Array<Dish>> = this.service.dishes$;
-
-  constructor(private service: DishesService) {
+  levels$: Observable<Array<Levels>> = this.service.levels$;
+  counter(i: number) {
+    return new Array(i);
+  }
+  constructor(private service: LoadingService) {
 
   }
 

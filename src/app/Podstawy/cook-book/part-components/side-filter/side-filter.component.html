@@ -9,22 +9,12 @@
           Wybór posiłku
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <p>
-        <mat-radio-button>Śniadanie</mat-radio-button>
-      </p>
-      <p>
-        <mat-radio-button>Obiad</mat-radio-button>
-      </p>
-      <p>
-        <mat-radio-button>Kolacja</mat-radio-button>
-      </p>
-      <p>
-        <mat-radio-button>Deser</mat-radio-button>
-      </p>
-      <p>
-        <mat-radio-button>Inne</mat-radio-button>
+      <p *ngFor="let dish of dishes$ | async">
+        <mat-radio-button>{{dish.name}}</mat-radio-button>
       </p>
     </mat-expansion-panel>
+
+
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
@@ -62,39 +52,10 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <section>
-        <p>
+
+        <p  *ngFor="let level of levels$ | async">
           <mat-checkbox checked="true">
-            <mat-icon>local_pizza</mat-icon>
-          </mat-checkbox>
-        </p>
-        <p>
-          <mat-checkbox checked="true">
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-          </mat-checkbox>
-        </p>
-        <p>
-          <mat-checkbox checked="true">
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-          </mat-checkbox>
-        </p>
-        <p>
-          <mat-checkbox checked="true">
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-          </mat-checkbox>
-        </p>
-        <p>
-          <mat-checkbox checked="true">
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
-            <mat-icon> local_pizza</mat-icon>
+            <a *ngFor='let in of counter(level.level)'><mat-icon>local_pizza</mat-icon></a>
           </mat-checkbox>
         </p>
       </section>
