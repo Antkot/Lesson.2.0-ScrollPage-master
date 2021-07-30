@@ -15,6 +15,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatOptionModule } from '@angular/material/core';
     MatAutocompleteModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatOptionModule
+    MatOptionModule,
+    BrowserAnimationsModule
   ]
 })
 export class CookBookModule {

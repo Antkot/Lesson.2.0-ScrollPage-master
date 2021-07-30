@@ -29,20 +29,41 @@ const decoration: NgModule = {
 storiesOf('Podstawy / cook', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
-  .add('chip', () => ({
+  .add('allergen', () => ({
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips [removable]="true" [allergens]="[]">;
+<app-chips  [entity]="'Allergen'" [removable]="true" [elements]="[]">;
 `
   }));
 storiesOf('Podstawy / cook', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
-  .add('chip-no-del', () => ({
+  .add('allergen-no-del', () => ({
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips [removable]="false" [allergens]="['Lactose', 'Peanuts', 'Sesame', 'Soybeans', 'Lupin']">;
+<app-chips [entity]="'Allergen'" [removable]="false" [elements]="['Lactose', 'Peanuts', 'Sesame', 'Soybeans', 'Lupin']">;
+`
+  }));
+
+storiesOf('Podstawy / cook', module)
+  .addDecorator(moduleMetadata(decoration))
+  .addDecorator(withKnobs)
+  .add('hash', () => ({
+    props: {} as Partial<ChipsComponent>,
+    component: ChipsComponent,
+    template: `
+<app-chips  [entity]="'tag'" [removable]="true" [elements]="[]">;
+`
+  }));
+storiesOf('Podstawy / cook', module)
+  .addDecorator(moduleMetadata(decoration))
+  .addDecorator(withKnobs)
+  .add('hash-no-del', () => ({
+    props: {} as Partial<ChipsComponent>,
+    component: ChipsComponent,
+    template: `
+<app-chips [entity]="'tag'" [removable]="false" [elements]="['#Schpinach', '#Pankake', '#Kanapkas', '#Salad']">;
 `
   }));

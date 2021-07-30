@@ -15,67 +15,81 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['chips.component.scss']
 })
 export class ChipsComponent {
+  @Input() entity: string;
   selectable = true;
   @Input() removable = false;
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  allergenCtrl = new FormControl();
-  filteredAllergens: Observable<string[]>;
-  @Input() allergens: string[] = ['Lactose'];
-  allAllergens: string[] = ['Lactose', 'Peanuts', 'Sesame', 'Soybeans', 'Lupin'];
+  elementCtrl = new FormControl();
+  filteredElements: Observable<string[]>;
+  @Input() elements: string[] = ['Lactose'];
+  allElements: string[] = ['Lactose', 'Peanuts', 'Sesame', 'Soybeans', 'Lupin'];
 
-  @ViewChild('allergenInput') allergenInput: ElementRef<HTMLInputElement>;
+  @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
   constructor() {
-    this.filteredAllergens = this.allergenCtrl.valueChanges.pipe(
+    this.filteredElements = this.elementCtrl.valueChanges.pipe(
       startWith(null),
-      map((allergen: string | null) => allergen ? this._filter(allergen) : this.allAllergens.slice()));
+      map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));
   }
 
   add(event: MatChipInputEvent): void {
     let value = (event.value || '').trim();
-    value = titleCaseWord(value);
+    value = this.titleCaseWord(value);
     console.log(value.length);
-    // if (value.length > 32) {
-    //   console.log(111111111111111);
-    //   value = value.slice(0, 32);
-    // }
     if (value) {
-      if (!this.allergens.includes(value)) {
-        this.allergens.push(value);
+      if (!this.elements.includes(value)) {
+        this.elements.push(value);
       }
-      if (!this.allAllergens.includes(value)) {
-        this.allAllergens.push(value);
+      if (!this.allElements.includes(value)) {
+        this.allElements.push(value);
       }
     }
     event.input.value = '';
-    this.allergenCtrl.setValue(null);
+    this.elementCtrl.setValue(null);
   }
 
-  remove(allergen: string): void {
-    const index = this.allergens.indexOf(allergen);
+  remove(element: string): void {
+    const index = this.elements.indexOf(element);
     if (index >= 0) {
-      this.allergens.splice(index, 1);
+      this.elements.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    const added = titleCaseWord(event.option.viewValue);
-    if (!this.allergens.includes(added)) {
-      this.allergens.push(added);
+    const added = this.titleCaseWord(event.option.viewValue);
+    if (!this.elements.includes(added)) {
+      this.elements.push(added);
     }
-    this.allergenInput.nativeElement.value = '';
-    this.allergenCtrl.setValue(null);
+    this.elementInput.nativeElement.value = '';
+    this.elementCtrl.setValue(null);
   }
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.allAllergens.filter(allergen => allergen.toLowerCase().includes(filterValue));
+    return this.allElements.filter(element => element.toLowerCase().includes(filterValue));
   }
-}
 
-function titleCaseWord(word: string) {
-  if (!word) {
-    return word;
+
+  titleCaseWord(word: string) {
+    console.log(1111111111111111111111111111111111);
+    if (!word) {
+      return word;
+    }
+    if (this.entity === 'tag') {
+      const i = this.hashSeeker(word);
+      return '#' + word[i].toUpperCase() + word.substr(i + 1).toLowerCase();
+    } else {
+      return word[0].toUpperCase() + word.substr(1).toLowerCase();
+    }
   }
-  return word[0].toUpperCase() + word.substr(1).toLowerCase();
+
+  hashSeeker(word: string) {
+    for (let i = 0; i < word.length; i++) {
+      if (word[i] !== '#') {
+        return i;
+      }
+    }
+    return 0;
+  }
+
 }
