@@ -1,14 +1,16 @@
 :host {
   display: block;
   height: 1000px;
-  width: 40%;
-  margin-left: 30%;
+  width: 600px;
+  min-width: 40%;
+  //margin-left: 30%;
+  margin: auto;
 }
 
 .header {
   text-align: center;
-  background: red;
-  height: 20%;
+  background: whitesmoke;
+  height: 10%;
   width: 100%;
   display: table;
   > div{
@@ -18,7 +20,35 @@
 }
 
 .list {
-  background: blue;
-  height: 200%;
+  background: lightblue;
   width: 100%;
+}
+.record{
+  padding: 10px 20px;
+  height: 200px;
+  > div{
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+.hash{
+  margin-right: 6px;
+  padding: 6px;
+  display: inline;
+  background: dodgerblue;
+  height: 10%;
+  width: 10%;
+  border: gray solid 1px;
+  border-radius: 20px;
+}
+.mat-divider{
+  border-top-width: 3px;
+  border-top-style: ridge;
+}
+.add{
+  display: inline;
+  padding: 100%;
+  text-align: center;
+  vertical-align: middle;
+  user-select: none;
 }

@@ -17,6 +17,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListedComponent } from './part-components/listed/listed.component';
+import { SorterComponent } from './part-components/sorter/sorter.component';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { ListedComponent } from './part-components/listed/listed.component';
     MenuComponent,
     TimeSliderComponent,
     ChipsComponent,
-    ListedComponent
+    ListedComponent,
+    SorterComponent
   ],
   exports: [
     SideFilterComponent,
@@ -45,7 +48,8 @@ import { ListedComponent } from './part-components/listed/listed.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatOptionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSelectModule
   ]
 })
 export class CookBookModule {

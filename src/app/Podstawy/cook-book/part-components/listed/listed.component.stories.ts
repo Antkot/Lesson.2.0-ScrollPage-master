@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { moduleMetadata, storiesOf } from '@storybook/angular';
 import { withKnobs } from '@storybook/addon-knobs';
 import { ListedComponent } from './listed.component';
+import { MatDividerModule } from '@angular/material/divider';
 
 const decoration: NgModule = {
   declarations: [ListedComponent],
-  imports: [],
+  imports: [MatDividerModule],
   providers: []
 };
 

@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="box">
+    <mat-form-field appearance="fill">
+      <mat-label>Sortuj</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option>None</mat-option>
+        <mat-option value="aToZ">Nazwa A-Z</mat-option>
+        <mat-option value="zToA">Nazwa Z-A</mat-option>
+        <mat-option value="timeUp">Czas (rosnący)</mat-option>
+        <mat-option value="timeDown">Czas (malejący)</mat-option>
+        <mat-option value="levelUp">Trudność (rosnąca)</mat-option>
+        <mat-option value="levelDown">Trudność (malejąca)</mat-option>
+        <mat-option value="kcalUp">Kaloryczność (rosnąca)</mat-option>
+        <mat-option value="kcalDown">Kaloryczność (malejąca)</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <p>You selected: {{selected}}</p>
+  </div>
+</div>
