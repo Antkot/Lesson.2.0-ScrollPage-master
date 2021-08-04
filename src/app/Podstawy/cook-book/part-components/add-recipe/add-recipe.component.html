@@ -3,12 +3,17 @@
     <h1>Nowy Przepis dodawany !</h1>
   </div>
   <mat-divider></mat-divider>
-  <div class="hash">hasze</div>
+  <div class="hash">Hash component</div>
   <mat-divider></mat-divider>
-  <div class="name">Tytuł EDIT</div>
+  <div class="name">
+    Tytuł
+    <div class="editButton" *ngIf="!edit">
+      Edytuj przepis
+    </div>
+  </div>
   <mat-divider></mat-divider>
   <div class="ingredients">
-    Potrzebne składniki:
+    Potrzebne składniki: TU KOMPONENT ZE SKłADNIKAMi
     <ul>
       <li>kładniki x</li>
       <li>składniki y</li>
@@ -18,14 +23,10 @@
     </ul>
   </div>
   <mat-divider></mat-divider>
-  <div class="steps">
-    KROKI<br><br><br><br>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" cdkDropListDisabled>
-      <div class="example-box" *ngFor="let step of steps" cdkDrag>{{step}}
-      </div>
-    </div>
-  </div>
+  <div>krokki komponent</div>
+  <mat-divider></mat-divider>
+  <footer class="confirm">
+    {{confirmNotifications}}
+  </footer>
 </div>
-<footer class="confirm">
-  Zapisz / Gotuj!
-</footer>
+

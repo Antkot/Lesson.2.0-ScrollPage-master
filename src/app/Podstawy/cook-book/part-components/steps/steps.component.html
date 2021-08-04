@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="steps">
+    <ng-container *ngTemplateOutlet="information"></ng-container>
+  </div>
+  <ng-template #information>
+    KROKI<br><br><br><br>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" cdkDropListDisabled *ngIf="!edit">
+      <div class="example-box" *ngFor="let step of steps" cdkDrag>{{step}}
+      </div>
+    </div>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" *ngIf="edit">
+      <div class="example-box" *ngFor="let step of steps" cdkDrag>{{step}}
+        <div>
+          <mat-icon (click)="done()">done</mat-icon>
+          <mat-icon (click)="stepp(step)">edit</mat-icon>
+          <mat-icon>delete</mat-icon>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

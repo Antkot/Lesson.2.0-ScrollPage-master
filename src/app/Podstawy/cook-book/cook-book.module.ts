@@ -20,6 +20,8 @@ import { ListedComponent } from './part-components/listed/listed.component';
 import { SorterComponent } from './part-components/sorter/sorter.component';
 import { MatSelectModule } from '@angular/material/select';
 import { AddRecipeComponent } from './part-components/add-recipe/add-recipe.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { StepsComponent } from './part-components/steps/steps.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { AddRecipeComponent } from './part-components/add-recipe/add-recipe.comp
     ChipsComponent,
     ListedComponent,
     SorterComponent,
-    AddRecipeComponent
+    AddRecipeComponent,
+    StepsComponent
   ],
   exports: [
     SideFilterComponent,
@@ -51,7 +54,8 @@ import { AddRecipeComponent } from './part-components/add-recipe/add-recipe.comp
     MatFormFieldModule,
     MatOptionModule,
     BrowserAnimationsModule,
-    MatSelectModule
+    MatSelectModule,
+    DragDropModule
   ]
 })
 export class CookBookModule {
