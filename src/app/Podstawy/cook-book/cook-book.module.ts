@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListedComponent } from './part-components/listed/listed.component';
 import { SorterComponent } from './part-components/sorter/sorter.component';
 import { MatSelectModule } from '@angular/material/select';
+import { AddRecipeComponent } from './part-components/add-recipe/add-recipe.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatSelectModule } from '@angular/material/select';
     TimeSliderComponent,
     ChipsComponent,
     ListedComponent,
-    SorterComponent
+    SorterComponent,
+    AddRecipeComponent
   ],
   exports: [
     SideFilterComponent,

@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="header" *ngIf="edit">
+    <h1>Nowy Przepis dodawany !</h1>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="hash">hasze</div>
+  <mat-divider></mat-divider>
+  <div class="name">Tytuł EDIT</div>
+  <mat-divider></mat-divider>
+  <div class="ingredients">
+    Potrzebne składniki:
+    <ul>
+      <li>kładniki x</li>
+      <li>składniki y</li>
+      <li>składniki z</li>
+      <li>składniki p</li>
+      <li>składniki q</li>
+    </ul>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="steps">
+    KROKI<br><br><br><br>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" cdkDropListDisabled>
+      <div class="example-box" *ngFor="let step of steps" cdkDrag>{{step}}
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="confirm">
+  Zapisz / Gotuj!
+</footer>
