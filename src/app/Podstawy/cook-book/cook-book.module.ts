@@ -16,13 +16,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ListedComponent } from './part-components/listed/listed.component';
 
 @NgModule({
   declarations: [
     SideFilterComponent,
     MenuComponent,
     TimeSliderComponent,
-    ChipsComponent
+    ChipsComponent,
+    ListedComponent
   ],
   exports: [
     SideFilterComponent,
