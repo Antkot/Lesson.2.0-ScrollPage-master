@@ -32,18 +32,15 @@ export class StepsComponent implements OnInit {
     this.heroForm = new FormGroup({
       name: new FormControl(this.newStep, [
         Validators.required,
-        Validators.minLength(4),
-      ]),
+        Validators.minLength(4)
+      ])
     });
   }
 
   done(editedStep) {
-    if (this.steps.includes(editedStep)) {
-      //wykrywa samo siebie ! ! !
-      editedStep = editedStep + ' ';
-    }
-    const index = this.steps.indexOf(this.edited);
-    this.steps[index] = editedStep;
+    console.log(editedStep);
+    this.delete(this.edited);
+    this.add(editedStep);
     this.edited = null;
     this.editedStep = '';
   }

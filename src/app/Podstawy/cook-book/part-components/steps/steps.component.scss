@@ -54,33 +54,41 @@
 .mat-icon {
   cursor: default;
 }
-.editor{
+
+.editor {
   padding-left: 20px;
   width: 90%;
 }
-.icon-container{
+
+.icon-container {
   border-radius: 50%;
   position: relative;
   top: 20px;
   right: 30px;
   float: right;
 }
-.icon-container:hover{
+
+.icon-container:hover {
   cursor: pointer;
-  mat-icon{
+
+  mat-icon {
     cursor: pointer;
   }
 }
-.menu{
+
+.menu {
   cursor: pointer;
-  mat-icon{
+
+  mat-icon {
     cursor: pointer;
   }
 }
-.def{
+
+.def {
   cursor: default;
 }
-.alert{
+
+.alert {
   width: 100%;
   font-size: 14px;
   color: red;
