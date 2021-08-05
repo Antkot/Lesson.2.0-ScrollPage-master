@@ -12,7 +12,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ChipsComponent } from './part-components/chips/chips.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AddRecipeComponent } from './part-components/add-recipe/add-recipe.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StepsComponent } from './part-components/steps/steps.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,9 @@ import { StepsComponent } from './part-components/steps/steps.component';
     MatOptionModule,
     BrowserAnimationsModule,
     MatSelectModule,
-    DragDropModule
+    DragDropModule,
+    MatMenuModule,
+    FormsModule
   ]
 })
 export class CookBookModule {

@@ -5,10 +5,13 @@ import { MatDividerModule } from '@angular/material/divider';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { StepsComponent } from './steps.component';
 import { MatIconModule } from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
 
 const decoration: NgModule = {
   declarations: [StepsComponent],
-  imports: [MatDividerModule, DragDropModule, MatIconModule],
+  imports: [BrowserAnimationsModule, MatDividerModule, DragDropModule, MatIconModule, MatMenuModule, MatInputModule],
   providers: []
 };
 
