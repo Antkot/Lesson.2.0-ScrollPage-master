@@ -25,6 +25,8 @@ import { StepsComponent } from './part-components/steps/steps.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { IngredientsComponent } from './part-components/ingredients/ingredients.component';
 import { MatTableModule } from '@angular/material/table';
+import { AddIngredientComponent } from './part-components/add-ingredient/add-ingredient.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { MatTableModule } from '@angular/material/table';
     SorterComponent,
     AddRecipeComponent,
     StepsComponent,
-    IngredientsComponent
+    IngredientsComponent,
+    AddIngredientComponent
   ],
   exports: [
     SideFilterComponent,
@@ -62,7 +65,8 @@ import { MatTableModule } from '@angular/material/table';
     DragDropModule,
     MatMenuModule,
     FormsModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonModule
   ]
 })
 export class CookBookModule {
