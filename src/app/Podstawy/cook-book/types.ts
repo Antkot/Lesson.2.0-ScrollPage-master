@@ -24,8 +24,9 @@ export interface Levels {
 export interface Measures {
   nameId: string;
   measure: string;
+  shortcut: string;
 }
-export interface products {
+export interface Products {
   nameId: string;
   product: string;
   allergens: Array<string>;
