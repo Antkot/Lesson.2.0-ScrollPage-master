@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Dish, Levels, Measures, Products } from '../../types';
+import { Allergen, Dish, Hashes, Levels, Measures, Products, Timer } from '../../types';
 import * as cuid from 'cuid';
 
 @Injectable({
@@ -9,6 +9,8 @@ import * as cuid from 'cuid';
 export class LoadingService {
   dishes$ = new BehaviorSubject<Array<Dish>>([]);
   levels$ = new BehaviorSubject<Array<Levels>>([]);
+  allergens$ = new BehaviorSubject<Array<Allergen>>([]);
+  hashes$ = new BehaviorSubject<Array<Hashes>>([]);
   measures$ = new BehaviorSubject<Array<Measures>>([]);
   products$ = new BehaviorSubject<Array<Products>>([]);
 
@@ -18,12 +20,12 @@ export class LoadingService {
     if (!!localStorage.dishData) {
     } else {
       this.dishes$.next([
-        {dishId: cuid(), name: 'śniadanie'},
-        {dishId: cuid(), name: 'obiad'},
-        {dishId: cuid(), name: 'kolacja'},
-        {dishId: cuid(), name: 'desery'},
-        {dishId: cuid(), name: 'launch'},
-        {dishId: cuid(), name: 'inne'}
+        { dishId: cuid(), name: 'śniadanie' },
+        { dishId: cuid(), name: 'obiad' },
+        { dishId: cuid(), name: 'kolacja' },
+        { dishId: cuid(), name: 'desery' },
+        { dishId: cuid(), name: 'launch' },
+        { dishId: cuid(), name: 'inne' }
       ]);
     }
     if (!!localStorage.levelData) {
@@ -34,6 +36,20 @@ export class LoadingService {
         {levelId: cuid(), level: 3},
         {levelId: cuid(), level: 4},
         {levelId: cuid(), level: 5},
+      ]);
+    }
+    if (!!localStorage.allergens) {
+    } else {
+      this.allergens$.next([
+        {allergenId: cuid(), name: 'Laktoza'},
+        {allergenId: cuid(), name: 'Białko'},
+        {allergenId: cuid(), name: 'Gluten'}
+      ]);
+    }
+    if (!!localStorage.hashes) {
+    } else {
+      this.hashes$.next([
+        {hashId: cuid(), name: 'Szpinak'}
       ]);
     }
     if (!!localStorage.measures) {
@@ -58,7 +74,5 @@ export class LoadingService {
         {nameId: cuid(), product: 'Jaja', allergens: ['Laktoza', 'Białko']}
       ]);
     }
-
-
   }
 }

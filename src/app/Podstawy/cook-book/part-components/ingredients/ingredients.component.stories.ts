@@ -13,7 +13,22 @@ const decoration: NgModule = {
 storiesOf('Podstawy / cook', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
-  .add('Ingredients', () => ({
+  .add('Ingredients edit', () => ({
     props: {} as Partial<IngredientsComponent>,
     component: IngredientsComponent,
+    template: `
+    <app-ingredients  [edit]="true">
+    `
   }));
+
+storiesOf('Podstawy / cook', module)
+  .addDecorator(moduleMetadata(decoration))
+  .addDecorator(withKnobs)
+  .add('Ingredients view', () => ({
+    props: {} as Partial<IngredientsComponent>,
+    component: IngredientsComponent,
+    template: `
+    <app-ingredients  [edit]="false">
+    `
+  }));
+

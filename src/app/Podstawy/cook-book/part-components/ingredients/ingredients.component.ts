@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable, ReplaySubject } from 'rxjs';
 
@@ -24,8 +24,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
   templateUrl: './ingredients.component.html',
   styleUrls: ['./ingredients.component.scss']
 })
-export class IngredientsComponent implements OnInit {
-  displayedColumns: string[] = [
+export class IngredientsComponent implements OnInit{
+@Input() edit;
+displayedColumns: string[] = [
     'position',
     'name',
     'weight',

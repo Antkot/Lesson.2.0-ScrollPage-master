@@ -1,7 +1,7 @@
 <div class='container'>
-  <div class="headerButtons">
+  <div class="headerButtons" *ngIf='edit'>
     <button mat-raised-button (click)="addData()" class="demo-button">
-      Losuj rekord
+      Losuj nowy rekord
     </button>
     <button
       mat-raised-button
@@ -10,6 +10,7 @@
       class="demo-button">
       Usuń ostatni rekord
     </button>
+    <div>TUTAJ BĘDZIE OPCJA DODAWANIA <br/> KOLEJNEGO PRODUKtu z nakŁADKI</div>
   </div>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
