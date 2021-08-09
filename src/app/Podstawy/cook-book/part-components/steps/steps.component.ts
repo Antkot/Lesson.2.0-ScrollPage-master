@@ -12,7 +12,8 @@ export class StepsComponent implements OnInit {
   edited = null;
   private newStep: string;
   private editedStep: string;
-  steps = [
+  @Input() steps = [
+    'Krok z braku inputu',
     'Obierz cebulę i pokrój na drobne kawałeczki',
     'Piecz na wolnym ogniu, powoli dolewając mleka',
     'Ugotuj pół kilo makaronu',
@@ -38,9 +39,12 @@ export class StepsComponent implements OnInit {
   }
 
   done(editedStep) {
-    console.log(editedStep);
     this.delete(this.edited);
     this.add(editedStep);
+    const index = this.steps.indexOf(this.edited);
+    const index2 = this.steps.indexOf(editedStep);
+    console.log('indexy', index, index2);
+    moveItemInArray(this.steps, this.steps.length, index);
     this.edited = null;
     this.editedStep = '';
   }
@@ -48,6 +52,7 @@ export class StepsComponent implements OnInit {
   refactor(step) {
     this.edited = step;
     this.editedStep = step;
+    console.log('indexy', step);
   }
 
   delete(step) {

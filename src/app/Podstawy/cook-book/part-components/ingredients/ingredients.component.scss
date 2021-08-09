@@ -1,0 +1,27 @@
+:host{
+  display: flex;
+  justify-content: center;
+}
+.container{
+  border: 1px lightgoldenrodyellow solid;
+  background: wheat;
+}
+.demo-table {
+  width: 100%;
+}
+
+.headerButtons {
+  text-align: center;
+  padding: 8px 0;
+}
+
+.demo-button + .demo-button {
+  margin-left: 8px;
+}
+.mat-header-cell{
+  padding: 10px;
+}
+.mat-cell{
+  text-align: center;
+}
+

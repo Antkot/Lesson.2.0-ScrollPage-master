@@ -22,7 +22,13 @@ storiesOf('Podstawy / cook', module)
     props: {} as Partial<StepsComponent>,
     component: StepsComponent,
     template: `
-<app-steps [edit]="false">;
+<app-steps [edit]="false" [steps]="[
+    'Obierz cebulę i pokrój na drobne kawałeczki',
+    'Piecz na wolnym ogniu, powoli dolewając mleka',
+    'stories no-edit Ugotuj pół kilo makaronu',
+    'Ugotowany makaron dosyp do cebuli',
+    'Wbij jaja do całości, dopraw wegług smaku'
+  ]">;
 `
   }));
 storiesOf('Podstawy / cook', module)
@@ -32,6 +38,12 @@ storiesOf('Podstawy / cook', module)
     props: {} as Partial<StepsComponent>,
     component: StepsComponent,
     template: `
-<app-steps [edit]="true">;
+<app-steps [edit]="true" [steps]="[
+    '1 krok - to edit ze stories',
+    'Piecz na wolnym ogniu, powoli dolewając mleka',
+    '222 Ugotuj pół kilo makaronu',
+    'Ugotowany makaron dosyp do cebuli',
+    'Wbij jaja do całości, dopraw wegług smaku'
+  ]">;
 `
   }));

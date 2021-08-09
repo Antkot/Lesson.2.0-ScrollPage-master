@@ -3,7 +3,6 @@
     <ng-container *ngTemplateOutlet="information"></ng-container>
   </div>
   <ng-template #information>
-    KROKI<br><br><br><br>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" cdkDropListDisabled *ngIf="!edit">
       <div class="example-box" style="cursor: default;" *ngFor="let step of steps" cdkDrag>
         {{step}}

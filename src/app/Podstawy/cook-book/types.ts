@@ -21,3 +21,12 @@ export interface Levels {
   levelId: string;
   level: number;
 }
+export interface Measures {
+  nameId: string;
+  measure: string;
+}
+export interface products {
+  nameId: string;
+  product: string;
+  allergens: Array<string>;
+}
