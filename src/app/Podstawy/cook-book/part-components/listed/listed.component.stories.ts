@@ -6,7 +6,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SorterComponent } from '../sorter/sorter.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
-import { SideFilterComponent } from '../side-filter/side-filter.component';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { MatRadioButton } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
@@ -25,7 +24,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 const decoration: NgModule = {
   declarations: [ListedComponent,
     SorterComponent,
-    SideFilterComponent,
     MatExpansionPanel,
     MatExpansionPanelTitle,
     MatExpansionPanelHeader,

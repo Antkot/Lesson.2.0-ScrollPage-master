@@ -11,6 +11,7 @@ import { Dish, Levels } from '../../types';
 export class SideFilterComponent implements OnInit {
   dishes$: Observable<Array<Dish>> = this.service.dishes$;
   levels$: Observable<Array<Levels>> = this.service.levels$;
+  tag: string = null;
 
   counter(i: number) {
     return new Array(i);
@@ -21,6 +22,9 @@ export class SideFilterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  addTag(x: string) {
   }
 
 }

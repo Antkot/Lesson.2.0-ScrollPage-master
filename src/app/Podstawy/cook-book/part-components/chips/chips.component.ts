@@ -1,14 +1,10 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-
-/**
- * @title Chips Autocomplete
- */
 @Component({
   selector: 'app-chips',
   templateUrl: 'chips.component.html',
@@ -21,8 +17,8 @@ export class ChipsComponent {
   separatorKeysCodes: number[] = [ENTER, COMMA];
   elementCtrl = new FormControl();
   filteredElements: Observable<string[]>;
-  @Input() elements: string[] = ['Lactose'];
-  allElements: string[] = ['Lactose', 'Peanuts', 'Sesame', 'Soybeans', 'Lupin'];
+  @Output() add = new EventEmitter();
+  @Input() allElements: string[] = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
 
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
@@ -32,21 +28,21 @@ export class ChipsComponent {
       map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));
   }
 
-  add(event: MatChipInputEvent): void {
-    let value = (event.value || '').trim();
-    value = this.titleCaseWord(value);
-    console.log(value.length);
-    if (value) {
-      if (!this.elements.includes(value)) {
-        this.elements.push(value);
-      }
-      if (!this.allElements.includes(value)) {
-        this.allElements.push(value);
-      }
-    }
-    event.input.value = '';
-    this.elementCtrl.setValue(null);
-  }
+  // add(event: MatChipInputEvent): void {
+  //   let value = (event.value || '').trim();
+  //   value = this.titleCaseWord(value);
+  //   console.log(value.length);
+  //   if (value) {
+  //     if (!this.elements.includes(value)) {
+  //       this.elements.push(value);
+  //     }
+  //     if (!this.allElements.includes(value)) {
+  //       this.allElements.push(value);
+  //     }
+  //   }
+  //   event.input.value = '';
+  //   this.elementCtrl.setValue(null);
+  // }
 
   remove(element: string): void {
     const index = this.elements.indexOf(element);
@@ -75,7 +71,7 @@ export class ChipsComponent {
     if (!word) {
       return word;
     }
-    if (this.entity === 'tag') {
+    if (this.entity === 'Tag') {
       const i = this.hashSeeker(word);
       return '#' + word[i].toUpperCase() + word.substr(i + 1).toLowerCase();
     } else {

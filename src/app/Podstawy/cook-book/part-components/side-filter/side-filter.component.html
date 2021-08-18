@@ -1,7 +1,5 @@
 <div class='container'>
   <h2> Filtruj potrawy:</h2>
-
-
   <mat-accordion>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -13,15 +11,13 @@
         <mat-radio-button>{{dish.name}}</mat-radio-button>
       </p>
     </mat-expansion-panel>
-
-
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
           #Hasze
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-chips></app-chips>
+      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]="['#Szpinak', '#Szybkie', '#Orient']"></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -29,7 +25,7 @@
           Alergeny
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-chips></app-chips>
+      <app-chips  [entity]="'Alergen'" [removable]="true" [elements]="[]"></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -46,16 +42,13 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <section>
-
         <p  *ngFor="let level of levels$ | async">
           <mat-checkbox checked="true">
-            <a *ngFor='let in of counter(level.level)'><mat-icon>local_pizza</mat-icon></a>
+            <a *ngFor='let i of counter(level.level)'><mat-icon>local_pizza</mat-icon></a>
           </mat-checkbox>
         </p>
       </section>
     </mat-expansion-panel>
   </mat-accordion>
-
-
 </div>
 
