@@ -25,8 +25,9 @@ import { StepsComponent } from './part-components/steps/steps.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { IngredientsComponent } from './part-components/ingredients/ingredients.component';
 import { MatTableModule } from '@angular/material/table';
-import { AddIngredientComponent } from './part-components/add-ingredient/add-ingredient.component';
+import { AddIngredientComponent, IngredientDialogComponent } from './part-components/add-ingredient/add-ingredient.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -39,13 +40,16 @@ import { MatButtonModule } from '@angular/material/button';
     AddRecipeComponent,
     StepsComponent,
     IngredientsComponent,
-    AddIngredientComponent
+    AddIngredientComponent,
+    IngredientDialogComponent
   ],
   exports: [
     SideFilterComponent,
     MenuComponent,
     TimeSliderComponent,
-    ChipsComponent
+    ChipsComponent,
+    AddIngredientComponent,
+    IngredientDialogComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +70,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatMenuModule,
     FormsModule,
     MatTableModule,
-    MatButtonModule
+    MatButtonModule,
+    MatDialogModule
   ]
 })
 export class CookBookModule {
