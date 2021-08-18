@@ -7,11 +7,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const decoration: NgModule = {
   declarations: [SorterComponent],
-  imports: [BrowserAnimationsModule, MatSelectModule],
+  imports: [BrowserAnimationsModule, MatSelectModule ],
   providers: []
 };
 
-storiesOf('Podstawy / cook', module)
+storiesOf('Podstawy / cook / parts', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('sorter', () => ({

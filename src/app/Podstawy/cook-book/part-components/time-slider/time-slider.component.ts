@@ -4,7 +4,7 @@ import { Options } from '@angular-slider/ngx-slider';
 @Component({
   selector: 'app-time-slider',
   templateUrl: './time-slider.component.html',
-  styleUrls: ['./time-slider.component.css']
+  styleUrls: ['./time-slider.component.scss']
 })
 export class TimeSliderComponent implements OnInit {
   @Input() value = 2;

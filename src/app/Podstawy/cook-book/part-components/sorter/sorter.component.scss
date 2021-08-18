@@ -3,11 +3,17 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .box {
-  padding: 50px;
+  padding: 20px;
   margin: 5px;
   text-align: center;
+}
+.todel{
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+  background: gray;
 }

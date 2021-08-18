@@ -28,6 +28,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AddIngredientComponent, IngredientDialogComponent } from './part-components/add-ingredient/add-ingredient.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ListPageComponent } from './main-components/list-page/list-page.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     StepsComponent,
     IngredientsComponent,
     AddIngredientComponent,
-    IngredientDialogComponent
+    IngredientDialogComponent,
+    ListPageComponent
   ],
   exports: [
     SideFilterComponent,
