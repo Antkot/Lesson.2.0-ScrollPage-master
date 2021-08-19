@@ -9,13 +9,11 @@
 
 .header {
   text-align: center;
-  //background: gold;
   background: palegoldenrod;
   width: 100%;
   display: table;
 
   > div {
-    //border: 1px red solid;
     display: table-cell;
     text-align: left;
     padding-left: 20px;
@@ -23,7 +21,6 @@
   }
   :last-child{
     float: right;
-    padding-right: 20px;
   }
 }
 .mat-form-field-infix {
@@ -34,13 +31,10 @@
   overflow: auto;
   height: calc(100vh - 50px);
   width: 100%;
-  background: gold;
   background: palegoldenrod;
 }
 
 .list {
-  //background: gold;
-  //background: palegoldenrod;
   width: 100%;
 }
 
@@ -81,17 +75,13 @@
 .mat-divider {
   border-top-width: 10px;
   border-top-style: solid;
-  border-top-color: gold;
   border-top-color: palegoldenrod;
 }
 
 .add {
+  z-index: 5;
   border-radius: 0 0 20px 20px;
   position: sticky;
-  //top: 0;
-  //background: gold;
-  //border: darkgoldenrod double 12px;
-  //color: darkgoldenrod;
   top: -11px;
   background: dodgerblue;
   border: gold double 12px;
@@ -103,10 +93,4 @@
 
 .add:hover {
   border: darkgoldenrod double 12px;
-  //color: gold;
-  //background: darkgoldenrod;
 }
-//
-//.add:active {
-//  border: gold double 12px;
-//}

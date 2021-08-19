@@ -1,12 +1,12 @@
 <div class="seenWindow">
   <div class="header">
-  <div>
-    <app-chips [entity]="'Tagi Filtrów'" [removable]="false"></app-chips>
+    <div>
+      <app-chips [entity]="'Tagi Filtrów'" [removable]="false"></app-chips>
+    </div>
+    <div>
+      <app-sorter></app-sorter>
+    </div>
   </div>
-  <div>
-    <app-sorter></app-sorter>
-  </div>
-</div>
   <div class="add">
     <h1>
       Dodaj przepis
@@ -17,7 +17,7 @@
     <div class="record">
       <h1>Naleśniki ze szpinakiem</h1>
       <div>
-        <app-chips [entity]="'Tagi Dania'" [removable]="false"></app-chips>
+        <app-chips [removable]="false" [elements]="['koks', 'wiencej kosksu', 'jeszce wiencej koksu']"></app-chips>
       </div>
     </div>
     <mat-divider></mat-divider>
@@ -67,6 +67,28 @@
     <mat-divider></mat-divider>
     <div class="record">
       <h1>Orzechówka</h1>
+      <div>
+        <div class="hash">1 porjca</div>
+        <div class="hash">truudne</div>
+        <div class="hash">szybciutkie</div>
+        <div class="hash">500kcal / porcje</div>
+        <div class="hash">Alergeny?</div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="record">
+      <h1>Orzechówka 3</h1>
+      <div>
+        <div class="hash">1 porjca</div>
+        <div class="hash">truudne</div>
+        <div class="hash">szybciutkie</div>
+        <div class="hash">500kcal / porcje</div>
+        <div class="hash">Alergeny?</div>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div class="record">
+      <h1>Orzechówka 2</h1>
       <div>
         <div class="hash">1 porjca</div>
         <div class="hash">truudne</div>

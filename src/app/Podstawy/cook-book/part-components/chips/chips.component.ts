@@ -18,6 +18,7 @@ export class ChipsComponent {
   elementCtrl = new FormControl();
   filteredElements: Observable<string[]>;
   @Output() add = new EventEmitter();
+  @Input() elements: string[] = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
   @Input() allElements: string[] = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
 
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
