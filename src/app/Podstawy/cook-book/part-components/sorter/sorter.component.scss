@@ -7,20 +7,13 @@
   align-items: center;
 }
 .box {
-  padding: 20px;
+  padding: 10px 0 0 0;
   margin: 5px;
   text-align: center;
 }
-//.todel{
-//  top: 0;
-//  position: absolute;
-//  left: 0;
-//  background: dimgray;
-//}
-.todelChild{
-  position: sticky;
+.todel{
   top: 0;
-  //padding: 10px;
-  //opacity: 0.8;
-  background: gray;
+  position: absolute;
+  left: 0;
+  background: dimgray;
 }

@@ -1,10 +1,7 @@
 <div class="seenWindow">
   <div class="header">
   <div>
-    <div class="hash">Tu będą hasze</div>
-    <div class="hash">#hasz1</div>
-    <div class="hash">#hasz2</div>
-    <div class="hash">#hasz3</div>
+    <app-chips [entity]="'Tagi Filtrów'" [removable]="false"></app-chips>
   </div>
   <div>
     <app-sorter></app-sorter>
@@ -20,11 +17,7 @@
     <div class="record">
       <h1>Naleśniki ze szpinakiem</h1>
       <div>
-        <div class="hash">1 porjca</div>
-        <div class="hash">truudne</div>
-        <div class="hash">szybciutkie</div>
-        <div class="hash">500kcal / porcje</div>
-        <div class="hash">Alergeny?</div>
+        <app-chips [entity]="'Tagi Dania'" [removable]="false"></app-chips>
       </div>
     </div>
     <mat-divider></mat-divider>

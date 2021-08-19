@@ -22,9 +22,12 @@ import { SorterComponent } from '../../part-components/sorter/sorter.component';
 import { SideFilterComponent } from '../../part-components/side-filter/side-filter.component';
 import { TimeSliderComponent } from '../../part-components/time-slider/time-slider.component';
 import { ListPageComponent } from './list-page.component';
+import { MenuComponent } from '../../part-components/menu/menu.component';
 
 const decoration: NgModule = {
-  declarations: [ListedComponent,
+  declarations: [
+    ListedComponent,
+    MenuComponent,
     SorterComponent,
     SideFilterComponent,
     MatExpansionPanel,

@@ -2,31 +2,45 @@
   width: 1000px;
   display: block;
   margin: auto;
-  color: ghostwhite;
+  max-width: 70%;
+  color: white;
 }
+
 
 .header {
   text-align: center;
-  background: whitesmoke;
-  height: 20vh;
+  //background: gold;
+  background: palegoldenrod;
   width: 100%;
   display: table;
 
   > div {
+    //border: 1px red solid;
     display: table-cell;
-    vertical-align: middle;
+    text-align: left;
+    padding-left: 20px;
+    height: 50%;
   }
+  :last-child{
+    float: right;
+    padding-right: 20px;
+  }
+}
+.mat-form-field-infix {
+  width: 300px;
 }
 
 .seenWindow {
   overflow: auto;
-  height: 100vh;
+  height: calc(100vh - 50px);
   width: 100%;
-  background: rosybrown;
+  background: gold;
+  background: palegoldenrod;
 }
 
 .list {
-  background: gold;
+  //background: gold;
+  //background: palegoldenrod;
   width: 100%;
 }
 
@@ -36,12 +50,14 @@
   background: dodgerblue;
   padding: 10px 20px;
   height: 200px;
-  > div {;
+
+  > div {
     display: table-cell;
-    vertical-align: middle;
+    text-align: left;
   }
 }
-.record:hover{
+
+.record:hover {
   border: darkgoldenrod 12px double;
 }
 
@@ -56,7 +72,8 @@
   border: gray solid 1px;
   border-radius: 20px;
 }
-.hash:hover{
+
+.hash:hover {
   background: darkorange;
 }
 
@@ -65,23 +82,31 @@
   border-top-width: 10px;
   border-top-style: solid;
   border-top-color: gold;
+  border-top-color: palegoldenrod;
 }
 
 .add {
+  border-radius: 0 0 20px 20px;
   position: sticky;
-  top: 0;
-  background: gold;
-  border: darkgoldenrod solid 5px;
-  color: darkgoldenrod;
+  //top: 0;
+  //background: gold;
+  //border: darkgoldenrod double 12px;
+  //color: darkgoldenrod;
+  top: -11px;
+  background: dodgerblue;
+  border: gold double 12px;
+  color: white;
   text-align: center;
   vertical-align: middle;
   user-select: none;
 }
-.add:hover{
-  border: darkgoldenrod solid 5px;
-  color: gold;
-  background: darkgoldenrod;
+
+.add:hover {
+  border: darkgoldenrod double 12px;
+  //color: gold;
+  //background: darkgoldenrod;
 }
-.add:active{
-  border: gold solid 5px;
-}
+//
+//.add:active {
+//  border: gold double 12px;
+//}

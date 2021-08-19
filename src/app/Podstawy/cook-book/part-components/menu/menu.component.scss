@@ -1,20 +1,22 @@
 :host{
+  position: sticky;
   user-select: none;
 }
 .wraper{
   height: 50px;
   width: 100%;
   align-content: center;
-  background: aliceblue;
+  background: dodgerblue;
 }
 .option{
   color: white;
   text-align: center;
   background: dodgerblue;
   width: calc(15% - 2px);
-  border: 1px blue solid;
+  border: 1px gold solid;
   height: 80%;
   float: left;
+  margin-right:5px;
 }
 .option:hover{
   background: cornflowerblue;
