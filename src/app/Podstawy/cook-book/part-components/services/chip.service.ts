@@ -3,7 +3,15 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class ChipService {
 
-  constructor() { }
+  constructor() {
+  }
+
+  addTag(x: string) {
+    return x;
+  }
+
 }

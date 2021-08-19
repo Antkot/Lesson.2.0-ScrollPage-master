@@ -43,7 +43,7 @@ const decoration: NgModule = {
     PortalModule,
     MatRippleModule,
     NgxSliderModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
   ],
   providers: []
 };

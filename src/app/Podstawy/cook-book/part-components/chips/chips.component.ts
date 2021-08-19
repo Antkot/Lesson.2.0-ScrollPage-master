@@ -23,9 +23,9 @@ export class ChipsComponent {
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
   constructor() {
-    this.filteredElements = this.elementCtrl.valueChanges.pipe(
-      startWith(null),
-      map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));
+    // this.filteredElements = this.elementCtrl.valueChanges.pipe(
+    //   startWith(null),
+    //   map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));
   }
 
   // add(event: MatChipInputEvent): void {
@@ -45,24 +45,24 @@ export class ChipsComponent {
   // }
 
   remove(element: string): void {
-    const index = this.elements.indexOf(element);
-    if (index >= 0) {
-      this.elements.splice(index, 1);
-    }
+    // const index = this.elements.indexOf(element);
+    // if (index >= 0) {
+    //   this.elements.splice(index, 1);
+    // }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    const added = this.titleCaseWord(event.option.viewValue);
-    if (!this.elements.includes(added)) {
-      this.elements.push(added);
-    }
-    this.elementInput.nativeElement.value = '';
-    this.elementCtrl.setValue(null);
-  }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.allElements.filter(element => element.toLowerCase().includes(filterValue));
+    // const added = this.titleCaseWord(event.option.viewValue);
+    // if (!this.elements.includes(added)) {
+    //   this.elements.push(added);
+    // }
+    // this.elementInput.nativeElement.value = '';
+    // this.elementCtrl.setValue(null);
+  // }
+  //
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
+  //   return this.allElements.filter(element => element.toLowerCase().includes(filterValue));
   }
 
 

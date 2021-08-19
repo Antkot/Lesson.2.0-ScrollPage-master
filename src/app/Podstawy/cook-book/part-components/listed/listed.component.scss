@@ -1,53 +1,87 @@
 :host {
-  height: 1000px;
-  width: 600px;
-  min-width: 40%;
+  width: 1000px;
   display: block;
   margin: auto;
+  color: ghostwhite;
 }
 
 .header {
   text-align: center;
   background: whitesmoke;
-  height: 10%;
+  height: 20vh;
   width: 100%;
   display: table;
-  > div{
+
+  > div {
     display: table-cell;
     vertical-align: middle;
   }
 }
 
+.seenWindow {
+  overflow: auto;
+  height: 100vh;
+  width: 100%;
+  background: rosybrown;
+}
+
 .list {
-  background: lightblue;
+  background: gold;
   width: 100%;
 }
-.record{
+
+.record {
+  border: gold 12px double;
+  border-radius: 50px;
+  background: dodgerblue;
   padding: 10px 20px;
   height: 200px;
-  > div{
+  > div {;
     display: table-cell;
     vertical-align: middle;
   }
 }
-.hash{
+.record:hover{
+  border: darkgoldenrod 12px double;
+}
+
+.hash {
+  color: black;
   margin-right: 6px;
   padding: 6px;
   display: inline;
-  background: dodgerblue;
+  background: orange;
   height: 10%;
   width: 10%;
   border: gray solid 1px;
   border-radius: 20px;
 }
-.mat-divider{
-  border-top-width: 3px;
-  border-top-style: ridge;
+.hash:hover{
+  background: darkorange;
 }
-.add{
-  display: inline;
-  padding: 100%;
+
+
+.mat-divider {
+  border-top-width: 10px;
+  border-top-style: solid;
+  border-top-color: gold;
+}
+
+.add {
+  position: sticky;
+  top: 0;
+  background: gold;
+  border: darkgoldenrod solid 5px;
+  color: darkgoldenrod;
   text-align: center;
   vertical-align: middle;
   user-select: none;
+}
+.add:hover{
+  border: darkgoldenrod solid 5px;
+  color: gold;
+  background: darkgoldenrod;
+}
+.add:active{
+  border: gold solid 5px;
 }

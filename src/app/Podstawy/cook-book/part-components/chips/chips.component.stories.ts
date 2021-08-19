@@ -33,7 +33,7 @@ storiesOf('Podstawy / cook', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips  [entity]="'Alergen'" [removable]="true" [elements]="[]">;
+<app-chips  [entity]="'Alergen'" [removable]="true">;
 `
   }));
 storiesOf('Podstawy / cook', module)
@@ -43,7 +43,7 @@ storiesOf('Podstawy / cook', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips [entity]="'Alergen'" [removable]="false" [elements]="['Przykładowy nieusuwalny element']">;
+<app-chips [entity]="'Alergen'" [removable]="false">;
 `
   }));
 
@@ -54,7 +54,7 @@ storiesOf('Podstawy / cook', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips  [entity]="'Tag'" [removable]="true" [elements]="[]">;
+<app-chips  [entity]="'Tag'" [removable]="true">;
 `
   }));
 storiesOf('Podstawy / cook', module)
@@ -64,6 +64,6 @@ storiesOf('Podstawy / cook', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips [entity]="'Tag'" [removable]="false" [elements]="['#Schpinach', '#Pankake', '#Kanapkas', '#Salad']">;
+<app-chips [entity]="'Tag'" [removable]="false">;
 `
   }));
