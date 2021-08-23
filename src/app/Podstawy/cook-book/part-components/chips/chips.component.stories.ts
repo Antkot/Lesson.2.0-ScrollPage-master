@@ -12,7 +12,9 @@ import { ChipsComponent } from './chips.component';
 import { MatIconModule } from '@angular/material/icon';
 
 const decoration: NgModule = {
-  declarations: [ChipsComponent],
+  declarations: [
+    ChipsComponent
+  ],
   imports: [
     MatIconModule,
     MatChipsModule,

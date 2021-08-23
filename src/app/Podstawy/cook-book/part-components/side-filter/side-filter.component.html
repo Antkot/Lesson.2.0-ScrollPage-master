@@ -17,7 +17,7 @@
           #Tagi
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]="['#Szpinak', '#Szybkie', '#Orient']" [elements]="'#Szpinak!'"></app-chips>
+      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]="['#Szpinak', '#Szybkie', '#Orient']"></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -25,7 +25,7 @@
           Alergeny
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-chips  [entity]="'Alergen'" [removable]="true" (add)="addTag($event)" [elements]="'Laktoza'"></app-chips>
+      <app-chips  [entity]="'Alergen'" [removable]="true" (add)="addTag($event)"></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>

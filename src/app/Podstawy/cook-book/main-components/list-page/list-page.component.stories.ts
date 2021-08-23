@@ -23,6 +23,7 @@ import { SideFilterComponent } from '../../part-components/side-filter/side-filt
 import { TimeSliderComponent } from '../../part-components/time-slider/time-slider.component';
 import { ListPageComponent } from './list-page.component';
 import { MenuComponent } from '../../part-components/menu/menu.component';
+import { SearchBarComponent } from '../../part-components/search-bar/search-bar.component';
 
 const decoration: NgModule = {
   declarations: [
@@ -38,7 +39,8 @@ const decoration: NgModule = {
     MatAccordion,
     TimeSliderComponent,
     ChipsComponent,
-    ListPageComponent
+    ListPageComponent,
+    SearchBarComponent
   ],
   imports: [
     MatIconModule,

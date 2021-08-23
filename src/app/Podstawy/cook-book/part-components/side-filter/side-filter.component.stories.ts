@@ -4,7 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { SideFilterComponent } from './side-filter.component';
 import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion';
 import { MatRadioButton } from '@angular/material/radio';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIcon } from '@angular/material/icon';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { TimeSliderComponent } from '../time-slider/time-slider.component';
 import { PortalModule } from '@angular/cdk/portal';
@@ -32,7 +32,6 @@ const decoration: NgModule = {
       ChipsComponent
     ],
   imports: [
-    MatIconModule,
     MatChipsModule,
     MatFormFieldModule,
     MatInputModule,
