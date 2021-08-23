@@ -29,6 +29,7 @@ import { AddIngredientComponent, IngredientDialogComponent } from './part-compon
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ListPageComponent } from './main-components/list-page/list-page.component';
+import { SearchBarComponent } from './part-components/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ListPageComponent } from './main-components/list-page/list-page.compone
     IngredientsComponent,
     AddIngredientComponent,
     IngredientDialogComponent,
-    ListPageComponent
+    ListPageComponent,
+    SearchBarComponent
   ],
   exports: [
     SideFilterComponent,
