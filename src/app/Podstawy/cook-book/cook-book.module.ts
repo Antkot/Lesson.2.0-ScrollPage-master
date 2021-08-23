@@ -33,6 +33,7 @@ import { SearchBarComponent } from './part-components/search-bar/search-bar.comp
 
 @NgModule({
   declarations: [
+    SearchBarComponent,
     SideFilterComponent,
     MenuComponent,
     TimeSliderComponent,
