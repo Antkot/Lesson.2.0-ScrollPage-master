@@ -15,7 +15,7 @@ export class DishStorageService {
     } else {
       this.dishesList$.next([
         { dishId: cuid(), name: 'Pierogi', tags: [ 'Szpinak', 'Mięsko' ] },
-        { dishId: cuid(), name: 'Zupka', tags: null }
+        { dishId: cuid(), name: 'Zupka', tags: [] }
       ]);
     }
 

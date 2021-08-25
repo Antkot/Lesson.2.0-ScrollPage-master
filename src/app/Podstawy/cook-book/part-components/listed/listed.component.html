@@ -14,12 +14,11 @@
   </div>
   <div class="list">
     <mat-divider></mat-divider>
-    <div class="record"  *ngFor="let dish of dishesList$">
-      {{dish[1]}}
+    <div class="record"  *ngFor="let dish of dishesList$ | async">
       <h1>Naleśniki ze szpinakiem</h1>
-      <div>
-        <app-chips [removable]="false" [elements]="['koks', 'wiencej kosksu', 'jeszce wiencej koksu']"></app-chips>
-      </div>
+<!--      <div>-->
+<!--        <app-chips [removable]="false" [elements]="['koks', 'wiencej kosksu', 'jeszce wiencej koksu']"></app-chips>-->
+<!--      </div>-->
     </div>
     <mat-divider></mat-divider>
   </div>
