@@ -17,8 +17,7 @@
           #Tagi
         </mat-panel-title>
       </mat-expansion-panel-header>
-<!--      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]="['#Szpinak', '#Szybkie', '#Orient']"></app-chips>-->
-      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]=allElements></app-chips>
+      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]=allElements [elements]=final></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>

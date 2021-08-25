@@ -5,6 +5,7 @@ import { Dish, Levels } from '../../types';
 import { ChipService } from '../services/chip.service';
 import { DishStorageService } from '../services/dish-storage.service';
 import { stringify } from 'querystring';
+import { forEach } from 'lodash';
 
 @Component({
   selector: 'app-side-filter',
@@ -15,14 +16,17 @@ export class SideFilterComponent implements OnInit {
   dishes$: Observable<Array<Dish>> = this.dishStorage.dishes$;
   levels$: Observable<Array<Levels>> = this.loadingService.levels$;
   tag: string = null;
-  private allElements: Array<Dish>;
+  allElements: Array<Dish>;
+  final: Array<string>;
 
   counter(i: number) {
     return new Array(i);
   }
 
   constructor(private loadingService: LoadingService, private chipService: ChipService, private dishStorage: DishStorageService) {
-    this.dishes$.subscribe(event => this.allElements = event);
+    this.dishes$.subscribe(data => this.allElements = data);
+    this.final = this.allElements.map(({name}) => name);
+    console.table(this.final);
   }
 
   ngOnInit(): void {
