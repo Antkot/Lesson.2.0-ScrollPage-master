@@ -3,9 +3,6 @@ import { LoadingService } from '../services/loading.service';
 import { Observable } from 'rxjs';
 import { Dish, Levels } from '../../types';
 import { ChipService } from '../services/chip.service';
-import { DishStorageService } from '../services/dish-storage.service';
-import { stringify } from 'querystring';
-import { forEach } from 'lodash';
 
 @Component({
   selector: 'app-side-filter',
@@ -13,7 +10,7 @@ import { forEach } from 'lodash';
   styleUrls: ['./side-filter.component.scss']
 })
 export class SideFilterComponent implements OnInit {
-  dishes$: Observable<Array<Dish>> = this.dishStorage.dishes$;
+  dishes$: Observable<Array<Dish>> = this.loadingService.dishes$;
   levels$: Observable<Array<Levels>> = this.loadingService.levels$;
   tag: string = null;
   allElements: Array<Dish>;
@@ -23,7 +20,7 @@ export class SideFilterComponent implements OnInit {
     return new Array(i);
   }
 
-  constructor(private loadingService: LoadingService, private chipService: ChipService, private dishStorage: DishStorageService) {
+  constructor(private loadingService: LoadingService, private chipService: ChipService) {
     this.dishes$.subscribe(data => this.allElements = data);
     this.final = this.allElements.map(({name}) => name);
     console.table(this.final);

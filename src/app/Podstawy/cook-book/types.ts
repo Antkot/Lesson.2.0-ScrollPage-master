@@ -5,6 +5,11 @@ export interface Dish {
   dishId: string;
   name: string;
 }
+export interface Dishes {
+  dishId: string;
+  name: string;
+  tags: Array<string>;
+}
 export interface Hashes {
   hashId: string;
   name: string;

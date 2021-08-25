@@ -3,6 +3,8 @@
 }
 .mat-icon {
   font-size: 25px;
+  user-select: none;
+  cursor: pointer;
 }
 .input{
   transform: translateY(-8px);

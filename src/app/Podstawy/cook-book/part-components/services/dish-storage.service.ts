@@ -1,25 +1,21 @@
 import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject } from 'rxjs';
-import { Dish } from '../../types';
+import { Dish, Dishes } from '../../types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DishStorageService {
-  dishes$ = new BehaviorSubject<Array<Dish>>([]);
+  dishesList$ = new BehaviorSubject<Array<Dishes>>([]);
 
   constructor() {
 
-    if (!!localStorage.dishData) {
+    if (!!localStorage.dishesListData) {
     } else {
-      this.dishes$.next([
-        { dishId: cuid(), name: 'śniadanie' },
-        { dishId: cuid(), name: 'obiad' },
-        { dishId: cuid(), name: 'kolacja' },
-        { dishId: cuid(), name: 'desery' },
-        { dishId: cuid(), name: 'launch' },
-        { dishId: cuid(), name: 'inne' }
+      this.dishesList$.next([
+        { dishId: cuid(), name: 'Pierogi', tags: [ 'Szpinak', 'Mięsko' ] },
+        { dishId: cuid(), name: 'Zupka', tags: null }
       ]);
     }
 

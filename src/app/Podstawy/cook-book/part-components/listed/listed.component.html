@@ -14,88 +14,13 @@
   </div>
   <div class="list">
     <mat-divider></mat-divider>
-    <div class="record">
+    <div class="record"  *ngFor="let dish of dishesList$">
+      {{dish[1]}}
       <h1>Naleśniki ze szpinakiem</h1>
       <div>
         <app-chips [removable]="false" [elements]="['koks', 'wiencej kosksu', 'jeszce wiencej koksu']"></app-chips>
       </div>
     </div>
     <mat-divider></mat-divider>
-    <div class="record">
-      <h1>Zupa Krem</h1>
-      <div>
-        <div class="hash">1 porjca</div>
-        <div class="hash">truudne</div>
-        <div class="hash">szybciutkie</div>
-        <div class="hash">500kcal / porcje</div>
-        <div class="hash">Alergeny?</div>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="record">
-      <h1>Bułka z Serem</h1>
-      <div>
-        <div class="hash">1 porjca</div>
-        <div class="hash">truudne</div>
-        <div class="hash">szybciutkie</div>
-        <div class="hash">500kcal / porcje</div>
-        <div class="hash">Alergeny?</div>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="record">
-      <h1>Bułka bez Sera</h1>
-      <div>
-        <div class="hash">1 porjca</div>
-        <div class="hash">truudne</div>
-        <div class="hash">szybciutkie</div>
-        <div class="hash">500kcal / porcje</div>
-        <div class="hash">Alergeny?</div>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="record">
-      <h1>Babcine ciasteczka</h1>
-      <div>
-        <div class="hash">1 porjca</div>
-        <div class="hash">truudne</div>
-        <div class="hash">szybciutkie</div>
-        <div class="hash">500kcal / porcje</div>
-        <div class="hash">Alergeny?</div>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="record">
-      <h1>Orzechówka</h1>
-      <div>
-        <div class="hash">1 porjca</div>
-        <div class="hash">truudne</div>
-        <div class="hash">szybciutkie</div>
-        <div class="hash">500kcal / porcje</div>
-        <div class="hash">Alergeny?</div>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="record">
-      <h1>Orzechówka 3</h1>
-      <div>
-        <div class="hash">1 porjca</div>
-        <div class="hash">truudne</div>
-        <div class="hash">szybciutkie</div>
-        <div class="hash">500kcal / porcje</div>
-        <div class="hash">Alergeny?</div>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class="record">
-      <h1>Orzechówka 2</h1>
-      <div>
-        <div class="hash">1 porjca</div>
-        <div class="hash">truudne</div>
-        <div class="hash">szybciutkie</div>
-        <div class="hash">500kcal / porcje</div>
-        <div class="hash">Alergeny?</div>
-      </div>
-    </div>
   </div>
 </div>

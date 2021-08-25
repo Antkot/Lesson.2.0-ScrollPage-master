@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Levels, } from '../../types';
+import { Dish, Levels } from '../../types';
 import * as cuid from 'cuid';
 
 @Injectable({
@@ -8,6 +8,7 @@ import * as cuid from 'cuid';
 })
 export class LoadingService {
   levels$ = new BehaviorSubject<Array<Levels>>([]);
+  dishes$ = new BehaviorSubject<Array<Dish>>([]);
 
   constructor() {
     if (!!localStorage.levelData) {
@@ -21,6 +22,17 @@ export class LoadingService {
       ]);
     }
 
+    if (!!localStorage.dishData) {
+    } else {
+      this.dishes$.next([
+        { dishId: cuid(), name: 'śniadanie' },
+        { dishId: cuid(), name: 'obiad' },
+        { dishId: cuid(), name: 'kolacja' },
+        { dishId: cuid(), name: 'desery' },
+        { dishId: cuid(), name: 'launch' },
+        { dishId: cuid(), name: 'inne' }
+      ]);
+    }
 
   }
 }

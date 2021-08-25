@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Dish, Dishes } from '../../types';
+import { LoadingService } from '../services/loading.service';
+import { DishStorageService } from '../services/dish-storage.service';
 
 @Component({
   selector: 'app-listed',
@@ -6,10 +10,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./listed.component.scss']
 })
 export class ListedComponent implements OnInit {
+  dishesList$: Observable<Array<Dishes>> = this.dishesService.dishesList$;
 
-  constructor() { }
+  constructor(private dishesService: DishStorageService) {
 
-  ngOnInit(): void {
+  }
+
+ngOnInit(): void {
   }
 
 }
