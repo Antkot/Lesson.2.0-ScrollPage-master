@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Allergen, Dish, Hashes, Levels, Measures, Products, Timer } from '../../types';
+import { Levels, } from '../../types';
 import * as cuid from 'cuid';
 
 @Injectable({

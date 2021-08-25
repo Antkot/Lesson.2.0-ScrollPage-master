@@ -17,7 +17,8 @@
           #Tagi
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]="['#Szpinak', '#Szybkie', '#Orient']"></app-chips>
+<!--      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]="['#Szpinak', '#Szybkie', '#Orient']"></app-chips>-->
+      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]=allElements></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -50,5 +51,7 @@
       </section>
     </mat-expansion-panel>
   </mat-accordion>
+  <div *ngFor="let element of allElements">
+    {{element.name}}-{{element.dishId}}
+  </div>
 </div>
-

@@ -16,10 +16,10 @@ export class ChipsComponent {
   @Input() removable = false;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   elementCtrl = new FormControl();
-  filteredElements: Observable<string[]>;
+  filteredElements: Observable<Array<string>>;
   @Output() add = new EventEmitter();
-  @Input() elements: string[] = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
-  @Input() allElements: string[] = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
+  @Input() elements: Array<string> = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
+  @Input() allElements: Array<string> = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
 
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
