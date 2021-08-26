@@ -3,6 +3,7 @@ import { moduleMetadata, storiesOf } from '@storybook/angular';
 import { withKnobs } from '@storybook/addon-knobs';
 import { TimeSliderComponent } from '../time-slider/time-slider.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { Output, EventEmitter } from '@angular/core';
 
 const decoration: NgModule = {
   declarations: [ TimeSliderComponent ],

@@ -17,7 +17,7 @@
           #Tagi
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [allElements]=allElements [elements]=final></app-chips>
+      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [elements]=final></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -33,7 +33,7 @@
           Maksymalny czas przygotowania
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-time-slider [value]="2"></app-time-slider>
+      <app-time-slider [value]="3"  (timeLimit)="timeLimiting($event)"></app-time-slider>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -50,7 +50,5 @@
       </section>
     </mat-expansion-panel>
   </mat-accordion>
-<!--  <div *ngFor="let element of allElements">-->
-<!--    {{element.name}}-{{element.dishId}}-->
-<!--  </div>-->
+  {{timeLimit}}
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
 import { Observable } from 'rxjs';
 import { Dish, Levels } from '../../types';
@@ -15,6 +15,7 @@ export class SideFilterComponent implements OnInit {
   tag: string = null;
   allElements: Array<Dish>;
   final: Array<string>;
+  timeLimit = '';
 
   counter(i: number) {
     return new Array(i);
@@ -22,11 +23,15 @@ export class SideFilterComponent implements OnInit {
 
   constructor(private loadingService: LoadingService, private chipService: ChipService) {
     this.dishes$.subscribe(data => this.allElements = data);
-    this.final = this.allElements.map(({name}) => name);
+    this.final = this.allElements.map(({ name }) => name);
     console.table(this.final);
   }
 
   ngOnInit(): void {
+  }
+
+  timeLimiting($event) {
+    this.timeLimit = $event;
   }
 
   addTag(x: string) {
