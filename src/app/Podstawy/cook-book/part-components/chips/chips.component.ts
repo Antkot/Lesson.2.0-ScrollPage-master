@@ -32,23 +32,15 @@ export class ChipsComponent {
     //   map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));
   }
 
-  addNewItem(value: string) {
-    this.add.emit(value);
-  }
-
-  // removeItem(value: string) {
-  //   this.remove.emit(value);
-  // }
-
-  added($event) {
-    this.add = $event;
-    $event.input.value = '';
+  added(event: MatChipInputEvent) {
+    this.add.emit(event.value);
+    event.chipInput!.clear();
     this.elementCtrl.setValue(null);
     console.table('TUTAJ!!!!!!!!!!!!!!!!!', this.add);
   }
 
-  removed($event) {
-    this.remove = $event;
+  removed($event: string) {
+    this.remove.emit($event);
   }
 
   // add(event: MatChipInputEvent): void {

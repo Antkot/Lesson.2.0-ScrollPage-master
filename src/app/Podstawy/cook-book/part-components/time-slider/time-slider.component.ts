@@ -18,16 +18,16 @@ export class TimeSliderComponent implements OnInit {
     translate: (value: number): string => {
       switch (value) {
         case 0:
-          this.timeLimit.next('15 min');
+          this.timeLimit.emit('15 min');
           return '15 min';
         case 1:
-          this.timeLimit.next('1 h');
+          this.timeLimit.emit('1 h');
           return '1 h';
         case 2:
-          this.timeLimit.next('3h');
+          this.timeLimit.emit('3h');
           return '3h';
         default:
-          this.timeLimit.next('Dowolny');
+          this.timeLimit.emit('Dowolny');
           return 'Dowolny';
       }
     }
