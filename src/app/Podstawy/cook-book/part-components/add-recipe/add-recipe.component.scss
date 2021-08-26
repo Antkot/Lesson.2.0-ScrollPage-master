@@ -6,14 +6,15 @@
   width: 80%;
   margin: auto;
 
-  >div {
+  > div {
     background: lightskyblue;
     text-align: center;
     padding: 50px 0;
   }
 
   .ingredients {
-    padding: 50px;
+    width: 100%;
+    display: inline-block;
     text-align: left;
     background: lightsteelblue;
   }
@@ -21,12 +22,21 @@
   .example-box {
     padding: 20px 10px;
   }
-  .hash{
-    padding: 20px 0;
-    height: 100%;
+
+  .hash {
+    padding: 0;
+    height: 200px;
+    background: dodgerblue;
   }
 }
-
+.divide{
+  width: 40%;
+  padding: 5%;
+  float: left;
+}
+.example-list{
+  width: 200%;
+}
 .confirm {
   position: sticky;
   bottom: 0px;
@@ -35,15 +45,23 @@
   background: cornflowerblue;
   text-align: center;
   float: bottom;
+  user-select: none;
+  cursor: pointer;
+  height: 10px;
 }
 
 .mat-divider {
   border-top-width: 3px;
   border-top-style: ridge;
 }
-.editButton{
+
+.editButton {
   text-align: right;
   position: relative;
   top: 40px;
   right: 10px;
+}
+
+.confirm:active {
+  background: lightblue;
 }

@@ -11,7 +11,14 @@ import { MatInputModule } from '@angular/material/input';
 
 const decoration: NgModule = {
   declarations: [StepsComponent],
-  imports: [BrowserAnimationsModule, MatDividerModule, DragDropModule, MatIconModule, MatMenuModule, MatInputModule],
+  imports: [
+    BrowserAnimationsModule,
+    MatDividerModule,
+    DragDropModule,
+    MatIconModule,
+    MatMenuModule,
+    MatInputModule
+  ],
   providers: []
 };
 

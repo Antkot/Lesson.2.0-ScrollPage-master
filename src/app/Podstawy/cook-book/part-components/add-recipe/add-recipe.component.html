@@ -3,27 +3,31 @@
     <h1>Nowy Przepis dodawany !</h1>
   </div>
   <mat-divider></mat-divider>
-  <div class="hash">Hash component</div>
+  <div class="hash">
+    <div class="divide">
+      <app-chips [removable]="true" [entity]="'Twoje #tagi:'"></app-chips>
+    </div>
+    <div class="divide">
+      <app-chips [removable]="false" [entity]="'Tagi wygenerowane samoczynnie:'"></app-chips>
+    </div>
+  </div>
   <mat-divider></mat-divider>
   <div class="name">
-    Tytuł
+    <h1>1</h1>
+    <h1>2</h1>
     <div class="editButton" *ngIf="!edit">
       Edytuj przepis
     </div>
   </div>
   <mat-divider></mat-divider>
   <div class="ingredients">
-    Potrzebne składniki: TU KOMPONENT ZE SKłADNIKAMi
-    <ul>
-      <li>kładniki x</li>
-      <li>składniki y</li>
-      <li>składniki z</li>
-      <li>składniki p</li>
-      <li>składniki q</li>
-    </ul>
+    <div class="divide">
+      <app-ingredients [edit]="true"></app-ingredients>
+    </div>
+    <div class="divide">
+      <app-steps [edit]="true"></app-steps>
+    </div>
   </div>
-  <mat-divider></mat-divider>
-  <div>krokki komponent</div>
   <mat-divider></mat-divider>
   <footer class="confirm">
     {{confirmNotifications}}

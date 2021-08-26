@@ -8,8 +8,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 const decoration: NgModule = {
-  declarations: [AddIngredientComponent, IngredientDialogComponent],
-  imports: [MatDialogModule, MatButtonModule, BrowserAnimationsModule, MatAutocompleteModule],
+  declarations: [
+    AddIngredientComponent,
+    IngredientDialogComponent,
+  ],
+  imports: [
+    MatDialogModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatDialogModule,
+  ],
   entryComponents: [
     IngredientDialogComponent
   ],
