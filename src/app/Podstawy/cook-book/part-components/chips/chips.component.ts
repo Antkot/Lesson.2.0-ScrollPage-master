@@ -18,6 +18,7 @@ export class ChipsComponent {
   elementCtrl = new FormControl();
   filteredElements: Observable<Array<string>>;
   @Output() add = new EventEmitter();
+  @Input() chipColor = 'none';
   @Input() elements: Array<string> = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
   @Input() allElements: Array<string> = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
 
@@ -68,7 +69,6 @@ export class ChipsComponent {
 
 
   titleCaseWord(word: string) {
-    console.log(1111111111111111111111111111111111);
     if (!word) {
       return word;
     }
