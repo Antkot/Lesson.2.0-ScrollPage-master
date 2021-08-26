@@ -5,6 +5,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
+
 @Component({
   selector: 'app-chips',
   templateUrl: 'chips.component.html',
@@ -30,6 +31,14 @@ export class ChipsComponent {
     //   map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));
   }
 
+  added($event) {
+    this.add = $event;
+    $event.input.value = '';
+    this.elementCtrl.setValue(null);
+  }
+  addNewItem(value: string) {
+    this.add.emit(value);
+  }
   // add(event: MatChipInputEvent): void {
   //   let value = (event.value || '').trim();
   //   value = this.titleCaseWord(value);
@@ -42,8 +51,6 @@ export class ChipsComponent {
   //       this.allElements.push(value);
   //     }
   //   }
-  //   event.input.value = '';
-  //   this.elementCtrl.setValue(null);
   // }
 
   remove(element: string): void {
@@ -60,11 +67,11 @@ export class ChipsComponent {
     // }
     // this.elementInput.nativeElement.value = '';
     // this.elementCtrl.setValue(null);
-  // }
-  //
-  // private _filter(value: string): string[] {
-  //   const filterValue = value.toLowerCase();
-  //   return this.allElements.filter(element => element.toLowerCase().includes(filterValue));
+    // }
+    //
+    // private _filter(value: string): string[] {
+    //   const filterValue = value.toLowerCase();
+    //   return this.allElements.filter(element => element.toLowerCase().includes(filterValue));
   }
 
 
