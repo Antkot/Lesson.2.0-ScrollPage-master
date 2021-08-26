@@ -32,9 +32,9 @@ export class TimeSliderComponent implements OnInit {
       }
     }
   };
-  addNewItem(value: string) {
-    this.timeLimit.emit(value);
-  }
+  // addNewItem(value: string) {
+  //   this.timeLimit.emit(value);
+  // }
 
   ngOnInit(): void {
   }

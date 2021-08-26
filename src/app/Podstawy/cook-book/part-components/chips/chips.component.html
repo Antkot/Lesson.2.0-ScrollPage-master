@@ -7,7 +7,7 @@
       [color]="chipColor"
       [selectable]="selectable"
       [removable]="removable"
-      (removed)="remove(element)">
+      (removed)="removed($event)">
       {{element}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
@@ -22,7 +22,8 @@
       (matChipInputTokenEnd)="added($event)">
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-    <mat-option *ngFor="let element of filteredElements | async" [value]="element">
+<!--    <mat-option *ngFor="let element of filteredElements$ | async" [value]="element">-->
+    <mat-option *ngFor="let element of allElements" [value]="element">
         {{element}}
     </mat-option>
   </mat-autocomplete>

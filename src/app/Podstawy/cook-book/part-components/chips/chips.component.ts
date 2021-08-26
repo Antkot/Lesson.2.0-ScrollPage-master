@@ -17,28 +17,40 @@ export class ChipsComponent {
   @Input() removable = false;
   separatorKeysCodes: number[] = [ENTER, COMMA];
   elementCtrl = new FormControl();
-  filteredElements: Observable<Array<string>>;
+  filteredElements$: Observable<Array<string>>;
   @Output() add = new EventEmitter();
+  @Output() remove = new EventEmitter();
   @Input() chipColor = 'none';
-  @Input() elements: Array<string> = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
-  @Input() allElements: Array<string> = ['Laktoza', 'Gluten', 'Soja', 'Orzechy', 'Gorczyca'];
+  @Input() elements: Array<string> = ['no-input-data'];
+  @Input() allElements: Array<string> = ['still-no-input-data'];
 
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
   constructor() {
-    // this.filteredElements = this.elementCtrl.valueChanges.pipe(
+    // this.filteredElements$ = this.elementCtrl.valueChanges.pipe(
     //   startWith(null),
     //   map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));
   }
+
+  addNewItem(value: string) {
+    this.add.emit(value);
+  }
+
+  // removeItem(value: string) {
+  //   this.remove.emit(value);
+  // }
 
   added($event) {
     this.add = $event;
     $event.input.value = '';
     this.elementCtrl.setValue(null);
+    console.table('TUTAJ!!!!!!!!!!!!!!!!!', this.add);
   }
-  addNewItem(value: string) {
-    this.add.emit(value);
+
+  removed($event) {
+    this.remove = $event;
   }
+
   // add(event: MatChipInputEvent): void {
   //   let value = (event.value || '').trim();
   //   value = this.titleCaseWord(value);
@@ -53,25 +65,26 @@ export class ChipsComponent {
   //   }
   // }
 
-  remove(element: string): void {
-    // const index = this.elements.indexOf(element);
-    // if (index >= 0) {
-    //   this.elements.splice(index, 1);
-    // }
-  }
+
+  // remove(element: string): void {
+  // const index = this.elements.indexOf(element);
+  // if (index >= 0) {
+  //   this.elements.splice(index, 1);
+  // }
+  // }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    // const added = this.titleCaseWord(event.option.viewValue);
-    // if (!this.elements.includes(added)) {
-    //   this.elements.push(added);
-    // }
-    // this.elementInput.nativeElement.value = '';
-    // this.elementCtrl.setValue(null);
-    // }
-    //
-    // private _filter(value: string): string[] {
-    //   const filterValue = value.toLowerCase();
-    //   return this.allElements.filter(element => element.toLowerCase().includes(filterValue));
+    const added = this.titleCaseWord(event.option.viewValue);
+    if (!this.elements.includes(added)) {
+      this.elements.push(added);
+    }
+    this.elementInput.nativeElement.value = '';
+    this.elementCtrl.setValue(null);
+  }
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.allElements.filter(element => element.toLowerCase().includes(filterValue));
   }
 
 

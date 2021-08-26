@@ -17,7 +17,12 @@
           #Tagi
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-chips  [entity]="'Tag'" [removable]="true" (add)="addTag($event)" [elements]=final></app-chips>
+      <app-chips
+        [entity]="'Tag'"
+        [removable]="true"
+        (add)="addTag($event)"
+        [elements]=final
+      ></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -25,7 +30,12 @@
           Alergeny
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <app-chips  [entity]="'Alergen'" [removable]="true" (add)="addTag($event)"></app-chips>
+      <app-chips
+        [entity]="'Alergen'"
+        [removable]="true"
+        (remove)="removeAllergen($event)"
+        (add)="addAllergen($event)"
+      ></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
@@ -50,5 +60,7 @@
       </section>
     </mat-expansion-panel>
   </mat-accordion>
-  {{timeLimit}}
+<br/>  Filtr czasu: {{timeLimit}}
+<br/>  Dodawany alergen: {{addedAllergen}}
+<br/>  Usuwany alergen: {{removedAllergen}}
 </div>
