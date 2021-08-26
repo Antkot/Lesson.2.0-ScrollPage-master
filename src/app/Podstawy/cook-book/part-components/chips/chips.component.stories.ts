@@ -28,7 +28,7 @@ const decoration: NgModule = {
   ]
 };
 
-storiesOf('Podstawy / cook', module)
+storiesOf('Podstawy / cook / parts', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('allergen', () => ({
@@ -38,7 +38,7 @@ storiesOf('Podstawy / cook', module)
 <app-chips  [entity]="'Alergen'" [removable]="true">;
 `
   }));
-storiesOf('Podstawy / cook', module)
+storiesOf('Podstawy / cook / parts', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('allergen-no-del', () => ({
@@ -49,7 +49,7 @@ storiesOf('Podstawy / cook', module)
 `
   }));
 
-storiesOf('Podstawy / cook', module)
+storiesOf('Podstawy / cook / parts', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('hash', () => ({
@@ -59,7 +59,7 @@ storiesOf('Podstawy / cook', module)
 <app-chips  [entity]="'Tag'" [removable]="true">;
 `
   }));
-storiesOf('Podstawy / cook', module)
+storiesOf('Podstawy / cook / parts', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('hash-no-del', () => ({

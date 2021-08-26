@@ -11,7 +11,7 @@ const decoration: NgModule = {
   providers: []
 };
 
-storiesOf('Podstawy / cook', module)
+storiesOf('Podstawy / cook / parts', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('view-recipe', () => ({
@@ -21,7 +21,7 @@ storiesOf('Podstawy / cook', module)
 <app-add-recipe [edit]="false" [confirmNotifications]="'Gotuj!'">;
 `
   }));
-storiesOf('Podstawy / cook', module)
+storiesOf('Podstawy / cook / parts', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('add-recipe', () => ({

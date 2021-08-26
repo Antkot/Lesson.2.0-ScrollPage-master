@@ -16,7 +16,7 @@ const decoration: NgModule = {
   providers: []
 };
 
-storiesOf('Podstawy / cook', module)
+storiesOf('Podstawy / cook / parts', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('menu', () => ({

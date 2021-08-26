@@ -52,7 +52,7 @@ const decoration: NgModule = {
   providers: []
 };
 
-storiesOf('Podstawy / cook / main', module)
+storiesOf('Podstawy / cook / parts', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('listed', () => ({
