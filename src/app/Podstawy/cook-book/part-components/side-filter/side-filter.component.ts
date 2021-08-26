@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
 import { Observable } from 'rxjs';
 import { Dish, Levels } from '../../types';
@@ -16,7 +16,10 @@ export class SideFilterComponent implements OnInit {
   allElements: Array<Dish>;
   final: Array<string>;
   timeLimit = '';
-
+  @Output() timeLimitOut = new EventEmitter();
+  addNewItem(value: string) {
+    this.timeLimitOut.emit(value);
+  }
   counter(i: number) {
     return new Array(i);
   }
