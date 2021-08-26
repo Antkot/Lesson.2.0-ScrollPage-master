@@ -30,6 +30,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ListPageComponent } from './main-components/list-page/list-page.component';
 import { SearchBarComponent } from './part-components/search-bar/search-bar.component';
+import { RecipiePageComponent } from './main-components/recipie-page/recipie-page.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SearchBarComponent } from './part-components/search-bar/search-bar.comp
     AddIngredientComponent,
     IngredientDialogComponent,
     ListPageComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    RecipiePageComponent
   ],
   exports: [
     SideFilterComponent,
