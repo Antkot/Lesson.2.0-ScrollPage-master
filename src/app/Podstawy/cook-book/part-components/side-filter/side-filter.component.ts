@@ -16,8 +16,10 @@ export class SideFilterComponent implements OnInit {
   allElements: Array<Dish>;
   final: Array<string>;
   timeLimit = '';
-  addedAllergen = 'x';
+  addedAllergen = '';
+  addedTag= '';
   removedAllergen = '';
+  removedTag = '';
   // @Output() timeLimitOut = new EventEmitter();
   // addNewItem(value: string) {
   //   this.timeLimitOut.emit(value);
@@ -49,12 +51,15 @@ export class SideFilterComponent implements OnInit {
     console.log(2, this.removedAllergen);
   }
 
-
-  addTag(x: string) {
-    this.tag = this.chipService.addTag(x);
-    console.log((this.tag));
+  addTag($event) {
+    this.addedTag = $event;
+    this.tag = this.chipService.addTag($event);
   }
 
+  removeTag($event) {
+    this.removedTag = $event;
+    console.log(2, this.removedTag);
+  }
 }
 
 

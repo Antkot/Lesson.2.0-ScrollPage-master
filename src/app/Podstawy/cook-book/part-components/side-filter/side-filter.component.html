@@ -20,6 +20,7 @@
       <app-chips
         [entity]="'Tag'"
         [removable]="true"
+        (remove)="removeTag($event)"
         (add)="addTag($event)"
         [elements]=final
       ></app-chips>
@@ -61,6 +62,8 @@
     </mat-expansion-panel>
   </mat-accordion>
 <br/>  Filtr czasu: {{timeLimit}}
-<br/>  Dodawany alergen: {{addedAllergen}}
-<br/>  Usuwany alergen: {{removedAllergen}}
+  <br/>  Dodawany alergen: {{addedAllergen}}
+  <br/>  Usuwany alergen: {{removedAllergen}}
+  <br/>  Dodawany tag: {{addedTag}}
+  <br/>  Usuwany tag: {{removedTag}}
 </div>

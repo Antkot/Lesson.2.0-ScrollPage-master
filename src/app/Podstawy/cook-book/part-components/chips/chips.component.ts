@@ -2,7 +2,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipEvent, MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
@@ -15,7 +15,7 @@ export class ChipsComponent {
   @Input() entity: string;
   selectable = true;
   @Input() removable = false;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
+  separatorKeysCodes = [ENTER, COMMA];
   elementCtrl = new FormControl();
   filteredElements$: Observable<Array<string>>;
   @Output() add = new EventEmitter();
@@ -33,14 +33,16 @@ export class ChipsComponent {
   }
 
   added(event: MatChipInputEvent) {
+    this.elementCtrl.reset();
     this.add.emit(event.value);
-    event.chipInput!.clear();
+    // console.log();
     this.elementCtrl.setValue(null);
-    console.table('TUTAJ!!!!!!!!!!!!!!!!!', this.add);
   }
 
-  removed($event: string) {
-    this.remove.emit($event);
+  // removed(event: MatChipEvent) {
+  removed(event: MatChipInputEvent) {
+    this.remove.emit(event.value);
+    console.log('EVENT VALUE: ', event.value);
   }
 
   // add(event: MatChipInputEvent): void {

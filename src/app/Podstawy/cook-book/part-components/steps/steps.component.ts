@@ -61,7 +61,8 @@ export class StepsComponent implements OnInit {
   }
 
   add(newStep) {
-    if (newStep !== '') {
+    if (newStep !== this.heroForm) {
+      console.log(this.heroForm.get('name'));
       newStep = this.duplicateCheck(newStep);
       this.steps.push(newStep);
       this.newStep = '';
