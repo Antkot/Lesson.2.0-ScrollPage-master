@@ -7,7 +7,7 @@
       [color]="chipColor"
       [selectable]="selectable"
       [removable]="removable"
-      (removed)="removed($event)">
+      (removed)="removed(element)">
       {{element}}
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>

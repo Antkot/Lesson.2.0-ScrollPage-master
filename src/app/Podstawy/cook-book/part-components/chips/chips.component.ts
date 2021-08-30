@@ -35,15 +35,22 @@ export class ChipsComponent {
   added(event: MatChipInputEvent) {
     this.elementCtrl.reset();
     this.add.emit(event.value);
-    // console.log();
     this.elementCtrl.setValue(null);
   }
 
-  // removed(event: MatChipEvent) {
-  removed(event: MatChipInputEvent) {
-    this.remove.emit(event.value);
-    console.log('EVENT VALUE: ', event.value);
+  removed(element: string): void {
+    const index = this.elements.indexOf(element);
+    // if (index >= 0) {
+    //   this.elements.splice(index, 1);
+    // }
+    this.remove.emit(index);
   }
+
+  // removed(event: MatChipEvent) {
+  // removed(event: MatChipEvent) {
+  //   this.remove.emit(event);
+  //   console.log('EVENT VALUE: ', event);
+  // }
 
   // add(event: MatChipInputEvent): void {
   //   let value = (event.value || '').trim();
@@ -59,13 +66,6 @@ export class ChipsComponent {
   //   }
   // }
 
-
-  // remove(element: string): void {
-  // const index = this.elements.indexOf(element);
-  // if (index >= 0) {
-  //   this.elements.splice(index, 1);
-  // }
-  // }
 
   selected(event: MatAutocompleteSelectedEvent): void {
     const added = this.titleCaseWord(event.option.viewValue);

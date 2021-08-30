@@ -30,6 +30,9 @@ export class LoadingService {
         { dishId: cuid(), name: 'kolacja' },
         { dishId: cuid(), name: 'desery' },
         { dishId: cuid(), name: 'launch' },
+        { dishId: cuid(), name: 'inne' },
+        { dishId: cuid(), name: 'inne' },
+        { dishId: cuid(), name: 'inne' },
         { dishId: cuid(), name: 'inne' }
       ]);
     }
