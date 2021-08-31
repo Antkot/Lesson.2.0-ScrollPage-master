@@ -21,8 +21,6 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { SelectorPipe } from './Podstawy/chess/selector.pipe';
 import { MovablePipe } from './Podstawy/chess/movable.pipe';
 import { PhotoGeometryComponent } from './Podstawy/photo-geometry/photo-geometry.component';
-import { CookBookModule } from './Podstawy/cook-book/cook-book.module';
-import { IngredientDialogComponent } from './Podstawy/cook-book/part-components/add-ingredient/add-ingredient.component';
 
 const links = [
   {
@@ -52,7 +50,7 @@ const links = [
     AaaPipe,
     SelectorPipe,
     MovablePipe,
-    PhotoGeometryComponent
+    PhotoGeometryComponent,
   ],
   imports: [
     BrowserModule,
