@@ -12,17 +12,17 @@ import { map, startWith } from 'rxjs/operators';
   styleUrls: ['chips.component.scss']
 })
 export class ChipsComponent {
-  @Input() entity: string;
-  selectable = true;
-  @Input() removable = false;
-  separatorKeysCodes = [ENTER, COMMA];
-  elementCtrl = new FormControl();
-  filteredElements$: Observable<Array<string>>;
   @Output() add = new EventEmitter();
   @Output() remove = new EventEmitter();
+  @Input() entity: string;
+  @Input() removable = false;
   @Input() chipColor = 'none';
   @Input() elements: Array<string> = ['no-input-data'];
   @Input() allElements: Array<string> = ['still-no-input-data'];
+  selectable = true;
+  separatorKeysCodes = [ENTER, COMMA];
+  elementCtrl = new FormControl();
+  filteredElements$: Observable<Array<string>>;
 
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
@@ -66,7 +66,7 @@ export class ChipsComponent {
   //   }
   // }
 
-
+// TODO przenieść do serivca
   selected(event: MatAutocompleteSelectedEvent): void {
     const added = this.titleCaseWord(event.option.viewValue);
     if (!this.elements.includes(added)) {

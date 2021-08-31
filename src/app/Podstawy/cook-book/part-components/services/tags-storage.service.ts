@@ -7,7 +7,7 @@ import { Hashes } from '../../types';
   providedIn: 'root'
 })
 export class TagsStorageService {
-  hashes$ = new BehaviorSubject<Array<Hashes>>([]);
+  tags$ = new BehaviorSubject<Array<Hashes>>([]);
 
   constructor() {
 
@@ -15,7 +15,7 @@ export class TagsStorageService {
 
     if (!!localStorage.hashes) {
     } else {
-      this.hashes$.next([
+      this.tags$.next([
         { hashId: cuid(), name: 'Szpinak' }
       ]);
     }

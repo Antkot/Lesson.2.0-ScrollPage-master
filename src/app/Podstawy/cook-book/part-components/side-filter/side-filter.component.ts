@@ -1,8 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
 import { Observable } from 'rxjs';
-import { Dish, Levels } from '../../types';
+import { Dish, Hashes, Levels } from '../../types';
 import { ChipService } from '../services/chip.service';
+import { TagsStorageService } from '../services/tags-storage.service';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-side-filter',
@@ -11,15 +13,16 @@ import { ChipService } from '../services/chip.service';
 })
 export class SideFilterComponent implements OnInit {
   dishes$: Observable<Array<Dish>> = this.loadingService.dishes$;
+  tags$: Observable<Array<Hashes>> = this.tagsService.tags$;
   levels$: Observable<Array<Levels>> = this.loadingService.levels$;
   tag: string = null;
-  allElements: Array<Dish>;
+  allElements: Array<Hashes>;
   final: Array<string>;
   timeLimit = '';
-  addedAllergen = '';
-  addedTag = '';
-  removedAllergen = '';
-  removedTag = '';
+  @Output() addedAllergen;
+  @Output() addedTag;
+  @Output() removedAllergen;
+  @Output() removedTag;
   // @Output() timeLimitOut = new EventEmitter();
   // addNewItem(value: string) {
   //   this.timeLimitOut.emit(value);
@@ -28,11 +31,15 @@ export class SideFilterComponent implements OnInit {
     return new Array(i);
   }
 
-  constructor(private loadingService: LoadingService, private chipService: ChipService) {
-    this.dishes$.subscribe(data => this.allElements = data);
+  constructor(
+    private loadingService: LoadingService,
+    private chipService: ChipService,
+    private  tagsService: TagsStorageService) {
+    this.tags$.subscribe(data => this.allElements = data);
     this.final = this.allElements.map(({ name }) => name);
     console.table(this.final);
   }
+
 
   ngOnInit(): void {
   }
@@ -41,24 +48,24 @@ export class SideFilterComponent implements OnInit {
     this.timeLimit = $event;
   }
 
-  addAllergen($event) {
-    this.addedAllergen = $event;
-    console.log(1, $event);
+  addAllergen(event: MatChipInputEvent) {
+    this.addedAllergen = event;
+    this.addedAllergen.emit(event.value);
+  }
+  addTag(event: MatChipInputEvent) {
+    this.addedTag = event;
+    this.addedTag.emit(event.value);
   }
 
-  removeAllergen($event) {
-    this.removedAllergen = $event;
-    console.log(2, $event);
+  removeAllergen(event: MatChipInputEvent) {
+    this.removedAllergen = event;
+    console.log(2, event);
+    this.addedTag.emit(event.value);
   }
 
-  addTag($event) {
-    this.addedTag = $event;
-    // this.tag = this.chipService.addTag($event);
-  }
-
-  removeTag($event) {
-    this.removedTag = $event;
-    console.log(2, this.removedTag);
+  removeTag(event: MatChipInputEvent) {
+    this.removedTag = event;
+    this.addedTag.emit(event.value);
   }
 }
 
