@@ -1,14 +1,12 @@
 .example-chip-list {
-  min-width: 100%;
+  width: 100%;
   justify-content: center;
   position: relative;
   float: left;
-  max-width: 100%;
 }
 mat-chip-list {
-  display: block;
+  display: inline-block;
   position: relative;
   float: left;
   flex: auto;
-  width: 500px;
 }

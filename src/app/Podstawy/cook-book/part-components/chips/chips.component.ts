@@ -32,7 +32,7 @@ export class ChipsComponent {
     //   map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));
   }
 
-  added(event: MatChipInputEvent) {
+  added(event: MatChipInputEvent): void {
     this.elementCtrl.reset();
     this.add.emit(event.value);
     this.elementCtrl.setValue(null);
