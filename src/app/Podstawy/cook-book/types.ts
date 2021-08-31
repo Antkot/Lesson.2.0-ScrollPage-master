@@ -8,7 +8,8 @@ export interface Dish {
 export interface Dishes {
   dishId: string;
   name: string;
-  tags: Array<string>;
+  // tags: Array<Hashes>;
+  tags: Array<{ hashId: string }>;
 }
 export interface Hashes {
   hashId: string;

@@ -1,8 +1,8 @@
 <div class="seenWindow">
   <div class="header">
-    <div class='subHeader'>
-      <app-chips [entity]="'Tagi Filtrów'" [removable]="false"></app-chips>
-    </div>
+<!--    <div class='subHeader'>-->
+<!--      <app-chips [entity]="'Tagi Filtrów'" [removable]="false"></app-chips>-->
+<!--    </div>-->
     <div class='subHeader'>
       <app-sorter></app-sorter>
     </div>
@@ -17,7 +17,10 @@
     <div class="record"  *ngFor="let dish of dishesList$ | async">
       <h1>{{dish.name}}</h1>
       <div>
-        <app-chips [removable]="false" [elements]=dish.tags></app-chips>
+        <app-chips
+          [removable]="false"
+        ></app-chips>
+        <!--          [elements] = "dish.tags | tags"-->
       </div>
     </div>
     <mat-divider></mat-divider>

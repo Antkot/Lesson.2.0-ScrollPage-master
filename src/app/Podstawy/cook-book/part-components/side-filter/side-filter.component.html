@@ -18,6 +18,8 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <app-chips
+        [elements] = "tags$ | async"
+        [allElements] = "tags$ | async"
         [entity]="'Tag'"
         [removable]="true"
         (remove)="removeTag($event)"
@@ -32,6 +34,8 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <app-chips
+        [elements] = "[]"
+        [allElements] = "[]"
         [entity]="'Alergen'"
         [removable]="true"
         (remove)="removeAllergen($event)"
@@ -62,8 +66,4 @@
     </mat-expansion-panel>
   </mat-accordion>
 <br/>  Filtr czasu: {{timeLimit}}
-  <br/>  Dodawany alergen: {{addedAllergen}}
-  <br/>  Usuwany alergen (index): {{removedAllergen}}
-  <br/>  Dodawany tag: {{addedTag}}
-  <br/>  Usuwany tag (index): {{removedTag}}
 </div>

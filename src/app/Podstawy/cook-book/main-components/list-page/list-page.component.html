@@ -1,5 +1,16 @@
 <div class="all">
   <app-menu></app-menu>
-  <app-side-filter></app-side-filter>
+  <app-side-filter
+    (addedAllergen)="addedAllergen($event)"
+    (addedTag)="addedTag($event)"
+    (removedAllergen)="removedAllergen($event)"
+    (removedTag)="removedTag($event)"
+  ></app-side-filter>
   <app-listed></app-listed>
+</div>
+<div class="absolute">
+Add alergen:{{addAllergen}}
+<br/>Add tag:{{addTag}}
+<br/>Remove allergen:{{removeAllergen}}
+<br/>Remove tag:{{removeTag}}
 </div>

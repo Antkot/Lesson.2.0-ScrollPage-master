@@ -8,13 +8,15 @@
       [selectable]="selectable"
       [removable]="removable"
       (removed)="removed(element)">
-      {{element}}
+      {{element.name}}
+<!--      {{element}}-->
       <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
     </mat-chip>
-    <input *ngIf="removable"
-           maxlength="32"
-      placeholder="Nowy {{entity}}..."
+    <input
       #elementInput
+      *ngIf="removable"
+      maxlength="32"
+      placeholder="Nowy {{entity}}..."
       [formControl]="elementCtrl"
       [matAutocomplete]="auto"
       [matChipInputFor]="chipList"
@@ -25,7 +27,7 @@
   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
 <!--    <mat-option *ngFor="let element of filteredElements$ | async" [value]="element">-->
     <mat-option *ngFor="let element of allElements" [value]="element">
-        {{element}}
+        {{element.name}}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

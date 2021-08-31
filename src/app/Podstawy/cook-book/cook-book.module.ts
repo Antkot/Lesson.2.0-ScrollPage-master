@@ -31,6 +31,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ListPageComponent } from './main-components/list-page/list-page.component';
 import { SearchBarComponent } from './part-components/search-bar/search-bar.component';
 import { RecipiePageComponent } from './main-components/recipie-page/recipie-page.component';
+import { TagsPipe } from './pipes/tags.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { RecipiePageComponent } from './main-components/recipie-page/recipie-pag
     IngredientDialogComponent,
     ListPageComponent,
     SearchBarComponent,
-    RecipiePageComponent
+    RecipiePageComponent,
+    TagsPipe
   ],
   exports: [
     SideFilterComponent,
