@@ -10,10 +10,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatOptionModule } from '@angular/material/core';
 import { ChipsComponent } from './chips.component';
 import { MatIconModule } from '@angular/material/icon';
+import { TagTranslatorPipe } from '../../pipes/tag-translator.pipe';
 
 const decoration: NgModule = {
   declarations: [
-    ChipsComponent
+    ChipsComponent,
+    TagTranslatorPipe
   ],
   imports: [
     MatIconModule,

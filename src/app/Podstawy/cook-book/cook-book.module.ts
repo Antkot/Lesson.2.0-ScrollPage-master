@@ -31,7 +31,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ListPageComponent } from './main-components/list-page/list-page.component';
 import { SearchBarComponent } from './part-components/search-bar/search-bar.component';
 import { RecipiePageComponent } from './main-components/recipie-page/recipie-page.component';
-import { TagsNamePipe } from './pipes/tags-name.pipe';
 import { TagTranslatorPipe } from './pipes/tag-translator.pipe';
 
 @NgModule({
@@ -51,7 +50,6 @@ import { TagTranslatorPipe } from './pipes/tag-translator.pipe';
     ListPageComponent,
     SearchBarComponent,
     RecipiePageComponent,
-    TagsNamePipe,
     TagTranslatorPipe
   ],
   exports: [
