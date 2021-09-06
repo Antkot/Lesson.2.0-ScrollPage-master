@@ -19,4 +19,7 @@ export class AllergensStorageService {
       ]);
     }
   }
+
+  add(event) {
+  }
 }

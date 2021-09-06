@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TagsStorageService } from '../../part-components/services/tags-storage.service';
+import { AllergensStorageService } from '../../part-components/services/allergens-storage.service';
 
 @Component({
   selector: 'app-list-page',
@@ -11,7 +12,7 @@ export class ListPageComponent implements OnInit {
   removeAllergen;
   addTag;
   addAllergen;
-  constructor(private tagsService: TagsStorageService) {
+  constructor(private tagsService: TagsStorageService, private allergenService: AllergensStorageService) {
 
   }
 
@@ -21,7 +22,8 @@ export class ListPageComponent implements OnInit {
 
   removedTag(event) {
     this.removeTag = event;
-    console.log(event);
+    this.tagsService.remove(event);
+    console.log('Removing', event);
   }
   removedAllergen(event) {
     this.removeAllergen = event;
@@ -32,6 +34,6 @@ export class ListPageComponent implements OnInit {
   }
   addedAllergen(event) {
     this.addAllergen = event;
-    this.tagsService.add(event);
+    this.allergenService.add(event);
   }
 }

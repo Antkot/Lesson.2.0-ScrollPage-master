@@ -17,7 +17,6 @@ export class TagsStorageService {
       const current = JSON.parse(this.localStorageService.getItem('hashes'));
       this.tags$.next([...current]);
     } else {
-      const current2 = this.tags$.value;
       this.tags$.next([
         { hashId: cuid(), name: 'Szpinak' },
         { hashId: cuid(), name: 'Pieczarki' },
@@ -54,4 +53,14 @@ export class TagsStorageService {
     }
   }
 
+  remove(hashId: number) {
+    const current = this.tags$.value;
+    console.table(current);
+    // this.tags$.next([
+    //   ...current.filter(record => record.hashId !== hashId)
+    // ]);
+    // this.localStorageService.removeItem(hashId);
+    this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
+    console.log('koniec');
+  }
 }
