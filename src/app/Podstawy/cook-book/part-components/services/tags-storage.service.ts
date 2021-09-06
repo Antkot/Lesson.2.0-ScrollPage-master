@@ -31,19 +31,22 @@ export class TagsStorageService {
     }
   }
 
-
   add(event: MatChipInputEvent): void {
-  //   const value = (event.value || '').trim();
-  //   if (value) {
-  //     if (this.tags$.getValue().findIndex(hash => hash.name === value) !== -1) {
-  //       this.tags$.next([{ hashId: cuid(), name: event.value }]);
-  //     }
-  //     console.table('TO TO', this.tags$.value);
-  //     // if (!this.ALLtags$.includes(value)) {
-  //     // this.tags$.next([{ hashId: cuid(), name: event.value }]);
-  //     //     }
-  //   }
+    console.log('Próba dodania');
+    const value = (event.value || '').trim();
+    console.log(value);
+    if (value) {
+      if (this.tags$.getValue().findIndex(hash => hash.name === value) !== -1) {
+        this.tags$.next([{ hashId: cuid(), name: event.value }]);
+      }
+      console.table('TO TO', this.tags$.value);
+      this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
+      // if (!this.ALLtags$.includes(value)) {
+      // this.tags$.next([{ hashId: cuid(), name: event.value }]);
+      //     }
+    } else {
+      console.log('Nie spełniono warunków');
+    }
   }
-
 
 }

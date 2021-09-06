@@ -27,15 +27,11 @@ export class ListPageComponent implements OnInit {
     this.removeAllergen = event;
   }
   addedTag(event) {
-    console.log('Ostatni przekaźnik');
     this.addTag = event;
     this.tagsService.add(event);
-    console.log('przekaźnik zakonczył pracę');
   }
   addedAllergen(event) {
-    console.log('Ostatni przekaźnik');
     this.addAllergen = event;
     this.tagsService.add(event);
-    console.log('przekaźnik zakonczył pracę');
   }
 }

@@ -9,7 +9,7 @@
       [removable]='removable'
       (removed)='removed(element)'>
       {{element.hashId | tagNameById}}
-      {{element}}
+      {{element.hashId}}
       <mat-icon matChipRemove *ngIf='removable'>cancel</mat-icon>
     </mat-chip>
         <input
