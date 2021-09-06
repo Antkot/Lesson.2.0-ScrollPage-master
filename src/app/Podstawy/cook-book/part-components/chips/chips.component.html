@@ -12,33 +12,30 @@
       {{element}}
       <mat-icon matChipRemove *ngIf='removable'>cancel</mat-icon>
     </mat-chip>
-    <input
-      placeholder='New fruit...'
-      #elementInput>
-  </mat-chip-list>
-</mat-form-field>
+        <input
+          #elementInput
+          *ngIf="removable"
+          maxlength="32"
+          placeholder="Nowy {{entity}}..."
+          [formControl]="elementCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="added($event)"
+        >
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <!--    <mat-option *ngFor="let element of filteredElements$ | async" [value]="element">-->
+        <mat-option *ngFor="let element of allElements" [value]="element.hashId">
+          {{element.hashId}}
+        </mat-option>
+      </mat-autocomplete>
+      <div *ngFor="let e of elements">
+        <input matInput type="text" />
+            {{e.hashId | tagNameById}}
+      </div>
+    </mat-form-field>
 
 
-<!--    <input-->
-<!--      #elementInput-->
-<!--      *ngIf="removable"-->
-<!--      maxlength="32"-->
-<!--      placeholder="Nowy {{entity}}..."-->
-<!--      [formControl]="elementCtrl"-->
-<!--      [matAutocomplete]="auto"-->
-<!--      [matChipInputFor]="chipList"-->
-<!--      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"-->
-<!--      (matChipInputTokenEnd)="added($event)"-->
-<!--    >-->
-<!--  </mat-chip-list>-->
-<!--  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">-->
-<!--    &lt;!&ndash;    <mat-option *ngFor="let element of filteredElements$ | async" [value]="element">&ndash;&gt;-->
-<!--    <mat-option *ngFor="let element of allElements" [value]="element.hashId">-->
-<!--      {{element.hashId}}-->
-<!--    </mat-option>-->
-<!--  </mat-autocomplete>-->
-<!--  <div *ngFor="let e of elements">-->
-<!--    <input matInput type="text" />-->
-<!--    &lt;!&ndash;    {{e.hashId | }}&ndash;&gt;-->
-<!--  </div>-->
-<!--</mat-form-field>-->
+
+

@@ -17,6 +17,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
 
 const decoration: NgModule = {
     declarations: [
@@ -30,6 +31,7 @@ const decoration: NgModule = {
       MatAccordion,
       TimeSliderComponent,
       ChipsComponent,
+      TagNameByIdPipe
     ],
   imports: [
     MatChipsModule,

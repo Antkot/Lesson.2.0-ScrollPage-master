@@ -23,6 +23,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AddIngredientComponent, IngredientDialogComponent } from '../../part-components/add-ingredient/add-ingredient.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
 
 const decoration: NgModule = {
   declarations: [
@@ -34,7 +35,8 @@ const decoration: NgModule = {
     StepsComponent,
     IngredientsComponent,
     AddIngredientComponent,
-    IngredientDialogComponent
+    IngredientDialogComponent,
+    TagNameByIdPipe
   ],
   imports: [
     MatIconModule,
