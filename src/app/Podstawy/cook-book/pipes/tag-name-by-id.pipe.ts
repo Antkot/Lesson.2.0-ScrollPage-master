@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'tagTranslator'
+  name: 'tagNameById'
 })
-export class TagTranslatorPipe implements PipeTransform {
+export class TagNameByIdPipe implements PipeTransform {
 
   transform(value: unknown, ...args: unknown[]): unknown {
     return null;

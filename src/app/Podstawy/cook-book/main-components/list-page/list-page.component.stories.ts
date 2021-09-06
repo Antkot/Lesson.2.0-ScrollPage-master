@@ -24,7 +24,6 @@ import { TimeSliderComponent } from '../../part-components/time-slider/time-slid
 import { ListPageComponent } from './list-page.component';
 import { MenuComponent } from '../../part-components/menu/menu.component';
 import { SearchBarComponent } from '../../part-components/search-bar/search-bar.component';
-import { TagTranslatorPipe } from '../../pipes/tag-translator.pipe';
 
 const decoration: NgModule = {
   declarations: [
@@ -42,7 +41,6 @@ const decoration: NgModule = {
     ChipsComponent,
     ListPageComponent,
     SearchBarComponent,
-    TagTranslatorPipe
 
   ],
   imports: [

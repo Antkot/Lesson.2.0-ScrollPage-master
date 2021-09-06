@@ -31,7 +31,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ListPageComponent } from './main-components/list-page/list-page.component';
 import { SearchBarComponent } from './part-components/search-bar/search-bar.component';
 import { RecipiePageComponent } from './main-components/recipie-page/recipie-page.component';
-import { TagTranslatorPipe } from './pipes/tag-translator.pipe';
+import { MatInputModule } from '@angular/material/input';
+import { TagNameByIdPipe } from './pipes/tag-name-by-id.pipe';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { TagTranslatorPipe } from './pipes/tag-translator.pipe';
     ListPageComponent,
     SearchBarComponent,
     RecipiePageComponent,
-    TagTranslatorPipe
+    TagNameByIdPipe
+
   ],
   exports: [
     SideFilterComponent,
@@ -80,7 +82,8 @@ import { TagTranslatorPipe } from './pipes/tag-translator.pipe';
     FormsModule,
     MatTableModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatInputModule
   ]
 })
 export class CookBookModule {

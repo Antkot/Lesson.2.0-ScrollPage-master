@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { moduleMetadata, storiesOf } from '@storybook/angular';
 import { withKnobs } from '@storybook/addon-knobs';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatChipsModule } from '@angular/material/chips';
@@ -10,23 +9,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatOptionModule } from '@angular/material/core';
 import { ChipsComponent } from './chips.component';
 import { MatIconModule } from '@angular/material/icon';
-import { TagTranslatorPipe } from '../../pipes/tag-translator.pipe';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
 
 const decoration: NgModule = {
   declarations: [
     ChipsComponent,
-    TagTranslatorPipe
+    TagNameByIdPipe
   ],
   imports: [
     MatIconModule,
     MatChipsModule,
-    MatFormFieldModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
     BrowserAnimationsModule,
-    MatOptionModule
+    MatOptionModule,
+    MatFormFieldModule,
   ]
 };
 
@@ -37,7 +37,7 @@ storiesOf('Podstawy / cook / parts', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips  [entity]="'Alergen'" [removable]="true">;
+<app-chips  [entity]="'Alergen'" [removable]='true'>;
 `
   }));
 storiesOf('Podstawy / cook / parts', module)
@@ -47,7 +47,7 @@ storiesOf('Podstawy / cook / parts', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips [entity]="'Alergen'" [removable]="false">;
+<app-chips [entity]="'Alergen'" [removable]='false'>;
 `
   }));
 
@@ -58,7 +58,7 @@ storiesOf('Podstawy / cook / parts', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips  [entity]="'Tag'" [removable]="true">;
+<app-chips  [entity]="'Tag'" [removable]='true'>;
 `
   }));
 storiesOf('Podstawy / cook / parts', module)
@@ -68,6 +68,6 @@ storiesOf('Podstawy / cook / parts', module)
     props: {} as Partial<ChipsComponent>,
     component: ChipsComponent,
     template: `
-<app-chips [entity]="'Tag'" [removable]="false">;
+<app-chips [entity]="'Tag'" [removable]='false'>;
 `
   }));
