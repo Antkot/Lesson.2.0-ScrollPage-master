@@ -14,7 +14,7 @@ export class DishStorageService {
     if (!!localStorage.dishesListData) {
     } else {
       this.dishesList$.next([
-        { dishId: cuid(), name: 'Pierogi', tags: [{hashId: 'fff'}] },
+        // { dishId: cuid(), name: 'Pierogi', tags: [{hashId: cuid()}] },
       ]);
     }
 

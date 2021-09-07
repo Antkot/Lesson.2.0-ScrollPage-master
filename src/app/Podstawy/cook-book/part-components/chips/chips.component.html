@@ -8,7 +8,7 @@
       [selectable]='selectable'
       [removable]='removable'
       (removed)='removed(element)'>
-      {{element.hashId | tagNameById}}
+      {{element.hashId | tagNameById: tags$}}
       <mat-icon matChipRemove *ngIf='removable'>cancel</mat-icon>
     </mat-chip>
         <input
@@ -29,10 +29,10 @@
           {{element.hashId}}
         </mat-option>
       </mat-autocomplete>
-      <div *ngFor="let e of elements">
-        <input matInput type="text" />
-            {{e.hashId | tagNameById}}
-      </div>
+<!--      <div *ngFor="let e of elements">-->
+<!--        <input matInput type="text" />-->
+<!--            {{e.hashId | tagNameById}}-->
+<!--      </div>-->
     </mat-form-field>
 
 

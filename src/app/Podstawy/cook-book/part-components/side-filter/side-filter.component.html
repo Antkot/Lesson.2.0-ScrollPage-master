@@ -17,8 +17,8 @@
           #Tagi
         </mat-panel-title>
       </mat-expansion-panel-header>
+<!--      [elements] = "tags$ | async"-->
       <app-chips
-        [elements] = "tags$ | async"
         [allElements] = "tags$ | async"
         [entity]="'Tag'"
         [removable]="true"

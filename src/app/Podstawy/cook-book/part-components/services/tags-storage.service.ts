@@ -27,13 +27,13 @@ export class TagsStorageService {
   }
 
   add(event): void {
-    console.log('Próba dodania');
+    // console.log('Próba dodania');
     const value = event.trim();
-    console.log('event: ', event);
+    // console.log('event: ', event);
     if (value) {
       if (this.tags$.getValue().findIndex(hash => hash.name === value) !== -1) {
         this.tags$.next([{ hashId: cuid(), name: event }]);
-        console.log('powtorka');
+        // console.log('powtorka');
       }
 
       const current = JSON.parse(this.localStorageService.getItem('hashes'));
@@ -45,7 +45,7 @@ export class TagsStorageService {
             name: event
           }]);
 
-      console.table('TO TO', this.tags$.value);
+      // console.table('TO TO', this.tags$.value);
       this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
       // if (!this.ALLtags$.includes(value)) {
       // this.tags$.next([{ hashId: cuid(), name: event.value }]);
@@ -61,6 +61,6 @@ export class TagsStorageService {
     // ]);
     // this.localStorageService.removeItem(hashId);
     this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
-    console.log('koniec');
+    // console.log('koniec');
   }
 }
