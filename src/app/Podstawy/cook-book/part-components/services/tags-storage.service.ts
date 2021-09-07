@@ -52,15 +52,15 @@ export class TagsStorageService {
       //     }
     }
   }
-
+//
   remove(hashId: number) {
-    const current = this.tags$.value;
-    console.table(current);
-    // this.tags$.next([
-    //   ...current.filter(record => record.hashId !== hashId)
-    // ]);
-    // this.localStorageService.removeItem(hashId);
-    this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
-    // console.log('koniec');
+//     const current = this.tags$.value;
+//     console.table(current);
+//     // this.tags$.next([
+//     //   ...current.filter(record => record.hashId !== hashId)
+//     // ]);
+//     // this.localStorageService.removeItem(hashId);
+//     this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
+//     // console.log('koniec');
   }
 }

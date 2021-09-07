@@ -12,7 +12,8 @@ export class TagNameByIdPipe implements PipeTransform {
     console.table('Otrzymany string: ', value);
     const translatedTag = tags$.name.find(x => x.hashId === value);
     console.table('translated tag: ', translatedTag);
-    return translatedTag;
+    // return translatedTag;
+    return 'xx';
   }
 
 }
