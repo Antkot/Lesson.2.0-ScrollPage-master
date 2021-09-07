@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
 import { Observable } from 'rxjs';
 import { Dish, Hashes, Levels } from '../../types';
@@ -19,10 +19,11 @@ export class SideFilterComponent implements OnInit {
   allElements: Array<Hashes>;
   // final: Array<Hashes>;
   timeLimit = '';
-  @Output() addedAllergen;
-  @Output() addedTag;
-  @Output() removedAllergen;
-  @Output() removedTag;
+  @Output() addedAllergen = new EventEmitter();
+  @Output() addedTag = new EventEmitter();
+  @Output() removedAllergen = new EventEmitter();
+  @Output() removedTag = new EventEmitter();
+
   // @Output() timeLimitOut = new EventEmitter();
   // addNewItem(value: string) {
   //   this.timeLimitOut.emit(value);
@@ -49,23 +50,19 @@ export class SideFilterComponent implements OnInit {
   }
 
   addAllergen(event: MatChipInputEvent) {
-    this.addedAllergen = event;
-    this.addedAllergen.emit(event.value);
+    this.addedAllergen.emit(event);
   }
   addTag(event: MatChipInputEvent) {
-    this.addedTag = event;
-    this.addedTag.emit(event.value);
+    this.addedTag.emit(event);
+    console.log(event);
   }
 
   removeAllergen(event: MatChipInputEvent) {
-    this.removedAllergen = event;
-    console.log(2, event);
-    this.addedTag.emit(event.value);
+    this.removedAllergen.emit(event);
   }
 
   removeTag(event: MatChipInputEvent) {
-    this.removedTag = event;
-    this.addedTag.emit(event.value);
+    this.removedTag.emit(event);
   }
 }
 

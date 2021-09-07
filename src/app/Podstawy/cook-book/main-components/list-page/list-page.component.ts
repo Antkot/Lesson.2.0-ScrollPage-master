@@ -8,10 +8,10 @@ import { AllergensStorageService } from '../../part-components/services/allergen
   styleUrls: ['./list-page.component.scss']
 })
 export class ListPageComponent implements OnInit {
-  removeTag;
-  removeAllergen;
-  addTag;
-  addAllergen;
+  removeTag = null;
+  removeAllergen = null;
+  addTag = null;
+  addAllergen = null;
   constructor(private tagsService: TagsStorageService, private allergenService: AllergensStorageService) {
 
   }
@@ -21,19 +21,19 @@ export class ListPageComponent implements OnInit {
 
 
   removedTag(event) {
-    this.removeTag = event;
+    // this.removeTag = event;
     this.tagsService.remove(event);
     console.log('Removing', event);
   }
   removedAllergen(event) {
-    this.removeAllergen = event;
+    // this.removeAllergen = event;
   }
   addedTag(event) {
-    this.addTag = event;
+    // this.addTag = event;
     this.tagsService.add(event);
   }
   addedAllergen(event) {
-    this.addAllergen = event;
+    // this.addAllergen = event;
     this.allergenService.add(event);
   }
 }

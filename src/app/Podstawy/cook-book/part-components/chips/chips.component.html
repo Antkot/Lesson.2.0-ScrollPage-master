@@ -8,8 +8,6 @@
       [selectable]='selectable'
       [removable]='removable'
       (removed)='removed(element)'>
-      {{element.hashId | tagNameById: tags$}}
-      {{element.hashId}}
       {{element.name}}
       <mat-icon matChipRemove *ngIf='removable'>cancel</mat-icon>
     </mat-chip>
@@ -28,15 +26,13 @@
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <!--    <mat-option *ngFor="let element of filteredElements$ | async" [value]="element">-->
         <mat-option *ngFor="let element of allElements" [value]="element.hashId">
-          {{element.hashId}}
+          {{element.name}}
         </mat-option>
       </mat-autocomplete>
-      <div *ngFor="let e of elements">
-        <input matInput type="text" />
-            {{e.hashId | tagNameById: tags$}}
-            {{e.hashId}}
-            {{e.name}}
-      </div>
+<!--      <div *ngFor="let element of elements">-->
+<!--        <input matInput type="text" />-->
+<!--            {{element.hashId | tagNameById: tags$}}-->
+<!--      </div>-->
     </mat-form-field>
 
 
