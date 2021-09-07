@@ -1,1 +1,8 @@
-<p>main-menu works!</p>
+<app-menu></app-menu>
+<div class='container'>
+  <div *ngFor='let dish of dishes$ | async'>
+    <div class='option'>
+      {{dish.name}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+:host{
+  align-content: center;
+}
+.container{
+  align-content: center;
+  justify-content: center;
+  background: lightgoldenrodyellow;
+  height: 100%;
+  width: 100%;
+}
+.option{
+  background: gold;
+  height: 100px;
+  width: 20%;
+  float: left;
+  margin: 5%;
+  text-align: center;
+}
+.option:hover{
+  background: goldenrod;
+}
+.option:active{
+  background: darkgoldenrod;
+}
