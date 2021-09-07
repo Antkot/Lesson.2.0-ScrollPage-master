@@ -4,6 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Hashes } from '../../types';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { LocalStorageService } from './local-storage-service';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,49 +19,52 @@ export class TagsStorageService {
       this.tags$.next([...current]);
     } else {
       this.tags$.next([
-        { hashId: cuid(), name: 'Szpinak' },
-        { hashId: cuid(), name: 'Pieczarki' },
-        { hashId: cuid(), name: 'Mięsne' }
+        { hashId: cuid(), name: '#Szpinak' },
+        { hashId: cuid(), name: '#Pieczarki' },
+        { hashId: cuid(), name: '#Mięsne' }
       ]);
       this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
     }
   }
 
   add(event): void {
-    // console.log('Próba dodania');
+    let duplicat = false;
     const value = event.trim();
-    // console.log('event: ', event);
     if (value) {
-      if (this.tags$.getValue().findIndex(hash => hash.name === value) !== -1) {
-        this.tags$.next([{ hashId: cuid(), name: event }]);
-        // console.log('powtorka');
+      this.tags$.value.forEach(allergen => {
+        if (allergen.name === event) {
+          duplicat = true;
+        }
+      });
+      if (!duplicat) {
+        const current = JSON.parse(this.localStorageService.getItem('hashes'));
+        this.tags$.next(
+          [
+            ...current,
+            {
+              hashId: cuid(),
+              name: event
+            }]);
+
+        // console.table('TO TO', this.tags$.value);
+        this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
+        // if (!this.ALLtags$.includes(value)) {
+        // this.tags$.next([{ hashId: cuid(), name: event.value }]);
+        //     }
       }
-
-      const current = JSON.parse(this.localStorageService.getItem('hashes'));
-      this.tags$.next(
-        [
-          ...current,
-          {
-            hashId: cuid(),
-            name: event
-          }]);
-
-      // console.table('TO TO', this.tags$.value);
-      this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
-      // if (!this.ALLtags$.includes(value)) {
-      // this.tags$.next([{ hashId: cuid(), name: event.value }]);
-      //     }
     }
   }
-//
+
   remove(hashId: number) {
-//     const current = this.tags$.value;
-//     console.table(current);
-//     // this.tags$.next([
-//     //   ...current.filter(record => record.hashId !== hashId)
-//     // ]);
-//     // this.localStorageService.removeItem(hashId);
-//     this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
-//     // console.log('koniec');
+    const current = this.tags$.value;
+    console.table(current);
+    const deleto = this.tags$.value[hashId].hashId;
+    this.tags$.next(
+      [
+        ...current.filter(record => record.hashId !== deleto)
+      ]
+    );
+    this.localStorageService.removeItem('hashes');
+    this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
   }
 }

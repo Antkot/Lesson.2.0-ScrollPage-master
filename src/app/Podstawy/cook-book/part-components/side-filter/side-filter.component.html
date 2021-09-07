@@ -20,11 +20,11 @@
 <!--      [elements] = "tags$ | async"-->
       <app-chips
         [allElements] = "tags$ | async"
+        [elements]= "tags$ | async"
         [entity]="'Tag'"
         [removable]="true"
         (remove)="removeTag($event)"
         (add)="addTag($event)"
-        [elements]= "tags$ | async"
       ></app-chips>
     </mat-expansion-panel>
     <mat-expansion-panel hideToggle>
@@ -34,8 +34,8 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
       <app-chips
-        [elements] = "[]"
-        [allElements] = "[]"
+        [elements] = "allergens$ | async"
+        [allElements] = "allergens$ | async"
         [entity]="'Alergen'"
         [removable]="true"
         (remove)="removeAllergen($event)"

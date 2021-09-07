@@ -10,18 +10,19 @@ import { stringify } from 'querystring';
 export class TagNameByIdPipe implements PipeTransform {
   getMovies = null;
 
-  transform(value: string, tags$: Observable<Hashes>): any {
+  transform(value: string, tags$: Observable<Array<Hashes>>): string {
+
     // const current = tags$.value;
     // const translatedTag = tags$.find(x => x.hashId === value);
     // console.table('translated tag: ', translatedTag);
     // return translatedTag;
-    const example = (tags$.pipe(filter(tag => tag.hashId === value)));
-    return example;
+    // const example = (tags$.pipe(filter(tag => tag.hashId === value)));
+    // return example;
     // return this.getMovies.map(movies => movies.find(movie => movie.id === value));
-  }
-
-  // return 'xx';
   // }
+  //
+  return null;
+  }
 
 }
 

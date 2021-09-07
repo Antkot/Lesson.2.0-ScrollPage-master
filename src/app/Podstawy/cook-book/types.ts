@@ -8,15 +8,10 @@ export interface Dish {
 export interface Dishes {
   dishId: string;
   name: string;
-  // tags: Array<Hashes>;
   tags: Array<{ hashId: string }>;
 }
 export interface Hashes {
   hashId: string;
-  name: string;
-}
-export interface Allergen {
-  allergenId: string;
   name: string;
 }
 export interface Timer {

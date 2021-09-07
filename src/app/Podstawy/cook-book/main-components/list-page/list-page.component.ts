@@ -21,19 +21,15 @@ export class ListPageComponent implements OnInit {
 
 
   removedTag(event) {
-    // this.removeTag = event;
     this.tagsService.remove(event);
-    console.log('Removing', event);
   }
   removedAllergen(event) {
-    // this.removeAllergen = event;
+    this.allergenService.remove(event);
   }
   addedTag(event) {
-    // this.addTag = event;
     this.tagsService.add(event);
   }
   addedAllergen(event) {
-    // this.addAllergen = event;
     this.allergenService.add(event);
   }
 }

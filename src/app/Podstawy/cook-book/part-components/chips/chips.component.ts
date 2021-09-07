@@ -49,18 +49,8 @@ export class ChipsComponent {
 
   removed(element: Hashes): void {
     const index = this.elements.indexOf(element);
-    // if (index >= 0) {
-    //   this.elements.splice(index, 1);
-    // }
     this.remove.emit(index);
   }
-
-  // removed(event: MatChipEvent) {
-  // removed(event: MatChipEvent) {
-  //   this.remove.emit(event);
-  //   console.log('EVENT VALUE: ', event);
-  // }
-
 
 // TODO przenieść do serivca
 //   selected(event: MatAutocompleteSelectedEvent): void {

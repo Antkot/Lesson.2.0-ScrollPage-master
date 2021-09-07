@@ -5,6 +5,7 @@ import { Dish, Hashes, Levels } from '../../types';
 import { ChipService } from '../services/chip.service';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { AllergensStorageService } from '../services/allergens-storage.service';
 
 @Component({
   selector: 'app-side-filter',
@@ -14,6 +15,7 @@ import { MatChipInputEvent } from '@angular/material/chips';
 export class SideFilterComponent implements OnInit {
   dishes$: Observable<Array<Dish>> = this.loadingService.dishes$;
   tags$: Observable<Array<Hashes>> = this.tagsService.tags$;
+  allergens$: Observable<Array<Hashes>> = this.allergensService.allergens$;
   levels$: Observable<Array<Levels>> = this.loadingService.levels$;
   tag: string = null;
   allElements: Array<Hashes>;
@@ -35,7 +37,9 @@ export class SideFilterComponent implements OnInit {
   constructor(
     private loadingService: LoadingService,
     private chipService: ChipService,
-    private  tagsService: TagsStorageService) {
+    private  tagsService: TagsStorageService,
+    private  allergensService: AllergensStorageService
+  ) {
     this.tags$.subscribe(data => this.allElements = data);
     // this.final = this.allElements.map(({ name }) => name);
     // console.table(this.final);
@@ -51,6 +55,7 @@ export class SideFilterComponent implements OnInit {
 
   addAllergen(event: MatChipInputEvent) {
     this.addedAllergen.emit(event);
+    console.log(event);
   }
   addTag(event: MatChipInputEvent) {
     this.addedTag.emit(event);

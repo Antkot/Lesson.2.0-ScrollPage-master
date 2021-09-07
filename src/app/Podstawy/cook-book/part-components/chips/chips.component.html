@@ -8,6 +8,7 @@
       [selectable]='selectable'
       [removable]='removable'
       (removed)='removed(element)'>
+      {{element.hashId | tagNameById: tags$}}
       {{element.name}}
       <mat-icon matChipRemove *ngIf='removable'>cancel</mat-icon>
     </mat-chip>
