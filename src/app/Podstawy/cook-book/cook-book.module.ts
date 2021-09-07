@@ -33,6 +33,7 @@ import { SearchBarComponent } from './part-components/search-bar/search-bar.comp
 import { RecipiePageComponent } from './main-components/recipie-page/recipie-page.component';
 import { MatInputModule } from '@angular/material/input';
 import { TagNameByIdPipe } from './pipes/tag-name-by-id.pipe';
+import { MainMenuComponent } from './main-components/main-menu/main-menu.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { TagNameByIdPipe } from './pipes/tag-name-by-id.pipe';
     ListPageComponent,
     SearchBarComponent,
     RecipiePageComponent,
-    TagNameByIdPipe
+    TagNameByIdPipe,
+    MainMenuComponent
 
   ],
   exports: [
