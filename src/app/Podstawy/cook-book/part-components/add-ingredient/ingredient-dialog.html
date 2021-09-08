@@ -1,11 +1,22 @@
 <h2 mat-dialog-title>Dodawanie Składnika</h2>
 <mat-dialog-content class="mat-typography">
-  Składnik: <input>
+  Składnik: <input list="ingridients" name="ingridient" id="ingridient">
   Ilość: <input type='number'>
-  Miara: <input type='search'>
+  Miara: <input list="measueres" name="measuere" id="measuere">
+
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Anuluj</button>
   <button mat-button [mat-dialog-close]="true">Dodaj</button>
 </mat-dialog-actions>
 
+
+<datalist id="measueres">
+  <option *ngFor='let measure of measures$ | async' value="{{measure.measure}}">
+    {{measure.measure}}
+</datalist>
+
+<datalist id="ingridients">
+  <option *ngFor='let measure of measures$ | async' value="{{measure.measure}}">
+    {{measure.measure}}
+</datalist>

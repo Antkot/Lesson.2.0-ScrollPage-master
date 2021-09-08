@@ -21,7 +21,7 @@ export class TagsStorageService {
       this.tags$.next([
         { hashId: cuid(), name: '#Szpinak' },
         { hashId: cuid(), name: '#Pieczarki' },
-        { hashId: cuid(), name: '#Mięsne' }
+        { hashId: 'fff', name: '#Mięsne' }
       ]);
       this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
     }

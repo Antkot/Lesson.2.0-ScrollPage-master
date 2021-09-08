@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Hashes, Measures } from '../../types';
+import { Observable } from 'rxjs';
+import { MeasuresStorageService } from '../services/measures-storage.service';
 
 @Component({
   selector: 'app-add-ingredient',
@@ -21,4 +24,9 @@ export class AddIngredientComponent {
   selector: 'app-ingredient-dialog',
   templateUrl: 'ingredient-dialog.html',
 })
-export class IngredientDialogComponent {}
+export class IngredientDialogComponent {
+  constructor(private measureService: MeasuresStorageService) { }
+
+  measures$: Observable<Array<Measures>> = this.measureService.measures$;
+
+}

@@ -1,27 +1,28 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Hashes } from '../types';
-import { filter } from 'rxjs/operators';
+import { filter, first } from 'rxjs/operators';
 import { stringify } from 'querystring';
 
 @Pipe({
   name: 'tagNameById'
 })
 export class TagNameByIdPipe implements PipeTransform {
-  getMovies = null;
+  data = null;
 
-  transform(value: string, tags$: Observable<Array<Hashes>>): string {
+  transform(value: string, tags$: any): string {
+    console.log('Otrzymano: ', value);
 
-    // const current = tags$.value;
-    // const translatedTag = tags$.find(x => x.hashId === value);
-    // console.table('translated tag: ', translatedTag);
-    // return translatedTag;
-    // const example = (tags$.pipe(filter(tag => tag.hashId === value)));
-    // return example;
-    // return this.getMovies.map(movies => movies.find(movie => movie.id === value));
-  // }
-  //
-  return null;
+    tags$.value.forEach(tag => {
+      console.log(tag.hashId === value, tag.hashId, '===', value);
+      if (tag.hashId === value) {
+        this.data = tag.name;
+        console.log(3, this.data);
+        return this.data;
+      }
+    });
+    console.log('Zwrot: ', this.data);
+    return this.data;
   }
 
 }

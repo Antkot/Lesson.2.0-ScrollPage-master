@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipie-page.component.scss']
 })
 export class RecipiePageComponent implements OnInit {
+  edit = true;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
+  change() {
+    this.edit = !this.edit;
+  }
 }
