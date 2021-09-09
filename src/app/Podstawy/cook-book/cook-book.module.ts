@@ -35,7 +35,26 @@ import { MatInputModule } from '@angular/material/input';
 import { TagNameByIdPipe } from './pipes/tag-name-by-id.pipe';
 import { MainMenuComponent } from './main-components/main-menu/main-menu.component';
 import { MainPageComponent } from './main-components/main-page/main-page.component';
+import { RouterModule } from '@angular/router';
 
+const links = [
+  {
+    component: MainPageComponent,
+    path: 'main'
+  },
+  {
+    component: MainMenuComponent,
+    path: 'menu'
+  },
+  {
+    component: ListPageComponent,
+    path: 'list'
+  },
+  {
+    component: RecipiePageComponent,
+    path: 'recipe'
+  },
+];
 @NgModule({
   declarations: [
     SearchBarComponent,
@@ -65,8 +84,10 @@ import { MainPageComponent } from './main-components/main-page/main-page.compone
     ChipsComponent,
     AddIngredientComponent,
     IngredientDialogComponent,
+    MainPageComponent
   ],
   imports: [
+    RouterModule.forRoot(links, { useHash: true }),
     CommonModule,
     MatDividerModule,
     MatExpansionModule,
@@ -87,7 +108,7 @@ import { MainPageComponent } from './main-components/main-page/main-page.compone
     MatTableModule,
     MatButtonModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
   ]
 })
 export class CookBookModule {

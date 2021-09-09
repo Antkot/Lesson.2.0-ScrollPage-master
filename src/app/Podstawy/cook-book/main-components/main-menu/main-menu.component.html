@@ -1,7 +1,7 @@
 <app-menu></app-menu>
 <div class='container'>
   <div *ngFor='let dish of dishes$ | async'>
-    <div class='option'>
+    <div class='option'  routerLink="/list" routerLinkActive="active">
       {{dish.name}}
     </div>
   </div>
