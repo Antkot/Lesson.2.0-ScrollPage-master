@@ -1,4 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-recipie-page',
@@ -7,11 +10,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class RecipiePageComponent implements OnInit {
   @Input() edit = false;
+  state$: Observable<object>;
+  aaa;
+  constructor(public activatedRoute: ActivatedRoute, public router: Router) {
 
-  constructor() {
   }
 
   ngOnInit(): void {
+    this.state$ = this.activatedRoute.paramMap
+      .pipe(map(() => window.history.state));
+    this.state$.subscribe(data => this.aaa = data);
+    this.edit = this.aaa.edit;
   }
 
 }

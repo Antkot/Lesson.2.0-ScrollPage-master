@@ -7,14 +7,14 @@
       <app-sorter></app-sorter>
     </div>
   </div>
-  <div class="add" routerLink="/recipe" routerLinkActive="active">
+  <div class="add" routerLink="/recipe" routerLinkActive="active" [state]="{ edit: true}">
     <h1>
       Dodaj przepis
     </h1>
   </div>
   <div class="list">
     <mat-divider></mat-divider>
-    <div class="record" *ngFor="let dish of dishesList$ | async" routerLink="/recipe" routerLinkActive="active">
+    <div class="record" *ngFor="let dish of dishesList$ | async" routerLink="/recipe" routerLinkActive="active" [state]="{ edit: false}">
       <h1>{{dish.name}}</h1>
       <div>
         <app-chips
