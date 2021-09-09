@@ -3,17 +3,21 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Hashes } from '../types';
 import { filter, first } from 'rxjs/operators';
 import { stringify } from 'querystring';
+import { TagsStorageService } from '../part-components/services/tags-storage.service';
 
 @Pipe({
   name: 'tagNameById'
 })
 export class TagNameByIdPipe implements PipeTransform {
   data = null;
-
-  transform(value: string, tags$: any): string {
+  // tags$: Observable<Array<Hashes>> = this.tagsService.tags$;
+  //
+  // constructor(private tagsService: TagsStorageService) {
+  // }
+  transform(value: string, tags$: Array<Hashes>): string {
     console.log('Otrzymano: ', value);
 
-    tags$.value.forEach(tag => {
+    tags$.forEach(tag => {
       console.log(tag.hashId === value, tag.hashId, '===', value);
       if (tag.hashId === value) {
         this.data = tag.name;

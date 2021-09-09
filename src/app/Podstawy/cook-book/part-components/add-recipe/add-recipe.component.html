@@ -5,11 +5,11 @@
   <mat-divider></mat-divider>
   <div class="hash">
     <div class="divide">
-      <app-chips [removable]="true" [entity]="'Twoje #tagi:'"></app-chips>
+      <app-chips [removable]="edit" [entity]="'Twoje #tagi:'"></app-chips>
     </div>
-    <div class="divide">
-      <app-chips [removable]="false" [entity]="'Tagi wygenerowane samoczynnie:'"></app-chips>
-    </div>
+<!--    <div class="divide">-->
+<!--      <app-chips [removable]="false" [entity]="'Tagi wygenerowane samoczynnie:'"></app-chips>-->
+<!--    </div>-->
   </div>
   <mat-divider></mat-divider>
   <div class="name">
@@ -21,10 +21,10 @@
   <mat-divider></mat-divider>
   <div class="ingredients">
     <div class="divide">
-      <app-ingredients [edit]="true"></app-ingredients>
+      <app-ingredients [edit]="edit"></app-ingredients>
     </div>
     <div class="divide">
-      <app-steps [edit]="true"></app-steps>
+      <app-steps [edit]="edit"></app-steps>
     </div>
   </div>
   <mat-divider></mat-divider>

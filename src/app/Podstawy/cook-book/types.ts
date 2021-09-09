@@ -30,5 +30,6 @@ export interface Measures {
 export interface Products {
   nameId: string;
   product: string;
+// kcal: number
   allergens: Array<string>;
 }

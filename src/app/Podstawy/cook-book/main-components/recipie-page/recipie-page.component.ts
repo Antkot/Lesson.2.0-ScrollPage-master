@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-recipie-page',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./recipie-page.component.scss']
 })
 export class RecipiePageComponent implements OnInit {
-  edit = true;
+  @Input() edit = false;
 
   constructor() {
   }
@@ -14,7 +14,4 @@ export class RecipiePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  change() {
-    this.edit = !this.edit;
-  }
 }

@@ -34,6 +34,7 @@ import { RecipiePageComponent } from './main-components/recipie-page/recipie-pag
 import { MatInputModule } from '@angular/material/input';
 import { TagNameByIdPipe } from './pipes/tag-name-by-id.pipe';
 import { MainMenuComponent } from './main-components/main-menu/main-menu.component';
+import { MainPageComponent } from './main-components/main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { MainMenuComponent } from './main-components/main-menu/main-menu.compone
     SearchBarComponent,
     RecipiePageComponent,
     TagNameByIdPipe,
-    MainMenuComponent
+    MainMenuComponent,
+    MainPageComponent
 
   ],
   exports: [

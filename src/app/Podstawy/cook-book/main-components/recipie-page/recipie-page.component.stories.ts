@@ -67,6 +67,14 @@ storiesOf('Podstawy / cook / main', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
   .add('main page of recipie', () => ({
-    props: {} as Partial<RecipiePageComponent>,
+    props: {
+      edit: true
+    } as Partial<RecipiePageComponent>,
+    component: RecipiePageComponent
+  }))
+  .add('xxxmain page of recipie', () => ({
+    props: {
+      edit: false
+    } as Partial<RecipiePageComponent>,
     component: RecipiePageComponent
   }));
