@@ -1,6 +1,7 @@
 <div class="all">
   <app-menu></app-menu>
   <app-side-filter
+    [allFilterOptions] = "allFilterOptions"
     (addedAllergen)="addedAllergen($event)"
     (addedTag)="addedTag($event)"
     (removedAllergen)="removedAllergen($event)"

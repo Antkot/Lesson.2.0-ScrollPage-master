@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
 import { Observable } from 'rxjs';
 import { Dish, Hashes, Levels } from '../../types';
@@ -25,7 +25,7 @@ export class SideFilterComponent implements OnInit {
   @Output() addedTag = new EventEmitter();
   @Output() removedAllergen = new EventEmitter();
   @Output() removedTag = new EventEmitter();
-
+  @Input() allFilterOptions;
   // @Output() timeLimitOut = new EventEmitter();
   // addNewItem(value: string) {
   //   this.timeLimitOut.emit(value);

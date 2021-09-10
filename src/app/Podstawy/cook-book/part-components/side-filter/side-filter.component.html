@@ -1,7 +1,7 @@
 <div class='container'>
   <h2> Filtruj potrawy:</h2>
   <mat-accordion>
-    <mat-expansion-panel hideToggle>
+    <mat-expansion-panel hideToggle *ngIf='allFilterOptions'>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Wybór posiłku

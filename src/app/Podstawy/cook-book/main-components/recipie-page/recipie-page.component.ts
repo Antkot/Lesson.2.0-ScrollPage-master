@@ -11,16 +11,16 @@ import { Observable } from 'rxjs';
 export class RecipiePageComponent implements OnInit {
   @Input() edit = false;
   state$: Observable<object>;
-  aaa;
-  constructor(public activatedRoute: ActivatedRoute, public router: Router) {
+  temporary;
+  constructor(public activatedRoute: ActivatedRoute) {
 
   }
 
   ngOnInit(): void {
     this.state$ = this.activatedRoute.paramMap
       .pipe(map(() => window.history.state));
-    this.state$.subscribe(data => this.aaa = data);
-    this.edit = this.aaa.edit;
+    this.state$.subscribe(data => this.temporary = data);
+    this.edit = this.temporary.edit;
   }
 
 }
