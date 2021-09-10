@@ -1,22 +1,22 @@
 <div class='container' xmlns='http://www.w3.org/1999/html'>
-  <div class="header" *ngIf="edit">
-    <h1>Nowy Przepis dodawany !</h1>
+<!--  <div class="header" *ngIf="edit">-->
+<!--    <h1>Nowy Przepis dodawany !</h1>-->
+<!--  </div>-->
+  <mat-divider></mat-divider>
+  <div class="name">
+    <input type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'>
+    <div class="editButton" *ngIf="!edit">
+      <button mat-button (click)='editable()'>Edytuj przepis</button>
+    </div>
   </div>
   <mat-divider></mat-divider>
   <div class="hash">
     <div class="divide">
       <app-chips [removable]="edit" [entity]="'Twoje #tagi:'"></app-chips>
     </div>
-<!--    <div class="divide">-->
-<!--      <app-chips [removable]="false" [entity]="'Tagi wygenerowane samoczynnie:'"></app-chips>-->
-<!--    </div>-->
-  </div>
-  <mat-divider></mat-divider>
-  <div class="name">
-    <input type='text' placeholder='Wpisz Nazwę  Potrawy... ' class='input'>
-    <div class="editButton" *ngIf="!edit">
-      Edytuj przepis
-    </div>
+    <!--    <div class="divide">-->
+    <!--      <app-chips [removable]="false" [entity]="'Tagi wygenerowane samoczynnie:'"></app-chips>-->
+    <!--    </div>-->
   </div>
   <mat-divider></mat-divider>
   <div class="ingredients">
@@ -28,8 +28,11 @@
     </div>
   </div>
   <mat-divider></mat-divider>
-  <footer class="confirm">
-    {{confirmNotifications}}
+  <footer class="confirm" *ngIf='edit' (click)='editable()'>
+    Zapisz!
+  </footer>
+  <footer class="confirm" *ngIf='!edit'>
+    Gotuj!
   </footer>
 </div>
 

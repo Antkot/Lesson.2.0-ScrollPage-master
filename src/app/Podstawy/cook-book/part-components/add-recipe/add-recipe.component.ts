@@ -7,7 +7,6 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
   styleUrls: ['./add-recipe.component.scss']
 })
 export class AddRecipeComponent implements OnInit {
-  @Input() confirmNotifications = 'Gotowe';
   @Input() edit = false;
 
   constructor() {
@@ -16,6 +15,9 @@ export class AddRecipeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  editable() {
+    this.edit = !this.edit;
+  }
 }
 
 

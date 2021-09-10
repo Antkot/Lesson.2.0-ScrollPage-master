@@ -25,13 +25,14 @@ export interface Levels {
   level: number;
 }
 export interface Measures {
-  productId: string;
+  measureId: string;
   measure: string;
   shortcut: string;
 }
 export interface Products {
   productId: string;
   product: string;
-// kcal: number
+  kcal: number;
+  measures: Array<{ measureId: string }>;
   allergens: Array<string>;
 }

@@ -60,7 +60,7 @@ storiesOf('Podstawy / cook / parts', module)
     props: {} as Partial<AddRecipeComponent>,
     component: AddRecipeComponent,
     template: `
-<app-add-recipe [edit]="false" [confirmNotifications]="'Gotuj!'">;
+<app-add-recipe [edit]="false">;
 `
   }));
 storiesOf('Podstawy / cook / parts', module)
@@ -70,6 +70,6 @@ storiesOf('Podstawy / cook / parts', module)
     props: {} as Partial<AddRecipeComponent>,
     component: AddRecipeComponent,
     template: `
-<app-add-recipe [edit]="true" [confirmNotifications]="'Zapisz!'">;
+<app-add-recipe [edit]="true">;
 `
   }));
