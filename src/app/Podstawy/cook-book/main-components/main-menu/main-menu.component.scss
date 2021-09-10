@@ -1,24 +1,34 @@
-:host{
+:host {
   align-content: center;
+  background: lightgoldenrodyellow;
+  height: 100vh;
+  width: 100vw;
 }
-.container{
+
+.container {
   align-content: center;
   justify-content: center;
   background: lightgoldenrodyellow;
   height: 100%;
   width: 100%;
 }
-.option{
-  background: gold;
+
+.option {
+  border-radius: 50px;
+  line-height: 600%;
+  border: gold 12px double;
+  background: dodgerblue;
   height: 100px;
   width: 20%;
   float: left;
   margin: 5%;
   text-align: center;
 }
-.option:hover{
-  background: goldenrod;
+
+.option:hover {
+  border: darkgoldenrod 12px double;
 }
-.option:active{
-  background: darkgoldenrod;
+
+.option:active {
+  transform: scale(0.95);
 }

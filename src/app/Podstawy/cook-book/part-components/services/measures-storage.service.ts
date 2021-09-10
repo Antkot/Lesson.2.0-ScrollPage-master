@@ -14,12 +14,12 @@ export class MeasuresStorageService {
     if (!!localStorage.measures) {
     } else {
       this.measures$.next([
-        { nameId: cuid(), measure: 'litr', shortcut: 'l' },
-        { nameId: cuid(), measure: 'mililitry', shortcut: 'ml' },
-        { nameId: cuid(), measure: 'gram', shortcut: 'g' },
-        { nameId: cuid(), measure: 'kilogram', shortcut: 'kg' },
-        { nameId: cuid(), measure: 'szklanka', shortcut: 'szkl.' },
-        { nameId: cuid(), measure: 'sztuki', shortcut: 'szt.' }
+        { productId: cuid(), measure: 'litr', shortcut: 'l' },
+        { productId: cuid(), measure: 'mililitry', shortcut: 'ml' },
+        { productId: cuid(), measure: 'gram', shortcut: 'g' },
+        { productId: cuid(), measure: 'kilogram', shortcut: 'kg' },
+        { productId: cuid(), measure: 'szklanka', shortcut: 'szkl.' },
+        { productId: cuid(), measure: 'sztuki', shortcut: 'szt.' }
       ]);
     }
 

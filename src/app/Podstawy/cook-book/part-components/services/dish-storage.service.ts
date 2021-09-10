@@ -16,8 +16,20 @@ export class DishStorageService {
     if (!!localStorage.dishesListData) {
     } else {
       this.dishesList$.next([
-        { dishId: cuid(), name: 'Pierogi', tags: [{hashId: 'cktaebvpx00013a9uhhg9u3gc'}] },
-        { dishId: cuid(), name: 'Pierogi2', tags: [{hashId: 'fff'}] },
+        {
+          dishId: cuid(),
+          name: 'Pierogi',
+          steps: ['1', '2 krok', 'ugotój'],
+          products: [{ productId: '11' }],
+          tags: [{ hashId: 'cktaebvpx00013a9uhhg9u3gc' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi2',
+          steps: ['1', '2 krok', 'ugotój', 'ugotój'],
+          products: [{ productId: '11' }],
+          tags: [{ hashId: 'fff' }]
+        }
       ]);
     }
   }

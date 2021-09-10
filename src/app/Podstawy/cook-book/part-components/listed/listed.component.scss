@@ -75,3 +75,6 @@
 .add:hover {
   border: darkgoldenrod double 12px;
 }
+.record:active, .add:active{
+  transform: scale(0.95);
+}

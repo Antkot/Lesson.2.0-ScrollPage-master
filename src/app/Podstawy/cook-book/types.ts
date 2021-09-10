@@ -9,6 +9,8 @@ export interface Dishes {
   dishId: string;
   name: string;
   tags: Array<{ hashId: string }>;
+  steps: Array<string>;
+  products: Array<{ productId: string }>;
 }
 export interface Hashes {
   hashId: string;
@@ -23,12 +25,12 @@ export interface Levels {
   level: number;
 }
 export interface Measures {
-  nameId: string;
+  productId: string;
   measure: string;
   shortcut: string;
 }
 export interface Products {
-  nameId: string;
+  productId: string;
   product: string;
 // kcal: number
   allergens: Array<string>;

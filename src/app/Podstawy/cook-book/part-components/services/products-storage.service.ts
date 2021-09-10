@@ -13,12 +13,12 @@ export class ProductsStorageService {
     if (!!localStorage.products) {
     } else {
       this.products$.next([
-        { nameId: cuid(), product: 'Mleko', allergens: ['Laktoza'] },
-        { nameId: cuid(), product: 'Woda', allergens: null },
-        { nameId: cuid(), product: 'Drożdze', allergens: null },
-        { nameId: cuid(), product: 'Mąka', allergens: null },
-        { nameId: cuid(), product: 'Cukier', allergens: null },
-        { nameId: cuid(), product: 'Jaja', allergens: ['Laktoza', 'Białko'] }
+        { productId: cuid(), product: 'Mleko', allergens: ['Laktoza'] },
+        { productId: cuid(), product: 'Woda', allergens: null },
+        { productId: cuid(), product: 'Drożdze', allergens: null },
+        { productId: cuid(), product: 'Mąka', allergens: null },
+        { productId: cuid(), product: 'Cukier', allergens: null },
+        { productId: cuid(), product: 'Jaja', allergens: ['Laktoza', 'Białko'] }
       ]);
     }
   }
