@@ -1,12 +1,29 @@
 <div class='container'>
-  <div class="headerButtons" *ngIf='edit'>
+  <div class='headerButtons' *ngIf='edit'>
     <app-add-ingredient></app-add-ingredient>
   </div>
-<div>
-  <a *ngFor='let product of products'>
-    {{product.productId}}
-    <br>
-  </a>
-</div>
+  <div>
+    <table>
+      <tr>
+        <th>Nazwa</th>
+        <th>Ilość</th>
+        <th>Cośtam</th>
+      </tr>
+      <tr *ngFor='let product of products'>
+        <td>
+  pipe result
+        </td>
+        <td>
+          pipe result
+        </td>
+        <td>
+          pipe result
+
+          <!--          {{product.productId}} | pipe-->
+        </td>
+      </tr>
+    </table>
+
+  </div>
 </div>
 

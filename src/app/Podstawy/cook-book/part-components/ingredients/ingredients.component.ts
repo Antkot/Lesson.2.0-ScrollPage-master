@@ -17,6 +17,5 @@ constructor() {
   @Input() products: Array<Products>;
 
   ngOnInit(): void {
-    console.log(this.products);
   }
 }

@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./recipie-page.component.scss']
 })
 export class RecipiePageComponent implements OnInit {
-  edit = false;
+  edit = true;
   name = '';
   tags = [];
   steps = [];
@@ -27,10 +27,16 @@ export class RecipiePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('EDYCJA', this.edit);
     // tylko raz odplaić fuinkcję, teraz za dużo
 
 
     this.edit = this.saveData().edit;
+    if (this.edit === undefined) {
+      this.edit = true;
+
+    }
+    console.log('EDYCJA', this.edit);
     // this.editable$ = this.activatedRoute.paramMap
     //   .pipe(map(() => window.history.state));
     // this.editable$.subscribe(data => this.temporary = data);

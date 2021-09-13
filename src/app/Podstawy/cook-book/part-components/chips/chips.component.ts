@@ -8,6 +8,7 @@ import { map, startWith } from 'rxjs/operators';
 import { Hashes } from '../../types';
 import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
 import { TagsStorageService } from '../services/tags-storage.service';
+import { AllergensStorageService } from '../services/allergens-storage.service';
 
 @Component({
   selector: 'app-chips',
@@ -27,11 +28,12 @@ export class ChipsComponent {
   elementCtrl = new FormControl();
   filteredElements$: Observable<Array<string>>;
   tags$: Observable<Array<Hashes>> = this.tagsService.tags$;
+  allergens$: Observable<Array<Hashes>> = this.allergenService.allergens$;
 
 
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
-  constructor(private tagsService: TagsStorageService) {
+  constructor(private tagsService: TagsStorageService, private  allergenService: AllergensStorageService) {
     // this.filteredElements$ = this.elementCtrl.valueChanges.pipe(
     //   startWith(null),
     //   map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));

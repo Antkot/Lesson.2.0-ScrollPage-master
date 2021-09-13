@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./add-recipe.component.scss']
 })
 export class AddRecipeComponent implements OnInit {
-  @Input() edit = false;
+  @Input() edit = true;
   @Input() name = '';
   @Input() tags = [];
   @Input() steps = [];

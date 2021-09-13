@@ -1,6 +1,6 @@
 <mat-form-field class='example-chip-list' appearance='fill'>
   <mat-label>{{entity}}</mat-label>
-  <mat-chip-list #chipList aria-label='Element selection'>
+  <mat-chip-list #chipList aria-label='Element selection' *ngIf='entity === "Tag"'>
     <mat-chip
       *ngFor='let element of elements'
       selected
@@ -9,21 +9,43 @@
       [removable]='removable'
       (removed)='removed(element)'>
       {{element.hashId | tagNameById: (tags$ | async)}}
-      {{element.name}}
       <mat-icon matChipRemove *ngIf='removable'>cancel</mat-icon>
     </mat-chip>
-        <input
-          #elementInput
-          *ngIf="removable"
-          maxlength="32"
-          placeholder="Nowy {{entity}}..."
-          [formControl]="elementCtrl"
-          [matAutocomplete]="auto"
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="added($event)"
-        >
-      </mat-chip-list>
+    <input
+      #elementInput
+      *ngIf="removable"
+      maxlength="32"
+      placeholder="Nowy {{entity}}..."
+      [formControl]="elementCtrl"
+      [matAutocomplete]="auto"
+      [matChipInputFor]="chipList"
+      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+      (matChipInputTokenEnd)="added($event)"
+    >
+  </mat-chip-list>
+  <mat-chip-list #chipList aria-label='Element selection' *ngIf='entity !== "Tag"'>
+  <mat-chip
+    *ngFor='let element of elements'
+    selected
+    [color]='chipColor'
+    [selectable]='selectable'
+    [removable]='removable'
+    (removed)='removed(element)'>
+    {{element.hashId | tagNameById: (allergens$ | async)}}
+    <mat-icon matChipRemove *ngIf='removable'>cancel</mat-icon>
+  </mat-chip>
+  <input
+    #elementInput
+    *ngIf="removable"
+    maxlength="32"
+    placeholder="Nowy {{entity}}..."
+    [formControl]="elementCtrl"
+    [matAutocomplete]="auto"
+    [matChipInputFor]="chipList"
+    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+    (matChipInputTokenEnd)="added($event)"
+  >
+</mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <!--    <mat-option *ngFor="let element of filteredElements$ | async" [value]="element">-->
         <mat-option *ngFor="let element of allElements" [value]="element.hashId">

@@ -18,14 +18,14 @@ export class DishStorageService {
         {
           dishId: cuid(),
           name: 'Pierogi ze storage',
-          steps: ['1', '2 krok', 'ugotój'],
-          products: [{ productId: '11' }],
+          steps: ['1', '2 krok', 'ugotuj'],
+          products: [{ productId: '11' }, { productId: '11' }],
           tags: [{ hashId: 'fff' }]
         },
         {
           dishId: cuid(),
           name: 'Pierogi z observable',
-          steps: ['1', '2 krok', 'ugotój', 'ugotój'],
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
           products: [{ productId: '11' }],
           tags: [{ hashId: 'fff' }]
         }
