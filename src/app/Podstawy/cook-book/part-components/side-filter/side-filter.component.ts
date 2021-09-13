@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
 import { Observable } from 'rxjs';
 import { Dish, Hashes, Levels } from '../../types';
-import { ChipService } from '../services/chip.service';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AllergensStorageService } from '../services/allergens-storage.service';
@@ -36,7 +35,6 @@ export class SideFilterComponent implements OnInit {
 
   constructor(
     private loadingService: LoadingService,
-    private chipService: ChipService,
     private  tagsService: TagsStorageService,
     private  allergensService: AllergensStorageService
   ) {

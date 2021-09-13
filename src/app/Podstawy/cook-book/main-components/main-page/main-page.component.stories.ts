@@ -4,15 +4,19 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { CookBookModule } from '../../cook-book.module';
+import { Observable } from 'rxjs';
+import { Dishes, Hashes } from '../../types';
+import { DishStorageService } from '../../part-components/services/dish-storage.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'loader',
   template: ``
 })
 export class LoadingComponent implements OnInit {
-  constructor(public myRouter: Router) {
-  }
 
+  constructor(public myRouter: Router, private dishService: DishStorageService) {
+  }
   ngOnInit() {
     this.myRouter.navigate(['/main']);
   }
@@ -20,7 +24,7 @@ export class LoadingComponent implements OnInit {
 
 const decoration: NgModule = {
   declarations: [
-    LoadingComponent,
+    LoadingComponent
   ],
   imports: [
     CookBookModule,

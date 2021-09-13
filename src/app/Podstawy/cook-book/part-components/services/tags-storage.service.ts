@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject } from 'rxjs';
 import { Hashes } from '../../types';
-import { MatChipInputEvent } from '@angular/material/chips';
 import { LocalStorageService } from './local-storage-service';
-import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +17,9 @@ export class TagsStorageService {
       this.tags$.next([...current]);
     } else {
       this.tags$.next([
-        { hashId: cuid(), name: '#Szpinak' },
-        { hashId: cuid(), name: '#Pieczarki' },
-        { hashId: 'fff', name: '#Mięsne' }
+        { hashId: cuid(), name: '#Szpinakowe' },
+        { hashId: cuid(), name: '#Pieczarkistyczne' },
+        { hashId: 'fff', name: '#Mięsne mniam' }
       ]);
       this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
     }

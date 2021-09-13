@@ -4,7 +4,8 @@
 <!--  </div>-->
   <mat-divider></mat-divider>
   <div class="name">
-    <input type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'>
+    <input  *ngIf='edit' type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input' value='{{name}}'>
+    <h1 *ngIf='!edit'>{{name}}</h1>
     <div class="editButton" *ngIf="!edit">
       <button mat-button (click)='editable()'>Edytuj przepis</button>
     </div>
@@ -12,7 +13,7 @@
   <mat-divider></mat-divider>
   <div class="hash">
     <div class="divide">
-      <app-chips [removable]="edit" [entity]="'Twoje #tagi:'"></app-chips>
+      <app-chips [removable]="edit" [entity]="'Twoje #tagi:'" [elements]='tags'></app-chips>
     </div>
     <!--    <div class="divide">-->
     <!--      <app-chips [removable]="false" [entity]="'Tagi wygenerowane samoczynnie:'"></app-chips>-->
@@ -21,10 +22,10 @@
   <mat-divider></mat-divider>
   <div class="ingredients">
     <div class="divide">
-      <app-ingredients [edit]="edit"></app-ingredients>
+      <app-ingredients [edit]="edit" [products]='products'></app-ingredients>
     </div>
     <div class="divide">
-      <app-steps [edit]="edit"></app-steps>
+      <app-steps [edit]="edit" [steps]='steps'></app-steps>
     </div>
   </div>
   <mat-divider></mat-divider>

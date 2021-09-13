@@ -13,7 +13,7 @@ export class ProductsStorageService {
     if (!!localStorage.products) {
     } else {
       this.products$.next([
-        { productId: cuid(), product: 'Mleko', kcal: 10, measures: null, allergens: ['Laktoza'] },
+        { productId: '11', product: 'Mleko', kcal: 10, measures: null, allergens: ['Laktoza'] },
         { productId: cuid(), product: 'Woda', kcal: 10, measures: null, allergens: null },
         { productId: cuid(), product: 'Drożdze', kcal: 10, measures: null, allergens: null },
         { productId: cuid(), product: 'Mąka', kcal: 10, measures: null, allergens: null },

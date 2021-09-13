@@ -9,7 +9,6 @@ import { TagsStorageService } from './tags-storage.service';
 })
 export class DishStorageService {
   dishesList$ = new BehaviorSubject<Array<Dishes>>([]);
-  tags$: Observable<Array<Hashes>> = this.tagsService.tags$;
 
   constructor(private tagsService: TagsStorageService) {
 
@@ -18,14 +17,14 @@ export class DishStorageService {
       this.dishesList$.next([
         {
           dishId: cuid(),
-          name: 'Pierogi',
+          name: 'Pierogi ze storage',
           steps: ['1', '2 krok', 'ugotój'],
           products: [{ productId: '11' }],
-          tags: [{ hashId: 'cktaebvpx00013a9uhhg9u3gc' }]
+          tags: [{ hashId: 'fff' }]
         },
         {
           dishId: cuid(),
-          name: 'Pierogi2',
+          name: 'Pierogi z observable',
           steps: ['1', '2 krok', 'ugotój', 'ugotój'],
           products: [{ productId: '11' }],
           tags: [{ hashId: 'fff' }]

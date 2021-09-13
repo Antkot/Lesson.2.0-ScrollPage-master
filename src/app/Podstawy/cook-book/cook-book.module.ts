@@ -52,7 +52,11 @@ const links = [
   },
   {
     component: RecipiePageComponent,
-    path: 'recipe'
+    path: 'recipe/:dishId'
+  },
+  {
+    component: RecipiePageComponent,
+    path: 'recipe/new'
   },
 ];
 @NgModule({

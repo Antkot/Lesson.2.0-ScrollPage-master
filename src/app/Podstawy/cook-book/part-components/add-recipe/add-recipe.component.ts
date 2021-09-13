@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-add-recipe',
@@ -8,6 +7,10 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class AddRecipeComponent implements OnInit {
   @Input() edit = false;
+  @Input() name = '';
+  @Input() tags = [];
+  @Input() steps = [];
+  @Input() products = [];
 
   constructor() {
   }
