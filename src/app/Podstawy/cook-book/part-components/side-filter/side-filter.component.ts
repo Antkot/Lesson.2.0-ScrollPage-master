@@ -53,11 +53,9 @@ export class SideFilterComponent implements OnInit {
 
   addAllergen(event: MatChipInputEvent) {
     this.addedAllergen.emit(event);
-    console.log(event);
   }
   addTag(event: MatChipInputEvent) {
     this.addedTag.emit(event);
-    console.log(event);
   }
 
   removeAllergen(event: MatChipInputEvent) {

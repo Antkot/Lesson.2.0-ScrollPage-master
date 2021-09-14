@@ -26,9 +26,7 @@ export class AllergensStorageService {
 
   add(event): void {
     let duplicat = false;
-    console.log('Próba dodania');
     const value = event.trim();
-    console.log(value);
     if (value) {
       this.allergens$.value.forEach(allergen => {
         if (allergen.name === event) {

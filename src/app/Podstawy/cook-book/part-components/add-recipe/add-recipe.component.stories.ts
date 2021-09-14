@@ -17,9 +17,9 @@ import { StepsComponent } from '../steps/steps.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { IngredientsComponent } from '../ingredients/ingredients.component';
 import { MatTableModule } from '@angular/material/table';
-import { AddIngredientComponent, IngredientDialogComponent } from '../add-ingredient/add-ingredient.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
 
 const decoration: NgModule = {
   declarations: [
@@ -27,7 +27,6 @@ const decoration: NgModule = {
     ChipsComponent,
     StepsComponent,
     IngredientsComponent,
-    AddIngredientComponent,
     IngredientDialogComponent
   ],
   imports: [
@@ -47,9 +46,7 @@ const decoration: NgModule = {
     MatDialogModule,
     MatButtonModule
   ],
-  entryComponents: [
-    IngredientDialogComponent
-  ],
+
   providers: []
 };
 

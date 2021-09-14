@@ -18,8 +18,5 @@ export class MenuComponent implements OnInit {
   redirectTo(uri: string) {
     this.myRouter.navigateByUrl('/main', { skipLocationChange: true }).then(() =>
       this.myRouter.navigate([uri]));
-    // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    //   this.router.navigate([uri]));
-    console.log('REDIRECTING>>>');
   }
 }

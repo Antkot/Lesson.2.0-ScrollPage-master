@@ -20,10 +20,11 @@ import { StepsComponent } from '../../part-components/steps/steps.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { IngredientsComponent } from '../../part-components/ingredients/ingredients.component';
 import { MatTableModule } from '@angular/material/table';
-import { AddIngredientComponent, IngredientDialogComponent } from '../../part-components/add-ingredient/add-ingredient.component';
+import { AddIngredientComponent } from '../../part-components/add-ingredient/add-ingredient.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
+import { IngredientDialogComponent } from '../../part-components/ingredient-dialog/ingredient-dialog.component';
 
 const decoration: NgModule = {
   declarations: [
@@ -35,8 +36,8 @@ const decoration: NgModule = {
     StepsComponent,
     IngredientsComponent,
     AddIngredientComponent,
-    IngredientDialogComponent,
-    TagNameByIdPipe
+    TagNameByIdPipe,
+    IngredientDialogComponent
   ],
   imports: [
     MatIconModule,
@@ -57,9 +58,7 @@ const decoration: NgModule = {
     BrowserAnimationsModule,
     MatAutocompleteModule
   ],
-  entryComponents: [
-    IngredientDialogComponent
-  ],
+
   providers: []
 };
 

@@ -25,7 +25,7 @@
       <app-ingredients [edit]="edit" [products]='products'></app-ingredients>
     </div>
     <div class="divide">
-      <app-steps [edit]="edit" [steps]='steps'></app-steps>
+      <app-steps [edit]="edit" [steps]='steps' (stepsChanged)='steps'></app-steps>
     </div>
   </div>
   <mat-divider></mat-divider>

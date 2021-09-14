@@ -25,7 +25,7 @@ import { StepsComponent } from './part-components/steps/steps.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { IngredientsComponent } from './part-components/ingredients/ingredients.component';
 import { MatTableModule } from '@angular/material/table';
-import { AddIngredientComponent, IngredientDialogComponent } from './part-components/add-ingredient/add-ingredient.component';
+import { AddIngredientComponent } from './part-components/add-ingredient/add-ingredient.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ListPageComponent } from './main-components/list-page/list-page.component';
@@ -36,6 +36,7 @@ import { TagNameByIdPipe } from './pipes/tag-name-by-id.pipe';
 import { MainMenuComponent } from './main-components/main-menu/main-menu.component';
 import { MainPageComponent } from './main-components/main-page/main-page.component';
 import { RouterModule } from '@angular/router';
+import { IngredientDialogComponent } from './part-components/ingredient-dialog/ingredient-dialog.component';
 
 const links = [
   {
@@ -57,8 +58,9 @@ const links = [
   {
     component: RecipiePageComponent,
     path: 'recipe/new'
-  },
+  }
 ];
+
 @NgModule({
   declarations: [
     SearchBarComponent,
@@ -72,13 +74,13 @@ const links = [
     StepsComponent,
     IngredientsComponent,
     AddIngredientComponent,
-    IngredientDialogComponent,
     ListPageComponent,
     SearchBarComponent,
     RecipiePageComponent,
     TagNameByIdPipe,
     MainMenuComponent,
-    MainPageComponent
+    MainPageComponent,
+    IngredientDialogComponent
 
   ],
   exports: [
@@ -87,8 +89,8 @@ const links = [
     TimeSliderComponent,
     ChipsComponent,
     AddIngredientComponent,
-    IngredientDialogComponent,
-    MainPageComponent
+    MainPageComponent,
+    IngredientDialogComponent
   ],
   imports: [
     RouterModule.forRoot(links, { useHash: true }),
@@ -112,7 +114,10 @@ const links = [
     MatTableModule,
     MatButtonModule,
     MatDialogModule,
-    MatInputModule,
+    MatInputModule
+  ],
+  entryComponents: [
+    IngredientDialogComponent
   ]
 })
 export class CookBookModule {

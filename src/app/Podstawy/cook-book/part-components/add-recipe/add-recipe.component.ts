@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-add-recipe',
@@ -11,7 +11,7 @@ export class AddRecipeComponent implements OnInit {
   @Input() tags = [];
   @Input() steps = [];
   @Input() products = [];
-
+  @Output() stepsChange  = new EventEmitter();
   constructor() {
   }
 
