@@ -15,7 +15,7 @@
   <div class="list">
     <mat-divider></mat-divider>
     <div class="record" *ngFor='let dish of dishesList$ | async' [routerLink]="['/recipe', dish.dishId]"
-         routerLinkActive='active' [state]='{ edit: false, name: dish.name, tags: dish.tags, steps: dish.steps, products: dish.products }'>
+             routerLinkActive='active' [state]='{ edit: false }'>
       <h1>{{dish.name}}</h1>
       <div>
         <app-chips
@@ -28,4 +28,4 @@
     <mat-divider></mat-divider>
   </div>
 </div>
-<!--         routerLinkActive='active' [state]='{ edit: false }'>-->
+<!--routerLinkActive='active' [state]='{ edit: false, name: dish.name, tags: dish.tags, steps: dish.steps, products: dish.products }'>-->

@@ -11,10 +11,6 @@ import { DishStorageService } from '../../part-components/services/dish-storage.
 })
 export class RecipiePageComponent implements OnInit {
   edit = true;
-  name = '';
-  tags = [];
-  steps = [];
-  products = [];
 
   // editable$: Observable<object>;
   // name$: Observable<object>;
@@ -38,35 +34,11 @@ export class RecipiePageComponent implements OnInit {
       this.edit = true;
 
     }
-    // this.editable$ = this.activatedRoute.paramMap
-    //   .pipe(map(() => window.history.state));
-    // this.editable$.subscribe(data => this.temporary = data);
-    // this.edit = this.temporary.edit;
-
-    this.name = this.saveData().name;
-    // this.name$ = this.activatedRoute.paramMap
+    // this.dish = this.saveData().dish;
+     // this.name$ = this.activatedRoute.paramMap
     //   .pipe(map(() => window.history.state));
     // this.name$.subscribe(data => this.temporary = data);
     // this.name = this.temporary.name;
-
-    this.tags = this.saveData().tags;
-    // this.tags$ = this.activatedRoute.paramMap
-    //   .pipe(map(() => window.history.state));
-    // this.tags$.subscribe(data => this.temporary = data);
-    // this.tags = this.temporary.tags;
-
-    this.steps = this.saveData().steps;
-    // this.steps$ = this.activatedRoute.paramMap
-    //   .pipe(map(() => window.history.state));
-    // this.steps$.subscribe(data => this.temporary = data);
-    // this.steps = this.temporary.steps;
-
-    this.products = this.saveData().products;
-    // this.products$ = this.activatedRoute.paramMap
-    //   .pipe(map(() => window.history.state));
-    // this.products$.subscribe(data => this.temporary = data);
-    // this.products = this.temporary.products;
-    console.log(this.products);
   }
 
   saveData() {

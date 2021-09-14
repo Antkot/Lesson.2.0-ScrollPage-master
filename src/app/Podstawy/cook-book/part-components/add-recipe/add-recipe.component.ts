@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-recipe',
@@ -7,15 +9,18 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class AddRecipeComponent implements OnInit {
   @Input() edit = true;
-  @Input() name = '';
-  @Input() tags = [];
-  @Input() steps = [];
-  @Input() products = [];
+  // @Input() dish;
   @Output() stepsChange  = new EventEmitter();
-  constructor() {
+  dishId$ = this.route.url.pipe(
+    map(value => value[1].path));
+  dishId;
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    this.dishId$.pipe().subscribe(dishId => this.dishId = dishId
+    );
+    console.log(this.dishId);
   }
 
   editable() {
