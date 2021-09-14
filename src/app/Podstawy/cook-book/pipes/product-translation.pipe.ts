@@ -20,7 +20,7 @@ export class ProductTranslationPipe implements PipeTransform {
         )
       })));
     this.data$.subscribe(data => this.data = data);
-    const str = `${this.data.productName.measures} - ${this.data.productName.product} ( ${this.data.productName.allergens}) , kcal: ${this.data.productName.kcal}`;
+    const str = `${this.data.productName.measures} - ${this.data.productName.product} ( ${this.data.productName.allergens}) , ${this.data.productName.kcal} kcal`;
     return str;
 
   }
