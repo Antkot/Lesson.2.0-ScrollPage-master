@@ -17,15 +17,15 @@ export class DishTypePipe implements PipeTransform {
   }
 
   // transform(givenId: string): any {
-  transform(givenId: Array<{ dishId: string }>): any {
-    this.dishesTypes$.forEach(value => value.pipe(
-      map((tag) => ({
-        dish: tag.find(
-          ({ dishId, name }) =>
-            dishId === givenId
-        )
-      }))));
-    this.data$.subscribe(data => this.data = data);
-    return this.data.dish.name;
+  // transform(givenId: Array<{ dishId: string }>): any {
+  //   this.dishesTypes$.forEach(value => value.pipe(
+  //     map((tag) => ({
+  //       dish: tag.find(
+  //         ({ dishId, name }) =>
+  //           dishId === givenId
+  //       )
+  //     }))));
+  //   this.data$.subscribe(data => this.data = data);
+  //   return this.data.dish.name;
   }
 }
