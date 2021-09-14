@@ -1,11 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Hashes } from '../types';
-import { filter, first, map, switchMap } from 'rxjs/operators';
-import { stringify } from 'querystring';
+import { map } from 'rxjs/operators';
 import { TagsStorageService } from '../part-components/services/tags-storage.service';
-import { Store } from '@ngrx/store';
-import { async } from '@angular/core/testing';
 import { AllergensStorageService } from '../part-components/services/allergens-storage.service';
 
 @Pipe({
@@ -14,7 +11,7 @@ import { AllergensStorageService } from '../part-components/services/allergens-s
 export class TagNameByIdPipe implements PipeTransform {
   data$;
   data;
-  constructor(private tagsService: TagsStorageService, private allergensService: AllergensStorageService) {
+  constructor() {
   }
   transform(value: string, tags$: Observable<Array<Hashes>>): any {
     this.data$ = tags$.pipe(

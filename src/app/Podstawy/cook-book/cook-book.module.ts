@@ -37,6 +37,7 @@ import { MainMenuComponent } from './main-components/main-menu/main-menu.compone
 import { MainPageComponent } from './main-components/main-page/main-page.component';
 import { RouterModule } from '@angular/router';
 import { IngredientDialogComponent } from './part-components/ingredient-dialog/ingredient-dialog.component';
+import { ProductTranslationPipe } from './pipes/product-translation.pipe';
 
 const links = [
   {
@@ -80,7 +81,8 @@ const links = [
     TagNameByIdPipe,
     MainMenuComponent,
     MainPageComponent,
-    IngredientDialogComponent
+    IngredientDialogComponent,
+    ProductTranslationPipe
 
   ],
   exports: [

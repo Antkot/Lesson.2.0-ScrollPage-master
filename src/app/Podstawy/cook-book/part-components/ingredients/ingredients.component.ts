@@ -3,6 +3,7 @@ import { DataSource } from '@angular/cdk/collections';
 import { Observable, ReplaySubject } from 'rxjs';
 import { Hashes, Products } from '../../types';
 import { ProductsStorageService } from '../services/products-storage.service';
+import { TagsStorageService } from '../services/tags-storage.service';
 
 
 @Component({
@@ -10,12 +11,14 @@ import { ProductsStorageService } from '../services/products-storage.service';
   templateUrl: './ingredients.component.html',
   styleUrls: ['./ingredients.component.scss']
 })
-export class IngredientsComponent implements OnInit {
-constructor() {
-}
+export class IngredientsComponent {
+  products$: Observable<Array<Products>> = this.productsService.products$;
+
+  constructor(private productsService: ProductsStorageService) {
+  }
+
+
   @Input() edit;
   @Input() products: Array<Products>;
 
-  ngOnInit(): void {
-  }
 }

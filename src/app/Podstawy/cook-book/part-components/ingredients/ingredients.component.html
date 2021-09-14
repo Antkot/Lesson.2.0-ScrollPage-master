@@ -11,7 +11,7 @@
       </tr>
       <tr *ngFor='let product of products'>
         <td>
-  pipe result
+          {{product.productId | productTranslation: products$}}
         </td>
         <td>
           pipe result
