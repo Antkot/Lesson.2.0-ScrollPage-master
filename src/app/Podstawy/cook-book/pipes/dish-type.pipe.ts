@@ -16,7 +16,7 @@ export class DishTypePipe implements PipeTransform {
   constructor(private dishService: LoadingService) {
   }
 
-  // transform(givenId: string): any {
+  transform(givenId: string): any {
   // transform(givenId: Array<{ dishId: string }>): any {
   //   this.dishesTypes$.forEach(value => value.pipe(
   //     map((tag) => ({
