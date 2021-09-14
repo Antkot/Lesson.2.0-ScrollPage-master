@@ -20,7 +20,6 @@ export class AddRecipeComponent implements OnInit {
   ngOnInit(): void {
     this.dishId$.pipe().subscribe(dishId => this.dishId = dishId
     );
-    console.log(this.dishId);
   }
 
   editable() {

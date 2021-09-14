@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Dish, Dishes, Hashes } from '../../types';
+import { Dishes, Hashes } from '../../types';
 import { TagsStorageService } from './tags-storage.service';
 
 @Injectable({
@@ -20,14 +20,16 @@ export class DishStorageService {
           name: 'Pierogi ze storage',
           steps: ['1', '2 krok', 'ugotuj'],
           products: [{ productId: '11' }, { productId: '11' }],
-          tags: [{ hashId: 'fff' }]
+          tags: [{ hashId: 'fff' }],
+          dishType: [{dishId: '1'}]
         },
         {
           dishId: cuid(),
           name: 'Pierogi z observable',
           steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
           products: [{ productId: '11' }],
-          tags: [{ hashId: 'fff' }]
+          tags: [{ hashId: 'fff' }],
+          dishType: [{dishId: '1'}]
         }
       ]);
     }

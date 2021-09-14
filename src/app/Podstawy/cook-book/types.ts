@@ -11,6 +11,7 @@ export interface Dishes {
   tags: Array<{ hashId: string }>;
   steps: Array<string>;
   products: Array<{ productId: string }>;
+  dishType: Array<{ dishId: string }>;
 }
 export interface Hashes {
   hashId: string;

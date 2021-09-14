@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Dish, Dishes } from '../../types';
+import { Dishes } from '../../types';
 import { LoadingService } from '../services/loading.service';
 import { DishStorageService } from '../services/dish-storage.service';
 

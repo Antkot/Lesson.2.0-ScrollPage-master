@@ -25,7 +25,7 @@ export class LoadingService {
     if (!!localStorage.dishData) {
     } else {
       this.dishes$.next([
-        { dishId: cuid(), name: 'śniadanie' },
+        { dishId: '1', name: 'śniadanie' },
         { dishId: cuid(), name: 'obiad' },
         { dishId: cuid(), name: 'kolacja' },
         { dishId: cuid(), name: 'desery' },
