@@ -6,21 +6,12 @@
     <table>
       <tr>
         <th>Nazwa</th>
-        <th>Ilość</th>
-        <th>Cośtam</th>
       </tr>
       <tr *ngFor='let product of products'>
         <td>
           {{product.productId | productTranslation: products$}}
         </td>
         <td>
-          pipe result
-        </td>
-        <td>
-          pipe result
-
-          <!--          {{product.productId}} | pipe-->
-        </td>
       </tr>
     </table>
 
