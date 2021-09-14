@@ -39,6 +39,7 @@ import { RouterModule } from '@angular/router';
 import { IngredientDialogComponent } from './part-components/ingredient-dialog/ingredient-dialog.component';
 import { ProductTranslationPipe } from './pipes/product-translation.pipe';
 import { DishTranslatorPipe } from './pipes/dish-translator.pipe';
+import { DishTypePipe } from './pipes/dish-type.pipe';
 
 const links = [
   {
@@ -84,7 +85,8 @@ const links = [
     MainPageComponent,
     IngredientDialogComponent,
     ProductTranslationPipe,
-    DishTranslatorPipe
+    DishTranslatorPipe,
+    DishTypePipe
 
   ],
   exports: [
