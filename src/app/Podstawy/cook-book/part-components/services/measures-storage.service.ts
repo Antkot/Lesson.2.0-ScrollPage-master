@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject } from 'rxjs';
-import { Measures } from '../../types';
+import { Measure } from '../../types';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MeasuresStorageService {
-  measures$ = new BehaviorSubject<Array<Measures>>([]);
+  measures$ = new BehaviorSubject<Array<Measure>>([]);
 
   constructor() {
 

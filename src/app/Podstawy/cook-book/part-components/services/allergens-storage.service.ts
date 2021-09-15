@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject } from 'rxjs';
-import { Hashes } from '../../types';
+import { Hash } from '../../types';
 import { LocalStorageService } from './local-storage-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AllergensStorageService {
-  allergens$ = new BehaviorSubject<Array<Hashes>>([]);
+  allergens$ = new BehaviorSubject<Array<Hash>>([]);
 
   constructor(private localStorageService: LocalStorageService) {
     if (!!localStorage.allergens) {

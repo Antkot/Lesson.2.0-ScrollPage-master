@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable, ReplaySubject } from 'rxjs';
-import { Hashes, Measures, Products } from '../../types';
+import { Hash, Measure, Product, UsedProduct } from '../../types';
 import { ProductsStorageService } from '../services/products-storage.service';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { MeasuresStorageService } from '../services/measures-storage.service';
@@ -14,14 +14,16 @@ import { MeasuresTranslatorPipe } from '../../pipes/measures-translator.pipe';
   styleUrls: ['./ingredients.component.scss']
 })
 export class IngredientsComponent {
-  products$: Observable<Array<Products>> = this.productsService.products$;
-  measures$: Observable<Array<Measures>> = this.measureService.measures$;
+  products$: Observable<Array<Product>> = this.productsService.products$;
+  measures$: Observable<Array<Measure>> = this.measureService.measures$;
+  @Input() edit;
+  @Input() products: Array<UsedProduct>;
 
   constructor(private productsService: ProductsStorageService, private measureService: MeasuresStorageService) {
   }
 
-
-  @Input() edit;
-  @Input() products: Array<Products>;
+  ngOnInit(): void {
+    console.table('Tutaj tablica', this.products);
+  }
 
 }

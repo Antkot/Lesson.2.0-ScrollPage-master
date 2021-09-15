@@ -5,27 +5,44 @@
   <div>
     <table>
       <tr>
-        <th>Produkt |</th>
-        <th>ilość |</th>
-        <th>Miara |</th>
+        <th>Produkt</th>
+        <th>ilość</th>
+        <th>Miara</th>
         <th>kcal</th>
+      </tr>
+      <tr *ngIf='edit'>
+        <td><input type=''>
+
+        </td>
+        <td>
+          <input type='number'>
+        </td>
+        <td>
+          <input list="measueres" name="measuere" id="measuere">
+        </td>
+        <td>
+          <button>Dodaj</button>
+        </td>
       </tr>
       <tr *ngFor='let product of products'>
         <td>
-          {{(product.productId | productTranslation: products$: 'product') | async}}
+          {{(product.productId | productTranslation: products$: 'name') | async}}
         </td>
         <td>
-          {{(product.productId | productTranslation: products$: 'amount') | async}}
+<!--          {{product.amount}}-->
         </td>
         <td>
-          {{(((product.productId | productTranslation: products$: 'measures') | async) | measuresTranslator) | async}}
+<!--          {{((product.measuresId | measuresTranslator) | async)}}-->
         </td>
         <td>
-          {{(product.productId | productTranslation: products$: 'kcal') | async}}
+<!--          {{(product.measuresId | productMeasureData: product.productId) | async}}-->
         </td>
       </tr>
     </table>
-
   </div>
 </div>
 
+<datalist id="measueres">
+  <option *ngFor="let measure of (products$ | async)">
+      {{measure}}
+</datalist>

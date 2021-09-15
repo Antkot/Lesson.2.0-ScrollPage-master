@@ -5,36 +5,47 @@ export interface Dish {
   dishId: string;
   name: string;
 }
+
 export interface Dishes {
   dishId: string;
   name: string;
   tags: Array<{ hashId: string }>;
   steps: Array<string>;
-  products: Array<{ productId: string }>;
+  products: Array<{ usedProductId: string }>;
   dishType: Array<{ dishId: string }>;
 }
-export interface Hashes {
+
+export interface Hash {
   hashId: string;
   name: string;
 }
+
 export interface Timer {
   timeId: string;
   name: string;
 }
-export interface Levels {
+
+export interface Level {
   levelId: string;
   level: number;
 }
-export interface Measures {
+
+export interface Measure {
   measureId: string;
-  name: string;
   shortcut: string;
+  name: string;
 }
-export interface Products {
+
+export interface Product {
   productId: string;
-  product: string;
-  kcal: number;
-  measures: { measureId: string };
-  allergens: Array<string>;
+  name: string;
+  measures: Array<{ measureId: string, kcal: number}>;
+  allergens: Array<{ allergenId: string }>;
+}
+
+export interface UsedProduct {
+  usedProductId: string;
+  productId: string;
+  measuresId: string;
   amount: number;
 }

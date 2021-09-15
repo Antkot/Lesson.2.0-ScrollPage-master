@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Dish, Levels } from '../../types';
+import { Dish, Level } from '../../types';
 import * as cuid from 'cuid';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoadingService {
-  levels$ = new BehaviorSubject<Array<Levels>>([]);
+  levels$ = new BehaviorSubject<Array<Level>>([]);
   dishes$ = new BehaviorSubject<Array<Dish>>([]);
 
   constructor() {

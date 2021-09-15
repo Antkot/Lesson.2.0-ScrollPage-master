@@ -5,7 +5,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipEvent, MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { Hashes } from '../../types';
+import { Hash } from '../../types';
 import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { AllergensStorageService } from '../services/allergens-storage.service';
@@ -21,14 +21,14 @@ export class ChipsComponent {
   @Input() entity: string;
   @Input() removable = false;
   @Input() chipColor = 'none';
-  @Input() elements: Array<Hashes>;
-  @Input() allElements: Array<Hashes>;
+  @Input() elements: Array<Hash>;
+  @Input() allElements: Array<Hash>;
   selectable = true;
   separatorKeysCodes = [ENTER, COMMA];
   elementCtrl = new FormControl();
   filteredElements$: Observable<Array<string>>;
-  tags$: Observable<Array<Hashes>> = this.tagsService.tags$;
-  allergens$: Observable<Array<Hashes>> = this.allergenService.allergens$;
+  tags$: Observable<Array<Hash>> = this.tagsService.tags$;
+  allergens$: Observable<Array<Hash>> = this.allergenService.allergens$;
 
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
@@ -48,7 +48,7 @@ export class ChipsComponent {
     this.elementCtrl.reset();
   }
 
-  removed(element: Hashes): void {
+  removed(element: Hash): void {
     const index = this.elements.indexOf(element);
     this.remove.emit(index);
   }
@@ -63,7 +63,7 @@ export class ChipsComponent {
 //     this.elementCtrl.setValue(null);
 //   }
 
-  private _filter(value: string): Array<Hashes> {
+  private _filter(value: string): Array<Hash> {
     const filterValue = value.toLowerCase();
     return this.allElements.filter(element => element.name.toLowerCase().includes(filterValue));
   }

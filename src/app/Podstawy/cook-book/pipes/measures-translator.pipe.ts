@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Hashes, Measures, Products } from '../types';
+import { Hash, Measure, Product } from '../types';
 import { map } from 'rxjs/operators';
 import { MeasuresStorageService } from '../part-components/services/measures-storage.service';
 
@@ -9,17 +9,17 @@ import { MeasuresStorageService } from '../part-components/services/measures-sto
 })
 
 export class MeasuresTranslatorPipe implements PipeTransform {
-  measures$: Observable<Array<Measures>> = this.measureService.measures$;
+  measures$: Observable<Array<Measure>> = this.measureService.measures$;
 
   constructor(private measureService: MeasuresStorageService) {
   }
 
   transform(value: any) {
-
+    console.log('Nazwa', value);
     return this.measures$.pipe(
       map((measure) => {
         return measure.find(
-          ({ measureId}) =>
+          ({ measureId }) =>
             measureId === value.measureId
         ).name;
       }));

@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MeasuresStorageService } from '../services/measures-storage.service';
+import { Measure } from '../../types';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-ingredient-dialog',
@@ -6,11 +9,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./ingredient-dialog.component.scss']
 })
 export class IngredientDialogComponent implements OnInit {
-  // measures$ =
+  measures$: Observable<Array<Measure>> = this.measureService.measures$;
   @Input() name = 'Kuba';
   @Output() button = new EventEmitter();
 
-  constructor() { }
+  constructor(private measureService: MeasuresStorageService) { }
 
   ngOnInit(): void {
   }

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Hashes, Products } from '../types';
+import { Hash, Product } from '../types';
 import { map } from 'rxjs/operators';
 
 @Pipe({
@@ -9,12 +9,13 @@ import { map } from 'rxjs/operators';
 export class ProductTranslationPipe implements PipeTransform {
   constructor() {
   }
-  transform(value: string, tags$: Observable<Array<Products>>, search: string): any {
+  transform(value: string, tags$: Observable<Array<Product>>, search: string): any {
     return tags$.pipe(
       map((tag) => {
         return tag.find(
-          ({ productId }) =>
-            productId === value
+          ({ productId }) => {
+            console.log(productId === value, productId, value),
+          productId === value }
         )[search];
       }));
   }

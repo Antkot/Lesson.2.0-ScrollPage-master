@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Hashes } from '../types';
+import { Hash } from '../types';
 import { map } from 'rxjs/operators';
 import { TagsStorageService } from '../part-components/services/tags-storage.service';
 import { AllergensStorageService } from '../part-components/services/allergens-storage.service';
