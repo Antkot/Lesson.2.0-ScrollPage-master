@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Hash, Measure, Product } from '../types';
+import { Hash, Measure, Product } from '../../types';
 import { map } from 'rxjs/operators';
-import { MeasuresStorageService } from '../part-components/services/measures-storage.service';
+import { MeasuresStorageService } from '../../part-components/services/measures-storage.service';
 
 @Pipe({
   name: 'measuresTranslator'

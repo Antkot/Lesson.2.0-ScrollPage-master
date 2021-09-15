@@ -5,7 +5,7 @@ import { Hash, Measure, Product, UsedProduct } from '../../types';
 import { ProductsStorageService } from '../services/products-storage.service';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { MeasuresStorageService } from '../services/measures-storage.service';
-import { MeasuresTranslatorPipe } from '../../pipes/measures-translator.pipe';
+import { MeasuresTranslatorPipe } from '../../pipes/DishesTranslationPipes/measures-translator.pipe';
 
 
 @Component({

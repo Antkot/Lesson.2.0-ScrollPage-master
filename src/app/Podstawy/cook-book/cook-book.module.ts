@@ -40,7 +40,7 @@ import { IngredientDialogComponent } from './part-components/ingredient-dialog/i
 import { ProductTranslationPipe } from './pipes/product-translation.pipe';
 import { DishTranslatorPipe } from './pipes/dish-translator.pipe';
 import { DishTypePipe } from './pipes/dish-type.pipe';
-import { MeasuresTranslatorPipe } from './pipes/measures-translator.pipe';
+import { MeasuresTranslatorPipe } from './pipes/DishesTranslationPipes/measures-translator.pipe';
 import { ProductMeasureDataPipe } from './pipes/product-measure-data.pipe';
 import { UsedProductConnectorPipe } from './pipes/DishesTranslationPipes/used-product-connector.pipe';
 import { ProductConnectorPipe } from './pipes/DishesTranslationPipes/product-connector.pipe';

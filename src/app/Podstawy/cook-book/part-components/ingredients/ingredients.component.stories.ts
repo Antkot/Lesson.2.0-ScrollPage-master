@@ -9,7 +9,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
-import { MeasuresTranslatorPipe } from '../../pipes/measures-translator.pipe';
+import { MeasuresTranslatorPipe } from '../../pipes/DishesTranslationPipes/measures-translator.pipe';
 
 
 const decoration: NgModule = {
