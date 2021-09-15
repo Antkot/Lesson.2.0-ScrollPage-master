@@ -20,7 +20,7 @@ export class MeasuresTranslatorPipe implements PipeTransform {
       map((measure) => {
         return measure.find(
           ({ measureId }) =>
-            measureId === value.measureId
+            measureId === value
         ).name;
       }));
   }

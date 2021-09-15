@@ -11,13 +11,13 @@ export class UsedProductConnectorPipe implements PipeTransform {
   usedProducts$: Observable<Array<UsedProduct>> = this.usedProductsService.usedProducts$;
 constructor(private usedProductsService: UsedProductsStorageService) {
 }
-  transform( givenUsedProductId: string, search: string): any {
+  transform( givenUsedProductId: string ) {
     return this.usedProducts$.pipe(
       map((usedProduct) => {
         return usedProduct.find(
           ({ usedProductId }) =>
             usedProductId === givenUsedProductId
-        )[search];
+        );
       }));
   }
 

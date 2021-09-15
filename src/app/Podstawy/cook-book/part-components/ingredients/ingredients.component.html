@@ -26,19 +26,19 @@
       </tr>
       <tr *ngFor='let product of products'>
         <td>
-<!--          {{((product.usedProductId | usedProductConnector: 'usedProductId') | async)}}-->
-          {{((product.usedProductId | usedProductConnector: 'productId') | async) | productConnect | async}}
+          {{((product.usedProductId | usedProductConnector) | async).productId | productConnect | async}}
         </td>
         <td>
-          {{(product.usedProductId | usedProductConnector: 'amount') | async}}
+          {{((product.usedProductId | usedProductConnector) | async).amount}}
         </td>
         <td>
-<!--          miara-->
-          {{(product.usedProductId | usedProductConnector: 'measuresId') | async}}
+          {{((((product.usedProductId | usedProductConnector) | async).measuresId) | measuresTranslator) | async}}
         </td>
         <td>
-<!--          kcal-->
-          {{(product.usedProductId | usedProductConnector: 'measuresId') | async}}
+          {{(
+          (((product.usedProductId | usedProductConnector) | async).measuresId)
+            | productMeasureConnector: ((product.usedProductId | usedProductConnector) | async).productId) | async | json
+          }}
         </td>
       </tr>
     </table>
@@ -50,4 +50,3 @@
     {{measure}}
 </datalist>
 
-{{products | json}}
