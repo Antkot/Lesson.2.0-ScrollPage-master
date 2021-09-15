@@ -19,7 +19,7 @@ export class DishStorageService {
           dishId: cuid(),
           name: 'Pierogi ze storage',
           steps: ['1', '2 krok', 'ugotuj'],
-          products: [{  usedProductId: null }, { usedProductId: null }],
+          products: [{  usedProductId: 'used1' }, { usedProductId: 'used2' }],
           tags: [{ hashId: 'fff' }],
           dishType: [{dishId: '1'}]
         },
@@ -27,7 +27,7 @@ export class DishStorageService {
           dishId: cuid(),
           name: 'Pierogi z observable',
           steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
-          products: [{  usedProductId: null }],
+          products: [{  usedProductId: 'used1' }],
           tags: [{ hashId: 'fff' }],
           dishType: [{dishId: '1'}]
         }
