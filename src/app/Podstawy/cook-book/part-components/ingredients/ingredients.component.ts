@@ -17,13 +17,9 @@ export class IngredientsComponent {
   products$: Observable<Array<Product>> = this.productsService.products$;
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   @Input() edit;
-  @Input() products: Array<UsedProduct>;
+  @Input() products: Array<{ usedProductId: string }>;
 
   constructor(private productsService: ProductsStorageService, private measureService: MeasuresStorageService) {
-  }
-
-  ngOnInit(): void {
-    console.table('Tutaj tablica', this.products);
   }
 
 }

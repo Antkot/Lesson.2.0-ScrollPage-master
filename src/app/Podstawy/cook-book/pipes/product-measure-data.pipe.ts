@@ -15,13 +15,12 @@ export class ProductMeasureDataPipe implements PipeTransform {
   constructor(private productsService: ProductsStorageService) {
   }
 
-  transform(givenId: string, prdoductId: string) {
-    // console.log('Id: ', prdoductId);
+  transform(givenId: string, givenPrductId: string) {
     return this.products$.pipe(
       map((products) => {
         return products.find(
           ({ productId }) =>
-            productId === prdoductId
+            productId === givenPrductId
         ).measures.find(({ measureId }) => measureId === givenId).kcal;
       }));
   }

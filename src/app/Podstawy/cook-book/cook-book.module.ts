@@ -42,6 +42,9 @@ import { DishTranslatorPipe } from './pipes/dish-translator.pipe';
 import { DishTypePipe } from './pipes/dish-type.pipe';
 import { MeasuresTranslatorPipe } from './pipes/measures-translator.pipe';
 import { ProductMeasureDataPipe } from './pipes/product-measure-data.pipe';
+import { UsedProductConnectorPipe } from './pipes/DishesTranslationPipes/used-product-connector.pipe';
+import { ProductConnectorPipe } from './pipes/DishesTranslationPipes/product-connector.pipe';
+import { ProductMeasureConnectorPipe } from './pipes/DishesTranslationPipes/product-measure-connector.pipe';
 
 const links = [
   {
@@ -91,6 +94,9 @@ const links = [
     DishTypePipe,
     MeasuresTranslatorPipe,
     ProductMeasureDataPipe,
+    UsedProductConnectorPipe,
+    ProductConnectorPipe,
+    ProductMeasureConnectorPipe,
 
   ],
   exports: [

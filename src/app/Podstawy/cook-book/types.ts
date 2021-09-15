@@ -6,15 +6,6 @@ export interface Dish {
   name: string;
 }
 
-export interface Dishes {
-  dishId: string;
-  name: string;
-  tags: Array<{ hashId: string }>;
-  steps: Array<string>;
-  products: Array<{ usedProductId: string }>;
-  dishType: Array<{ dishId: string }>;
-}
-
 export interface Hash {
   hashId: string;
   name: string;
@@ -23,6 +14,15 @@ export interface Hash {
 export interface Timer {
   timeId: string;
   name: string;
+}
+
+export interface Dishes {
+  dishId: string;
+  name: string;
+  tags: Array<{ hashId: string }>;
+  steps: Array<string>;
+  products: Array<{ usedProductId: string }>;
+  dishType: Array<{ dishId: string }>;
 }
 
 export interface Level {
@@ -39,7 +39,7 @@ export interface Measure {
 export interface Product {
   productId: string;
   name: string;
-  measures: Array<{ measureId: string, kcal: number}>;
+  measures: Array<{ measureId: string, kcal: number }>;
   allergens: Array<{ allergenId: string }>;
 }
 

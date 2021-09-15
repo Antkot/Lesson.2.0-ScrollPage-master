@@ -13,10 +13,9 @@ export class ProductTranslationPipe implements PipeTransform {
     return tags$.pipe(
       map((tag) => {
         return tag.find(
-          ({ productId }) => {
-            console.log(productId === value, productId, value),
-          productId === value }
-        )[search];
+          ({ productId }) =>
+          productId === value
+        );
       }));
   }
 }

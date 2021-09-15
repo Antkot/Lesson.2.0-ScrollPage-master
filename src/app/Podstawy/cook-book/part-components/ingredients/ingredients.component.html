@@ -18,7 +18,7 @@
           <input type='number'>
         </td>
         <td>
-          <input list="measueres" name="measuere" id="measuere">
+          <input list='measueres' name='measuere' id='measuere'>
         </td>
         <td>
           <button>Dodaj</button>
@@ -26,23 +26,28 @@
       </tr>
       <tr *ngFor='let product of products'>
         <td>
-          {{(product.productId | productTranslation: products$: 'name') | async}}
+<!--          {{((product.usedProductId | usedProductConnector: 'usedProductId') | async)}}-->
+          {{((product.usedProductId | usedProductConnector: 'productId') | async) | productConnect | async}}
         </td>
         <td>
-<!--          {{product.amount}}-->
+          {{(product.usedProductId | usedProductConnector: 'amount') | async}}
         </td>
         <td>
-<!--          {{((product.measuresId | measuresTranslator) | async)}}-->
+<!--          miara-->
+          {{(product.usedProductId | usedProductConnector: 'measuresId') | async}}
         </td>
         <td>
-<!--          {{(product.measuresId | productMeasureData: product.productId) | async}}-->
+<!--          kcal-->
+          {{(product.usedProductId | usedProductConnector: 'measuresId') | async}}
         </td>
       </tr>
     </table>
   </div>
 </div>
 
-<datalist id="measueres">
-  <option *ngFor="let measure of (products$ | async)">
-      {{measure}}
+<datalist id='measueres'>
+  <option *ngFor='let measure of (products$ | async)'>
+    {{measure}}
 </datalist>
+
+{{products | json}}
