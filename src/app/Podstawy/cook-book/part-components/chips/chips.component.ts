@@ -30,7 +30,6 @@ export class ChipsComponent {
   tags$: Observable<Array<Hashes>> = this.tagsService.tags$;
   allergens$: Observable<Array<Hashes>> = this.allergenService.allergens$;
 
-
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
   constructor(private tagsService: TagsStorageService, private  allergenService: AllergensStorageService) {
@@ -68,7 +67,6 @@ export class ChipsComponent {
     const filterValue = value.toLowerCase();
     return this.allElements.filter(element => element.name.toLowerCase().includes(filterValue));
   }
-
 
   titleCaseWord(word: string) {
     if (!word) {

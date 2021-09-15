@@ -5,13 +5,24 @@
   <div>
     <table>
       <tr>
-        <th>Miara - Produkt (Alergeny), kcal</th>
+        <th>Produkt |</th>
+        <th>ilość |</th>
+        <th>Miara |</th>
+        <th>kcal</th>
       </tr>
       <tr *ngFor='let product of products'>
         <td>
-          {{product.productId | productTranslation: products$}}
+          {{(product.productId | productTranslation: products$: 'product') | async}}
         </td>
         <td>
+          {{(product.productId | productTranslation: products$: 'amount') | async}}
+        </td>
+        <td>
+          {{(((product.productId | productTranslation: products$: 'measures') | async) | measuresTranslator) | async}}
+        </td>
+        <td>
+          {{(product.productId | productTranslation: products$: 'kcal') | async}}
+        </td>
       </tr>
     </table>
 

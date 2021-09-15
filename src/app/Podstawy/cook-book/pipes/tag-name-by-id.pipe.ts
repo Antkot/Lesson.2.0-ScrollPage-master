@@ -9,20 +9,16 @@ import { AllergensStorageService } from '../part-components/services/allergens-s
   name: 'tagNameById'
 })
 export class TagNameByIdPipe implements PipeTransform {
-  data$;
-  data;
   constructor() {
   }
-  transform(value: string, tags$: Observable<Array<Hashes>>): any {
-    this.data$ = tags$.pipe(
-      map((tag) => ({
-        tagName: tag.find(
-          ({ hashId, name }) =>
+  transform(value: string, tags$: Observable<Array<any>>): any {
+     return tags$.pipe(
+      map((tag) => {
+        return tag.find(
+          ({ hashId }) =>
             hashId === value
-        )?.name
-      })));
-    this.data$.subscribe(data => this.data = data);
-    return this.data.tagName;
+        )?.name;
+      }));
 
   }
 }

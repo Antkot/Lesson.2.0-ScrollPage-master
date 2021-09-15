@@ -8,7 +8,7 @@
       [selectable]='selectable'
       [removable]='removable'
       (removed)='removed(element)'>
-      {{element.hashId | tagNameById: tags$}}
+      {{element.hashId | tagNameById: tags$ | async}}
       <mat-icon matChipRemove *ngIf='removable'>cancel</mat-icon>
     </mat-chip>
     <input
@@ -31,7 +31,7 @@
     [selectable]='selectable'
     [removable]='removable'
     (removed)='removed(element)'>
-    {{element.hashId | tagNameById: allergens$}}
+    {{element.hashId | tagNameById: allergens$ | async}}
     <mat-icon matChipRemove *ngIf='removable'>cancel</mat-icon>
   </mat-chip>
   <input
@@ -55,7 +55,7 @@
     </mat-form-field>
 <!--<div *ngFor="let element of elements">-->
 <!--  <input matInput type="text" />-->
-<!--  {{element.hashId | tagNameById: tags$}}-->
+<!--  {{element.hashId | tagNameById: tags$  | async}}-->
 <!--</div>-->
 
 

@@ -7,22 +7,15 @@ import { map } from 'rxjs/operators';
   name: 'productTranslation'
 })
 export class ProductTranslationPipe implements PipeTransform {
-  data$;
-  data;
   constructor() {
   }
-  transform(value: string, tags$: Observable<Array<Products>>): any {
-    this.data$ = tags$.pipe(
-      map((tag) => ({
-        productName: tag.find(
-          ({ productId, product, kcal }) =>
+  transform(value: string, tags$: Observable<Array<Products>>, search: string): any {
+    return tags$.pipe(
+      map((tag) => {
+        return tag.find(
+          ({ productId }) =>
             productId === value
-        )
-      })));
-    this.data$.subscribe(data => this.data = data);
-    const str = `${this.data.productName.measures} - ${this.data.productName.product} ( ${this.data.productName.allergens}) , ${this.data.productName.kcal} kcal`;
-    return str;
-
+        )[search];
+      }));
   }
-
 }

@@ -40,6 +40,7 @@ import { IngredientDialogComponent } from './part-components/ingredient-dialog/i
 import { ProductTranslationPipe } from './pipes/product-translation.pipe';
 import { DishTranslatorPipe } from './pipes/dish-translator.pipe';
 import { DishTypePipe } from './pipes/dish-type.pipe';
+import { MeasuresTranslatorPipe } from './pipes/measures-translator.pipe';
 
 const links = [
   {
@@ -86,7 +87,8 @@ const links = [
     IngredientDialogComponent,
     ProductTranslationPipe,
     DishTranslatorPipe,
-    DishTypePipe
+    DishTypePipe,
+    MeasuresTranslatorPipe,
 
   ],
   exports: [
