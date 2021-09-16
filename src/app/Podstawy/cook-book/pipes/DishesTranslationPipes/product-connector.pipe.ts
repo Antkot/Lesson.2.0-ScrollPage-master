@@ -9,9 +9,9 @@ import { ProductsStorageService } from '../../part-components/services/products-
   name: 'productConnect'
 })
 export class ProductConnectorPipe implements PipeTransform {
-  products$: Observable<Array<Product>> = this.usedProductsService.products$;
+  products$: Observable<Array<Product>> = this.productsService.products$;
 
-  constructor(private usedProductsService: ProductsStorageService) {
+  constructor(private productsService: ProductsStorageService) {
   }
 
   transform(givenProductId: string): any {
@@ -20,7 +20,7 @@ export class ProductConnectorPipe implements PipeTransform {
         return usedProduct.find(
           ({ productId }) =>
             productId === givenProductId
-        ).name;
+        );
       }));
   }
 }

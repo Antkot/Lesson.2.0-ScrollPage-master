@@ -9,7 +9,7 @@ import { DishStorageService } from '../part-components/services/dish-storage.ser
 })
 export class DishTranslatorPipe implements PipeTransform {
   dishesList$: Observable<Array<Dishes>> = this.dishService.dishesList$;
-
+// używana
   constructor(private dishService: DishStorageService) {}
 
   transform(linkId: string, search: string): any {
@@ -18,7 +18,7 @@ export class DishTranslatorPipe implements PipeTransform {
         return dishes.find(
           ({ dishId }) =>
             dishId === linkId
-        )[search];
+        )?.[search];
       }));
   }
 }

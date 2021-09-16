@@ -11,14 +11,38 @@
         <th>kcal</th>
       </tr>
       <tr *ngIf='edit'>
-        <td><input type=''>
-
-        </td>
+        <td>
+          <form>
+            <mat-form-field appearance="fill">
+              <mat-label>Nazwa produktu</mat-label>
+              <mat-select [(ngModel)]="selectedProduct" name="food">
+                <mat-option *ngFor="let product of (products$ | async)" [value]="product.name">
+                  {{product.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>        </td>
         <td>
           <input type='number'>
         </td>
         <td>
-          <input list='measueres' name='measuere' id='measuere'>
+
+<!--          !!!!!!!!!!!!!!!!!-->
+          <form>
+            <mat-form-field appearance="fill">
+              <mat-label>Miara produktu</mat-label>
+              <mat-select [(ngModel)]="selectedProduct" name="food">
+                <mat-option *ngFor="let product of (products$) | async)" [value]="product.name">
+                  {{((product.productId | productConnect).measures | productAllMeasures}}
+                  {{product.measures}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </form>
+          <!--          !!!!!!!!!!!!!!!!!-->
+
+
+
         </td>
         <td>
           <button>Dodaj</button>
@@ -26,7 +50,7 @@
       </tr>
       <tr *ngFor='let product of products'>
         <td>
-          {{((product.usedProductId | usedProductConnector) | async).productId | productConnect | async}}
+          {{(((product.usedProductId | usedProductConnector) | async).productId | productConnect).name}}
         </td>
         <td>
           {{((product.usedProductId | usedProductConnector) | async).amount}}
@@ -42,8 +66,15 @@
   </div>
 </div>
 
-<datalist id='measueres'>
-  <option *ngFor='let measure of (products$ | async)'>
-    {{measure}}
+<!--<datalist id='measueres'>-->
+<!--  <option *ngFor='let measure of (products$ | async)'>-->
+<!--    {{measure}}-->
+<!--</datalist>-->
+
+<datalist id='products'>
+  <option *ngFor='let product of (products$ | async)'>
+    {{product.name}}
 </datalist>
 
+
+<p> Selected food: {{selectedProduct}} </p>

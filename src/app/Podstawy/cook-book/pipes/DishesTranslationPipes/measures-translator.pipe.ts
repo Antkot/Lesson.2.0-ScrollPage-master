@@ -15,7 +15,6 @@ export class MeasuresTranslatorPipe implements PipeTransform {
   }
 
   transform(value: any) {
-    console.log('Nazwa', value);
     return this.measures$.pipe(
       map((measure) => {
         return measure.find(

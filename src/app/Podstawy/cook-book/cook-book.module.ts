@@ -45,6 +45,7 @@ import { ProductMeasureDataPipe } from './pipes/product-measure-data.pipe';
 import { UsedProductConnectorPipe } from './pipes/DishesTranslationPipes/used-product-connector.pipe';
 import { ProductConnectorPipe } from './pipes/DishesTranslationPipes/product-connector.pipe';
 import { ProductMeasureConnectorPipe } from './pipes/DishesTranslationPipes/product-measure-connector.pipe';
+import { ProductAllMeasuresPipe } from './pipes/OtherPipes/product-all-measures.pipe';
 
 const links = [
   {
@@ -97,6 +98,7 @@ const links = [
     UsedProductConnectorPipe,
     ProductConnectorPipe,
     ProductMeasureConnectorPipe,
+    ProductAllMeasuresPipe,
 
   ],
   exports: [

@@ -14,6 +14,7 @@ import { MeasuresTranslatorPipe } from '../../pipes/DishesTranslationPipes/measu
   styleUrls: ['./ingredients.component.scss']
 })
 export class IngredientsComponent {
+  selectedProduct: string;
   products$: Observable<Array<Product>> = this.productsService.products$;
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   @Input() edit;
