@@ -32,9 +32,10 @@
             <mat-form-field appearance="fill">
               <mat-label>Miara produktu</mat-label>
               <mat-select [(ngModel)]="selectedProduct" name="food">
-                <mat-option *ngFor="let product of (products$) | async)" [value]="product.name">
-                  {{((product.productId | productConnect).measures | productAllMeasures}}
-                  {{product.measures}}
+                <mat-option *ngFor="let product of (products$) | async" [value]="product.name">
+<!--                  {{((product.productId | productConnect).measures | productAllMeasures}}-->
+                  {{product.productId}}
+<!--                  {{product.measures}}-->
                 </mat-option>
               </mat-select>
             </mat-form-field>
@@ -50,7 +51,7 @@
       </tr>
       <tr *ngFor='let product of products'>
         <td>
-          {{(((product.usedProductId | usedProductConnector) | async).productId | productConnect).name}}
+          {{(((product.usedProductId | usedProductConnector) | async).productId | productConnect | async).name}}
         </td>
         <td>
           {{((product.usedProductId | usedProductConnector) | async).amount}}
