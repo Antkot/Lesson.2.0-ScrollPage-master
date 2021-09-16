@@ -12,10 +12,11 @@ export class ProductAllMeasuresPipe implements PipeTransform {
   constructor(private productsService: ProductsStorageService) {
   }
 
-  transform(givenMeasureArray: Array<{ measureId: string, kcal: number }>): any {
-    return givenMeasureArray.pipe(
-      map((value) => {
-        return value.measureId;
-      }));
+  transform(givenMeasureArray: Array<{ measureId: string, kcal: number }>) {
+    // return givenMeasureArray.pipe(
+    //   map((value) => {
+    //     return value.measureId;
+    //   }));
+  return null;
   }
 }
