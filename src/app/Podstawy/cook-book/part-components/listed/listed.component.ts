@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Dishes } from '../../types';
+import { Dish } from '../../types';
 import { LoadingService } from '../services/loading.service';
 import { DishStorageService } from '../services/dish-storage.service';
 
@@ -10,7 +10,7 @@ import { DishStorageService } from '../services/dish-storage.service';
   styleUrls: ['./listed.component.scss']
 })
 export class ListedComponent implements OnInit {
-  dishesList$: Observable<Array<Dishes>> = this.dishesService.dishesList$;
+  dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
 
   constructor(private dishesService: DishStorageService) {
 

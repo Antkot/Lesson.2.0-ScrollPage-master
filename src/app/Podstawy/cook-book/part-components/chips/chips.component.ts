@@ -6,7 +6,7 @@ import { MatChipEvent, MatChipInputEvent } from '@angular/material/chips';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { Hash } from '../../types';
-import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
+import { TagNameByIdPipe } from '../../pipes/OtherPipes/tag-name-by-id.pipe';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { AllergensStorageService } from '../services/allergens-storage.service';
 
@@ -27,12 +27,11 @@ export class ChipsComponent {
   separatorKeysCodes = [ENTER, COMMA];
   elementCtrl = new FormControl();
   filteredElements$: Observable<Array<string>>;
-  tags$: Observable<Array<Hash>> = this.tagsService.tags$;
-  allergens$: Observable<Array<Hash>> = this.allergenService.allergens$;
+
 
   @ViewChild('elementInput') elementInput: ElementRef<HTMLInputElement>;
 
-  constructor(private tagsService: TagsStorageService, private  allergenService: AllergensStorageService) {
+  constructor() {
     // this.filteredElements$ = this.elementCtrl.valueChanges.pipe(
     //   startWith(null),
     //   map((element: string | null) => element ? this._filter(element) : this.allElements.slice()));

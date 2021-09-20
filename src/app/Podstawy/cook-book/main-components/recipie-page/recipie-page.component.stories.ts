@@ -23,7 +23,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AddIngredientComponent } from '../../part-components/add-ingredient/add-ingredient.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
+import { TagNameByIdPipe } from '../../pipes/OtherPipes/tag-name-by-id.pipe';
 import { IngredientDialogComponent } from '../../part-components/ingredient-dialog/ingredient-dialog.component';
 
 const decoration: NgModule = {

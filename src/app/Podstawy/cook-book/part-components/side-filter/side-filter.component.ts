@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoadingService } from '../services/loading.service';
 import { Observable } from 'rxjs';
-import { Dish, Hash, Level } from '../../types';
+import { DishType, Hash, Level } from '../../types';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AllergensStorageService } from '../services/allergens-storage.service';
@@ -12,7 +12,7 @@ import { AllergensStorageService } from '../services/allergens-storage.service';
   styleUrls: ['./side-filter.component.scss']
 })
 export class SideFilterComponent implements OnInit {
-  dishes$: Observable<Array<Dish>> = this.loadingService.dishes$;
+  dishes$: Observable<Array<DishType>> = this.loadingService.dishes$;
   tags$: Observable<Array<Hash>> = this.tagsService.tags$;
   allergens$: Observable<Array<Hash>> = this.allergensService.allergens$;
   levels$: Observable<Array<Level>> = this.loadingService.levels$;

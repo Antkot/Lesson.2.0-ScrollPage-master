@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject } from 'rxjs';
 import { Measure } from '../../types';
+import { LocalStorageService } from './local-storage-service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,11 @@ import { Measure } from '../../types';
 export class MeasuresStorageService {
   measures$ = new BehaviorSubject<Array<Measure>>([]);
 
-  constructor() {
+  constructor(private localStorageService: LocalStorageService) {
 
     if (!!localStorage.measures) {
+      const current = JSON.parse(this.localStorageService.getItem('measures'));
+      this.measures$.next([...current]);
     } else {
       this.measures$.next([
         { measureId: 'cuuu', name: 'litr', shortcut: 'l' },
@@ -21,6 +24,7 @@ export class MeasuresStorageService {
         { measureId: cuid(), name: 'szklanka', shortcut: 'szkl.' },
         { measureId: cuid(), name: 'sztuki', shortcut: 'szt.' }
       ]);
+      this.localStorageService.setItem('measures', JSON.stringify(this.measures$.value));
     }
 
 

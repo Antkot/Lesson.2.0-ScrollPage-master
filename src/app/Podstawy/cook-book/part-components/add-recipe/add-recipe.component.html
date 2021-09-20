@@ -1,9 +1,7 @@
 <div class='container' xmlns='http://www.w3.org/1999/html'>
-<!--  <div class="header" *ngIf="edit">-->
-<!--    <h1>Nowy Przepis dodawany !</h1>-->
-<!--  </div>-->
   <mat-divider></mat-divider>
-  {{(dishId | dishTranslator: 'dishType') | async | json}}
+
+<!--  2{{(dishId | dishType) | async | json}}-->
   <mat-divider></mat-divider>
   <div class="name">
     <input  *ngIf='edit' type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input' [value]="(dishId | dishTranslator: 'name') | async ">
@@ -24,7 +22,7 @@
   <mat-divider></mat-divider>
   <div class="ingredients">
     <div class="divide">
-      <app-ingredients [edit]="edit" [products]="(dishId | dishTranslator: 'products') | async "></app-ingredients>
+      <app-ingredients [edit]="edit" [products]="(dishId | dishTranslator: 'products') | async " (addUsedProduct)='addUsedProduct($event)'></app-ingredients>
     </div>
     <div class="divide">
             <app-steps [edit]="edit" [steps]="(dishId | dishTranslator: 'steps') | async " (stepsChanged)='steps'></app-steps>

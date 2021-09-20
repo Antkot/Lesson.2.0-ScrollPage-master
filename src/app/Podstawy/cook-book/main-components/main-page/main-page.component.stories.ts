@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterModule } from '@angular/router';
 import { CookBookModule } from '../../cook-book.module';
 import { Observable } from 'rxjs';
-import { Dishes, Hash } from '../../types';
 import { DishStorageService } from '../../part-components/services/dish-storage.service';
 import { first } from 'rxjs/operators';
 

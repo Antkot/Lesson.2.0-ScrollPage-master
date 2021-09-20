@@ -9,14 +9,23 @@
   <button mat-button mat-dialog-close>Anuluj</button>
   <button mat-button [mat-dialog-close]="true">Dodaj</button>
 </mat-dialog-actions>
-
+<br/>
+<mat-dialog-content class="mat-typography">
+  <div *ngFor='let product of products$ | async'>
+    {{product.name}} (
+<a *ngFor='let measure of product.measures'>
+  {{ measure.measureId | measuresTranslator | async}}
+</a>)
+    <br/>
+  </div>
+</mat-dialog-content>
 
 <datalist id="measueres">
-  <option *ngFor='let measure of measures$ | async' value="{{measure.measure}}">
-    {{measure.measure}}
+  <option *ngFor='let measure of measures$ | async' value="{{measure.name}}">
+    {{measure.name}}
 </datalist>
 
 <datalist id="ingridients">
-  <option *ngFor='let measure of measures$ | async' value="{{measure.measure}}">
-    {{measure.measure}}
+  <option *ngFor='let product of products$ | async' value="{{product.name}}">
+    {{product.name}}
 </datalist>

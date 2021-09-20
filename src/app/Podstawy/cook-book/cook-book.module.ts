@@ -32,16 +32,14 @@ import { ListPageComponent } from './main-components/list-page/list-page.compone
 import { SearchBarComponent } from './part-components/search-bar/search-bar.component';
 import { RecipiePageComponent } from './main-components/recipie-page/recipie-page.component';
 import { MatInputModule } from '@angular/material/input';
-import { TagNameByIdPipe } from './pipes/tag-name-by-id.pipe';
+import { TagNameByIdPipe } from './pipes/OtherPipes/tag-name-by-id.pipe';
 import { MainMenuComponent } from './main-components/main-menu/main-menu.component';
 import { MainPageComponent } from './main-components/main-page/main-page.component';
 import { RouterModule } from '@angular/router';
 import { IngredientDialogComponent } from './part-components/ingredient-dialog/ingredient-dialog.component';
-import { ProductTranslationPipe } from './pipes/product-translation.pipe';
-import { DishTranslatorPipe } from './pipes/dish-translator.pipe';
+import { DishTranslatorPipe } from './pipes/OtherPipes/dish-translator.pipe';
 import { DishTypePipe } from './pipes/dish-type.pipe';
 import { MeasuresTranslatorPipe } from './pipes/DishesTranslationPipes/measures-translator.pipe';
-import { ProductMeasureDataPipe } from './pipes/product-measure-data.pipe';
 import { UsedProductConnectorPipe } from './pipes/DishesTranslationPipes/used-product-connector.pipe';
 import { ProductConnectorPipe } from './pipes/DishesTranslationPipes/product-connector.pipe';
 import { ProductMeasureConnectorPipe } from './pipes/DishesTranslationPipes/product-measure-connector.pipe';
@@ -63,10 +61,6 @@ const links = [
   {
     component: RecipiePageComponent,
     path: 'recipe/:dishId'
-  },
-  {
-    component: RecipiePageComponent,
-    path: 'recipe/new'
   }
 ];
 
@@ -90,11 +84,9 @@ const links = [
     MainMenuComponent,
     MainPageComponent,
     IngredientDialogComponent,
-    ProductTranslationPipe,
     DishTranslatorPipe,
     DishTypePipe,
     MeasuresTranslatorPipe,
-    ProductMeasureDataPipe,
     UsedProductConnectorPipe,
     ProductConnectorPipe,
     ProductMeasureConnectorPipe,

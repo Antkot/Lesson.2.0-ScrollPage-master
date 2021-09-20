@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Dish } from '../../types';
+import { Dish, DishType } from '../../types';
 import { LoadingService } from '../../part-components/services/loading.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { LoadingService } from '../../part-components/services/loading.service';
   styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent implements OnInit {
-  dishes$: Observable<Array<Dish>> = this.loadingService.dishes$;
+  dishes$: Observable<Array<DishType>> = this.loadingService.dishes$;
 
   constructor(private loadingService: LoadingService) {
   }

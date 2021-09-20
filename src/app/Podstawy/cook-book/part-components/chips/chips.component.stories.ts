@@ -10,7 +10,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { ChipsComponent } from './chips.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
+import { TagNameByIdPipe } from '../../pipes/OtherPipes/tag-name-by-id.pipe';
 
 const decoration: NgModule = {
   declarations: [

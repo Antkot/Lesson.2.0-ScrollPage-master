@@ -24,7 +24,7 @@ import { TimeSliderComponent } from '../../part-components/time-slider/time-slid
 import { ListPageComponent } from './list-page.component';
 import { MenuComponent } from '../../part-components/menu/menu.component';
 import { SearchBarComponent } from '../../part-components/search-bar/search-bar.component';
-import { TagNameByIdPipe } from '../../pipes/tag-name-by-id.pipe';
+import { TagNameByIdPipe } from '../../pipes/OtherPipes/tag-name-by-id.pipe';
 
 const decoration: NgModule = {
   declarations: [

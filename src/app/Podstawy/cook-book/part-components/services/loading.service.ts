@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Dish, Level } from '../../types';
+import { DishType, Level } from '../../types';
 import * as cuid from 'cuid';
 
 @Injectable({
@@ -8,7 +8,7 @@ import * as cuid from 'cuid';
 })
 export class LoadingService {
   levels$ = new BehaviorSubject<Array<Level>>([]);
-  dishes$ = new BehaviorSubject<Array<Dish>>([]);
+  dishes$ = new BehaviorSubject<Array<DishType>>([]);
 
   constructor() {
     if (!!localStorage.levelData) {

@@ -1,7 +1,7 @@
 import { TablicaToDo } from '../to-do-list/to-do-list.component.stories';
 
 
-export interface Dish {
+export interface DishType {
   dishId: string;
   name: string;
 }
@@ -16,7 +16,7 @@ export interface Timer {
   name: string;
 }
 
-export interface Dishes {
+export interface Dish {
   dishId: string;
   name: string;
   tags: Array<{ hashId: string }>;

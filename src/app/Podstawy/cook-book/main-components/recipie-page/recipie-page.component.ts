@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { first, map } from 'rxjs/operators';
+import { combineLatest, Observable } from 'rxjs';
 import { DishStorageService } from '../../part-components/services/dish-storage.service';
+import { UsedProductsStorageService } from '../../part-components/services/used-products-storage.service';
 
 @Component({
   selector: 'app-recipie-page',
@@ -10,43 +11,34 @@ import { DishStorageService } from '../../part-components/services/dish-storage.
   styleUrls: ['./recipie-page.component.scss']
 })
 export class RecipiePageComponent implements OnInit {
-  edit = true;
 
-  // editable$: Observable<object>;
-  // name$: Observable<object>;
-  // tags$: Observable<Array<{ hashId: string }>>;
-  // steps$: Observable<string>;
-  // products$: Observable<Array<{ productId: string }>>;
-  temporary;
-
-  constructor(public activatedRoute: ActivatedRoute, private dishService: DishStorageService) {
-
+  constructor(
+    public activatedRoute: ActivatedRoute,
+    private dishService: DishStorageService,
+    private usedProductService: UsedProductsStorageService,
+    private route: ActivatedRoute) {
   }
 
-  ngOnInit(): void {
+  edit$: Observable<boolean> = combineLatest([this.activatedRoute.paramMap
+    .pipe(map(() => window.history.state))]).pipe(map(([{ edit }]) => {
+    console.log('Edycja', edit);
+    return edit;
+  }));
+  dishId$: Observable<string> = combineLatest([this.route.url.pipe(
+    map(value => value[1].path))]).pipe(map(([dishId]) => {
+    console.log('Id posiłku', dishId);
+    return dishId;
+  }));
+
+  ngOnInit(): void {}
 
 
-    // tylko raz odplaić fuinkcję, teraz za dużo
-
-
-    this.edit = this.saveData().edit;
-    if (this.edit === undefined) {
-      this.edit = true;
-
-    }
-    // this.dish = this.saveData().dish;
-     // this.name$ = this.activatedRoute.paramMap
-    //   .pipe(map(() => window.history.state));
-    // this.name$.subscribe(data => this.temporary = data);
-    // this.name = this.temporary.name;
+  addUsedProduct(event) {
+    console.log(event);
+    this.usedProductService.addProduct(event);
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.addProduct(event, dishId)
+    );
   }
-
-  saveData() {
-    const stream$ = this.activatedRoute.paramMap
-      .pipe(map(() => window.history.state));
-    stream$.subscribe(data => this.temporary = data);
-    return this.temporary;
-  }
-
 
 }
