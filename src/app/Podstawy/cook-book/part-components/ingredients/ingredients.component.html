@@ -28,7 +28,7 @@
           <form class="example-form">
             <mat-form-field class="example-full-width" appearance="fill">
               <mat-label>Ilość</mat-label>
-              <input type="number" matInput  [(ngModel)]="selectedAmount" name='number'>
+              <input type="number" matInput  [(ngModel)]="selectedAmount" name='number' min='1'>
             </mat-form-field>
           </form>
         </td>
@@ -43,7 +43,6 @@
               </mat-select>
             </mat-form-field>
           </form>
-
           <form  *ngIf='selectedProduct'>
           <mat-form-field appearance="fill">
             <mat-label>Miara produktu</mat-label>
@@ -54,7 +53,6 @@
             </mat-select>
           </mat-form-field>
         </form>
-
         </td>
         <td>
           <button (click)='newUsedProduct()'>Dodaj</button>
@@ -78,17 +76,7 @@
     </table>
   </div>
 </div>
-
-<!--<datalist id='measueres'>-->
-<!--  <option *ngFor='let measure of (products$ | async)'>-->
-<!--    {{measure}}-->
-<!--</datalist>-->
-
 <datalist id='products'>
   <option *ngFor='let product of (products$ | async)'>
     {{product.name}}
 </datalist>
-
-
-<!--<p> Selected food: {{selectedProduct}} </p>-->
-<!--<p> Selected amount: {{selectedAmount}} </p>-->

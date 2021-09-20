@@ -14,7 +14,7 @@ export class ProductConnectorPipe implements PipeTransform {
   constructor(private productsService: ProductsStorageService) {
   }
 
-  transform(givenProductId: string): any {
+  transform(givenProductId: string) {
     return this.products$.pipe(
       map((usedProduct) => {
         return usedProduct.find(

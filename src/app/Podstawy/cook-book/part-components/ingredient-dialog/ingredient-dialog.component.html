@@ -1,13 +1,17 @@
 <h2 mat-dialog-title>Dodawanie Składnika</h2>
-<mat-dialog-content class="mat-typography">
-  Nazwa: <input list="ingridients" name="ingridient" id="ingridient">
-  Miara: <input list="measueres" name="measuere" id="measuere">
-  Kcal: <input type='number'>
+<mat-dialog-content class="mat-typography" [formGroup]="model">
+  Nazwa: <mat-form-field appearance="outline">
+    <mat-label>Szukaj</mat-label>
+    <input matInput type="text" [matAutocomplete]="auto" [matAutocompleteDisabled]="false" formControlName="product"  />
+  </mat-form-field>
+  Miara: <input list="measures" name="measure" id="measure"   [(ngModel)]="selectedMeasureId">
+  Kcal: <input type='number'  [(ngModel)]="selectedMeasureKcal">
+  Alergen: <input [(ngModel)]="selectedAllergen">
 
 </mat-dialog-content>
 <mat-dialog-actions>
   <button mat-button mat-dialog-close>Anuluj</button>
-  <button mat-button [mat-dialog-close]="true">Dodaj</button>
+  <button mat-button [mat-dialog-close]="true" (click)='newProduct()'>Dodaj</button>
 </mat-dialog-actions>
 <br/>
 <mat-dialog-content class="mat-typography">
@@ -20,12 +24,10 @@
   </div>
 </mat-dialog-content>
 
-<datalist id="measueres">
-  <option *ngFor='let measure of measures$ | async' value="{{measure.name}}">
-    {{measure.name}}
-</datalist>
+<!--<mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)">-->
+<!--  <mat-option *ngFor="let measure of autoMeasures$ | async" [value]="product.productId">{{product.name}}</mat-option>-->
+<!--</mat-autocomplete>-->
 
-<datalist id="ingridients">
-  <option *ngFor='let product of products$ | async' value="{{product.name}}">
-    {{product.name}}
-</datalist>
+<mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)">
+  <mat-option *ngFor="let product of autoProducts$ | async" [value]="product.productId">{{product.name}}</mat-option>
+</mat-autocomplete>

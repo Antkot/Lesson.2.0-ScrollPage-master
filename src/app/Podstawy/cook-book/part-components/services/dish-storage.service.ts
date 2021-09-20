@@ -48,9 +48,9 @@ export class DishStorageService {
       ...value,
       products: value.dishId === givenDishId ? [...products, { usedProductId: addedProduct.usedProductId }] : products
     })));
-    this.dishesList$.pipe(first()).subscribe(value => console.log('DISH2', value));
-
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+
+    this.dishesList$.pipe(first()).subscribe(value => console.log('DISH2', value));
   }
 
 

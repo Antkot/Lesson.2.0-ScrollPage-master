@@ -19,13 +19,6 @@ export class IngredientsComponent {
   selectedProduct: string;
   selectedAmount: number;
   selectedMeasure: string;
-
-  usedProductToAdd: UsedProduct = {
-    usedProductId: '',
-    productId: '',
-    measuresId: '',
-    amount: 0
-  };
   @Output() addUsedProduct = new EventEmitter();
   products$: Observable<Array<Product>> = this.productsService.products$;
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
@@ -37,15 +30,14 @@ export class IngredientsComponent {
   }
 
   newUsedProduct() {
-    console.log(cuid());
-    console.log(this.selectedProduct);
-    console.log(this.selectedAmount);
-    console.log(this.selectedMeasure);
-    this.usedProductToAdd.usedProductId = cuid();
-    this.usedProductToAdd.productId = this.selectedProduct;
-    this.usedProductToAdd.measuresId = this.selectedMeasure;
-    this.usedProductToAdd.amount = this.selectedAmount;
-    this.addUsedProduct.emit(this.usedProductToAdd);
+    this.addUsedProduct.emit(
+      {
+        usedProductId: cuid(),
+        productId: this.selectedProduct,
+        measuresId: this.selectedMeasure,
+        amount: this.selectedAmount
+      }
+    );
   }
 
 }

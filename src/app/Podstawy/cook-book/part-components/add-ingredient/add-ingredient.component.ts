@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Hash, Measure } from '../../types';
+import { Hash, Measure, Product } from '../../types';
 import { Observable } from 'rxjs';
 import { MeasuresStorageService } from '../services/measures-storage.service';
 import { MainPageComponent } from '../../main-components/main-page/main-page.component';
@@ -19,6 +19,7 @@ export class AddIngredientComponent {
 
   constructor(public dialog: MatDialog) {
   }
+  addProduct: Product;
 
   openDialog() {
     const dialogRef = this.dialog.open(IngredientDialogComponent);
