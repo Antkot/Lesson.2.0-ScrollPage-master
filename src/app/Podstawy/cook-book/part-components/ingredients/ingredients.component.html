@@ -71,7 +71,8 @@
           {{((((product.usedProductId | usedProductConnector) | async).measuresId) | measuresTranslator) | async}}
         </td>
         <td>
-          {{((((product.usedProductId | usedProductConnector) | async).measuresId) | productMeasureConnector: ((product.usedProductId | usedProductConnector) | async).productId) | async | json}}
+          {{(((((product.usedProductId | usedProductConnector) | async).measuresId) | productMeasureConnector: ((product.usedProductId | usedProductConnector) | async).productId) | async)
+          *(((product.usedProductId | usedProductConnector) | async).amount)}}
         </td>
       </tr>
     </table>

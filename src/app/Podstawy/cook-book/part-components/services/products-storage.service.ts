@@ -16,7 +16,7 @@ export class ProductsStorageService {
       this.products$.next([...current]);
     } else {
       this.products$.next([
-        { productId: '11', name: 'Mleko', measures: [{ measureId: 'cuuu', kcal: 30 }], allergens: [{ allergenId: 'Laktoza' }] },
+        { productId: '11', name: 'Mleko', measures: [{ measureId: 'cuuu', kcal: 600 }], allergens: [{ allergenId: 'Laktoza' }] },
         { productId: cuid(), name: 'Woda', measures: null, allergens: null },
         { productId: cuid(), name: 'Drożdze', measures: null, allergens: null },
         { productId: cuid(), name: 'Mąka', measures: null, allergens: null },
