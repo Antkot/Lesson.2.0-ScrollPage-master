@@ -9,7 +9,8 @@ import { UsedProduct } from '../../types';
   styleUrls: ['./add-recipe.component.scss']
 })
 export class AddRecipeComponent implements OnInit {
-  @Output() usedProductToAdd = new  EventEmitter();
+  @Output() usedProductToAdd = new EventEmitter();
+  @Output() addedProduct = new EventEmitter();
   @Input() edit = true;
   @Output() stepsChange = new EventEmitter();
   dishId$ = this.route.url.pipe(
@@ -29,6 +30,10 @@ export class AddRecipeComponent implements OnInit {
 
   addUsedProduct(event) {
     this.usedProductToAdd.emit(event);
+  }
+
+  addProduct(event) {
+    this.addedProduct.emit(event);
   }
 
 }

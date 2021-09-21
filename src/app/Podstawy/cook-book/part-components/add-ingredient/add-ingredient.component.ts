@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Hash, Measure, Product } from '../../types';
 import { Observable } from 'rxjs';
 import { MeasuresStorageService } from '../services/measures-storage.service';
 import { MainPageComponent } from '../../main-components/main-page/main-page.component';
-import { takeUntil } from 'rxjs/operators';
+import { first, takeUntil } from 'rxjs/operators';
 import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
 import { MainMenuComponent } from '../../main-components/main-menu/main-menu.component';
 import { ChipsComponent } from '../chips/chips.component';
@@ -19,7 +19,8 @@ export class AddIngredientComponent {
 
   constructor(public dialog: MatDialog) {
   }
-  addProduct: Product;
+
+  @Output() addProduct = new EventEmitter();
 
   openDialog() {
     const dialogRef = this.dialog.open(IngredientDialogComponent);
@@ -30,8 +31,13 @@ export class AddIngredientComponent {
     //     dialogRef.close();
     //   }
     // );
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    dialogRef.componentInstance.addProduct.pipe(first()).subscribe((result) => {
+      console.log('Dialog result:');
+      console.table(result);
+      this.addProduct.emit(result);
+    });
+    dialogRef.componentInstance.close.pipe(takeUntil(dialogRef.afterClosed())).subscribe(() => {
+      dialogRef.close();
     });
   }
 }

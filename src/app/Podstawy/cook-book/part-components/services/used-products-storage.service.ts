@@ -14,7 +14,7 @@ export class UsedProductsStorageService {
 
   constructor(private tagsService: TagsStorageService, private localStorageService: LocalStorageService) {
 
-    if (!!localStorage.measures) {
+    if (!!localStorage.usedProducts) {
       const current = JSON.parse(this.localStorageService.getItem('usedProducts'));
       this.usedProducts$.next([...current]);
     } else {
@@ -27,12 +27,8 @@ export class UsedProductsStorageService {
   }
 
   addProduct(addedProduct: UsedProduct) {
-    this.usedProducts$.pipe(first()).subscribe(value => console.log('UsedProduct1', value));
     const current = JSON.parse(this.localStorageService.getItem('usedProducts'));
-
     this.usedProducts$.next([...current, addedProduct]);
-    this.usedProducts$.pipe(first()).subscribe(value => console.log('UsedProduct2', value));
-
     this.localStorageService.setItem('usedProducts', JSON.stringify(this.usedProducts$.value));
   }
 }

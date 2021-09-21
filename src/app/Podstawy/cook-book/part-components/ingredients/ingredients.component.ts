@@ -20,6 +20,7 @@ export class IngredientsComponent {
   selectedAmount: number;
   selectedMeasure: string;
   @Output() addUsedProduct = new EventEmitter();
+  @Output() addedProduct = new EventEmitter();
   products$: Observable<Array<Product>> = this.productsService.products$;
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   @Input() edit;
@@ -38,6 +39,10 @@ export class IngredientsComponent {
         amount: this.selectedAmount
       }
     );
+  }
+  addProduct(event) {
+    this.addedProduct.emit(event);
+    console.table(event);
   }
 
 }

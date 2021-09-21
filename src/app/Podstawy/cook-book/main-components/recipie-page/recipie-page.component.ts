@@ -4,6 +4,7 @@ import { first, map } from 'rxjs/operators';
 import { combineLatest, Observable } from 'rxjs';
 import { DishStorageService } from '../../part-components/services/dish-storage.service';
 import { UsedProductsStorageService } from '../../part-components/services/used-products-storage.service';
+import { ProductsStorageService } from '../../part-components/services/products-storage.service';
 
 @Component({
   selector: 'app-recipie-page',
@@ -14,6 +15,7 @@ export class RecipiePageComponent implements OnInit {
 
   constructor(
     public activatedRoute: ActivatedRoute,
+    private productService: ProductsStorageService,
     private dishService: DishStorageService,
     private usedProductService: UsedProductsStorageService,
     private route: ActivatedRoute) {
@@ -30,7 +32,8 @@ export class RecipiePageComponent implements OnInit {
     return dishId;
   }));
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
 
   addUsedProduct(event) {
@@ -39,6 +42,10 @@ export class RecipiePageComponent implements OnInit {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.addProduct(event, dishId)
     );
+  }
+
+  addProduct(event) {
+    this.productService.addProduct(event);
   }
 
 }

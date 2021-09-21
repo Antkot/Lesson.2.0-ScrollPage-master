@@ -1,12 +1,14 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MeasuresStorageService } from '../services/measures-storage.service';
-import { Measure, Product, UsedProduct } from '../../types';
+import { Hash, Measure, Product, UsedProduct } from '../../types';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductsStorageService } from '../services/products-storage.service';
 import * as cuid from 'cuid';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import Fuse from 'fuse.js';
 import { first } from 'rxjs/operators';
+import { AllergensStorageService } from '../services/allergens-storage.service';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-ingredient-dialog',
@@ -15,10 +17,12 @@ import { first } from 'rxjs/operators';
 })
 export class IngredientDialogComponent implements OnInit {
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
+  allergens$: Observable<Array<Hash>> = this.allergenService.allergens$;
   products$: Observable<Array<Product>> = this.productService.products$;
   autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
+  autoMeasure$ = new BehaviorSubject<Array<{ name: string, measureId: string }>>([]);
   @Input() name = 'Kuba';
-  @Output() button = new EventEmitter();
+  @Output() close = new EventEmitter();
   @Output() addProduct = new EventEmitter();
   selectedName: string;
   selectedProductId: string;
@@ -27,47 +31,87 @@ export class IngredientDialogComponent implements OnInit {
   selectedAllergen: Array<{ allergenId: string }>;
 
   model = this.fb.group({
-    product: ['', []],
+    product: ['Kapusta', []],
     allergens: [[]],
-    kcal: [[]]
+    kcal: [0],
+    measure: ['gramy']
   });
 
-  constructor(private measureService: MeasuresStorageService, private productService: ProductsStorageService, private fb: FormBuilder) {
+  constructor(private allergenService: AllergensStorageService, private measureService: MeasuresStorageService, private productService: ProductsStorageService, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.model.valueChanges.subscribe(({ product }) => {
+    this.model.valueChanges.subscribe(({ product, measure }) => {
       this.products$.pipe(first()).subscribe((products) => {
-        let result = null;
-        if (product.length > 0 && product) {
+        let productsResult = null;
+        if (product?.length > 0 && product) {
           const options = {
             keys: ['name']
           };
           const fuse = new Fuse(products, options);
-
-          result = fuse.search(product).map(({ item }) => item);
+          productsResult = fuse.search(product).map(({ item }) => item);
         } else {
-          result = products;
+          productsResult = products;
         }
-        this.autoProducts$.next(result.map(({ name, productId }) => ({ name, productId })));
+        this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
       });
+      this.measures$.pipe(first()).subscribe((measures) => {
+        let measuresResult = null;
+        if (measure?.length > 0 && measure) {
+          const options = {
+            keys: ['name']
+          };
+          const fuse = new Fuse(measures, options);
+          measuresResult = fuse.search(measure).map(({ item }) => item);
+        } else {
+          measuresResult = measures;
+        }
+        this.autoMeasure$.next(measuresResult.map(({ name, measureId }) => ({ name, measureId })));
+      });
+
     });
   }
 
-  optionSelected(value: string) {
-    this.model.setValue({ product: value });
-    console.log('Value: ', value);
+  optionSelected(type: string, id: string) {
+    console.log('typ', type, 'Value: ', id);
+    switch (type) {
+      case 'product': {
+        this.products$.pipe(first()).subscribe((products) => {
+          this.model.setValue({
+            product: products.find(({ productId }) => productId === id).name,
+            allergens: [],
+            kcal: this.model.value.kcal,
+            measure: this.model.value.measure
+          });
+        });
+        break;
+      }
+      case 'measure': {
+        this.measures$.pipe(first()).subscribe((measures) => {
+          console.table(measures);
+          this.model.setValue({
+            product: this.model.value.product,
+            allergens: [],
+            kcal: this.model.value.kcal,
+            measure: measures.find(({ measureId }) => measureId === id).name
+          });
+        });
+        break;
+      }
+    }
   }
 
   newProduct() {
-    this.addProduct.emit(
-      {
-        productId: this.selectedProductId,
-        name: this.selectedName,
-        measures: [{ measureId: this.selectedMeasureId, kcal: this.selectedMeasureKcal }],
-        allergens: this.selectedAllergen
-      }
-    );
+    this.addProduct.emit(this.model.value);
+
+    // this.addProduct.emit(
+    //   {
+    //     productId: this.selectedProductId,
+    //     name: this.selectedName,
+    //     measures: [{ measureId: this.selectedMeasureId, kcal: this.selectedMeasureKcal }],
+    //     allergens: this.selectedAllergen
+    //   }
+    // );
   }
 
 }

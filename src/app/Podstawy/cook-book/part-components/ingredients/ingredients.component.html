@@ -1,6 +1,6 @@
 <div class='container'>
   <div class='headerButtons' *ngIf='edit'>
-    <app-add-ingredient></app-add-ingredient>
+    <app-add-ingredient (addProduct)='addProduct($event)'></app-add-ingredient>
   </div>
   <div>
     <table>
@@ -14,7 +14,7 @@
       <tr *ngIf='edit'>
         <td>
           <form>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>Nazwa produktu</mat-label>
               <mat-select [(ngModel)]="selectedProduct" name="food">
                 <mat-option *ngFor="let product of (products$ | async)" [value]="product.productId">
@@ -25,8 +25,8 @@
           </form>
         </td>
         <td>
-          <form class="example-form">
-            <mat-form-field class="example-full-width" appearance="fill">
+          <form>
+            <mat-form-field appearance="outline">
               <mat-label>Ilość</mat-label>
               <input type="number" matInput  [(ngModel)]="selectedAmount" name='number' min='1'>
             </mat-form-field>
@@ -34,7 +34,7 @@
         </td>
         <td>
           <form  *ngIf='!selectedProduct'>
-            <mat-form-field appearance="fill">
+            <mat-form-field appearance="outline">
               <mat-label>Miara produktu</mat-label>
               <mat-select [(ngModel)]="selectedMeasure" name="food" disabled>
                 <mat-option *ngFor="let measure of measures$ | async" [value]="measure.measureId">

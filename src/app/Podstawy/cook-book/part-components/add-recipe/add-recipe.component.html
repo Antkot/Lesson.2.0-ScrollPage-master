@@ -22,7 +22,7 @@
   <mat-divider></mat-divider>
   <div class="ingredients">
     <div class="divide">
-      <app-ingredients [edit]="edit" [products]="(dishId | dishTranslator: 'products') | async " (addUsedProduct)='addUsedProduct($event)'></app-ingredients>
+      <app-ingredients [edit]="edit" [products]="(dishId | dishTranslator: 'products') | async " (addUsedProduct)='addUsedProduct($event)' (addedProduct)='addProduct($event)'></app-ingredients>
     </div>
     <div class="divide">
             <app-steps [edit]="edit" [steps]="(dishId | dishTranslator: 'steps') | async " (stepsChanged)='steps'></app-steps>

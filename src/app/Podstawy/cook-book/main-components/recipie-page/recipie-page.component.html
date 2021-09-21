@@ -1,6 +1,8 @@
 <app-menu></app-menu>
 <app-add-recipe
   [edit]="edit$ | async"
-  (stepsChange)='steps'
   (usedProductToAdd)='addUsedProduct($event)'
+  (addedProduct)='addProduct($event);'
 ></app-add-recipe>
+<!--  (stepsChange)='steps'-->
+
