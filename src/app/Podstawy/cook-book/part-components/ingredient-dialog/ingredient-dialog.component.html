@@ -1,30 +1,28 @@
-<h2 mat-dialog-title>Dodawanie Składnika</h2>
+<span class='material-icons clickable' (click)='close.emit()'>
+close
+</span><h2 mat-dialog-title>Dodawanie Składnika</h2>
+
 <mat-dialog-content class='mat-typography' [formGroup]='model'>
-  Nazwa:
   <mat-form-field appearance='outline'>
-    <mat-label>Szukaj</mat-label>
-    <input matInput type='text' [matAutocomplete]='auto' [matAutocompleteDisabled]='false' formControlName='product' />
+    <mat-label>Nazwa</mat-label>
+    <input matInput type='text' [matAutocomplete]='autoProduct' [matAutocompleteDisabled]='false' formControlName='product' />
   </mat-form-field>
-  Miara:
   <mat-form-field appearance='outline'>
-    <mat-label>Szukaj</mat-label>
-    <input matInput type='text' [matAutocomplete]='auto2' [matAutocompleteDisabled]='false' formControlName='measure' />
+    <mat-label>Miara</mat-label>
+    <input matInput type='text' [matAutocomplete]='autoMeasure' [matAutocompleteDisabled]='false' formControlName='measure' />
   </mat-form-field>
-  Kcal:
   <mat-form-field appearance='outline'>
-    <mat-label>Szukaj</mat-label>
-    <input matInput type='number' [matAutocomplete]='auto' [matAutocompleteDisabled]='true '
-           formControlName='kcal' />
+    <mat-label>Kcal</mat-label>
+    <input matInput type='number' formControlName='kcal' />
   </mat-form-field>
-<!--  Alergen:-->
-<!--  <mat-form-field appearance='outline'>-->
-<!--    <mat-label>Szukaj</mat-label>-->
-<!--    <input matInput type='text' [matAutocomplete]='auto3' [matAutocompleteDisabled]='false' formControlName='allergens' />-->
-<!--  </mat-form-field>-->
+  <!--  Alergen:-->
+  <!--  <mat-form-field appearance='outline'>-->
+  <!--    <mat-label>Szukaj</mat-label>-->
+  <!--    <input matInput type='text' [matAutocomplete]='auto3' [matAutocompleteDisabled]='false' formControlName='allergens' />-->
+  <!--  </mat-form-field>-->
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button (click)='close.emit()'>Anuluj</button>
-  <button mat-button (click)='newProduct()'>Dodaj</button>
+  <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid'>Dodaj</button>
 </mat-dialog-actions>
 <br />
 <mat-dialog-content class='mat-typography'>
@@ -37,21 +35,14 @@
   </div>
 </mat-dialog-content>
 
-<mat-autocomplete #auto='matAutocomplete' (optionSelected)='optionSelected("product", $event.option.value)'>
+<mat-autocomplete #autoProduct='matAutocomplete' (optionSelected)='optionSelected("product", $event.option.value)'>
   <mat-option *ngFor='let product of autoProducts$ | async' [value]='product.productId'>
     {{product.name}}
   </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete #auto2='matAutocomplete' (optionSelected)='optionSelected("measure", $event.option.value)'>
+<mat-autocomplete #autoMeasure='matAutocomplete' (optionSelected)='optionSelected("measure", $event.option.value)'>
   <mat-option *ngFor='let measure of autoMeasure$ | async' [value]='measure.measureId'>
     {{measure.name}}
   </mat-option>
 </mat-autocomplete>
-
-<!--<mat-autocomplete #auto3='matAutocomplete' (optionSelected)='optionSelected("product", $event.option.value)'>-->
-<!--  <mat-option *ngFor='let allergen of allergens$ | async' [value]='allergen.hashId'>-->
-<!--    {{allergen.name}}-->
-<!--  </mat-option>-->
-<!--</mat-autocomplete>-->
-

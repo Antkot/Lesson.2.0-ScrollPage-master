@@ -31,7 +31,7 @@ export class AddIngredientComponent {
     //     dialogRef.close();
     //   }
     // );
-    dialogRef.componentInstance.addProduct.pipe(first()).subscribe((result) => {
+    dialogRef.componentInstance.addProduct.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result) => {
       console.log('Dialog result:');
       console.table(result);
       this.addProduct.emit(result);

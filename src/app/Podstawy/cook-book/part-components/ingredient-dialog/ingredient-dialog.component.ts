@@ -1,14 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MeasuresStorageService } from '../services/measures-storage.service';
-import { Hash, Measure, Product, UsedProduct } from '../../types';
+import { Measure, Product } from '../../types';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductsStorageService } from '../services/products-storage.service';
-import * as cuid from 'cuid';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import Fuse from 'fuse.js';
 import { first } from 'rxjs/operators';
 import { AllergensStorageService } from '../services/allergens-storage.service';
-import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-ingredient-dialog',
@@ -17,27 +15,28 @@ import { cloneDeep } from 'lodash';
 })
 export class IngredientDialogComponent implements OnInit {
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
-  allergens$: Observable<Array<Hash>> = this.allergenService.allergens$;
   products$: Observable<Array<Product>> = this.productService.products$;
   autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
   autoMeasure$ = new BehaviorSubject<Array<{ name: string, measureId: string }>>([]);
-  @Input() name = 'Kuba';
   @Output() close = new EventEmitter();
   @Output() addProduct = new EventEmitter();
   selectedName: string;
   selectedProductId: string;
   selectedMeasureId: string;
   selectedMeasureKcal: number;
-  selectedAllergen: Array<{ allergenId: string }>;
 
   model = this.fb.group({
-    product: ['Kapusta', []],
+    product: ['', [Validators.required, Validators.minLength(1)]],
     allergens: [[]],
-    kcal: [0],
-    measure: ['gramy']
+    kcal: ['', [Validators.required, Validators.min(0)]],
+    measure: ['', [Validators.required, Validators.minLength(1)]]
   });
 
-  constructor(private allergenService: AllergensStorageService, private measureService: MeasuresStorageService, private productService: ProductsStorageService, private fb: FormBuilder) {
+  constructor(
+    private allergenService: AllergensStorageService,
+    private measureService: MeasuresStorageService,
+    private productService: ProductsStorageService,
+    private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -73,7 +72,6 @@ export class IngredientDialogComponent implements OnInit {
   }
 
   optionSelected(type: string, id: string) {
-    console.log('typ', type, 'Value: ', id);
     switch (type) {
       case 'product': {
         this.products$.pipe(first()).subscribe((products) => {
@@ -88,7 +86,6 @@ export class IngredientDialogComponent implements OnInit {
       }
       case 'measure': {
         this.measures$.pipe(first()).subscribe((measures) => {
-          // console.table(measures);
           this.model.setValue({
             product: this.model.value.product,
             allergens: [],
@@ -103,15 +100,7 @@ export class IngredientDialogComponent implements OnInit {
 
   newProduct() {
     this.addProduct.emit(this.model.value);
-
-    // this.addProduct.emit(
-    //   {
-    //     productId: this.selectedProductId,
-    //     name: this.selectedName,
-    //     measures: [{ measureId: this.selectedMeasureId, kcal: this.selectedMeasureKcal }],
-    //     allergens: this.selectedAllergen
-    //   }
-    // );
+    this.model.reset();
   }
 
 }
