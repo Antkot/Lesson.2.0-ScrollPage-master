@@ -42,7 +42,7 @@ export class IngredientsComponent {
   }
   addProduct(event) {
     this.addedProduct.emit(event);
-    console.table(event);
+    // console.table(event);
   }
 
 }

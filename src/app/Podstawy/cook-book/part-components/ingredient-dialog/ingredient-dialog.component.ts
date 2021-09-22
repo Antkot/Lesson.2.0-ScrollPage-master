@@ -88,7 +88,7 @@ export class IngredientDialogComponent implements OnInit {
       }
       case 'measure': {
         this.measures$.pipe(first()).subscribe((measures) => {
-          console.table(measures);
+          // console.table(measures);
           this.model.setValue({
             product: this.model.value.product,
             allergens: [],

@@ -23,12 +23,12 @@ export class RecipiePageComponent implements OnInit {
 
   edit$: Observable<boolean> = combineLatest([this.activatedRoute.paramMap
     .pipe(map(() => window.history.state))]).pipe(map(([{ edit }]) => {
-    console.log('Edycja', edit);
+    // console.log('Edycja', edit);
     return edit;
   }));
   dishId$: Observable<string> = combineLatest([this.route.url.pipe(
     map(value => value[1].path))]).pipe(map(([dishId]) => {
-    console.log('Id posiłku', dishId);
+    // console.log('Id posiłku', dishId);
     return dishId;
   }));
 

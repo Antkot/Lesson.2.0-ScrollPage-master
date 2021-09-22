@@ -21,7 +21,6 @@ export class CalculatorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.buttons);
   }
 
   buttonUse(button: string) {

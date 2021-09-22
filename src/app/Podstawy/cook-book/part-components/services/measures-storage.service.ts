@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject } from 'rxjs';
-import { Measure } from '../../types';
+import { Measure, UsedProduct } from '../../types';
 import { LocalStorageService } from './local-storage-service';
 
 @Injectable({
@@ -26,7 +26,11 @@ export class MeasuresStorageService {
       ]);
       this.localStorageService.setItem('measures', JSON.stringify(this.measures$.value));
     }
-
-
+  }
+  addMeasure(measureName) {
+    console.log('dodawanie miary: ', measureName);
+    const current = JSON.parse(this.localStorageService.getItem('measures'));
+    this.measures$.next([...current, { measureId: cuid(), name: measureName, shortcut : null }]);
+    this.localStorageService.setItem('measures', JSON.stringify(this.measures$.value));
   }
 }

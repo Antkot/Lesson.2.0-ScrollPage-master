@@ -16,10 +16,8 @@ export class DishStorageService {
 
     if (!!localStorage.dishList) {
       const current = JSON.parse(this.localStorageService.getItem('dishList'));
-      console.log('loaded dishes');
       this.dishesList$.next([...current]);
     } else {
-      console.log('created dishes');
       this.dishesList$.next([
         {
           dishId: cuid(),
