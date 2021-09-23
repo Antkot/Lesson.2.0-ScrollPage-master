@@ -16,8 +16,19 @@ export class AllergensStorageService {
       this.allergens$.next([...current]);
     } else {
       this.allergens$.next([
-        { hashId: cuid(), name: 'Laktoza' },
-        { hashId: cuid(), name: 'Białko' },
+        { hashId: cuid(), name: 'Siarczyny' },
+        { hashId: cuid(), name: 'Jajka' },
+        { hashId: cuid(), name: 'Łubin' },
+        { hashId: cuid(), name: 'Mięczaki' },
+        { hashId: cuid(), name: 'Mleko' },
+        { hashId: cuid(), name: 'Musztarda' },
+        { hashId: cuid(), name: 'Orzechy' },
+        { hashId: cuid(), name: 'Orzechy ziemne' },
+        { hashId: cuid(), name: 'Ryby' },
+        { hashId: cuid(), name: 'Seler' },
+        { hashId: cuid(), name: 'Skorupiaki' },
+        { hashId: cuid(), name: 'Soja' },
+        { hashId: cuid(), name: 'Sezam' },
         { hashId: cuid(), name: 'Gluten' }
       ]);
       this.localStorageService.setItem('allergens', JSON.stringify(this.allergens$.value));

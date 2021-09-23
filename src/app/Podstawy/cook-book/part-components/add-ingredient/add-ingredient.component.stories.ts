@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 const decoration: NgModule = {
   declarations: [
@@ -18,7 +19,8 @@ const decoration: NgModule = {
     MatButtonModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
-    MatDialogModule
+    MatDialogModule,
+    MatMenuModule
   ],
   providers: []
 };

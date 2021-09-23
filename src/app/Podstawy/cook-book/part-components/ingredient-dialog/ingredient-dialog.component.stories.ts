@@ -2,12 +2,14 @@ import { NgModule } from '@angular/core';
 import { moduleMetadata, storiesOf } from '@storybook/angular';
 import { withKnobs } from '@storybook/addon-knobs';
 import { IngredientDialogComponent } from './ingredient-dialog.component';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 const decoration: NgModule = {
   declarations: [
     IngredientDialogComponent
   ],
-  imports: [
+  imports: [MatMenuModule
   ],
   providers: []
 };

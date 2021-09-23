@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
 import { MeasuresTranslatorPipe } from '../../pipes/DishesTranslationPipes/measures-translator.pipe';
 import {MatSelectModule} from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 const decoration: NgModule = {
@@ -27,7 +28,8 @@ const decoration: NgModule = {
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MeasuresTranslatorPipe,
-    MatSelectModule
+    MatSelectModule,
+    MatMenuModule
   ],
   providers: [MeasuresTranslatorPipe]
 };

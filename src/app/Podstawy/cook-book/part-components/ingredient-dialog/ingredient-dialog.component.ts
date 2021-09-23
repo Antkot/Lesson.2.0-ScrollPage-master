@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MeasuresStorageService } from '../services/measures-storage.service';
-import { Measure, Product } from '../../types';
+import { Hash, Measure, Product } from '../../types';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ProductsStorageService } from '../services/products-storage.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -16,6 +16,7 @@ import { AllergensStorageService } from '../services/allergens-storage.service';
 export class IngredientDialogComponent implements OnInit {
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   products$: Observable<Array<Product>> = this.productService.products$;
+  allergens$: Observable<Array<Hash>> = this.allergenService.allergens$;
   autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
   autoMeasure$ = new BehaviorSubject<Array<{ name: string, measureId: string }>>([]);
   @Output() close = new EventEmitter();
@@ -77,7 +78,7 @@ export class IngredientDialogComponent implements OnInit {
         this.products$.pipe(first()).subscribe((products) => {
           this.model.setValue({
             product: products.find(({ productId }) => productId === id).name,
-            allergens: [],
+            allergens: this.model.value.allergens,
             kcal: this.model.value.kcal,
             measure: this.model.value.measure
           });
@@ -88,7 +89,7 @@ export class IngredientDialogComponent implements OnInit {
         this.measures$.pipe(first()).subscribe((measures) => {
           this.model.setValue({
             product: this.model.value.product,
-            allergens: [],
+            allergens: this.model.value.allergens,
             kcal: this.model.value.kcal,
             measure: measures.find(({ measureId }) => measureId === id).name
           });
@@ -99,8 +100,18 @@ export class IngredientDialogComponent implements OnInit {
   }
 
   newProduct() {
+    console.log(this.model.value);
     this.addProduct.emit(this.model.value);
     this.model.reset();
   }
-
+  addAlergen(name) {
+    this.model.setValue({
+      product: this.model.value.product,
+      allergens: [this.model.value.allergens, name],
+      // allergens : this.model.value.allergens.next(current.map({ allergens }) => ({[...allergens, { hashId: name }] : allergens})),
+      kcal: this.model.value.kcal,
+      measure: this.model.value.measure
+    });
+    console.log(this.model.value);
+  }
 }

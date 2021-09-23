@@ -44,7 +44,7 @@ const decoration: NgModule = {
     MatMenuModule,
     MatTableModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
   ],
 
   providers: []

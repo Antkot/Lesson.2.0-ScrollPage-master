@@ -37,7 +37,8 @@ const decoration: NgModule = {
     IngredientsComponent,
     AddIngredientComponent,
     TagNameByIdPipe,
-    IngredientDialogComponent
+    IngredientDialogComponent,
+    MatMenuModule
   ],
   imports: [
     MatIconModule,

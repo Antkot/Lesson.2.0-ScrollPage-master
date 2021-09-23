@@ -15,10 +15,23 @@ close
     <mat-label>Kcal</mat-label>
     <input matInput type='number' formControlName='kcal' />
   </mat-form-field>
-    <mat-form-field appearance='outline'>
-      <mat-label>Alergen</mat-label>
-      <input matInput type='text' [matAutocomplete]='allergens' [matAutocompleteDisabled]='false' formControlName='allergens' />
-    </mat-form-field>
+
+  <button mat-button [matMenuTriggerFor]="allergenMenu">Alergeny</button>
+  <mat-menu #allergenMenu="matMenu">
+    <section>
+<!--    <section formControlName='allergens'>-->
+    <mat-option *ngFor='let allergen of allergens$ | async' [value]='allergen.hashId'>
+      <mat-checkbox (change)='addAlergen(allergen.name)'>{{allergen.name}}</mat-checkbox>
+    </mat-option>
+    </section>
+  </mat-menu>
+<!--  <mat-form-field appearance='outline'>-->
+<!--      <mat-label>Alergen</mat-label>-->
+<!--      <input matInput type='text' [matAutocomplete]='allergens' [matAutocompleteDisabled]='false' formControlName='allergens' />-->
+<!--      <mat-option *ngFor='let allergen of allergens$ | async' [value]='allergen.hashId'>-->
+<!--        <mat-checkbox>{{allergen.name}} </mat-checkbox>-->
+<!--      </mat-option>-->
+<!--    </mat-form-field>-->
 </mat-dialog-content>
 <mat-dialog-actions>
   <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid'>Dodaj</button>
@@ -28,8 +41,9 @@ close
   <div *ngFor='let product of products$ | async'>
     {{product.name}} (
     <a *ngFor='let measure of product.measures'>
-      {{ measure.measureId | measuresTranslator | async}}
-    </a>)
+      {{ measure.measureId | measuresTranslator | async}},
+    </a>
+    )
     <br />
   </div>
 </mat-dialog-content>
@@ -43,11 +57,5 @@ close
 <mat-autocomplete #autoMeasure='matAutocomplete' (optionSelected)='optionSelected("measure", $event.option.value)'>
   <mat-option *ngFor='let measure of autoMeasure$ | async' [value]='measure.measureId'>
     {{measure.name}}
-  </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #allergens='matAutocomplete' (optionSelected)='optionSelected("measure", $event.option.value)'>
-  <mat-option *ngFor='let measure of autoMeasure$ | async' [value]='measure.measureId'>
-    {{measure.name}} <mat-checkbox></mat-checkbox>
   </mat-option>
 </mat-autocomplete>

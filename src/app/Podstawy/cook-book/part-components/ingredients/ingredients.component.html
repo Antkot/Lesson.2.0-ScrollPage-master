@@ -17,7 +17,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Nazwa produktu</mat-label>
               <mat-select [(ngModel)]="selectedProduct" name="food">
-                <mat-option *ngFor="let product of (products$ | async)" [value]="product.productId">
+                <mat-option *ngFor="let product of (products$ | async)" [value]="product.productId" formControlName='product'>
                   {{product.name}}
                 </mat-option>
               </mat-select>
@@ -28,7 +28,7 @@
           <form>
             <mat-form-field appearance="outline">
               <mat-label>Ilość</mat-label>
-              <input type="number" matInput  [(ngModel)]="selectedAmount" name='number' min='1'>
+              <input type="number" matInput  [(ngModel)]="selectedAmount" formControlName='amount'>
             </mat-form-field>
           </form>
         </td>
@@ -37,7 +37,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Miara produktu</mat-label>
               <mat-select [(ngModel)]="selectedMeasure" name="food" disabled>
-                <mat-option *ngFor="let measure of measures$ | async" [value]="measure.measureId">
+                <mat-option *ngFor="let measure of measures$ | async" [value]="measure.measureId" (optionSelected)='optionSelected("measure", selectedProduct)'>
                   {{measure.measureId | measuresTranslator | async}}
                 </mat-option>
               </mat-select>
@@ -47,7 +47,7 @@
           <mat-form-field appearance="fill">
             <mat-label>Miara produktu</mat-label>
             <mat-select [(ngModel)]="selectedMeasure" name="food">
-              <mat-option *ngFor="let measure of (selectedProduct | productConnect | async).measures" [value]="measure.measureId">
+              <mat-option *ngFor="let measure of (selectedProduct | productConnect | async).measures" [value]="measure.measureId" formControlName='measure' >
                 {{measure.measureId | measuresTranslator | async}}
               </mat-option>
             </mat-select>
@@ -55,7 +55,7 @@
         </form>
         </td>
         <td>
-          <button (click)='newUsedProduct()'>Dodaj</button>
+          <button (click)='newUsedProduct()' mat-button>Dodaj</button>
         </td>
       </tr>
       <tr *ngFor='let product of products'>
@@ -77,6 +77,6 @@
   </div>
 </div>
 <datalist id='products'>
-  <option *ngFor='let product of (products$ | async)'>
+  <option *ngFor='let product of (products$ | async)' (select)='optionSelected("product", selectedProduct)'>
     {{product.name}}
 </datalist>

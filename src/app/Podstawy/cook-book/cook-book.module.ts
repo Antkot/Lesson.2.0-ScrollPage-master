@@ -124,7 +124,7 @@ const links = [
     MatTableModule,
     MatButtonModule,
     MatDialogModule,
-    MatInputModule
+    MatInputModule,
   ],
   entryComponents: [
     IngredientDialogComponent
