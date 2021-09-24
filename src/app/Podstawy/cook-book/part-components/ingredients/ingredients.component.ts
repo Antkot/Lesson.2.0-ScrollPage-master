@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
-import { combineLatest, Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
 import { Hash, Measure, Product, UsedProduct } from '../../types';
 import { ProductsStorageService } from '../services/products-storage.service';
 import { TagsStorageService } from '../services/tags-storage.service';
@@ -23,6 +23,7 @@ export class IngredientsComponent implements OnInit {
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   @Input() edit;
   @Input() products: Array<{ usedProductId: string }>;
+  autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
 
   model = this.fb.group({
     product: ['', [Validators.required, Validators.minLength(1)]],
@@ -37,6 +38,21 @@ export class IngredientsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.model.valueChanges.subscribe(({ product, measure }) => {
+      this.products$.pipe(first()).subscribe((products) => {
+        let productsResult = null;
+        if (product?.length > 0 && product) {
+          const options = {
+            keys: ['name']
+          };
+          const fuse = new Fuse(products, options);
+          productsResult = fuse.search(product).map(({ item }) => item);
+        } else {
+          productsResult = products;
+        }
+        this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
+      });
+    });
   }
 
   newUsedProduct() {

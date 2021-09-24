@@ -13,14 +13,23 @@
     <tr *ngIf='edit' [formGroup]='model'>
       <!--      <tr *ngIf='edit'>-->
       <td>
-        <mat-form-field appearance='outline'>
-          <mat-label>Nazwa produktu</mat-label>
-          <mat-select>
-            <!--            <mat-option *ngFor='let product of products$ | async' [value]='product.productId' formControlName='product'>-->
-            <!--              {{product.name}}-->
-            <!--            </mat-option>-->
-          </mat-select>
-        </mat-form-field>
+
+        <ng-container class='mat-typography' [formGroup]='model'>
+          <mat-form-field appearance='outline'>
+            <mat-label>Nazwa</mat-label>
+            <input matInput type='text' [matAutocomplete]='autoProduct' [matAutocompleteDisabled]='false'
+                   formControlName='product' />
+          </mat-form-field>
+        </ng-container>
+
+<!--        <mat-form-field appearance='outline'>-->
+<!--          <mat-label>Nazwa produktu</mat-label>-->
+<!--          <mat-select>-->
+<!--            &lt;!&ndash;            <mat-option *ngFor='let product of products$ | async' [value]='product.productId' formControlName='product'>&ndash;&gt;-->
+<!--            &lt;!&ndash;              {{product.name}}&ndash;&gt;-->
+<!--            &lt;!&ndash;            </mat-option>&ndash;&gt;-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
       </td>
       <td>
         <mat-form-field appearance='outline'>
@@ -65,3 +74,10 @@
 <!--  <option *ngFor='let product of (products$ | async)' (select)='optionSelected("product", selectedProduct)'>-->
 <!--    {{product.name}}-->
 <!--</datalist>-->
+
+
+<mat-autocomplete #autoProduct='matAutocomplete' (optionSelected)='optionSelected("product", $event.option.value)'>
+  <mat-option *ngFor='let product of autoProducts$ | async' [value]='product.productId'>
+    {{product.name}}
+  </mat-option>
+</mat-autocomplete>
