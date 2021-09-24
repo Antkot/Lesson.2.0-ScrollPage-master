@@ -104,14 +104,4 @@ export class IngredientDialogComponent implements OnInit {
     this.addProduct.emit(this.model.value);
     this.model.reset();
   }
-  addAlergen(name) {
-    this.model.setValue({
-      product: this.model.value.product,
-      allergens: [this.model.value.allergens, name],
-      // allergens : this.model.value.allergens.next(current.map({ allergens }) => ({[...allergens, { hashId: name }] : allergens})),
-      kcal: this.model.value.kcal,
-      measure: this.model.value.measure
-    });
-    console.log(this.model.value);
-  }
 }

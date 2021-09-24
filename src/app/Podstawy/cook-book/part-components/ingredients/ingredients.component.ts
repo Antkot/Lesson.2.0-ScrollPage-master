@@ -16,10 +16,7 @@ import Fuse from 'fuse.js';
   templateUrl: './ingredients.component.html',
   styleUrls: ['./ingredients.component.scss']
 })
-export class IngredientsComponent {
-  selectedProduct: string;
-  selectedAmount: number;
-  selectedMeasure: string;
+export class IngredientsComponent implements OnInit {
   @Output() addUsedProduct = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
   products$: Observable<Array<Product>> = this.productsService.products$;
@@ -39,21 +36,10 @@ export class IngredientsComponent {
     private fb: FormBuilder) {
   }
 
+  ngOnInit() {
+  }
+
   newUsedProduct() {
-    this.addUsedProduct.emit(
-      {
-        usedProductId: cuid(),
-        productId: this.selectedProduct,
-        measuresId: this.selectedMeasure,
-        amount: this.selectedAmount
-      }
-    );
-    console.log('nie model', {
-      usedProductId: cuid(),
-      productId: this.selectedProduct,
-      measuresId: this.selectedMeasure,
-      amount: this.selectedAmount
-    });
     console.log('model', this.model.value);
   }
 
@@ -67,7 +53,7 @@ export class IngredientsComponent {
         this.products$.pipe(first()).subscribe((products) => {
           this.model.setValue({
             product: id,
-            amount: this.selectedAmount,
+            amount: this.model.value.amount,
             measure: this.model.value.measure
           });
         });
@@ -77,7 +63,7 @@ export class IngredientsComponent {
         this.measures$.pipe(first()).subscribe((measures) => {
           this.model.setValue({
             product: this.model.value.product,
-            amount: this.selectedAmount,
+            amount: this.model.value.amount,
             measure: id
           });
         });

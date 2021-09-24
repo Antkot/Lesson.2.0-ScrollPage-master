@@ -3,80 +3,65 @@
     <app-add-ingredient (addProduct)='addProduct($event)'></app-add-ingredient>
   </div>
   <div>
-    <table>
-      <tr>
-        <th>Produkt</th>
-        <th>ilość</th>
-        <th>Miara</th>
-        <th>kcal</th>
-      </tr>
-<!--      <tr *ngIf='edit' [formGroup]="modelFood">-->
-      <tr *ngIf='edit'>
-        <td>
-          <form>
-            <mat-form-field appearance="outline">
-              <mat-label>Nazwa produktu</mat-label>
-              <mat-select [(ngModel)]="selectedProduct" name="food">
-                <mat-option *ngFor="let product of (products$ | async)" [value]="product.productId" formControlName='product'>
-                  {{product.name}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </form>
-        </td>
-        <td>
-          <form>
-            <mat-form-field appearance="outline">
-              <mat-label>Ilość</mat-label>
-              <input type="number" matInput  [(ngModel)]="selectedAmount" formControlName='amount'>
-            </mat-form-field>
-          </form>
-        </td>
-        <td>
-          <form  *ngIf='!selectedProduct'>
-            <mat-form-field appearance="outline">
-              <mat-label>Miara produktu</mat-label>
-              <mat-select [(ngModel)]="selectedMeasure" name="food" disabled>
-                <mat-option *ngFor="let measure of measures$ | async" [value]="measure.measureId" (optionSelected)='optionSelected("measure", selectedProduct)'>
-                  {{measure.measureId | measuresTranslator | async}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </form>
-          <form  *ngIf='selectedProduct'>
-          <mat-form-field appearance="fill">
-            <mat-label>Miara produktu</mat-label>
-            <mat-select [(ngModel)]="selectedMeasure" name="food">
-              <mat-option *ngFor="let measure of (selectedProduct | productConnect | async).measures" [value]="measure.measureId" formControlName='measure' >
-                {{measure.measureId | measuresTranslator | async}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </form>
-        </td>
-        <td>
-          <button (click)='newUsedProduct()' mat-button>Dodaj</button>
-        </td>
-      </tr>
-      <tr *ngFor='let product of products'>
-        <td>
-          {{(((product.usedProductId | usedProductConnector) | async).productId | productConnect | async).name}}
-        </td>
-        <td>
-          {{((product.usedProductId | usedProductConnector) | async).amount}}
-        </td>
-        <td>
-          {{((((product.usedProductId | usedProductConnector) | async).measuresId) | measuresTranslator) | async}}
-        </td>
-        <td>
-          {{(((((product.usedProductId | usedProductConnector) | async).measuresId) | productMeasureConnector: ((product.usedProductId | usedProductConnector) | async).productId) | async)
-          *(((product.usedProductId | usedProductConnector) | async).amount)}}
-        </td>
-      </tr>
-    </table>
+    <!--    <table>-->
+    <!--      <tr>-->
+    <!--        <th>Produkt</th>-->
+    <!--        <th>ilość</th>-->
+    <!--        <th>Miara</th>-->
+    <!--        <th>kcal</th>-->
+    <!--      </tr>-->
+    <tr *ngIf='edit' [formGroup]='model'>
+      <!--      <tr *ngIf='edit'>-->
+      <td>
+        <mat-form-field appearance='outline'>
+          <mat-label>Nazwa produktu</mat-label>
+          <mat-select>
+            <!--            <mat-option *ngFor='let product of products$ | async' [value]='product.productId' formControlName='product'>-->
+            <!--              {{product.name}}-->
+            <!--            </mat-option>-->
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field appearance='outline'>
+          <mat-label>Ilość</mat-label>
+          <input type='number' matInput formControlName='amount'>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field appearance='outline'>
+          <mat-label>Miara produktu</mat-label>
+          <mat-select>
+            <!--              <mat-option *ngFor='let measure of (selectedProduct | productConnect | async).measures'-->
+            <!--                          [value]='measure.measureId' formControlName='measure'>-->
+            <!--                {{measure.measureId | measuresTranslator | async}}-->
+            <!--              </mat-option>-->
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>
+        <button (click)='newUsedProduct()' mat-button>Dodaj</button>
+      </td>
+    </tr>
+    <tr *ngFor='let product of products'>
+      <td>
+        {{(((product.usedProductId | usedProductConnector) | async).productId | productConnect | async).name}}
+      </td>
+      <td>
+        {{((product.usedProductId | usedProductConnector) | async).amount}}
+      </td>
+      <td>
+        {{((((product.usedProductId | usedProductConnector) | async).measuresId) | measuresTranslator) | async}}
+      </td>
+      <td>
+        {{(((((product.usedProductId | usedProductConnector) | async).measuresId) | productMeasureConnector: ((product.usedProductId | usedProductConnector) | async).productId) | async)
+      * (((product.usedProductId | usedProductConnector) | async).amount)}}
+      </td>
+    </tr>
+    <!--    </table>-->
   </div>
 </div>
-<datalist id='products'>
-  <option *ngFor='let product of (products$ | async)' (select)='optionSelected("product", selectedProduct)'>
-    {{product.name}}
-</datalist>
+<!--<datalist id='products'>-->
+<!--  <option *ngFor='let product of (products$ | async)' (select)='optionSelected("product", selectedProduct)'>-->
+<!--    {{product.name}}-->
+<!--</datalist>-->
