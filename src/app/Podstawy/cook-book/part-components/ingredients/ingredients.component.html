@@ -3,72 +3,72 @@
     <app-add-ingredient (addProduct)='addProduct($event)'></app-add-ingredient>
   </div>
   <div>
-    <!--    <table>-->
-    <!--      <tr>-->
-    <!--        <th>Produkt</th>-->
-    <!--        <th>ilość</th>-->
-    <!--        <th>Miara</th>-->
-    <!--        <th>kcal</th>-->
-    <!--      </tr>-->
-    <tr *ngIf='edit' [formGroup]='model'>
-      <!--      <tr *ngIf='edit'>-->
-      <td>
-
+    <span *ngIf='edit' [formGroup]='model' class='table'>
+      <div>
         <ng-container class='mat-typography' [formGroup]='model'>
-          <mat-form-field appearance='outline'>
-            <mat-label>Nazwa</mat-label>
+          <mat-form-field appearance='outline' class='listedOptions'>
+            <mat-label>Nazwa produktu</mat-label>
             <input matInput type='text' [matAutocomplete]='autoProduct' [matAutocompleteDisabled]='false'
-                   formControlName='product' />
+                   formConspanolName='product' />
           </mat-form-field>
         </ng-container>
-
-<!--        <mat-form-field appearance='outline'>-->
-<!--          <mat-label>Nazwa produktu</mat-label>-->
-<!--          <mat-select>-->
-<!--            &lt;!&ndash;            <mat-option *ngFor='let product of products$ | async' [value]='product.productId' formControlName='product'>&ndash;&gt;-->
-<!--            &lt;!&ndash;              {{product.name}}&ndash;&gt;-->
-<!--            &lt;!&ndash;            </mat-option>&ndash;&gt;-->
-<!--          </mat-select>-->
-<!--        </mat-form-field>-->
-      </td>
-      <td>
-        <mat-form-field appearance='outline'>
+        <!--        <mat-form-field appearance='outline'>-->
+        <!--          <mat-label>Nazwa produktu</mat-label>-->
+        <!--          <mat-select>-->
+        <!--            &lt;!&ndash;            <mat-option *ngFor='let product of products$ | async' [value]='product.productId' formConspanolName='product'>&ndash;&gt;-->
+        <!--            &lt;!&ndash;              {{product.name}}&ndash;&gt;-->
+        <!--            &lt;!&ndash;            </mat-option>&ndash;&gt;-->
+        <!--          </mat-select>-->
+        <!--        </mat-form-field>-->
+      </div>
+      <div>
+        <mat-form-field appearance='outline' class='listedOptions'>
           <mat-label>Ilość</mat-label>
-          <input type='number' matInput formControlName='amount'>
+          <input type='number' matInput formConspanolName='amount'>
         </mat-form-field>
-      </td>
-      <td>
-        <mat-form-field appearance='outline'>
+      </div>
+      <div>
+        <mat-form-field appearance='outline' class='listedOptions'>
           <mat-label>Miara produktu</mat-label>
           <mat-select>
             <!--              <mat-option *ngFor='let measure of (selectedProduct | productConnect | async).measures'-->
-            <!--                          [value]='measure.measureId' formControlName='measure'>-->
-            <!--                {{measure.measureId | measuresTranslator | async}}-->
+            <!--                          [value]='measure.measureId' formConspanolName='measure'>-->
+            <!--                {{measure.measureId | measuresspananslator | async}}-->
             <!--              </mat-option>-->
           </mat-select>
         </mat-form-field>
-      </td>
-      <td>
+      </div>
+      <div>
         <button (click)='newUsedProduct()' mat-button>Dodaj</button>
-      </td>
-    </tr>
-    <tr *ngFor='let product of products'>
-      <td>
+      </div>
+    </span>
+    <div class='table'>
+      <div class='grid-item'><h4>Produkt</h4></div>
+      <div class='grid-item'><h4>ilość</h4></div>
+      <div class='grid-item'><h4>Miara</h4></div>
+      <div class='grid-item'><h4>kcal</h4></div>
+    </div>
+    <div class='colorizer'>
+    <div class='table' *ngFor='let product of products'>
+      <div class='grid-item'>
         {{(((product.usedProductId | usedProductConnector) | async).productId | productConnect | async).name}}
-      </td>
-      <td>
+      </div>
+      <div class='grid-item'>
         {{((product.usedProductId | usedProductConnector) | async).amount}}
-      </td>
-      <td>
+      </div>
+      <div class='grid-item'>
         {{((((product.usedProductId | usedProductConnector) | async).measuresId) | measuresTranslator) | async}}
-      </td>
-      <td>
+      </div>
+      <div class='grid-item'>
         {{(((((product.usedProductId | usedProductConnector) | async).measuresId) | productMeasureConnector: ((product.usedProductId | usedProductConnector) | async).productId) | async) |multiplication: (((product.usedProductId | usedProductConnector) | async).amount)}}
-      </td>
-    </tr>
-    <!--    </table>-->
+      </div>
+    </div>
+    </div>
   </div>
+
+  <!--    </table>-->
 </div>
+<!--</div>-->
 <!--<datalist id='products'>-->
 <!--  <option *ngFor='let product of (products$ | async)' (select)='optionSelected("product", selectedProduct)'>-->
 <!--    {{product.name}}-->
