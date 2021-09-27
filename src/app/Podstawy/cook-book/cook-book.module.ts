@@ -44,6 +44,7 @@ import { UsedProductConnectorPipe } from './pipes/DishesTranslationPipes/used-pr
 import { ProductConnectorPipe } from './pipes/DishesTranslationPipes/product-connector.pipe';
 import { ProductMeasureConnectorPipe } from './pipes/DishesTranslationPipes/product-measure-connector.pipe';
 import { ProductAllMeasuresPipe } from './pipes/OtherPipes/product-all-measures.pipe';
+import { MultiplicationPipe } from './pipes/OtherPipes/multiplication.pipe';
 
 const links = [
   {
@@ -91,6 +92,7 @@ const links = [
     ProductConnectorPipe,
     ProductMeasureConnectorPipe,
     ProductAllMeasuresPipe,
+    MultiplicationPipe,
 
   ],
   exports: [
