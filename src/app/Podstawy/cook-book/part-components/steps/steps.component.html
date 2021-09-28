@@ -25,7 +25,7 @@
 <!--          </div>-->
 <!--        </div>-->
 
-        <button mat-icon-button  [disabled]='model.invalid' (click)="add(newStep)">
+        <button mat-icon-button  [disabled]='model.invalid' (click)="add()">
           <mat-icon>add_circle</mat-icon>
         </button>
 
@@ -40,7 +40,7 @@
             <mat-icon>more_vert</mat-icon>
           </div>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="edited === step" (click)="done(editedStep)">
+            <button mat-menu-item *ngIf="edited === step" (click)="done(editedStep)" [disabled]='model.invalid'>
               <mat-icon>done</mat-icon>
               <span>Gotowe</span>
             </button>
