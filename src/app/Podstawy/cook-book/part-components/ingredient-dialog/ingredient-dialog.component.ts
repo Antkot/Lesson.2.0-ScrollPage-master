@@ -72,33 +72,6 @@ export class IngredientDialogComponent implements OnInit {
     });
   }
 
-  optionSelected(type: string, id: string) {
-    switch (type) {
-      case 'product': {
-        this.products$.pipe(first()).subscribe((products) => {
-          this.model.setValue({
-            product: products.find(({ productId }) => productId === id).name,
-            allergens: this.model.value.allergens,
-            kcal: this.model.value.kcal,
-            measure: this.model.value.measure
-          });
-        });
-        break;
-      }
-      case 'measure': {
-        this.measures$.pipe(first()).subscribe((measures) => {
-          this.model.setValue({
-            product: this.model.value.product,
-            allergens: this.model.value.allergens,
-            kcal: this.model.value.kcal,
-            measure: measures.find(({ measureId }) => measureId === id).name
-          });
-        });
-        break;
-      }
-    }
-  }
-
   newProduct() {
     console.log(this.model.value);
     this.addProduct.emit(this.model.value);

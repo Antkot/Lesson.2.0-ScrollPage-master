@@ -42,14 +42,14 @@ close
   </div>
 </mat-dialog-content>
 
-<mat-autocomplete #autoProduct='matAutocomplete' (optionSelected)='optionSelected("product", $event.option.value)'>
-  <mat-option *ngFor='let product of autoProducts$ | async' [value]='product.productId'>
+<mat-autocomplete #autoProduct='matAutocomplete'>
+  <mat-option *ngFor='let product of autoProducts$ | async' [value]='product.name'>
     {{product.name}}
   </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete #autoMeasure='matAutocomplete' (optionSelected)='optionSelected("measure", $event.option.value)'>
-  <mat-option *ngFor='let measure of autoMeasure$ | async' [value]='measure.measureId'>
+<mat-autocomplete #autoMeasure='matAutocomplete'>
+  <mat-option *ngFor='let measure of autoMeasure$ | async' [value]='measure.name'>
     {{measure.name}}
   </mat-option>
 </mat-autocomplete>
