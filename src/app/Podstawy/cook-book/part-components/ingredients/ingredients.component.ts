@@ -24,7 +24,7 @@ export class IngredientsComponent implements OnInit {
   @Input() edit: boolean;
   @Input() products: Array<{ usedProductId: string }>;
   autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
-
+  autoMeasure$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
   model = this.fb.group({
     product: ['', [Validators.required, Validators.minLength(1)]],
     measure: ['', [Validators.required, Validators.minLength(1)]],
@@ -38,27 +38,39 @@ export class IngredientsComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.model.valueChanges.subscribe(({ product, measure }) => {
-    //   this.products$.pipe(first()).subscribe((products) => {
-    //     let productsResult = null;
-    //     if (product?.length > 0 && product) {
-    //       const options = {
-    //         keys: ['name']
-    //       };
-    //       const fuse = new Fuse(products, options);
-    //       productsResult = fuse.search(product).map(({ item }) => item);
-    //     } else {
-    //       productsResult = products;
-    //     }
-    //     this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
-    //   });
-    // });
+    this.model.valueChanges.subscribe(({ product, measure }) => {
+      this.products$.pipe(first()).subscribe((products) => {
+        let productsResult = null;
+        if (product?.length > 0 && product) {
+          const options = {
+            keys: ['name']
+          };
+          const fuse = new Fuse(products, options);
+          productsResult = fuse.search(product).map(({ item }) => item);
+        } else {
+          productsResult = products;
+        }
+        this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
+      });
+      this.measures$.pipe(first()).subscribe((measures) => {
+        let measuresResult = null;
+        if (measure?.length > 0 && measure) {
+          const options = {
+            keys: ['name']
+          };
+          const fuse = new Fuse(measures, options);
+          measuresResult = fuse.search(measure).map(({ item }) => item);
+        } else {
+          measuresResult = measures;
+        }
+        this.autoMeasure$.next(measuresResult.map(({ name, measureId }) => ({ name, measureId })));
+      });
+    });
   }
 
   newUsedProduct() {
     console.log('Wyemitowano used product:');
     this.addUsedProduct.emit(this.model.value);
-    console.log(this.model.value);
     this.model.reset();
 
   }

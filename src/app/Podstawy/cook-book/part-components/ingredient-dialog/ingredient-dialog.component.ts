@@ -68,7 +68,6 @@ export class IngredientDialogComponent implements OnInit {
         }
         this.autoMeasure$.next(measuresResult.map(({ name, measureId }) => ({ name, measureId })));
       });
-
     });
   }
 

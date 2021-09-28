@@ -41,6 +41,9 @@ export class DishStorageService {
   }
 
   addProduct(addedProduct: UsedProduct, givenDishId: string) {
+    console.log('Dane: ');
+    console.table(addedProduct);
+    console.log('dishId', givenDishId);
     this.dishesList$.pipe(first()).subscribe(value => console.log('DISH1', value));
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
 
