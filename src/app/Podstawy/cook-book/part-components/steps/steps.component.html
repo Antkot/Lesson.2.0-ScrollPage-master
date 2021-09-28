@@ -9,23 +9,26 @@
       </div>
     </div>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" *ngIf="edit">
-      <div class="example-box def">
+      <div class="example-box def" [formGroup]='model'>
         <mat-form-field class="editor">
-          <input matInput type="text" id="newStep" class="form-control" placeholder="Dodaj kolejny krok..."
-                 required minlength="5"
-                 [(ngModel)]="newStep" #name="ngModel">
+          <input matInput type="text" id="newStep" placeholder="Dodaj kolejny krok..."
+                 formControlName='step'
+          />
+<!--          #name="ngModel"-->
         </mat-form-field>
-        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">
-          <div *ngIf="name.errors?.required">
-            Brak kroku!
-          </div>
-          <div *ngIf="name.errors?.minlength">
-            Krok musi mieć conajmniej 5 znaków
-          </div>
-        </div>
-        <div class="menu" (click)="add(newStep)">
-          <span class="material-icons">add_circle</span>
-        </div>
+<!--        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">-->
+<!--          <div *ngIf="name.errors?.required">-->
+<!--            Brak kroku!-->
+<!--          </div>-->
+<!--          <div *ngIf="name.errors?.minlength">-->
+<!--            Krok musi mieć conajmniej 5 znaków-->
+<!--          </div>-->
+<!--        </div>-->
+
+        <button mat-icon-button  [disabled]='model.invalid' (click)="add(newStep)">
+          <mat-icon>add_circle</mat-icon>
+        </button>
+
       </div>
       <div class="example-box" *ngFor="let step of steps" cdkDrag>
         <mat-form-field class="editor" *ngIf="edited === step">

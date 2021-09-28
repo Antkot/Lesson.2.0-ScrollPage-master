@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-steps',
@@ -8,6 +8,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./steps.component.scss']
 })
 export class StepsComponent implements OnInit {
+  model = this.fb.group({
+    step: ['', [Validators.required, Validators.minLength(1)]]
+  });
   @Input() edit = false;
   edited = null;
   private newStep: string;
@@ -22,9 +25,8 @@ export class StepsComponent implements OnInit {
   ];
   @Output() stepsChanged = new EventEmitter();
 
-  private heroForm: FormGroup;
-
-  constructor() {
+  constructor(
+    private fb: FormBuilder) {
   }
 
   drop(event: CdkDragDrop<Array<string>>) {
@@ -32,20 +34,15 @@ export class StepsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.heroForm = new FormGroup({
-      name: new FormControl(this.newStep, [
-        Validators.required,
-        Validators.minLength(4)
-      ])
-    });
   }
 
   editin() {
-  this.stepsChanged.emit(this.steps);
+    this.stepsChanged.emit(this.steps);
   }
+
   done(editedStep) {
     this.delete(this.edited);
-    this.add(editedStep);
+    this.add();
     const index = this.steps.indexOf(this.edited);
     const index2 = this.steps.indexOf(editedStep);
     moveItemInArray(this.steps, this.steps.length, index);
@@ -63,13 +60,10 @@ export class StepsComponent implements OnInit {
     this.steps.splice(index, 1);
   }
 
-  add(newStep) {
-    if (newStep !== this.heroForm) {
-      console.log(this.heroForm.get('name'));
-      // newStep = this.duplicateCheck(newStep);
-      this.steps.push(newStep);
-      this.newStep = '';
-    }
+  add() {
+    // newStep = this.duplicateCheck(newStep);
+    this.steps.push(this.model.value.step);
+    this.model.reset();
   }
 
   // duplicateCheck(step) {
