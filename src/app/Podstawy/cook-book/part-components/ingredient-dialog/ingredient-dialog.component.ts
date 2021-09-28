@@ -73,7 +73,6 @@ export class IngredientDialogComponent implements OnInit {
   }
 
   newProduct() {
-    console.log(this.model.value);
     this.addProduct.emit(this.model.value);
     this.model.reset();
   }

@@ -56,39 +56,14 @@ export class IngredientsComponent implements OnInit {
   }
 
   newUsedProduct() {
-    console.log('model', this.model.value);
+    console.log('Wyemitowano used product:');
+    this.addUsedProduct.emit(this.model.value);
+    console.log(this.model.value);
+    this.model.reset();
+
   }
 
   addProduct(event) {
     this.addedProduct.emit(event);
-  }
-
-  optionSelected(type: string, id: string) {
-  //   console.log('type', type, 'id:', id);
-  //   switch (type) {
-  //     case 'product': {
-  //       console.log(type);
-  //       this.products$.pipe(first()).subscribe((products) => {
-  //         this.model.setValue({
-  //           product: products.find(({ productId }) => productId === id).name,
-  //           amount: this.model.value.amount,
-  //           measure: this.model.value.measure
-  //         });
-  //       });
-  //       break;
-  //     }
-  //     case 'measure': {
-  //       console.log(type);
-  //       this.measures$.pipe(first()).subscribe((measures) => {
-  //         this.model.setValue({
-  //           product: this.model.value.product,
-  //           amount: this.model.value.amount,
-  //           measure: measures.find(({ measureId }) => measureId === id).name
-  //         });
-  //       });
-  //       break;
-  //     }
-  //   }
-  //   console.log('model', this.model.value);
   }
 }
