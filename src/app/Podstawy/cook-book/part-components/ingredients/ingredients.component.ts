@@ -21,7 +21,7 @@ export class IngredientsComponent implements OnInit {
   @Output() addedProduct = new EventEmitter();
   products$: Observable<Array<Product>> = this.productsService.products$;
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
-  @Input() edit;
+  @Input() edit: boolean;
   @Input() products: Array<{ usedProductId: string }>;
   autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
 
