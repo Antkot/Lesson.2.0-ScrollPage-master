@@ -1,40 +1,45 @@
 <div class='container' xmlns='http://www.w3.org/1999/html'>
   <mat-divider></mat-divider>
 
-<!--  2{{(dishId | dishType) | async | json}}-->
+  <!--  2{{(dishId | dishType) | async | json}}-->
   <mat-divider></mat-divider>
-  <div class="name">
-    <input  *ngIf='edit' type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input' [value]="(dishId | dishTranslator: 'name') | async ">
-    <h1 *ngIf='!edit'>{{(dishId | dishTranslator: 'name') | async }}</h1>
-    <div class="editButton" *ngIf="!edit">
-      <button mat-button (click)='editable()'>Edytuj przepis</button>
+  <div class='name'>
+
+    <input *ngIf='edit' type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
+           [value]="(dishId | dishTranslator: 'name') | async ">
+    <h1 *ngIf='!edit' class='header'>{{(dishId | dishTranslator: 'name') | async }}
+      <div class='editButton' *ngIf='!edit'>
+        <button mat-button (click)='editable()'>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </h1>
+
+  </div>
+  <mat-divider></mat-divider>
+  <div class='hash'>
+    <!--    <div class="divide">-->
+    <!--      <app-chips [removable]="edit" [entity]="'Tag'" [elements]="(dishId | dishTranslator: 'tags') | async "></app-chips>-->
+    <!--    </div>-->
+    <div class='single'>
+      <app-dish-type></app-dish-type>
     </div>
   </div>
   <mat-divider></mat-divider>
-  <div class="hash">
-    <div class="divide">
-      <app-chips [removable]="edit" [entity]="'Tag'" [elements]="(dishId | dishTranslator: 'tags') | async "></app-chips>
+  <div class='ingredients'>
+    <div class='divide'>
+      <app-ingredients [edit]='edit' [products]="(dishId | dishTranslator: 'products') | async "
+                       (addUsedProduct)='addUsedProduct($event)' (addedProduct)='addProduct($event)'></app-ingredients>
     </div>
-    <div class="divide">
-      <app-chips [removable]="edit" [entity]="'Tag'" [elements]="(dishId | dishTranslator: 'dishType') | async"></app-chips>
-    </div>
-  </div>
-  <mat-divider></mat-divider>
-  <div class="ingredients">
-    <div class="divide">
-      <app-ingredients [edit]="edit" [products]="(dishId | dishTranslator: 'products') | async " (addUsedProduct)='addUsedProduct($event)' (addedProduct)='addProduct($event)'></app-ingredients>
-    </div>
-    <div class="divide">
-            <app-steps [edit]="edit" [steps]="(dishId | dishTranslator: 'steps') | async " (stepsChanged)='steps'></app-steps>
+    <div class='divide'>
+      <app-steps [edit]='edit' [steps]="(dishId | dishTranslator: 'steps') | async " (stepsChanged)='steps'></app-steps>
     </div>
   </div>
   <mat-divider></mat-divider>
-  <footer class="confirm" *ngIf='edit' (click)='editable()'>
+  <footer class='confirm' *ngIf='edit' (click)='editable()'>
     Zapisz!
   </footer>
-  <footer class="confirm" *ngIf='!edit'>
+  <footer class='confirm' *ngIf='!edit'>
     Gotuj!
   </footer>
 </div>
-
-

@@ -29,14 +29,21 @@
     background: dodgerblue;
   }
 }
-.divide{
+
+.divide {
   width: 40%;
   padding: 5%;
   float: left;
 }
-.example-list{
+
+.single {
+  padding: 5%;
+}
+
+.example-list {
   width: 200%;
 }
+
 .confirm {
   position: sticky;
   bottom: 0px;
@@ -56,17 +63,20 @@
 }
 
 .editButton {
-  text-align: right;
-  position: relative;
-  top: 40px;
-  right: 10px;
+  float: right;
+  text-align: center;
+  font-size: 85%;
 }
 
 .confirm:active {
   background: lightblue;
 }
-.input{
+
+.input {
   height: 50px;
   font-size: 300%;
   width: 80%;
+}
+.header{
+  display: inline-block;
 }
