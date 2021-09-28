@@ -27,8 +27,8 @@ export class IngredientsComponent implements OnInit {
 
   model = this.fb.group({
     product: ['', [Validators.required, Validators.minLength(1)]],
-    amount: ['', [Validators.required, Validators.min(1)]],
-    measure: ['', [Validators.required, Validators.minLength(1)]]
+    measure: ['', [Validators.required, Validators.minLength(1)]],
+    amount: ['', [Validators.required, Validators.min(1)]]
   });
 
   constructor(
@@ -38,21 +38,21 @@ export class IngredientsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.model.valueChanges.subscribe(({ product, measure }) => {
-      this.products$.pipe(first()).subscribe((products) => {
-        let productsResult = null;
-        if (product?.length > 0 && product) {
-          const options = {
-            keys: ['name']
-          };
-          const fuse = new Fuse(products, options);
-          productsResult = fuse.search(product).map(({ item }) => item);
-        } else {
-          productsResult = products;
-        }
-        this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
-      });
-    });
+    // this.model.valueChanges.subscribe(({ product, measure }) => {
+    //   this.products$.pipe(first()).subscribe((products) => {
+    //     let productsResult = null;
+    //     if (product?.length > 0 && product) {
+    //       const options = {
+    //         keys: ['name']
+    //       };
+    //       const fuse = new Fuse(products, options);
+    //       productsResult = fuse.search(product).map(({ item }) => item);
+    //     } else {
+    //       productsResult = products;
+    //     }
+    //     this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
+    //   });
+    // });
   }
 
   newUsedProduct() {
@@ -64,28 +64,31 @@ export class IngredientsComponent implements OnInit {
   }
 
   optionSelected(type: string, id: string) {
-    switch (type) {
-      case 'product': {
-        this.products$.pipe(first()).subscribe((products) => {
-          this.model.setValue({
-            product: id,
-            amount: this.model.value.amount,
-            measure: this.model.value.measure
-          });
-        });
-        break;
-      }
-      case 'measure': {
-        this.measures$.pipe(first()).subscribe((measures) => {
-          this.model.setValue({
-            product: this.model.value.product,
-            amount: this.model.value.amount,
-            measure: id
-          });
-        });
-        break;
-      }
-    }
-    console.log('model', this.model.value);
+  //   console.log('type', type, 'id:', id);
+  //   switch (type) {
+  //     case 'product': {
+  //       console.log(type);
+  //       this.products$.pipe(first()).subscribe((products) => {
+  //         this.model.setValue({
+  //           product: products.find(({ productId }) => productId === id).name,
+  //           amount: this.model.value.amount,
+  //           measure: this.model.value.measure
+  //         });
+  //       });
+  //       break;
+  //     }
+  //     case 'measure': {
+  //       console.log(type);
+  //       this.measures$.pipe(first()).subscribe((measures) => {
+  //         this.model.setValue({
+  //           product: this.model.value.product,
+  //           amount: this.model.value.amount,
+  //           measure: measures.find(({ measureId }) => measureId === id).name
+  //         });
+  //       });
+  //       break;
+  //     }
+  //   }
+  //   console.log('model', this.model.value);
   }
 }
