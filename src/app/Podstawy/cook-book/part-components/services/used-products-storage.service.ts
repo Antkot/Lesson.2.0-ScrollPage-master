@@ -27,8 +27,23 @@ export class UsedProductsStorageService {
   }
 
   addProduct(addedProduct: UsedProduct) {
+    console.log('Tutaj dodajemy w servicie nowy rekord');
+    this.usedProducts$.pipe(first()).subscribe(value => console.log('Lista przed', value));
+
     const current = JSON.parse(this.localStorageService.getItem('usedProducts'));
+
+
+    // this.products$.next(current.map(({ measures, ...value }) => ({
+    //   ...value,
+    //   measures: value.productId === this.typedProductId ? [...measures, { measureId: this.typedMeasureId }] : measures
+    // })));
+
+
+
     this.usedProducts$.next([...current, addedProduct]);
     this.localStorageService.setItem('usedProducts', JSON.stringify(this.usedProducts$.value));
+
+    this.usedProducts$.pipe(first()).subscribe(value => console.log('Lista po', value));
+    console.log('Dodane');
   }
 }

@@ -66,7 +66,6 @@ export class ProductsStorageService {
         this.typedProductId = value
     );
     console.log('Sprawdzanie ID produktu: ', this.typedProductId);
-    // zwraca undefined zawsze
 
     if (!this.typedProductId) {
       this.typedProductId = cuid();

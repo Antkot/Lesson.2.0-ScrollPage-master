@@ -40,9 +40,9 @@ storiesOf('Podstawy / cook / parts', module)
   .add('Ingredients edit', () => ({
     props: {} as Partial<IngredientsComponent>,
     component: IngredientsComponent,
-    template: `
-    <app-ingredients  [edit]="true">
-    `
+    // template: `
+    // <app-ingredients  [edit]="true">
+    // `
   }));
 
 storiesOf('Podstawy / cook / parts', module)
@@ -51,8 +51,8 @@ storiesOf('Podstawy / cook / parts', module)
   .add('Ingredients view', () => ({
     props: {} as Partial<IngredientsComponent>,
     component: IngredientsComponent,
-    template: `
-    <app-ingredients  [edit]="false">
-    `
+    // template: `
+    // <app-ingredients  [edit]="false">
+    // `
   }));
 

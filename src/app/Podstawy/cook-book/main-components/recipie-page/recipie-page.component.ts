@@ -37,8 +37,8 @@ export class RecipiePageComponent implements OnInit {
 
 
   addUsedProduct(event) {
-    console.log(event);
     this.usedProductService.addProduct(event);
+    console.log('powyżej zapisuje dish product a nie used XD');
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.addProduct(event, dishId)
     );
