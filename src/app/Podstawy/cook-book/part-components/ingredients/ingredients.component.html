@@ -4,7 +4,6 @@
   </div>
   <div>
     <span *ngIf='edit' [formGroup]='model' class='table'>
-      <div>
         <ng-container class='mat-typography' [formGroup]='model'>
           <mat-form-field appearance='outline' class='listedOptions'>
             <mat-label>Nazwa produktu</mat-label>
@@ -12,23 +11,16 @@
                    formControlName='product' />
           </mat-form-field>
         </ng-container>
-      </div>
-      <div>
         <mat-form-field appearance='outline' class='listedOptions'>
           <mat-label>Ilość</mat-label>
           <input type='number' matInput formControlName='amount'>
         </mat-form-field>
-      </div>
-      <div>
         <mat-form-field appearance='outline' class='listedOptions'>
           <mat-label>Miara produktu</mat-label>
      <input matInput type='text' [matAutocomplete]='autoMeasure' [matAutocompleteDisabled]='false'
             formControlName='measure' />
         </mat-form-field>
-      </div>
-      <div>
-            <button mat-button (click)='newUsedProduct()' [disabled]='model.invalid'>Dodaj</button>
-      </div>
+            <button mat-button (click)='newUsedProduct()' [disabled]='model.invalid' class='middle_button'>Dodaj</button>
     </span>
     <div class='table'>
       <div class='grid-item'><h4>Produkt</h4></div>

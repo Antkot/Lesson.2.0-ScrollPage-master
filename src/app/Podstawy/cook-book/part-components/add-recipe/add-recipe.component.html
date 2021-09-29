@@ -4,17 +4,18 @@
   <!--  2{{(dishId | dishType) | async | json}}-->
   <mat-divider></mat-divider>
   <div class='name'>
-
-    <input *ngIf='edit' type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
-           [value]="(dishId | dishTranslator: 'name') | async ">
-    <h1 *ngIf='!edit' class='header'>{{(dishId | dishTranslator: 'name') | async }}
+    <input *ngIf='edit && ((dishId | dishTranslator: "name") | async) === undefined' type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
+           [value]=""/>
+    <input *ngIf='edit && ((dishId | dishTranslator: "name") | async) !== undefined'
+           type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
+           [value]="(dishId | dishTranslator: 'name') | async "/>
+    <h1 *ngIf='!edit' class='header'>{{(dishId | dishTranslator: 'name' | async)}}
       <div class='editButton' *ngIf='!edit'>
         <button mat-button (click)='editable()'>
           <mat-icon>edit</mat-icon>
         </button>
       </div>
     </h1>
-
   </div>
   <mat-divider></mat-divider>
   <div class='hash'>

@@ -1,8 +1,9 @@
-:host{
+:host {
   display: flex;
   justify-content: center;
 }
-.container{
+
+.container {
   border: 1px lightgoldenrodyellow solid;
   background: wheat;
 }
@@ -15,10 +16,12 @@
 .demo-button + .demo-button {
   margin-left: 8px;
 }
-.mat-header-cell{
+
+.mat-header-cell {
   padding: 10px;
 }
-.mat-cell{
+
+.mat-cell {
   text-align: center;
 }
 
@@ -29,19 +32,26 @@
   column-gap: 10px;
   row-gap: 10px;
 
-  >div{
+  > div {
     margin-bottom: 10px;
-  //background: rebeccapurple;
+    //background: rebeccapurple;
   }
 }
-.grid-item{
+
+.grid-item {
   //background: rebeccapurple;
 }
-.listedOptions{
- width: 100%;
+
+.listedOptions {
+  width: 100%;
 }
-.colorizer{
-  :nth-child(2n){
+
+.colorizer {
+  :nth-child(2n) {
     //background: red;
   }
+}
+
+.middle_button {
+  height: 65px;
 }
