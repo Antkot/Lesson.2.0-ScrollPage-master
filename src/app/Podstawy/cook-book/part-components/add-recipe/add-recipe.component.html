@@ -7,7 +7,7 @@
     <div class='name'>
       <input *ngIf='edit'
              type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
-             formControlName='name' />
+             formControlName='name' value='{{(recipe$ | async).name}}' />
       <h1 *ngIf='!edit' class='header'>{{(recipe$ | async).name}}
         <div class='editButton noColor' *ngIf='!edit'>
           <button mat-fab (click)='redirectTo()' class='editButton'>
