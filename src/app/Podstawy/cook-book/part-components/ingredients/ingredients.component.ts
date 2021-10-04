@@ -78,7 +78,7 @@ export class IngredientsComponent implements OnInit {
 
   }
 
-  addProduct(event) {
-    this.addedProduct.emit(event);
+  addProduct(newProduct) {
+    this.addedProduct.emit(newProduct);
   }
 }

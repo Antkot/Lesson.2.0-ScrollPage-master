@@ -25,16 +25,16 @@ export class ListPageComponent implements OnInit {
     this.filterOption$.subscribe(data => this.temporary = data);
     this.allFilterOptions = this.temporary.allFilterOptions;
   }
-  removedTag(event) {
-    this.tagsService.remove(event);
+  removedTag(deletedTag) {
+    this.tagsService.remove(deletedTag);
   }
-  removedAllergen(event) {
-    this.allergenService.remove(event);
+  removedAllergen(deletedAllergen) {
+    this.allergenService.remove(deletedAllergen);
   }
-  addedTag(event) {
-    this.tagsService.add(event);
+  addedTag(newTag) {
+    this.tagsService.add(newTag);
   }
-  addedAllergen(event) {
-    this.allergenService.add(event);
+  addedAllergen(newAllergen) {
+    this.allergenService.add(newAllergen);
   }
 }

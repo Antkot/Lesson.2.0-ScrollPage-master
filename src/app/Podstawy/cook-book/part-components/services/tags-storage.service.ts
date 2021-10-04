@@ -25,12 +25,12 @@ export class TagsStorageService {
     }
   }
 
-  add(event): void {
+  add(newTag): void {
     let duplicat = false;
-    const value = event.trim();
+    const value = newTag.trim();
     if (value) {
       this.tags$.value.forEach(allergen => {
-        if (allergen.name === event) {
+        if (allergen.name === newTag) {
           duplicat = true;
         }
       });
@@ -41,13 +41,13 @@ export class TagsStorageService {
             ...current,
             {
               hashId: cuid(),
-              name: event
+              name: newTag
             }]);
 
         // console.table('TO TO', this.tags$.value);
         this.localStorageService.setItem('hashes', JSON.stringify(this.tags$.value));
         // if (!this.ALLtags$.includes(value)) {
-        // this.tags$.next([{ hashId: cuid(), name: event.value }]);
+        // this.tags$.next([{ hashId: cuid(), name: newTag.value }]);
         //     }
       }
     }

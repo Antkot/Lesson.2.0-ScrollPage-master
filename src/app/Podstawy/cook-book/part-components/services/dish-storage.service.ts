@@ -53,22 +53,22 @@ export class DishStorageService {
     this.dishesList$.pipe(first()).subscribe(value => console.log('DISH2', value));
   }
 
-  stepChange(event: Array<string>, givenDishId: string) {
+  stepChange(newStepSet: Array<string>, givenDishId: string) {
     givenDishId = this.idCheck(givenDishId);
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
     this.dishesList$.next(current.map(({ steps, ...value }) => ({
       ...value,
-      steps: value.dishId === givenDishId ? event : steps
+      steps: value.dishId === givenDishId ? newStepSet : steps
     })));
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
-  nameChange(event: string, givenDishId: string) {
+  nameChange(newName: string, givenDishId: string) {
     givenDishId = this.idCheck(givenDishId);
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
     this.dishesList$.next(current.map(({ name, ...value }) => ({
       ...value,
-      name: value.dishId === givenDishId ? event : name
+      name: value.dishId === givenDishId ? newName : name
     })));
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }

@@ -51,19 +51,19 @@ export class SideFilterComponent implements OnInit {
     this.timeLimit = $event;
   }
 
-  addAllergen(event: MatChipInputEvent) {
-    this.addedAllergen.emit(event);
+  addAllergen(newAllergen: MatChipInputEvent) {
+    this.addedAllergen.emit(newAllergen);
   }
-  addTag(event: MatChipInputEvent) {
-    this.addedTag.emit(event);
-  }
-
-  removeAllergen(event: MatChipInputEvent) {
-    this.removedAllergen.emit(event);
+  addTag(newTag: MatChipInputEvent) {
+    this.addedTag.emit(newTag);
   }
 
-  removeTag(event: MatChipInputEvent) {
-    this.removedTag.emit(event);
+  removeAllergen(deletedAllergen: MatChipInputEvent) {
+    this.removedAllergen.emit(deletedAllergen);
+  }
+
+  removeTag(deletedTag: MatChipInputEvent) {
+    this.removedTag.emit(deletedTag);
   }
 }
 

@@ -35,18 +35,18 @@ export class AllergensStorageService {
     }
   }
 
-  add(event): void {
+  add(newAllergen): void {
     let duplicat = false;
-    const value = event.trim();
+    const value = newAllergen.trim();
     if (value) {
       this.allergens$.value.forEach(allergen => {
-        if (allergen.name === event) {
+        if (allergen.name === newAllergen) {
           duplicat = true;
         }
       });
       if (!duplicat) {
         if (this.allergens$.getValue().findIndex(hash => hash.name === value) !== -1) {
-          this.allergens$.next([{ hashId: cuid(), name: event }]);
+          this.allergens$.next([{ hashId: cuid(), name: newAllergen }]);
         }
         const current = JSON.parse(this.localStorageService.getItem('allergens'));
         this.allergens$.next(
@@ -54,7 +54,7 @@ export class AllergensStorageService {
             ...current,
             {
               hashId: cuid(),
-              name: event
+              name: newAllergen
             }]);
         this.localStorageService.setItem('allergens', JSON.stringify(this.allergens$.value));
         //     }

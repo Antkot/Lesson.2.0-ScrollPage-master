@@ -5,6 +5,7 @@ import { Dish, UsedProduct } from '../../types';
 import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { combineLatest, Observable } from 'rxjs';
 import { DishStorageService } from '../services/dish-storage.service';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-add-recipe',
@@ -22,11 +23,6 @@ export class AddRecipeComponent implements OnInit {
   dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
   dishId$ = this.route.url.pipe(
     map(value => value[1].path));
-  model = this.fb.group({
-    name: ['', [Validators.required]],
-    type: [[].length, []]
-    // type: [[], [Validators.required]]
-  });
   recipe$: Observable<Dish> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishesList]) => {
     return dishesList.find(({ dishId }) => dishId === id) ?? {
       dishId: '',
@@ -37,6 +33,11 @@ export class AddRecipeComponent implements OnInit {
       dishType: []
     };
   }));
+  model = this.fb.group({
+    name: ['error 404 name not found', [Validators.required]],
+    type: [[].length, []]
+    // type: [[], [Validators.required]]
+  });
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, public myRouter: Router, private dishService: DishStorageService) {
   }
@@ -50,8 +51,8 @@ export class AddRecipeComponent implements OnInit {
     this.nameChange.emit(this.model.value.name);
   }
 
-  stepsEdtied(event) {
-    this.stepsEmitter.emit(event);
+  stepsEdtied(newStepSet) {
+    this.stepsEmitter.emit(newStepSet);
   }
 
   editable() {
@@ -59,29 +60,25 @@ export class AddRecipeComponent implements OnInit {
       this.nameChanged();
     }
     this.edit = !this.edit;
+
   }
 
-  addUsedProduct(event) {
-    this.usedProductToAdd.emit(event);
+  addUsedProduct(newUsedProduct) {
+    this.usedProductToAdd.emit(newUsedProduct);
   }
 
-  addProduct(event) {
-    this.addedProduct.emit(event);
+  addProduct(newProduct) {
+    this.addedProduct.emit(newProduct);
   }
 
   redirectTo() {
     this.edit = true;
   }
 
-  new() {
-    if (this.reset === true) {
-      this.model.reset();
-    }
-  }
 
-  typeEdition(event) {
+  typeEdition(newTypes) {
     console.log(111);
-    console.log(event);
+    console.log(newTypes);
     console.log(this.model.value.dishType);
     // this.typeChange.emit(this.model.value.dishType);
   }

@@ -39,26 +39,26 @@ export class RecipiePageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  nameEdited(event) {
+  nameEdited(newName) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.nameChange(event, dishId)
+      this.dishService.nameChange(newName, dishId)
     );
   }
 
-  addUsedProduct(event) {
-    const newProd = this.usedProductService.addProduct(event);
+  addUsedProduct(newUsedProduct) {
+    const newProd = this.usedProductService.addProduct(newUsedProduct);
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.addProduct(newProd, dishId)
     );
   }
 
-  addProduct(event) {
-    this.productService.addProduct(event);
+  addProduct(newProduct) {
+    this.productService.addProduct(newProduct);
   }
 
-  stepEdit(event) {
+  stepEdit(newStepSet) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.stepChange(event, dishId)
+      this.dishService.stepChange(newStepSet, dishId)
     );
   }
 
