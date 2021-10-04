@@ -23,7 +23,7 @@
     <mat-form-field appearance='outline'>
       <mat-label>Alergie</mat-label>
       <mat-select formControlName='allergens' multiple>
-        <mat-option *ngFor='let allergen of allergens$ | async' [value]='allergen.hashId'>
+        <mat-option *ngFor='let allergen of allergens$ | async' [value]='allergen.hashId' class='margin'>
           {{allergen.name}}
         </mat-option>
       </mat-select>

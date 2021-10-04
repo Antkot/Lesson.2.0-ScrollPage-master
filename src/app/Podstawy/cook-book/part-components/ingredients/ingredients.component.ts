@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { Hash, Measure, Product, UsedProduct } from '../../types';
+import { Dish, Hash, Measure, Product, UsedProduct } from '../../types';
 import { ProductsStorageService } from '../services/products-storage.service';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { MeasuresStorageService } from '../services/measures-storage.service';
@@ -9,6 +9,8 @@ import * as cuid from 'cuid';
 import { FormBuilder, Validators } from '@angular/forms';
 import { first, map } from 'rxjs/operators';
 import Fuse from 'fuse.js';
+import { forEach } from 'lodash';
+import { number } from '@storybook/addon-knobs';
 
 
 @Component({
@@ -31,6 +33,22 @@ export class IngredientsComponent implements OnInit {
     amount: ['', [Validators.required, Validators.min(1)]]
   });
 
+  usedMeasures$: Observable<Array<{ measureId: string; kcal: number; }>> = this.products$.pipe(
+    map((product) => {
+      return product.find(
+        ({ productId, name }) =>
+          productId === this.model.value.name
+      ).measures;
+    }));
+
+  // usedMeasuresNames$: Observable<Array<string>> = combineLatest([this.measures$, this.usedMeasures$]).pipe(map(([measures, usedMeasures]) => {
+  //     measures.find(({measureId}) => usedMeasures.measureId ===   );
+  // });
+  // }));
+
+
+
+
   constructor(
     private productsService: ProductsStorageService,
     private measureService: MeasuresStorageService,
@@ -41,6 +59,8 @@ export class IngredientsComponent implements OnInit {
     if (this.products === undefined) {
       this.products = [];
     }
+
+
     this.model.valueChanges.subscribe(({ product, measure }) => {
       this.products$.pipe(first()).subscribe((products) => {
         let productsResult = null;

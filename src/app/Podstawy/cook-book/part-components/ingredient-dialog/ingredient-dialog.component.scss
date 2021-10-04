@@ -32,3 +32,19 @@
   margin-left: 20px;
   margin-bottom: 20px;
 }
+.margin{
+  background: dodgerblue;
+  color: white;
+}
+.margin:hover{
+  background: dodgerblue;
+  color: white;
+}
+
+::ng-deep .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+  color: unset;
+}
+
+::ng-deep .mat-option-pseudo-checkbox.mat-pseudo-checkbox-checked {
+  background-color: gold;
+}
