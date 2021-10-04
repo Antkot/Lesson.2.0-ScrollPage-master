@@ -1,8 +1,10 @@
-<app-menu></app-menu>
-<div class='container'>
-  <div *ngFor='let dish of dishes$ | async'>
-    <div class='option'  routerLink="/list" routerLinkActive="active" [state]="{ allFilterOptions: false}">
-      {{dish.name}}
+<div class='all'>
+  <app-menu></app-menu>
+  <div class='container'>
+    <div *ngFor='let dish of dishes$ | async'>
+      <div class='option' routerLink='/list' routerLinkActive='active' [state]='{ allFilterOptions: false}' (click)='dishTyped(dish.name)'>
+        {{dish.name}}
+      </div>
     </div>
   </div>
 </div>

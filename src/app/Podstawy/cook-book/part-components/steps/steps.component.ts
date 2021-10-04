@@ -31,12 +31,13 @@ export class StepsComponent implements OnInit {
 
   drop(event: CdkDragDrop<Array<string>>) {
     moveItemInArray(this.steps, event.previousIndex, event.currentIndex);
+    this.editing();
   }
 
   ngOnInit(): void {
   }
 
-  editin() {
+  editing() {
     this.stepsChanged.emit(this.steps);
   }
 

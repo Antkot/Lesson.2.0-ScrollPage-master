@@ -1,32 +1,29 @@
 .container {
   margin: auto;
   width: 100%;
+  color: white;
 }
 
 .example-list {
-  border: solid 1px #ccc;
+  border: gold 12px double;
+  border-radius: 50px;
   min-height: 60px;
   display: block;
-  background: white;
-  border-radius: 4px;
+  background: dodgerblue;
   overflow: hidden;
 }
-
 .example-box {
   user-select: none;
   padding: 20px;
   border-bottom: solid 1px #ccc;
-  color: rgba(0, 0, 0, 0.87);
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
   cursor: move;
-  background: white;
   font-size: 20px;
 }
-
 
 .cdk-drag-preview {
   box-sizing: border-box;
@@ -87,10 +84,14 @@
 
 .def {
   cursor: default;
+  align-items: center;
 }
 
 .alert {
   width: 100%;
   font-size: 14px;
   color: red;
+}
+.centerButton{
+//  vertical-align: top !important;
 }

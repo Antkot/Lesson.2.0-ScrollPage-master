@@ -38,6 +38,9 @@ export class IngredientsComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.products === undefined) {
+      this.products = [];
+    }
     this.model.valueChanges.subscribe(({ product, measure }) => {
       this.products$.pipe(first()).subscribe((products) => {
         let productsResult = null;

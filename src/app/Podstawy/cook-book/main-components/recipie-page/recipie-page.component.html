@@ -1,8 +1,11 @@
 <app-menu></app-menu>
 <app-add-recipe
   [edit]="edit$ | async"
+  [reset]="reset$ | async"
   (usedProductToAdd)='addUsedProduct($event)'
   (addedProduct)='addProduct($event);'
+  (stepsEmitter)='stepEdit($event)'
+  (nameChange)='nameEdited($event)'
 ></app-add-recipe>
 <!--  (stepsChange)='steps'-->
 

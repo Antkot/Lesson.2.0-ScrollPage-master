@@ -4,8 +4,12 @@
 }
 
 .container {
-  border: 1px lightgoldenrodyellow solid;
-  background: wheat;
+  border: gold 12px double;
+  border-radius: 50px;
+  background: dodgerblue;
+  padding: 10px;
+  text-align: center;
+  color: white;
 }
 
 .headerButtons {
@@ -54,4 +58,8 @@
 
 .middle_button {
   height: 65px;
+}
+
+mat-label {
+  color: white;
 }

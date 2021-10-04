@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { Dish } from '../../types';
 import { LoadingService } from '../services/loading.service';
 import { DishStorageService } from '../services/dish-storage.service';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-listed',
@@ -11,10 +12,13 @@ import { DishStorageService } from '../services/dish-storage.service';
 })
 export class ListedComponent implements OnInit {
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
-
+  dishType$: Observable<{ dishId: string; }>;
   constructor(private dishesService: DishStorageService) {
 
   }
+  shownDishesList$: Observable<Dish> = combineLatest([this.dishType$, this.dishesList$]).pipe(map(([dishTyped, dishesList]) => {
+    return dishesList.find(({ dishType }) => dishType.includes(dishTyped));
+  }));
 
 ngOnInit(): void {
   }

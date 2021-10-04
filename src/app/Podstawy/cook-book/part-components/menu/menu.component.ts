@@ -14,6 +14,6 @@ export class MenuComponent implements OnInit {
   }
 
   redirectTo() {
-    this.myRouter.navigate(['../recipe/new'], { state: { edit: true } });
+    this.myRouter.navigate(['../recipe/new'], { state: { edit: true, reset: true } });
   }
 }

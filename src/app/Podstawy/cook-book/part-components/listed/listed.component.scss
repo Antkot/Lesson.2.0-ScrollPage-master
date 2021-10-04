@@ -29,7 +29,8 @@
   border-radius: 50px;
   background: dodgerblue;
   padding: 10px 20px;
-  height: 200px;
+  height: 75px;
+  position: relative;
 }
 
 .record:hover {
@@ -61,9 +62,9 @@
 
 .add {
   z-index: 5;
-  border-radius: 0 0 20px 20px;
+  border-radius: 0 0 50px 50px;
   position: sticky;
-  top: -11px;
+  top: 0;
   background: dodgerblue;
   border: gold double 12px;
   color: white;
@@ -77,4 +78,9 @@
 }
 .record:active, .add:active{
   transform: scale(0.95);
+}
+.topRight{
+  top: 20px;
+  right: 20px;
+  position: absolute;
 }

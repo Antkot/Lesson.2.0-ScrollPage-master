@@ -1,4 +1,19 @@
+:host {
+  position: relative;
+  display: flex;
+  padding: 20px 0 0 0;
+  background-color: dodgerblue;
+  width: Calc(100% - 24px);
+  height: 100%;
+  overflow: hidden;
+  border: 12px double gold;
+  border-radius: 50px;
+  text-align: center;
+}
 .clickable {
+  position: absolute;
+  top: 20px;
+  right: 20px;
   float: right;
   cursor: pointer;
 }
@@ -7,4 +22,13 @@
   margin: auto;
   height: 65px;
   top: -5px;
+}
+
+.dialog-container-custom .mat-dialog-container {
+  border-radius: 50px;
+}
+.textLeft{
+  text-align: left;
+  margin-left: 20px;
+  margin-bottom: 20px;
 }

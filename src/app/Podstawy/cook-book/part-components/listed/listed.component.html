@@ -7,23 +7,39 @@
       <app-sorter></app-sorter>
     </div>
   </div>
-  <div class="add" [routerLink]="'/recipe/new'" routerLinkActive="active" [state]="{ edit: true}">
+  <div class="add" [routerLink]="'/recipe/new'" routerLinkActive="active" [state]="{ edit: true, reset: true}">
     <h1>
       Dodaj przepis
     </h1>
   </div>
   <div class="list">
     <mat-divider></mat-divider>
-    <div class="record" *ngFor='let dish of dishesList$ | async' [routerLink]="['/recipe', dish.dishId]"
-             routerLinkActive='active' [state]='{ edit: false }'>
-      <h1>{{dish.name}}</h1>
-      <div>
-        <app-chips
-          [removable]="false"
-          [elements]="dish.tags"
-          [entity]="'Tag'"
-        ></app-chips>
-      </div>
+    <div class="record" *ngFor='let dish of dishesList$ | async'>
+      <h1  [routerLink]="['/recipe', dish.dishId]"
+           routerLinkActive='active' [state]='{ edit: false }'>{{dish.name}}</h1>
+
+
+      <button mat-icon-button [matMenuTriggerFor]="menu" class='topRight'>
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>edit</mat-icon>
+          <span>Edycja</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Usuń</span>
+        </button>
+      </mat-menu>
+
+      <!--      <div>-->
+<!--        <app-chips-->
+<!--          [removable]="false"-->
+<!--          [elements]="dish.tags"-->
+<!--          [entity]="'Tag'"-->
+<!--        ></app-chips>-->
+<!--      </div>-->
     </div>
     <mat-divider></mat-divider>
   </div>

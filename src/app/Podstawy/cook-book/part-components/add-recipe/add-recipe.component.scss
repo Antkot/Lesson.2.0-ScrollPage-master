@@ -1,13 +1,19 @@
 :host {
-  height: 100vh;
+  height: 100%;
+}
+
+.all {
+  height: 100%;
+  //width: 100vw;
+  background: lightgoldenrodyellow;
 }
 
 .container {
-  width: 80%;
+  width: 1000px;
   margin: auto;
 
   > div {
-    background: lightskyblue;
+    background: palegoldenrod;
     text-align: center;
     padding: 50px 0;
   }
@@ -16,24 +22,21 @@
     width: 100%;
     display: inline-block;
     text-align: left;
-    background: lightsteelblue;
-  }
-
-  .example-box {
-    padding: 20px 10px;
+    background: palegoldenrod;
+    padding: 0px;
   }
 
   .hash {
     padding: 0;
-    height: 200px;
-    background: dodgerblue;
+    //height: 200px;
+    background: palegoldenrod;
   }
 }
 
 .divide {
-  width: 40%;
+  width: 80%;
   padding: 5%;
-  float: left;
+  margin: auto;
 }
 
 .single {
@@ -47,17 +50,15 @@
 .confirm {
   position: sticky;
   bottom: 0px;
-  padding: 20px 0;
   width: 100%;
-  background: cornflowerblue;
   text-align: center;
   float: bottom;
   user-select: none;
   cursor: pointer;
-  height: 10px;
 }
 
 .mat-divider {
+  background: dodgerblue;
   border-top-width: 3px;
   border-top-style: ridge;
 }
@@ -65,18 +66,82 @@
 .editButton {
   float: right;
   text-align: center;
-  font-size: 85%;
+  font-size: 70%;
+  width: 59px;
+  height: 59px;
 }
 
 .confirm:active {
-  background: lightblue;
 }
 
-.input {
+.input, h1 {
+  text-align: center;
+  border: gold 12px double;
+  border-radius: 50px;
+  background: dodgerblue;
+  color: white;
   height: 50px;
   font-size: 300%;
   width: 80%;
+  padding: 5px;
 }
-.header{
+
+.h1 {
+  width: 50%;
+}
+
+.input:hover {
+  border: darkgoldenrod 12px double;
+}
+
+h1:hover {
+  border: gold 12px double;
+}
+
+.header {
   display: inline-block;
+}
+
+.block {
+  border-radius: 50px;
+  display: block;
+  width: Calc(100%);
+  border: gold 12px double;
+  background-color: dodgerblue;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  color: white;
+}
+
+button:disabled,
+button[disabled] {
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.block:hover {
+  border: darkgoldenrod 12px double;
+}
+
+.editButton {
+  margin-top: -3px;
+  justify-self: center;
+  border: none;
+  background: none;
+}
+
+.editButton:hover {
+  border-radius: 50%;
+  background: #0483ff;
+
+}
+.noColor:hover{background: none}
+.editButton:active {
+  //transition-duration: 200ms;
+  //transform: rotate(90deg) scale(0.8);
+}
+.white-icon {
+  color: white;
 }

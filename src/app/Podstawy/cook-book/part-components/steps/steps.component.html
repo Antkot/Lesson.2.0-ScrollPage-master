@@ -9,8 +9,8 @@
       </div>
     </div>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" *ngIf="edit">
-      <div class="example-box def" [formGroup]='model'>
-        <mat-form-field class="editor">
+      <div class="example-box def" [formGroup]='model' >
+        <mat-form-field class="editor"  appearance='outline'>
           <input matInput type="text" id="newStep" placeholder="Dodaj kolejny krok..."
                  formControlName='step'
           />
@@ -24,11 +24,9 @@
 <!--            Krok musi mieć conajmniej 5 znaków-->
 <!--          </div>-->
 <!--        </div>-->
-
-        <button mat-icon-button  [disabled]='model.invalid' (click)="add()">
-          <mat-icon>add_circle</mat-icon>
+        <button mat-icon-button [disabled]='model.invalid' (click)="add()" >
+          <mat-icon class='centerButton'>add_circle</mat-icon>
         </button>
-
       </div>
       <div class="example-box" *ngFor="let step of steps" cdkDrag>
         <mat-form-field class="editor" *ngIf="edited === step">

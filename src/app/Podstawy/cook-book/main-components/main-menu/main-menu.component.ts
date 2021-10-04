@@ -10,11 +10,15 @@ import { LoadingService } from '../../part-components/services/loading.service';
 })
 export class MainMenuComponent implements OnInit {
   dishes$: Observable<Array<DishType>> = this.loadingService.dishes$;
+  dishType$: Observable<{ dishId: string; }>;
 
   constructor(private loadingService: LoadingService) {
   }
 
   ngOnInit(): void {
   }
-
+  dishTyped(dishType) {
+    console.log(dishType);
+    // this.dishType$.next({ dishId: dishType });
+  }
 }

@@ -23,18 +23,27 @@ export class RecipiePageComponent implements OnInit {
 
   edit$: Observable<boolean> = combineLatest([this.activatedRoute.paramMap
     .pipe(map(() => window.history.state))]).pipe(map(([{ edit }]) => {
-    // console.log('Edycja', edit);
+    console.log('Edycja', edit);
     return edit;
   }));
   dishId$: Observable<string> = combineLatest([this.route.url.pipe(
     map(value => value[1].path))]).pipe(map(([dishId]) => {
-    // console.log('Id posiłku', dishId);
+    console.log('Id posiłku', dishId);
     return dishId;
+  }));
+  reset$: Observable<boolean> = combineLatest([this.activatedRoute.paramMap
+    .pipe(map(() => window.history.state))]).pipe(map(([{ reset }]) => {
+    console.log('Reset', reset);
+    return reset;
   }));
 
   ngOnInit(): void {
   }
-
+  nameEdited(event) {
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.nameChange(event, dishId)
+    );
+  }
 
   addUsedProduct(event) {
     const newProd = this.usedProductService.addProduct(event);
@@ -45,6 +54,12 @@ export class RecipiePageComponent implements OnInit {
 
   addProduct(event) {
     this.productService.addProduct(event);
+  }
+
+  stepEdit(event) {
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.stepChange(event, dishId)
+    );
   }
 
 }
