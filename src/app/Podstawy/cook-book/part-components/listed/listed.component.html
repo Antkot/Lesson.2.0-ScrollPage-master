@@ -15,12 +15,13 @@
   <div class="list">
     <mat-divider></mat-divider>
     <div class="record" *ngFor='let dish of dishesList$ | async'>
-      <h1  [routerLink]="['/recipe', dish.dishId]"
-           routerLinkActive='active' [state]='{ edit: false }'>{{dish.name}}</h1>
-
-
-      <button mat-icon-button [matMenuTriggerFor]="menu" class='topRight'>
-        <mat-icon>more_vert</mat-icon>
+      <div class='recName'   [routerLink]="['/recipe', dish.dishId]"
+           routerLinkActive='active' [state]='{ edit: false }'>
+      <h1>{{dish.name}}</h1>
+      </div>
+      <div class='recMenu'  [matMenuTriggerFor]="menu" >
+      <button mat-icon-button class='topRight'>
+        <mat-icon class='menuIcon'>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
         <button mat-menu-item>
@@ -32,7 +33,7 @@
           <span>Usuń</span>
         </button>
       </mat-menu>
-
+      </div>
       <!--      <div>-->
 <!--        <app-chips-->
 <!--          [removable]="false"-->

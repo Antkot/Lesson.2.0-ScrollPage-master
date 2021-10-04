@@ -126,10 +126,11 @@ button[disabled] {
 }
 
 .editButton {
-  margin-top: -3px;
+  margin-top: -2px;
   justify-self: center;
   border: none;
   background: none;
+  margin-right: -2px;
 }
 
 .editButton:hover {

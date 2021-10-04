@@ -25,15 +25,19 @@
 }
 
 .record {
-  border: gold 12px double;
-  border-radius: 50px;
-  background: dodgerblue;
-  padding: 10px 20px;
-  height: 75px;
-  position: relative;
+  display: flex;
+  //border: gold 12px double;
+  //border-radius: 50px;
+  //background: dodgerblue;
+  //padding: 10px 20px;
+  //height: 75px;
+  //position: relative;
 }
 
 .record:hover {
+  //border: darkgoldenrod 12px double;
+}
+.recMenu:hover, .recName:hover {
   border: darkgoldenrod 12px double;
 }
 
@@ -77,10 +81,38 @@
   border: darkgoldenrod double 12px;
 }
 .record:active, .add:active{
-  transform: scale(0.95);
+  transform: scale(0.98);
+}
+.recMenu:active, .recName:active,  .add:active{
+  //transform: scale(0.95);
 }
 .topRight{
-  top: 20px;
-  right: 20px;
+  margin: auto;
+  top: 30%;
   position: absolute;
+}
+.menuIcon{
+  font-size: 300%;
+}
+.recMenu{
+  border: gold 12px double;
+  border-radius: 0 50px 50px 0;
+  background: dodgerblue;
+  padding: 10px 20px;
+  height: 75px;
+  position: relative;
+  width: 5%;
+  border-left: none;
+  float: left;
+}
+.recName{
+  margin-right: 0;
+  border: gold 12px double;
+  border-right: none;
+  border-radius: 50px 0 0 50px;
+  background: dodgerblue;
+  padding: 10px 20px;
+  height: 75px;
+  position: relative;
+  width: 85%;
 }
