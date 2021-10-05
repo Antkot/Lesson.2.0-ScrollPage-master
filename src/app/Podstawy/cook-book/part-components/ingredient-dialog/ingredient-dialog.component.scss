@@ -1,15 +1,16 @@
 :host {
   position: relative;
   display: flex;
-  padding: 20px 0 0 0;
+  padding: 20px;
   background-color: dodgerblue;
-  width: Calc(100% - 24px);
+  width: Calc(100% - 64px);
   height: 100%;
   overflow: hidden;
   border: 12px double gold;
   border-radius: 50px;
   text-align: center;
 }
+
 .clickable {
   position: absolute;
   top: 20px;
@@ -27,16 +28,13 @@
 .dialog-container-custom .mat-dialog-container {
   border-radius: 50px;
 }
-.textLeft{
-  text-align: left;
-  margin-left: 20px;
-  margin-bottom: 20px;
-}
-.margin{
+
+.margin {
   background: dodgerblue;
   color: white;
 }
-.margin:hover{
+
+.margin:hover {
   background: dodgerblue;
   color: white;
 }
@@ -47,4 +45,34 @@
 
 ::ng-deep .mat-option-pseudo-checkbox.mat-pseudo-checkbox-checked {
   background-color: gold;
+}
+
+@media (min-width: 1100px) {
+  .twoInputs {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 1100px) {
+  .twoInputs {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  :host{
+    z-index: 22;
+    background: gold;
+  }
+}
+.gridTable{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  //width: 700px;
+  column-gap: 10px;
+  row-gap: 10px;
+
+  > div {
+    border: solid 1px red;
+  }
 }

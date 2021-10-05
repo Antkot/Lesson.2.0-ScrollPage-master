@@ -5,42 +5,53 @@
   <h2 mat-dialog-title>Dodawanie Składnika</h2>
 
   <ng-container class='mat-typography' [formGroup]='model'>
-    <mat-form-field appearance='outline'>
-      <mat-label>Nazwa</mat-label>
-      <input matInput type='text' [matAutocomplete]='autoProduct' [matAutocompleteDisabled]='false'
-             formControlName='product' />
-    </mat-form-field>
-    <mat-form-field appearance='outline'>
-      <mat-label>Miara</mat-label>
-      <input matInput type='text' [matAutocomplete]='autoMeasure' [matAutocompleteDisabled]='false'
-             formControlName='measure' />
-    </mat-form-field>
-    <mat-form-field appearance='outline'>
-      <mat-label>Kcal</mat-label>
-      <input matInput type='number' formControlName='kcal' />
-    </mat-form-field>
-
-    <mat-form-field appearance='outline'>
-      <mat-label>Alergie</mat-label>
-      <mat-select formControlName='allergens' multiple>
-        <mat-option *ngFor='let allergen of allergens$ | async' [value]='allergen.hashId' class='margin'>
-          {{allergen.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+    <div class='twoInputs'>
+      <mat-form-field appearance='outline'>
+        <mat-label>Nazwa</mat-label>
+        <input matInput type='text' [matAutocomplete]='autoProduct' [matAutocompleteDisabled]='false'
+               formControlName='product' />
+      </mat-form-field>
+      <mat-form-field appearance='outline'>
+        <mat-label>Miara</mat-label>
+        <input matInput type='text' [matAutocomplete]='autoMeasure' [matAutocompleteDisabled]='false'
+               formControlName='measure' />
+      </mat-form-field>
+    </div>
+    <div class='twoInputs'>
+      <mat-form-field appearance='outline'>
+        <mat-label>Kcal</mat-label>
+        <input matInput type='number' formControlName='kcal' />
+      </mat-form-field>
+      <mat-form-field appearance='outline'>
+        <mat-label>Alergie</mat-label>
+        <mat-select formControlName='allergens' multiple>
+          <mat-option *ngFor='let allergen of allergens$ | async' [value]='allergen.hashId' class='margin'>
+            {{allergen.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
   </ng-container>
-  <ng-container>
+  <ng-container class='buttonDiv'>
     <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid'>Dodaj</button>
   </ng-container>
   <br />
-  <mat-dialog-content class='mat-typography textLeft'>
-    <div *ngFor='let product of products$ | async'>
-      {{product.name}} (
-      <a *ngFor='let measure of product.measures'>
-        {{ measure.measureId | measuresTranslator | async}},
-      </a>
-      )
-      <br />
+
+  <mat-dialog-content class='mat-typography'>
+    <div class='gridTable'>
+      <div>Nazwa</div>
+      <div>Miary</div>
+      <div>Alergeny</div>
+    </div>
+    <div class='gridTable' *ngFor='let product of products$ | async'>
+      <div>{{product.name}}</div>
+      <div><a *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
+        ({{measure.kcal}}) </a></div>
+      <div><a *ngFor='let allergen of product.allergens'>
+        {{product.allergens}}
+        {{allergen.allergenId | tagNameById: 'allergen' | async}}
+        {{allergen.allergenId}}
+      </a></div>
     </div>
   </mat-dialog-content>
 

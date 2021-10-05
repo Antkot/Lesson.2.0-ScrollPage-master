@@ -130,6 +130,7 @@ button[disabled] {
 }
 
 .editButton {
+  z-index: 0;
   margin-top: -2px;
   justify-self: center;
   border: none;
@@ -149,4 +150,5 @@ button[disabled] {
 }
 .white-icon {
   color: white;
+  z-index: -1;
 }
