@@ -33,7 +33,7 @@
                          (addedProduct)='addProduct($event)'></app-ingredients>
       </div>
       <mat-divider></mat-divider>
-      <div class='divide'>
+      <div class='divide marg'>
         <app-steps [edit]='edit' [steps]="(recipe$ | async).steps"
                    (stepsChanged)='stepsEdtied($event)' ></app-steps>
       </div>

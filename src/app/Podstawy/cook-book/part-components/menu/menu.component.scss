@@ -1,5 +1,7 @@
 :host{
-  position: sticky;
+  top: 0;
+  position: fixed;
+  width: 100%;
   user-select: none;
   font-size: 150%
 }

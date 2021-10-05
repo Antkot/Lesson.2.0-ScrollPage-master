@@ -24,7 +24,7 @@ export class AddRecipeComponent implements OnInit {
   dishId$ = this.route.url.pipe(
     map(value => value[1].path));
   recipe$: Observable<Dish> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishesList]) => {
-    return dishesList.find(({ dishId }) => dishId === id) ?? {
+    const recipe = dishesList.find(({ dishId }) => dishId === id) ?? {
       dishId: '',
       name: '',
       tags: [],
@@ -32,11 +32,13 @@ export class AddRecipeComponent implements OnInit {
       products: [],
       dishType: []
     };
+    this.model.setValue({ name: recipe.name, type: recipe.dishType }
+    );
+    return recipe;
   }));
   model = this.fb.group({
-    name: ['error 404 name not found', [Validators.required]],
-    type: [[].length, []]
-    // type: [[], [Validators.required]]
+    name: ['', [Validators.required]],
+    type: [[], []]
   });
 
   constructor(private route: ActivatedRoute, private fb: FormBuilder, public myRouter: Router, private dishService: DishStorageService) {
@@ -77,15 +79,17 @@ export class AddRecipeComponent implements OnInit {
 
 
   typeEdition(newTypes) {
-    console.log(111);
-    console.log(newTypes);
-    console.log(this.model.value.dishType);
-    // this.typeChange.emit(this.model.value.dishType);
+    this.model.value.dishType = newTypes;
+    this.typeChange.emit(this.model.value.dishType);
   }
 
 }
 
-function forbiddenNameValidator(): ValidatorFn {
-  return null;
-}
+// function customV(): ValidatorFn {
+// JSON.stringify(this.model.value.type);
+// return (control: AbstractControl): { [key: string]: any } | null =>
+//   control.value?.toLowerCase() === 'blue'
+//     ? null : {wrongColor: control.value};
+// return null;
+// }
 

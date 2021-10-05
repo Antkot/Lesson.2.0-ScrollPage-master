@@ -12,6 +12,7 @@
       Dodaj przepis
     </h1>
   </div>
+  <div *ngIf='x.length === 0' class='noRecords'><h1>Brak przepisów</h1></div>
   <div class="list">
     <mat-divider></mat-divider>
     <div class="record" *ngFor='let dish of dishesList$ | async'>
@@ -24,11 +25,12 @@
         <mat-icon class='menuIcon'>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item [routerLink]="['/recipe', dish.dishId]"
+                routerLinkActive='active' [state]='{ edit: true }'>
           <mat-icon>edit</mat-icon>
           <span>Edycja</span>
         </button>
-        <button mat-menu-item>
+        <button mat-menu-item (click)='deleteDsih(dish.dishId)'>
           <mat-icon>delete</mat-icon>
           <span>Usuń</span>
         </button>

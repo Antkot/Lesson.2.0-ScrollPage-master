@@ -26,11 +26,11 @@ export class LoadingService {
     } else {
       this.dishes$.next([
         { dishId: '1', name: 'śniadanie' },
-        { dishId: cuid(), name: 'obiad' },
-        { dishId: cuid(), name: 'kolacja' },
-        { dishId: cuid(), name: 'desery' },
-        { dishId: cuid(), name: 'launch' },
-        { dishId: cuid(), name: 'inne' }
+        { dishId: '2', name: 'obiad' },
+        { dishId: '3', name: 'kolacja' },
+        { dishId: '4', name: 'desery' },
+        { dishId: '5', name: 'launch' },
+        { dishId: '6', name: 'inne' }
       ]);
     }
 

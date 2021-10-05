@@ -3,7 +3,8 @@ import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { Dish } from '../../types';
 import { LoadingService } from '../services/loading.service';
 import { DishStorageService } from '../services/dish-storage.service';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
+import { xor } from 'lodash';
 
 @Component({
   selector: 'app-listed',
@@ -13,15 +14,24 @@ import { map } from 'rxjs/operators';
 export class ListedComponent implements OnInit {
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   dishType$: Observable<{ dishId: string; }>;
-  constructor(private dishesService: DishStorageService) {
 
+  constructor(private dishesService: DishStorageService) {
   }
+
+  x = [];
   shownDishesList$: Observable<Dish> = combineLatest([this.dishType$, this.dishesList$]).pipe(map(([dishTyped, dishesList]) => {
     return dishesList.find(({ dishType }) => dishType.includes(dishTyped));
   }));
 
-ngOnInit(): void {
+  ngOnInit(): void {
+    this.dishesList$.pipe(first()).subscribe(value => {
+      console.log('Dania: ', value);
+      this.x = value;
+    });
+    console.log(this.x);
   }
 
-
+  deleteDsih(dishId) {
+    this.dishesService.deleteDish(dishId);
+  }
 }

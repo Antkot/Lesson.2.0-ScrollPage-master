@@ -61,5 +61,9 @@ export class RecipiePageComponent implements OnInit {
       this.dishService.stepChange(newStepSet, dishId)
     );
   }
-
+  typeEdition(dishType) {
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.typeChange(dishType, dishId)
+    );
+  }
 }

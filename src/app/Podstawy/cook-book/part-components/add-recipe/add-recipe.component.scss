@@ -38,7 +38,9 @@
   padding: 5%;
   margin: auto;
 }
-
+.marg{
+  margin-bottom: 100px;
+}
 .single {
   padding: 5%;
 }
@@ -83,7 +85,7 @@
   height: 50px;
   font-size: 300%;
   width: 80%;
-  padding: 5px;
+  padding: 20px;
 }
 
 .h1 {
@@ -103,9 +105,11 @@ h1:hover {
 }
 
 .block {
+  position: fixed;
+  bottom: 0;
   border-radius: 50px;
   display: block;
-  width: Calc(100%);
+  width: 1000px;
   border: gold 12px double;
   background-color: dodgerblue;
   padding: 14px 28px;

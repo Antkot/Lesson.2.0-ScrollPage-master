@@ -73,6 +73,18 @@ export class DishStorageService {
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
+  typeChange(types, givenDishId: string) {
+    givenDishId = this.idCheck(givenDishId);
+    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
+    this.dishesList$.next(current.map(({ dishType, ...value }) => ({
+      ...value,
+      dishType: value.dishId === givenDishId ? types : dishType
+    })));
+    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+
+    this.dishesList$.pipe(first()).subscribe(value => console.log('typ zmieniony: ', value));
+  }
+
   idCheck(givenDishId) {
     if (givenDishId === 'new' || givenDishId === undefined) {
       givenDishId = cuid();
@@ -84,6 +96,15 @@ export class DishStorageService {
     return givenDishId;
   }
 
+  deleteDish(dishId) {
+    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
+    this.dishesList$.next(
+      [
+        ...current.filter(record => record.dishId !== dishId)
+      ]
+    );
+    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+  }
 
 // nie użyte
 //   add(event): void {
