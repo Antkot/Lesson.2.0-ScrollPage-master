@@ -36,22 +36,23 @@
     <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid'>Dodaj</button>
   </ng-container>
   <br />
-
+  <div class='gridTable'>
+    <div>Nazwa</div>
+    <div>Miary</div>
+    <div>Alergeny</div>
+  </div>
   <mat-dialog-content class='mat-typography'>
-    <div class='gridTable'>
-      <div>Nazwa</div>
-      <div>Miary</div>
-      <div>Alergeny</div>
-    </div>
-    <div class='gridTable' *ngFor='let product of products$ | async'>
+
+    <div class='gridTable tableBorder' *ngFor='let product of products$ | async'>
       <div>{{product.name}}</div>
       <div><a *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
-        ({{measure.kcal}}) </a></div>
-      <div><a *ngFor='let allergen of product.allergens'>
-        {{product.allergens}}
-        {{allergen.allergenId | tagNameById: 'allergen' | async}}
-        {{allergen.allergenId}}
+        ({{measure.kcal}}) <br/>
       </a></div>
+      <div>
+        <a *ngFor='let allergen of product.allergens'>
+          {{allergen | tagNameById: 'allergen' | async}}
+        </a>
+      </div>
     </div>
   </mat-dialog-content>
 

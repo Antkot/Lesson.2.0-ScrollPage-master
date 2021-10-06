@@ -22,7 +22,7 @@ export class ProductsStorageService {
       this.products$.next([...current]);
     } else {
       this.products$.next([
-        { productId: '11', name: 'Mleko', measures: [{ measureId: 'cuuu', kcal: 600 }], allergens: [{ allergenId: 'Laktoza' }] },
+        { productId: '11', name: 'Woda', measures: [{ measureId: 'cuuu', kcal: 0 }], allergens: [] },
       ]);
       this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
     }

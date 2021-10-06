@@ -9,6 +9,7 @@
   border: 12px double gold;
   border-radius: 50px;
   text-align: center;
+  //max-height: 50vh;
 }
 
 .clickable {
@@ -71,8 +72,15 @@
   //width: 700px;
   column-gap: 10px;
   row-gap: 10px;
+}
 
+.tableBorder{
+  //overflow: paged-y;
   > div {
-    border: solid 1px red;
+    border-top: solid 1px gold;
   }
+  margin: auto;
+}
+.sticky{
+  margin: auto;
 }
