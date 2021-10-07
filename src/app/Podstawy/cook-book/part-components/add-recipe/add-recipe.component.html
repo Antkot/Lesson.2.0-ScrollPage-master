@@ -30,7 +30,8 @@
       <div class='divide'>
         <app-ingredients [edit]='edit' [products]="(recipe$ | async).products"
                          (addUsedProduct)='addUsedProduct($event)'
-                         (addedProduct)='addProduct($event)'></app-ingredients>
+                         (addedProduct)='addProduct($event)'
+        (prodMeasureDeleted)='deleteProdMeasure($event)'></app-ingredients>
       </div>
       <mat-divider></mat-divider>
       <div class='divide marg'>

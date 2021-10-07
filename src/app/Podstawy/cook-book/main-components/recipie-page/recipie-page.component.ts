@@ -66,4 +66,9 @@ export class RecipiePageComponent implements OnInit {
       this.dishService.typeChange(dishType, dishId)
     );
   }
+  deleteProdMeasure([measureId, productId]) {
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.productService.deleteProdMeasure([measureId, productId])
+    );
+  }
 }

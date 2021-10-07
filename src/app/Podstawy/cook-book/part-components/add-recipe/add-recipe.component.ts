@@ -14,6 +14,7 @@ import { stringify } from 'querystring';
 })
 export class AddRecipeComponent implements OnInit {
   @Output() stepsEmitter = new EventEmitter();
+  @Output() prodMeasureDeleted = new EventEmitter();
   @Output() usedProductToAdd = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
   @Output() nameChange = new EventEmitter();
@@ -81,6 +82,10 @@ export class AddRecipeComponent implements OnInit {
   typeEdition(newTypes) {
     this.model.value.dishType = newTypes;
     this.typeChange.emit(this.model.value.dishType);
+  }
+
+  deleteProdMeasure([measureId, productId]) {
+    this.prodMeasureDeleted.emit([measureId, productId]);
   }
 
 }

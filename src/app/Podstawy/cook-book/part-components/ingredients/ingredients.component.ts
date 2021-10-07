@@ -7,10 +7,11 @@ import { TagsStorageService } from '../services/tags-storage.service';
 import { MeasuresStorageService } from '../services/measures-storage.service';
 import * as cuid from 'cuid';
 import { FormBuilder, Validators } from '@angular/forms';
-import { first, map } from 'rxjs/operators';
+import { filter, first, map, tap } from 'rxjs/operators';
 import Fuse from 'fuse.js';
-import { forEach } from 'lodash';
+import { forEach, result } from 'lodash';
 import { number } from '@storybook/addon-knobs';
+import { AliveState } from '../../../../ActiveState';
 
 
 @Component({
@@ -18,9 +19,12 @@ import { number } from '@storybook/addon-knobs';
   templateUrl: './ingredients.component.html',
   styleUrls: ['./ingredients.component.scss']
 })
-export class IngredientsComponent implements OnInit {
+export class IngredientsComponent
+  extends AliveState
+  implements OnInit {
   @Output() addUsedProduct = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
+  @Output() prodMeasureDeleted = new EventEmitter();
   products$: Observable<Array<Product>> = this.productsService.products$;
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   @Input() edit: boolean;
@@ -32,34 +36,45 @@ export class IngredientsComponent implements OnInit {
     measure: ['', [Validators.required, Validators.minLength(1)]],
     amount: ['', [Validators.required, Validators.min(1)]]
   });
-
-  usedMeasures$: Observable<Array<{ measureId: string; kcal: number; }>> = this.products$.pipe(
-    map((product) => {
-      return product.find(
-        ({ productId, name }) =>
-          productId === this.model.value.name
-      ).measures;
-    }));
-
-  // usedMeasuresNames$: Observable<Array<string>> = combineLatest([this.measures$, this.usedMeasures$]).pipe(map(([measures, usedMeasures]) => {
-  //     measures.find(({measureId}) => usedMeasures.measureId ===   );
-  // });
-  // }));
-
-
-
+  chosenProd$ = new BehaviorSubject<boolean>(false);
+  finalCombine$ = new BehaviorSubject<Array<Measure>>([]);
 
   constructor(
     private productsService: ProductsStorageService,
     private measureService: MeasuresStorageService,
     private fb: FormBuilder) {
+    super();
   }
 
   ngOnInit() {
-    if (this.products === undefined) {
-      this.products = [];
-    }
+    // this.subscribeWhileAlive(
+    //   tap(({ product }) => {
+    //     this.products$.pipe(first()).subscribe((products) => {
+    //       this.chosenProd$.next(
+    //         products.find(({ name }) => name === product) ? [true] : [false];
+    //         });
+    //   }));
 
+    this.subscribeWhileAlive(
+      this.model.valueChanges.pipe(
+        // filter(({ product }) => !!product),
+        tap(({ product, measure }) => {
+          this.products$.pipe(first()).subscribe((products) => {
+            this.measures$.pipe(first()).subscribe((measures) => {
+              this.finalCombine$.next(products.find(({ name }) => name === product)
+                ? products.find(({ name }) => name === product)?.measures.map(({ measureId }) => ({
+                  measureId,
+                  name: measures.find((m) => m.measureId === measureId).name,
+                  shortcut: measures.find((m) => m.measureId === measureId).shortcut
+                })) : []);
+              // Tutaj
+              products.find(({ name }) => name === product)?.measures.includes(measure)
+                ? console.log('Kopia miary wprowadzona!') : console.log('Nowa miara');
+            });
+          });
+        })
+      )
+    );
 
     this.model.valueChanges.subscribe(({ product, measure }) => {
       this.products$.pipe(first()).subscribe((products) => {
@@ -75,7 +90,7 @@ export class IngredientsComponent implements OnInit {
         }
         this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
       });
-      this.measures$.pipe(first()).subscribe((measures) => {
+      this.finalCombine$.pipe(first()).subscribe((measures) => {
         let measuresResult = null;
         if (measure?.length > 0 && measure) {
           const options = {
@@ -100,5 +115,8 @@ export class IngredientsComponent implements OnInit {
 
   addProduct(newProduct) {
     this.addedProduct.emit(newProduct);
+  }
+  deleteProdMeasure([measureId, productId]) {
+    this.prodMeasureDeleted.emit([measureId, productId]);
   }
 }

@@ -1,21 +1,28 @@
 :host {
+  overflow: hidden;
   align-content: center;
   height: 100vh;
   width: 1000px;
 }
 .all {
+  overflow: hidden;
   height: 100vh;
   width: 100vw;
   background: lightgoldenrodyellow;
 }
 
 .container {
-  align-content: center;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+  //align-content: center;
+  //justify-content: center;
   background: palegoldenrod;
-  height: 80vh;
-  width: 1000px;
-  margin: 5% auto;
+  height: 100%;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .option {
@@ -23,9 +30,11 @@
   line-height: 600%;
   border: gold 12px double;
   background: dodgerblue;
-  width: Calc(40% - 24px);
+  //width: Calc(40% - 24px);
+  width: 400px;
+  max-width: 30vh;
   float: left;
-  margin: 7% 5%;
+  //margin: 7% 5%;
   text-align: center;
 }
 

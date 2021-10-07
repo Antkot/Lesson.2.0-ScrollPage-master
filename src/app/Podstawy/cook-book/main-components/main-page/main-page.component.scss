@@ -5,11 +5,16 @@
 }
 
 .container {
+  display: grid;
   user-select: none;
-  width: 1000px;
+  max-width: 1000px;
   background: palegoldenrod;
-  height: 80%;
-  margin:  5% auto;
+  height: 100%;
+  margin: auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
 }
 
 .option {
@@ -20,8 +25,6 @@
   border-radius: 50px;
   height: Calc(200px - 24px);
   width: Calc(200px - 24px);
-  margin: 100px 0 100px 200px;
-  float: left;
 }
 .option:hover{
   border: darkgoldenrod 12px double;

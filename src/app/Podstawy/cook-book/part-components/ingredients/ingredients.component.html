@@ -1,6 +1,6 @@
 <div class='container'>
   <div class='headerButtons' *ngIf='edit'>
-    <app-add-ingredient (addProduct)='addProduct($event)'></app-add-ingredient>
+    <app-add-ingredient (addProduct)='addProduct($event)' (prodMeasureDeleted)='deleteProdMeasure($event)'></app-add-ingredient>
   </div>
   <div>
     <span *ngIf='edit' [formGroup]='model' class='table'>

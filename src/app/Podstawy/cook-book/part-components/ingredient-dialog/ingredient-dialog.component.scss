@@ -67,8 +67,9 @@
   }
 }
 .gridTable{
+  color: white;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 50px;
   //width: 700px;
   column-gap: 10px;
   row-gap: 10px;

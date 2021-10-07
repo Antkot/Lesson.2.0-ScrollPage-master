@@ -14,6 +14,7 @@ export class AddIngredientComponent {
   }
 
   @Output() addProduct = new EventEmitter();
+  @Output() prodMeasureDeleted = new EventEmitter();
 
   openDialog() {
     const dialogRef = this.dialog.open(IngredientDialogComponent, { panelClass: 'dialog-container-custom' });
@@ -21,6 +22,10 @@ export class AddIngredientComponent {
       console.log('Dialog result:');
       console.table(result);
       this.addProduct.emit(result);
+    });
+    dialogRef.componentInstance.prodMeasureDeleted.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result) => {
+      console.table(result);
+      this.prodMeasureDeleted.emit(result);
     });
     dialogRef.componentInstance.close.pipe(takeUntil(dialogRef.afterClosed())).subscribe(() => {
       dialogRef.close();
