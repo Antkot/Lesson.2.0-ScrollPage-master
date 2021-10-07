@@ -9,13 +9,16 @@ import { filter, first, map, tap } from 'rxjs/operators';
 import { AllergensStorageService } from '../services/allergens-storage.service';
 import { forEach } from 'lodash';
 import { LocalStorageService } from '../services/local-storage-service';
+import { AliveState } from '../../../../ActiveState';
 
 @Component({
   selector: 'app-ingredient-dialog',
   templateUrl: './ingredient-dialog.component.html',
   styleUrls: ['./ingredient-dialog.component.scss']
 })
-export class IngredientDialogComponent implements OnInit {
+export class IngredientDialogComponent
+  extends AliveState
+  implements OnInit {
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   products$: Observable<Array<Product>> = this.productService.products$;
   allergens$: Observable<Array<Hash>> = this.allergenService.allergens$;
@@ -43,54 +46,26 @@ export class IngredientDialogComponent implements OnInit {
     private measureService: MeasuresStorageService,
     private productService: ProductsStorageService,
     private fb: FormBuilder) {
-    // super();
+    super();
   }
 
   ngOnInit(): void {
-
-    // this.subscribeWhileAlive(
-
-    // );
-
     // const current = JSON.parse(this.localStorageService.getItem('measures'));
-    // this.model.valueChanges.pipe(
-    //   // filter(({ product }) => !!product),
-    //   tap(({ product }) => {
-    //     this.products$.pipe(first()).subscribe((products) => {
-    //       this.measures$.pipe(first()).subscribe((measures) => {
-    //         this.finalCombine$.next(products.find(({ name }) => name === product)
-    //           ? products.find(({ name }) => name === product)?.measures.map(({ measureId }) => ({
-    //             measureId,
-    //             name: measures.find((m) => m.measureId === measureId).name,
-    //             shortcut: measures.find((m) => m.measureId === measureId).shortcut
-    //           })) : [...current]);
-    //       });
-    //     });
-    //   })
-    // );
 
-// TO
-    // const current = JSON.parse(this.localStorageService.getItem('measures'));
-    // this.model.valueChanges.pipe(
-    //   // filter(({ product }) => !!product),
-    //   tap(({ product }) => {
-    //     this.products$.pipe(first()).subscribe((products) => {
-    //         this.finalCombine$.next(products.find(({ name }) => name === product) ?
-    //           products.find(({ name }) => name === product)?.measures.find(({ measureId }) =>
-    //           [
-    //             ...current.filter(measure => measure.measureId !== measureId)
-    //           ]
-    //           ) : []);
-    //       });
-    //   })
-    // );
-// DO TO
-
-    // this.allergens$.next(
-    //   [
-    //     ...current.filter(record => record.hashId !== deleto)
-    //   ]
-
+    this.subscribeWhileAlive(
+      this.model.valueChanges.pipe(
+        // filter(({ product }) => !!product),
+        tap(({ product }) => {
+          this.products$.pipe(first()).subscribe((products) => {
+            this.measures$.pipe(first()).subscribe((measures) => {
+              this.finalCombine$.next(measures.filter(({ measureId }) =>
+                !products.find(({ name }) => name === product) || (!products.find(({ name }) => name === product)
+                  .measures.find((m) => m.measureId === measureId))));
+            });
+          });
+        })
+      )
+    );
 
     this.model.valueChanges.subscribe(({ product, measure }) => {
       this.products$.pipe(first()).subscribe((products) => {
@@ -106,7 +81,7 @@ export class IngredientDialogComponent implements OnInit {
         }
         this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
       });
-      this.measures$.pipe(first()).subscribe((measures) => {
+      this.finalCombine$.pipe(first()).subscribe((measures) => {
         let measuresResult = null;
         if (measure?.length > 0 && measure) {
           const options = {

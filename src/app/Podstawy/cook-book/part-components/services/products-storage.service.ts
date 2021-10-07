@@ -100,7 +100,7 @@ export class ProductsStorageService {
 
   deleteProdMeasure([givenMeasureId, productId]) {
     console.log('usuwana miara ', givenMeasureId, ' z produktu ', productId);
-    const current = JSON.parse(this.localStorageService.getItem('products'));
+    const current: Array<Product> = JSON.parse(this.localStorageService.getItem('products'));
 
     // this.products$.next(
     //   [
@@ -110,10 +110,10 @@ export class ProductsStorageService {
 
     this.products$.next(current.map(({ measures, ...value }) => ({
       ...value,
-      measures: value.productId === productId ? [...measures.filter( measureId => measureId !== givenMeasureId)] : measures
+      measures: value.productId === productId ? measures.filter( ({ measureId }) => measureId !== givenMeasureId) : measures
     })));
-    this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
 
+    this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
   }
 
 }

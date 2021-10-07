@@ -20,6 +20,9 @@
      <input matInput type='text' [matAutocomplete]='autoMeasure' [matAutocompleteDisabled]='false'
             formControlName='measure' />
         </mat-form-field>
+<!--        <mat-form-field>-->
+<!--      <input formControlName='measure'/>-->
+<!--        </mat-form-field>-->
             <button mat-button (click)='newUsedProduct()' [disabled]='model.invalid' class='middle_button'>Dodaj</button>
     </span>
     <div class='table'>
@@ -40,7 +43,10 @@
           {{((((product.usedProductId | usedProductConnector) | async).measuresId) | measuresTranslator) | async}}
         </div>
         <div class='grid-item'>
-          {{(((((product.usedProductId | usedProductConnector) | async).measuresId) | productMeasureConnector: ((product.usedProductId | usedProductConnector) | async).productId) | async) |multiplication: (((product.usedProductId | usedProductConnector) | async).amount)}}
+          {{(((((product.usedProductId | usedProductConnector) | async).measuresId)
+          | productMeasureConnector: ((product.usedProductId | usedProductConnector)
+          | async).productId) | async) |multiplication: (((product.usedProductId
+          | usedProductConnector) | async).amount)}}
         </div>
       </div>
     </div>

@@ -34,6 +34,7 @@ export class IngredientsComponent
   model = this.fb.group({
     product: ['', [Validators.required, Validators.minLength(1)]],
     measure: ['', [Validators.required, Validators.minLength(1)]],
+    // amount: ['', [this.model.value.product.length === 0,  Validators.required, Validators.min(1)]]
     amount: ['', [Validators.required, Validators.min(1)]]
   });
   chosenProd$ = new BehaviorSubject<boolean>(false);
@@ -47,13 +48,6 @@ export class IngredientsComponent
   }
 
   ngOnInit() {
-    // this.subscribeWhileAlive(
-    //   tap(({ product }) => {
-    //     this.products$.pipe(first()).subscribe((products) => {
-    //       this.chosenProd$.next(
-    //         products.find(({ name }) => name === product) ? [true] : [false];
-    //         });
-    //   }));
 
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
@@ -67,9 +61,17 @@ export class IngredientsComponent
                   name: measures.find((m) => m.measureId === measureId).name,
                   shortcut: measures.find((m) => m.measureId === measureId).shortcut
                 })) : []);
+
+
+                  // this.products$.pipe(first()).subscribe((products) => {
+                  //   this.chosenProd$.next(
+                  //     products.find(({ name }) => name === product) ? [true] : [false];
+                  //     });
+
               // Tutaj
-              products.find(({ name }) => name === product)?.measures.includes(measure)
-                ? console.log('Kopia miary wprowadzona!') : console.log('Nowa miara');
+              // console.log(111111, measure);
+              // products.find(({ name }) => name === product)?.measures.includes(measure)
+              //   ? console.log('Kopia miary wprowadzona!') : console.log('Nowa miara');
             });
           });
         })
