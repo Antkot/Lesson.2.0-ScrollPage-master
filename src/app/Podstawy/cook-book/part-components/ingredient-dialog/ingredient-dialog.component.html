@@ -14,7 +14,7 @@
       <mat-form-field appearance='outline'>
         <mat-label>Miara</mat-label>
         <input matInput type='text' [matAutocomplete]='autoMeasure' [matAutocompleteDisabled]='false'
-               formControlName='measure' />
+               formControlName='measure'/>
       </mat-form-field>
     </div>
     <div class='twoInputs'>
@@ -33,7 +33,10 @@
     </div>
   </ng-container>
   <ng-container class='buttonDiv'>
-    <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid'>Dodaj</button>
+    <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid' *ngIf='!isMeasureDuplicated'>Dodaj</button>
+  </ng-container>
+  <ng-container class='buttonDiv'>
+    <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid' *ngIf='isMeasureDuplicated'>Edytuj</button>
   </ng-container>
   <br />
   <div class='gridTable'>

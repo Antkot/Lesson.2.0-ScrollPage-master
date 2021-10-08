@@ -14,7 +14,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatOptionModule } from '@angular/material/core';
+import { MatOptionModule, MatRippleModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ListedComponent } from './part-components/listed/listed.component';
 import { SorterComponent } from './part-components/sorter/sorter.component';
@@ -129,6 +129,7 @@ const links = [
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
+    MatRippleModule
   ],
   entryComponents: [
     IngredientDialogComponent

@@ -3,7 +3,7 @@ import * as cuid from 'cuid';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Measure, Product } from '../../types';
 import { LocalStorageService } from './local-storage-service';
-import { first, map } from 'rxjs/operators';
+import { find, first, map } from 'rxjs/operators';
 import { MeasuresStorageService } from './measures-storage.service';
 import { async } from '@angular/core/testing';
 
@@ -98,21 +98,29 @@ export class ProductsStorageService {
     this.products$.pipe(first()).subscribe(value => console.log('Dodano nowy produkt, zapisano', value));
   }
 
-  deleteProdMeasure([givenMeasureId, productId]) {
-    console.log('usuwana miara ', givenMeasureId, ' z produktu ', productId);
+  deleteProdMeasure([givenMeasureId, givenProductId]) {
+    console.log('usuwana miara ', givenMeasureId, ' z produktu ', givenProductId);
     const current: Array<Product> = JSON.parse(this.localStorageService.getItem('products'));
-
-    // this.products$.next(
-    //   [
-    //     ...current.filter(product => product.productId !== productId)
-    //   ]
-    // );
-
     this.products$.next(current.map(({ measures, ...value }) => ({
       ...value,
-      measures: value.productId === productId ? measures.filter( ({ measureId }) => measureId !== givenMeasureId) : measures
+      measures: value.productId === givenProductId ? measures.filter(({ measureId }) => measureId !== givenMeasureId) : measures
     })));
-
+    const length$ = this.products$.pipe(
+      map((measure) => {
+        return measure.find(
+          ({ productId }) =>
+            productId === givenProductId
+        ).measures.length;
+      }));
+    let value;
+    length$.pipe(first()).subscribe(data => (value = data));
+    if (value === 0) {
+      this.products$.next(
+        [
+          ...current.filter(product => product.productId !== givenProductId)
+        ]
+      );
+    }
     this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
   }
 

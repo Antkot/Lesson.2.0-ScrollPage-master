@@ -7,11 +7,12 @@ import { TagsStorageService } from '../services/tags-storage.service';
 import { MeasuresStorageService } from '../services/measures-storage.service';
 import * as cuid from 'cuid';
 import { FormBuilder, Validators } from '@angular/forms';
-import { filter, first, map, tap } from 'rxjs/operators';
+import { filter, first, map, take, takeUntil, tap } from 'rxjs/operators';
 import Fuse from 'fuse.js';
-import { forEach, result } from 'lodash';
+import { cloneDeep, forEach, result } from 'lodash';
 import { number } from '@storybook/addon-knobs';
 import { AliveState } from '../../../../ActiveState';
+import { stringify } from 'querystring';
 
 
 @Component({
@@ -33,12 +34,20 @@ export class IngredientsComponent
   autoMeasure$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
   model = this.fb.group({
     product: ['', [Validators.required, Validators.minLength(1)]],
-    measure: ['', [Validators.required, Validators.minLength(1)]],
+    measure: ['Wpisz produkt', [Validators.required, Validators.minLength(1)]],
     // amount: ['', [this.model.value.product.length === 0,  Validators.required, Validators.min(1)]]
     amount: ['', [Validators.required, Validators.min(1)]]
   });
   chosenProd$ = new BehaviorSubject<boolean>(false);
   finalCombine$ = new BehaviorSubject<Array<Measure>>([]);
+  typedMeasureId;
+  productFromList: boolean;
+  isMeasureDuplicated: boolean;
+  modelClone: {
+    product: string,
+    measure?: string,
+    amount: string,
+  } = { product: '', amount: ''};
 
   constructor(
     private productsService: ProductsStorageService,
@@ -48,30 +57,43 @@ export class IngredientsComponent
   }
 
   ngOnInit() {
-
+    this.model.controls[`measure`].disable();
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
-        // filter(({ product }) => !!product),
-        tap(({ product, measure }) => {
+        take(5),
+        filter((value) => this.modelClone.product !== value.product || (value?.measure && this.modelClone?.measure !== value.measure)),
+        tap((value) => {
           this.products$.pipe(first()).subscribe((products) => {
             this.measures$.pipe(first()).subscribe((measures) => {
-              this.finalCombine$.next(products.find(({ name }) => name === product)
-                ? products.find(({ name }) => name === product)?.measures.map(({ measureId }) => ({
+              this.finalCombine$.next(products.find(({ name }) => name === value.product)
+                ? products.find(({ name }) => name === value.product)?.measures.map(({ measureId }) => ({
                   measureId,
                   name: measures.find((m) => m.measureId === measureId).name,
                   shortcut: measures.find((m) => m.measureId === measureId).shortcut
                 })) : []);
-
-
-                  // this.products$.pipe(first()).subscribe((products) => {
-                  //   this.chosenProd$.next(
-                  //     products.find(({ name }) => name === product) ? [true] : [false];
-                  //     });
-
-              // Tutaj
-              // console.log(111111, measure);
-              // products.find(({ name }) => name === product)?.measures.includes(measure)
-              //   ? console.log('Kopia miary wprowadzona!') : console.log('Nowa miara');
+              this.productFromList = !!(products.find(({ name }) => name === value.product)?.name);
+              // console.log('Poprawny produkt:  ', this.productFromList);
+              this.typedMeasureId = measures.find(({ name }) => name === value?.measure)?.measureId;
+              // console.log('nasz product to ');
+              console.log('Oryginał');
+              // console.table(value);
+              if (this.productFromList) {
+                // console.log(product);
+                // this.model.controls[`measure`].enable();
+                console.log(22222222);
+                this.model.controls[`measure`].reset();
+                return;
+                // this.model.controls[`measure`].setValue('' );
+              } else if (!!value?.measure) {
+                console.log(333333333);
+                // this.model.controls[`measure`].setValue('Wpisz produkt');
+                this.model.controls[`measure`].disable();
+              }
+              this.isMeasureDuplicated = !!products.find(({ name }) => name === value.product)?.measures
+                .find(({ measureId }) => measureId === this.typedMeasureId);
+              this.modelClone = { ...value};
+              console.log('Kopia');
+              // console.table(this.modelClone);
             });
           });
         })
@@ -115,9 +137,14 @@ export class IngredientsComponent
 
   }
 
+  disabled() {
+    return false;
+  }
+
   addProduct(newProduct) {
     this.addedProduct.emit(newProduct);
   }
+
   deleteProdMeasure([measureId, productId]) {
     this.prodMeasureDeleted.emit([measureId, productId]);
   }

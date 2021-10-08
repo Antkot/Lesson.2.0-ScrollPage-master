@@ -3,6 +3,12 @@
     <app-add-ingredient (addProduct)='addProduct($event)' (prodMeasureDeleted)='deleteProdMeasure($event)'></app-add-ingredient>
   </div>
   <div>
+    <div class='table'>
+      <div class='grid-item'><h4>Produkt</h4></div>
+      <div class='grid-item'><h4>ilość</h4></div>
+      <div class='grid-item'><h4>Miara</h4></div>
+      <div class='grid-item'><h4>kcal</h4></div>
+    </div>
     <span *ngIf='edit' [formGroup]='model' class='table'>
         <ng-container class='mat-typography' [formGroup]='model'>
           <mat-form-field appearance='outline' class='listedOptions'>
@@ -20,17 +26,13 @@
      <input matInput type='text' [matAutocomplete]='autoMeasure' [matAutocompleteDisabled]='false'
             formControlName='measure' />
         </mat-form-field>
-<!--        <mat-form-field>-->
-<!--      <input formControlName='measure'/>-->
-<!--        </mat-form-field>-->
-            <button mat-button (click)='newUsedProduct()' [disabled]='model.invalid' class='middle_button'>Dodaj</button>
+      <!--        <mat-form-field>-->
+      <!--      <input formControlName='measure'/>-->
+      <!--        </mat-form-field>-->
+      {{productFromList}}
+            <button mat-button (click)='newUsedProduct()' [disabled]='model.invalid' class='middle_button' *ngIf='isMeasureDuplicated'>Dodaj</button>
+            <button mat-button  disabled class='middle_button' *ngIf='!isMeasureDuplicated'>Dodaj</button>
     </span>
-    <div class='table'>
-      <div class='grid-item'><h4>Produkt</h4></div>
-      <div class='grid-item'><h4>ilość</h4></div>
-      <div class='grid-item'><h4>Miara</h4></div>
-      <div class='grid-item'><h4>kcal</h4></div>
-    </div>
     <div class='colorizer'>
       <div class='table' *ngFor='let product of products'>
         <div class='grid-item'>

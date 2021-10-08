@@ -20,8 +20,8 @@
            routerLinkActive='active' [state]='{ edit: false }'>
       <h1>{{dish.name}}</h1>
       </div>
-      <div class='recMenu'  [matMenuTriggerFor]="menu" >
-      <button mat-icon-button class='topRight'>
+      <div class='recMenu'  [matMenuTriggerFor]="menu"  matRipple >
+      <button  class='topRight'>
         <mat-icon class='menuIcon'>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">

@@ -3,7 +3,7 @@ import { MeasuresStorageService } from '../services/measures-storage.service';
 import { Dish, Hash, Measure, Product } from '../../types';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { ProductsStorageService } from '../services/products-storage.service';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import Fuse from 'fuse.js';
 import { filter, first, map, tap } from 'rxjs/operators';
 import { AllergensStorageService } from '../services/allergens-storage.service';
@@ -31,14 +31,16 @@ export class IngredientDialogComponent
   selectedProductId: string;
   selectedMeasureId: string;
   selectedMeasureKcal: number;
-
   model = this.fb.group({
+    // name: new FormControl({ value: '', disabled: this.disabled }),
     product: ['', [Validators.required, Validators.minLength(1)]],
     allergens: [[]],
     kcal: ['', [Validators.required, Validators.min(0)]],
     measure: ['', [Validators.required, Validators.minLength(1)]]
   });
   finalCombine$ = new BehaviorSubject<Array<Measure>>([]);
+  typedMeasureId;
+  isMeasureDuplicated: boolean;
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -55,32 +57,57 @@ export class IngredientDialogComponent
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         // filter(({ product }) => !!product),
-        tap(({ product }) => {
+        tap(({ product, allergens, kcal, measure }) => {
           this.products$.pipe(first()).subscribe((products) => {
             this.measures$.pipe(first()).subscribe((measures) => {
               this.finalCombine$.next(measures.filter(({ measureId }) =>
                 !products.find(({ name }) => name === product) || (!products.find(({ name }) => name === product)
                   .measures.find((m) => m.measureId === measureId))));
             });
+
+
+            // this.products$.pipe(first()).subscribe((products) => {
+            //   if (!!products.find(({ name }) => name === product)) {
+            //     this.model.setValue({
+            //       product,
+            //       allergens: [allergens, (products.find(({ name }) => name === product).allergens)],
+            //       kcal,
+            //       measure
+            //     });
+            //   }
+            // });
+
+
+
+            this.measures$.pipe(first()).subscribe((measures) => {
+              this.typedMeasureId = measures.find(({ name }) => name === measure)?.measureId;
+            });
+
+            let productsResult = null;
+            if (product?.length > 0 && product) {
+              const options = {
+                keys: ['name']
+              };
+              const fuse = new Fuse(products, options);
+              productsResult = fuse.search(product).map(({ item }) => item);
+            } else {
+              productsResult = products;
+            }
+            this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
+            console.log(111111111, this.typedMeasureId);
+            products.find(({ name }) => name === product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
+              ? console.log('Kopia miary wprowadzona! - zmiana przycisku') : console.log('Nowa miara');
+            products.find(({ name }) => name === product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
+              ? this.isMeasureDuplicated = true : this.isMeasureDuplicated = false;
           });
         })
       )
     );
 
-    this.model.valueChanges.subscribe(({ product, measure }) => {
-      this.products$.pipe(first()).subscribe((products) => {
-        let productsResult = null;
-        if (product?.length > 0 && product) {
-          const options = {
-            keys: ['name']
-          };
-          const fuse = new Fuse(products, options);
-          productsResult = fuse.search(product).map(({ item }) => item);
-        } else {
-          productsResult = products;
-        }
-        this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
-      });
+    this.model.valueChanges.subscribe(({ product, measure, allergens, kcal }) => {
+      // this.products$.pipe(first()).subscribe((products) => {
+      //
+      // });
       this.finalCombine$.pipe(first()).subscribe((measures) => {
         let measuresResult = null;
         if (measure?.length > 0 && measure) {
@@ -95,13 +122,6 @@ export class IngredientDialogComponent
         this.autoMeasure$.next(measuresResult.map(({ name, measureId }) => ({ name, measureId })));
       });
 
-      // const current = this.model.value.allergens;
-      // this.products$.pipe(first()).subscribe((products) => {
-      //    (products.find(({ name }) => name === product) ? this.model.value.allergens.setValue(
-      //      [
-      //        ...current, (products.find(({ name }) => name === product).allergens)
-      //      ])
-      //    )});
 
 
     });
