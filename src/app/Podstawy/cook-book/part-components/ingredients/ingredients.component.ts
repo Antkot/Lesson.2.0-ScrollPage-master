@@ -47,7 +47,8 @@ export class IngredientsComponent
     product: string,
     measure?: string,
     amount: string,
-  } = { product: '', amount: ''};
+  } = { product: '', amount: '' };
+  ignoreChange = false;
 
   constructor(
     private productsService: ProductsStorageService,
@@ -60,7 +61,7 @@ export class IngredientsComponent
     this.model.controls[`measure`].disable();
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
-        take(5),
+        take(15),
         filter((value) => this.modelClone.product !== value.product || (value?.measure && this.modelClone?.measure !== value.measure)),
         tap((value) => {
           this.products$.pipe(first()).subscribe((products) => {
@@ -71,29 +72,30 @@ export class IngredientsComponent
                   name: measures.find((m) => m.measureId === measureId).name,
                   shortcut: measures.find((m) => m.measureId === measureId).shortcut
                 })) : []);
-              this.productFromList = !!(products.find(({ name }) => name === value.product)?.name);
-              // console.log('Poprawny produkt:  ', this.productFromList);
-              this.typedMeasureId = measures.find(({ name }) => name === value?.measure)?.measureId;
-              // console.log('nasz product to ');
-              console.log('Oryginał');
-              // console.table(value);
-              if (this.productFromList) {
-                // console.log(product);
-                // this.model.controls[`measure`].enable();
-                console.log(22222222);
-                this.model.controls[`measure`].reset();
-                return;
-                // this.model.controls[`measure`].setValue('' );
-              } else if (!!value?.measure) {
-                console.log(333333333);
-                // this.model.controls[`measure`].setValue('Wpisz produkt');
-                this.model.controls[`measure`].disable();
+              if (!this.ignoreChange) {
+                console.log(this.ignoreChange);
+                this.ignoreChange = false;
+                this.productFromList = !!(products.find(({ name }) => name === value.product)?.name);
+                this.typedMeasureId = measures.find(({ name }) => name === value?.measure)?.measureId;
+                console.log('Oryginał');
+                if (this.productFromList) {
+                  console.log(22222222);
+                  this.ignoreChange = true;
+                  this.model.controls[`measure`].enable();
+                  this.ignoreChange = true;
+                  this.model.controls[`measure`].reset();
+                } else if (!!value?.measure) {
+                  console.log(333333333);
+                  this.ignoreChange = true;
+                  this.model.controls[`measure`].setValue('Wpisz produkt');
+                  this.ignoreChange = true;
+                  this.model.controls[`measure`].disable();
+                }
+                this.isMeasureDuplicated = !!products.find(({ name }) => name === value.product)?.measures
+                  .find(({ measureId }) => measureId === this.typedMeasureId);
+                this.modelClone = { ...value };
+                console.log('Kopia');
               }
-              this.isMeasureDuplicated = !!products.find(({ name }) => name === value.product)?.measures
-                .find(({ measureId }) => measureId === this.typedMeasureId);
-              this.modelClone = { ...value};
-              console.log('Kopia');
-              // console.table(this.modelClone);
             });
           });
         })
