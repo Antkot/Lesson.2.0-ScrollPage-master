@@ -3,7 +3,6 @@
     close
   </span>
   <h2 mat-dialog-title>Dodawanie Składnika</h2>
-
   <ng-container class='mat-typography' [formGroup]='model'>
     <div class='twoInputs'>
       <mat-form-field appearance='outline'>
@@ -44,6 +43,8 @@
     <div>Miary</div>
     <div>Alergeny</div>
     <div></div>
+  </div>
+  <div class='errors'>
   </div>
   <mat-dialog-content class='mat-typography'>
       <div class='gridTable tableBorder' *ngFor='let product of products$ | async'>

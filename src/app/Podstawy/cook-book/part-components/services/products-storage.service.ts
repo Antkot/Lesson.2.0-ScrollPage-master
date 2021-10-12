@@ -15,6 +15,7 @@ export class ProductsStorageService {
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   typedMeasureId = '';
   typedProductId = '';
+  data;
 
   constructor(private localStorageService: LocalStorageService, private measureService: MeasuresStorageService) {
     if (!!localStorage.products) {
@@ -29,8 +30,13 @@ export class ProductsStorageService {
   }
 
   addProduct(addedProduct) {
-    console.log(addedProduct.measure); // TU JEST DOBRA MIARA
-    console.log(1, addedProduct.kcal);
+    const isMeasureDuplicated = addedProduct.duplicateState;
+    addedProduct = addedProduct.value;
+    // console.log('UWAAGA');
+    // console.log(addedProduct);
+    // console.log('isMeasureDuplicated', isMeasureDuplicated);
+    // console.log(addedProduct.measure); // TU JEST DOBRA MIARA
+    // console.log(1, addedProduct.kcal);
     // this.products$.pipe(first()).subscribe(value => console.log('Product-1', value));
     const current = JSON.parse(this.localStorageService.getItem('products'));
     let typedMeasureId$ = this.measures$.pipe(
@@ -40,9 +46,7 @@ export class ProductsStorageService {
             name === addedProduct.measure
         )?.measureId;
       }));
-    typedMeasureId$.pipe(first()).subscribe(value =>
-      console.log('Sprawdzanie ID miary: ', this.typedMeasureId = value)
-    );
+    typedMeasureId$.pipe(first()).subscribe(value => this.typedMeasureId = value);
     if (!this.typedMeasureId) {
       this.measureService.addMeasure(addedProduct.measure);
       typedMeasureId$ = this.measures$.pipe(
@@ -72,22 +76,42 @@ export class ProductsStorageService {
       this.typedProductId = cuid();
       // console.log('Stworzono nowe ID produktu: ', this.typedProductId);
     } else {
-      console.log('3!'); // to się dzieje
-      this.products$.next(current.map(({ measures, ...value }) => ({
-        ...value,
-        measures: value.productId === this.typedProductId ? [...measures, {
-          measureId: this.typedMeasureId,
-          kcal: addedProduct.kcal
-        }] : measures
-      })));
+      // console.log('3!'); // to się dzieje
+      if (isMeasureDuplicated) {
+        const someId = this.measures$.pipe(
+          map((measure) => {
+            return measure.find(
+              ({ name }) =>
+                name === addedProduct.measure
+            ).measureId;
+          }));
+        someId.subscribe(event => this.data = event);
+        this.products$.next(current.map(({ measures, allergens, ...value }) => ({
+          ...value,
+          allergens: addedProduct.allergens,
+          measures: value.productId === this.typedProductId ? [...measures.map(({ measureId, kcal }) => ({
+              measureId,
+              kcal: measureId === this.data ? addedProduct.kcal : kcal
+            }
+          ))] : measures
+        })));
+      } else {
+        this.products$.next(current.map(({ measures, allergens, ...value }) => ({
+          ...value,
+          allergens: addedProduct.allergens,
+          measures: value.productId === this.typedProductId ? [...measures, {
+            measureId: this.typedMeasureId,
+            kcal: addedProduct.kcal
+          }] : measures
+        })));
+      }
       this.localStorageService.setItem('products', JSON.stringify(this.products$.value)); /*error*/
-      console.log('Dany produkt istnieje');
-      this.products$.pipe(first()).subscribe(value => console.log('Edytowano miary produktu', value));
+      // this.products$.pipe(first()).subscribe(value => console.log('Edytowano miary produktu', value));
       return;
     }
-    console.log('4!'); // to się nei dzieje
+    // console.log('4!'); // to się nei dzieje
     // tworzy nowe productID
-    console.log(2, addedProduct.kcal); // nie dzieje sie
+    // console.log(2, addedProduct.kcal); // nie dzieje sie
     this.products$.next([...current, {
       productId: this.typedProductId,
       name: addedProduct.product,
@@ -95,11 +119,11 @@ export class ProductsStorageService {
       allergens: addedProduct.allergens
     }]);
     this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
-    this.products$.pipe(first()).subscribe(value => console.log('Dodano nowy produkt, zapisano', value));
+    // this.products$.pipe(first()).subscribe(value => console.log('Dodano nowy produkt, zapisano', value));
   }
 
   deleteProdMeasure([givenMeasureId, givenProductId]) {
-    console.log('usuwana miara ', givenMeasureId, ' z produktu ', givenProductId);
+    // console.log('usuwana miara ', givenMeasureId, ' z produktu ', givenProductId);
     const current: Array<Product> = JSON.parse(this.localStorageService.getItem('products'));
     this.products$.next(current.map(({ measures, ...value }) => ({
       ...value,

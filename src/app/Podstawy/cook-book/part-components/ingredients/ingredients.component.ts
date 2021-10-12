@@ -38,7 +38,6 @@ export class IngredientsComponent
     // amount: ['', [this.model.value.product.length === 0,  Validators.required, Validators.min(1)]]
     amount: ['', [Validators.required, Validators.min(1)]]
   });
-  chosenProd$ = new BehaviorSubject<boolean>(false);
   finalCombine$ = new BehaviorSubject<Array<Measure>>([]);
   typedMeasureId;
   productFromList: boolean;
@@ -48,7 +47,6 @@ export class IngredientsComponent
     measure?: string,
     amount: string,
   } = { product: '', amount: '' };
-  ignoreChange = false;
 
   constructor(
     private productsService: ProductsStorageService,
@@ -58,12 +56,16 @@ export class IngredientsComponent
   }
 
   ngOnInit() {
-    this.model.controls[`measure`].disable();
+    // this.model.controls[`measure`].disable();
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
-        take(15),
+        take(100),   // działa ? xD
+        // zmiana musi być na this.model
         filter((value) => this.modelClone.product !== value.product || (value?.measure && this.modelClone?.measure !== value.measure)),
         tap((value) => {
+          console.log(111111111111111);
+          console.table(value);
+          console.table(this.model.value);
           this.products$.pipe(first()).subscribe((products) => {
             this.measures$.pipe(first()).subscribe((measures) => {
               this.finalCombine$.next(products.find(({ name }) => name === value.product)
@@ -72,30 +74,46 @@ export class IngredientsComponent
                   name: measures.find((m) => m.measureId === measureId).name,
                   shortcut: measures.find((m) => m.measureId === measureId).shortcut
                 })) : []);
-              if (!this.ignoreChange) {
-                console.log(this.ignoreChange);
-                this.ignoreChange = false;
-                this.productFromList = !!(products.find(({ name }) => name === value.product)?.name);
-                this.typedMeasureId = measures.find(({ name }) => name === value?.measure)?.measureId;
-                console.log('Oryginał');
-                if (this.productFromList) {
-                  console.log(22222222);
-                  this.ignoreChange = true;
-                  this.model.controls[`measure`].enable();
-                  this.ignoreChange = true;
-                  this.model.controls[`measure`].reset();
-                } else if (!!value?.measure) {
-                  console.log(333333333);
-                  this.ignoreChange = true;
-                  this.model.controls[`measure`].setValue('Wpisz produkt');
-                  this.ignoreChange = true;
-                  this.model.controls[`measure`].disable();
-                }
-                this.isMeasureDuplicated = !!products.find(({ name }) => name === value.product)?.measures
-                  .find(({ measureId }) => measureId === this.typedMeasureId);
-                this.modelClone = { ...value };
-                console.log('Kopia');
+
+              console.log('czy działa?');
+              this.isMeasureDuplicated = !!products.find(({ name }) => name === value.product)?.measures
+                .find(({ measureId }) => measureId === this.typedMeasureId);
+              console.log('duplikat miary: ');
+              console.log(products.find(({ name }) => name === value.product)?.measures
+                .find(({ measureId }) => measureId === this.typedMeasureId));
+              //
+
+
+              this.productFromList = !!(products.find(({ name }) => name === value.product)?.name);
+              this.typedMeasureId = measures.find(({ name }) => name === value?.measure)?.measureId;
+              console.log('stworzoną kopię');
+              this.modelClone = { ...value };
+              if (this.productFromList) {
+                console.log('produkt z listy');
+                // return this.funkcja();
+                // jednak nie działa
+              } else if (!!value?.measure) {
+                console.log('istnieje miara');
+                this.model.controls[`measure`].setValue('Wpisz produkt', { emitEvent: false });
+              } else {
+                console.log('brak miary i listy');
               }
+              console.log('Długość tablicy: ');
+              console.log(products.find(({ name }) => name === value.product)?.measures.length);
+              if (products.find(({ name }) => name === value.product)?.measures.length === 1) {
+
+                const onlyMeasureName$ = this.measures$.pipe(
+                  map((measure) => {
+                    return measure.find(
+                      ({ measureId }) =>
+                        measureId === products.find(({ name }) => name === value.product)?.measures[0].measureId
+                    ).name;
+                  }));
+                let onlyMeasureName;
+                onlyMeasureName$.subscribe(event => onlyMeasureName = event);
+                this.model.controls[`measure`].setValue(onlyMeasureName, { emitEvent: false });
+              }
+
             });
           });
         })
@@ -138,6 +156,19 @@ export class IngredientsComponent
     this.model.reset();
 
   }
+
+  funkcja() {
+    console.log('funkcja');
+    this.model.controls[`measure`].enable({
+      onlySelf: true,
+      emitEvent: false
+    });
+    this.model.controls[`measure`].reset({
+      onlySelf: true,
+      emitEvent: false
+    });
+  }
+
 
   disabled() {
     return false;

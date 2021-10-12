@@ -5,7 +5,7 @@ import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { ProductsStorageService } from '../services/products-storage.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import Fuse from 'fuse.js';
-import { filter, first, map, tap } from 'rxjs/operators';
+import { filter, first, map, take, tap } from 'rxjs/operators';
 import { AllergensStorageService } from '../services/allergens-storage.service';
 import { forEach } from 'lodash';
 import { LocalStorageService } from '../services/local-storage-service';
@@ -65,18 +65,19 @@ export class IngredientDialogComponent
                   .measures.find((m) => m.measureId === measureId))));
             });
 
-
-            // this.products$.pipe(first()).subscribe((products) => {
-            //   if (!!products.find(({ name }) => name === product)) {
-            //     this.model.setValue({
-            //       product,
-            //       allergens: [allergens, (products.find(({ name }) => name === product).allergens)],
-            //       kcal,
-            //       measure
-            //     });
-            //   }
-            // });
-
+            this.products$.pipe(first()).subscribe((products) => {
+              if (!!products.find(({ name }) => name === product)) {
+                this.model.setValue({
+                  product,
+                  allergens: [(products.find(({ name }) => name === product).allergens)],
+                  kcal,
+                  measure
+                }, {emitEvent: false});
+              }
+            });
+            //
+            console.log('TU PACZ MODEL (Jest)');
+            console.log(this.model.value.allergens);
 
 
             this.measures$.pipe(first()).subscribe((measures) => {
@@ -128,7 +129,7 @@ export class IngredientDialogComponent
   }
 
   newProduct() {
-    this.addProduct.emit(this.model.value);
+    this.addProduct.emit({ value: this.model.value, duplicateState: this.isMeasureDuplicated });
     this.model.reset();
   }
 
