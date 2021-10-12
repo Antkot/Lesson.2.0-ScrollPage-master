@@ -38,14 +38,16 @@
     <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid' *ngIf='isMeasureDuplicated'>Edytuj</button>
   </ng-container>
   <br />
+  <div class='errors'>
+<!--    <a *ngIf='model.invalid'>Niepoprawne dane</a>-->
+  </div>
   <div class='gridTable'>
     <div>Nazwa</div>
     <div>Miary</div>
     <div>Alergeny</div>
     <div></div>
   </div>
-  <div class='errors'>
-  </div>
+
   <mat-dialog-content class='mat-typography'>
       <div class='gridTable tableBorder' *ngFor='let product of products$ | async'>
         <div>{{product.name}}</div>

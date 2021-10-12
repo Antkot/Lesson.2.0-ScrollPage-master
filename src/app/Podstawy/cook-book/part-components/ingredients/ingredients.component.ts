@@ -101,7 +101,7 @@ export class IngredientsComponent
               console.log('Długość tablicy: ');
               console.log(products.find(({ name }) => name === value.product)?.measures.length);
               if (products.find(({ name }) => name === value.product)?.measures.length === 1) {
-
+                this.isMeasureDuplicated = true;
                 const onlyMeasureName$ = this.measures$.pipe(
                   map((measure) => {
                     return measure.find(

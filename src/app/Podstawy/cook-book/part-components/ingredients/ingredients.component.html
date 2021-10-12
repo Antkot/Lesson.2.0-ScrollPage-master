@@ -26,6 +26,9 @@
             <button mat-button (click)='newUsedProduct()' [disabled]='model.invalid' class='middle_button' *ngIf='isMeasureDuplicated'>Dodaj (v)</button>
             <button mat-button  disabled class='middle_button' *ngIf='!isMeasureDuplicated'>Dodaj</button>
     </span>
+  <div class='errors'>
+<!--    <a *ngIf='model.invalid'>Niepoprawne dane</a>-->
+  </div>
   <div>
     <div class='table'>
       <div class='grid-item'><h4>Produkt</h4></div>
@@ -50,8 +53,6 @@
           | async).productId) | async) |multiplication: (((product.usedProductId
           | usedProductConnector) | async).amount)}}
         </div>
-      </div>
-      <div class='errors'>
       </div>
     </div>
   </div>

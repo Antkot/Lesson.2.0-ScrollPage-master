@@ -66,6 +66,7 @@
 }
 
 .add {
+  cursor: pointer;
   z-index: 5;
   border-radius: 0 0 50px 50px;
   position: sticky;
@@ -96,8 +97,10 @@
 }
 .menuIcon{
   font-size: 300%;
+  cursor: pointer;
 }
 .recMenu{
+  cursor: pointer;
   border: gold 12px double;
   border-radius: 0 50px 50px 0;
   background: dodgerblue;
@@ -109,6 +112,7 @@
   float: left;
 }
 .recName{
+  cursor: pointer;
   margin-right: 0;
   border: gold 12px double;
   border-right: none;
