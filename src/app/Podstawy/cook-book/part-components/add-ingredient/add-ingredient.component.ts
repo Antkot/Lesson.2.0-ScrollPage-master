@@ -18,12 +18,12 @@ export class AddIngredientComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(IngredientDialogComponent, { panelClass: 'dialog-container-custom' });
-    dialogRef.componentInstance.addProduct.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result) => {
+    dialogRef.componentInstance.addProduct.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: {duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> }}) => {
       console.log('Dialog result:');
       console.table(result);
       this.addProduct.emit(result);
     });
-    dialogRef.componentInstance.prodMeasureDeleted.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result) => {
+    dialogRef.componentInstance.prodMeasureDeleted.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: { givenMeasureId: string, givenProductId: string }) => {
       console.table(result);
       this.prodMeasureDeleted.emit(result);
     });

@@ -14,12 +14,12 @@ export class MeasuresTranslatorPipe implements PipeTransform {
   constructor(private measureService: MeasuresStorageService) {
   }
 
-  transform(value: any) {
+  transform(givenMeasureId: string) {
     return this.measures$.pipe(
       map((measure) => {
         return measure.find(
           ({ measureId }) =>
-            measureId === value
+            measureId === givenMeasureId
         ).name;
       }));
   }

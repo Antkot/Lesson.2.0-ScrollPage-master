@@ -56,10 +56,11 @@
         </a></div>
         <div>
           <a *ngFor='let allergen of product.allergens'>
+            {{allergen.allergenId}}
             {{allergen | tagNameById: 'allergen' | async}}
           </a>
         </div>
-        <div><button *ngFor='let measure of product.measures' (click)='deleteProdMeasure([measure.measureId, product.productId])'>Usuń<br/>
+        <div><button *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
         </button></div>
     </div>
   </mat-dialog-content>

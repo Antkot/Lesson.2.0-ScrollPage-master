@@ -39,8 +39,9 @@ export class IngredientDialogComponent
     measure: ['', [Validators.required, Validators.minLength(1)]]
   });
   finalCombine$ = new BehaviorSubject<Array<Measure>>([]);
-  typedMeasureId;
+  typedMeasureId = '';
   isMeasureDuplicated: boolean;
+  oldProduct = '';
 
   constructor(
     private localStorageService: LocalStorageService,
@@ -64,20 +65,10 @@ export class IngredientDialogComponent
                 !products.find(({ name }) => name === product) || (!products.find(({ name }) => name === product)
                   .measures.find((m) => m.measureId === measureId))));
             });
+            this.counter(product, allergens, kcal, measure);
 
-            this.products$.pipe(first()).subscribe((products) => {
-              if (!!products.find(({ name }) => name === product)) {
-                this.model.setValue({
-                  product,
-                  allergens: [(products.find(({ name }) => name === product).allergens)],
-                  kcal,
-                  measure
-                }, {emitEvent: false});
-              }
-            });
-            //
-            console.log('TU PACZ MODEL (Jest)');
-            console.log(this.model.value.allergens);
+            // console.log('TU PACZ MODEL (Jest)');
+            // console.log(this.model.value.allergens);
 
 
             this.measures$.pipe(first()).subscribe((measures) => {
@@ -124,17 +115,33 @@ export class IngredientDialogComponent
       });
 
 
-
     });
   }
 
+  counter(product, allergens, kcal, measure) {
+    if (this.oldProduct !== product) {
+      this.products$.pipe(first()).subscribe((products) => {
+        if (!!products.find(({ name }) => name === product)) {
+          this.model.setValue({
+            product,
+            allergens: (products.find(({ name }) => name === product).allergens),
+            kcal,
+            measure
+          }, { emitEvent: false });
+        }
+      });
+    }
+    this.oldProduct = product;
+  }
+
   newProduct() {
-    this.addProduct.emit({ value: this.model.value, duplicateState: this.isMeasureDuplicated });
+    this.addProduct.emit({ product: this.model.value, duplicateState: this.isMeasureDuplicated });
     this.model.reset();
   }
 
-  deleteProdMeasure([measureId, productId]) {
-    this.prodMeasureDeleted.emit([measureId, productId]);
+  deleteProdMeasure(measureId, productId) {
+    const bothId: { givenMeasureId: string, givenProductId: string} = { givenMeasureId: measureId, givenProductId: productId };
+    this.prodMeasureDeleted.emit(bothId);
   }
 
 }

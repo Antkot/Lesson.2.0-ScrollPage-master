@@ -70,7 +70,7 @@ export class AddRecipeComponent implements OnInit {
     this.usedProductToAdd.emit(newUsedProduct);
   }
 
-  addProduct(newProduct) {
+  addProduct(newProduct: {duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> }}) {
     this.addedProduct.emit(newProduct);
   }
 
@@ -84,8 +84,8 @@ export class AddRecipeComponent implements OnInit {
     this.typeChange.emit(this.model.value.dishType);
   }
 
-  deleteProdMeasure([measureId, productId]) {
-    this.prodMeasureDeleted.emit([measureId, productId]);
+  deleteProdMeasure(deletedMeasure: { givenMeasureId: string, givenProductId: string }) {
+    this.prodMeasureDeleted.emit(deletedMeasure);
   }
 
 }

@@ -40,25 +40,19 @@ export class UsedProductsStorageService {
     const current = JSON.parse(this.localStorageService.getItem('usedProducts'));
     const givenProduct$ = this.products$.pipe(
       map((usedProduct) => {
-        return usedProduct.find(
+        this.productId = usedProduct.find(
           ({ name }) =>
             name === addedProduct.product
         ).productId;
       }));
 
-    givenProduct$.pipe(first()).subscribe(value =>
-      this.productId = value);
-
     const givenMeasure$ = this.measures$.pipe(
       map((usedProduct) => {
-        return usedProduct.find(
+        this.measureId = usedProduct.find(
           ({ name }) =>
             name === addedProduct.measure
         ).measureId;
       }));
-
-    givenMeasure$.pipe(first()).subscribe(value =>
-      this.measureId = value);
 
     const newProd: UsedProduct = {
       usedProductId: cuid(),

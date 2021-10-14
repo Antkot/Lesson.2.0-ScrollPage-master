@@ -15,7 +15,7 @@ export class ProductsStorageService {
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   typedMeasureId = '';
   typedProductId = '';
-  data;
+  measureId = '';
 
   constructor(private localStorageService: LocalStorageService, private measureService: MeasuresStorageService) {
     if (!!localStorage.products) {
@@ -29,79 +29,57 @@ export class ProductsStorageService {
     }
   }
 
-  addProduct(addedProduct) {
-    const isMeasureDuplicated = addedProduct.duplicateState;
-    addedProduct = addedProduct.value;
-    // console.log('UWAAGA');
-    // console.log(addedProduct);
-    // console.log('isMeasureDuplicated', isMeasureDuplicated);
-    // console.log(addedProduct.measure); // TU JEST DOBRA MIARA
-    // console.log(1, addedProduct.kcal);
-    // this.products$.pipe(first()).subscribe(value => console.log('Product-1', value));
+  addProduct(addedProduct: { duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> } }) {
     const current = JSON.parse(this.localStorageService.getItem('products'));
-    let typedMeasureId$ = this.measures$.pipe(
-      map((measure) => {
-        return measure.find(
-          ({ name }) =>
-            name === addedProduct.measure
-        )?.measureId;
-      }));
-    typedMeasureId$.pipe(first()).subscribe(value => this.typedMeasureId = value);
+    this.measures$.pipe(first()).subscribe(measure => {
+      this.typedMeasureId = measure.find(
+        ({ name }) =>
+          name === addedProduct.product.measure
+      )?.measureId;
+    });
     if (!this.typedMeasureId) {
-      this.measureService.addMeasure(addedProduct.measure);
-      typedMeasureId$ = this.measures$.pipe(
-        map((measure) => {
-          return measure.find(
-            ({ name }) =>
-              name === addedProduct.measure
-          )?.measureId;
-        }));
-      typedMeasureId$.pipe(first()).subscribe(value =>
-        this.typedMeasureId = value
-      );
-      // console.log('Stworzono nowe ID miary: ', this.typedMeasureId );
-    }
-    const typedProductId$ = this.products$.pipe(
-      map((product) => {
-        return product.find(
+      this.measureService.addMeasure(addedProduct.product.measure);
+      this.measures$.pipe(first()).subscribe(measure => {
+        this.typedMeasureId = measure.find(
           ({ name }) =>
-            name === addedProduct.product
+            name === addedProduct.product.measure
+        )?.measureId;
+      });
+    }
+    this.products$.pipe(
+      map((product) => {
+        this.typedProductId = product.find(
+          ({ name }) =>
+            name === addedProduct.product.product
         )?.productId;
       }));
-    typedProductId$.pipe(first()).subscribe(value =>
-      this.typedProductId = value
-    );
-    // console.log('Sprawdzanie ID produktu: ', this.typedProductId);
     if (!this.typedProductId) {
       this.typedProductId = cuid();
-      // console.log('Stworzono nowe ID produktu: ', this.typedProductId);
     } else {
-      // console.log('3!'); // to się dzieje
-      if (isMeasureDuplicated) {
-        const someId = this.measures$.pipe(
+      if (addedProduct.duplicateState) {
+        this.measures$.pipe(
           map((measure) => {
-            return measure.find(
+            this.measureId = measure.find(
               ({ name }) =>
-                name === addedProduct.measure
+                name === addedProduct.product.measure
             ).measureId;
           }));
-        someId.subscribe(event => this.data = event);
         this.products$.next(current.map(({ measures, allergens, ...value }) => ({
           ...value,
-          allergens: addedProduct.allergens,
+          allergens: addedProduct.product.allergens,
           measures: value.productId === this.typedProductId ? [...measures.map(({ measureId, kcal }) => ({
               measureId,
-              kcal: measureId === this.data ? addedProduct.kcal : kcal
+              kcal: measureId === this.measureId ? addedProduct.product.kcal : kcal
             }
           ))] : measures
         })));
       } else {
         this.products$.next(current.map(({ measures, allergens, ...value }) => ({
           ...value,
-          allergens: addedProduct.allergens,
+          allergens: addedProduct.product.allergens,
           measures: value.productId === this.typedProductId ? [...measures, {
             measureId: this.typedMeasureId,
-            kcal: addedProduct.kcal
+            kcal: addedProduct.product.kcal
           }] : measures
         })));
       }
@@ -109,45 +87,35 @@ export class ProductsStorageService {
       // this.products$.pipe(first()).subscribe(value => console.log('Edytowano miary produktu', value));
       return;
     }
-    // console.log('4!'); // to się nei dzieje
-    // tworzy nowe productID
-    // console.log(2, addedProduct.kcal); // nie dzieje sie
     this.products$.next([...current, {
       productId: this.typedProductId,
-      name: addedProduct.product,
-      measures: [{ measureId: this.typedMeasureId, kcal: addedProduct.kcal }],
-      allergens: addedProduct.allergens
+      name: addedProduct.product.product,
+      measures: [{ measureId: this.typedMeasureId, kcal: addedProduct.product.kcal }],
+      allergens: addedProduct.product.allergens
     }]);
     this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
     // this.products$.pipe(first()).subscribe(value => console.log('Dodano nowy produkt, zapisano', value));
   }
 
-  deleteProdMeasure([givenMeasureId, givenProductId]) {
-    // console.log('usuwana miara ', givenMeasureId, ' z produktu ', givenProductId);
-    const current: Array<Product> = JSON.parse(this.localStorageService.getItem('products'));
-    this.products$.next(current.map(({ measures, ...value }) => ({
+  deleteProdMeasure(bothId: { givenMeasureId: string, givenProductId: string }) {
+    const oldProducts: Array<Product> = JSON.parse(this.localStorageService.getItem('products'));
+    let newProducts: Array<Product> = [...oldProducts.map(({ measures, ...value }) => ({
       ...value,
-      measures: value.productId === givenProductId ? measures.filter(({ measureId }) => measureId !== givenMeasureId) : measures
-    })));
-    const length$ = this.products$.pipe(
-      map((measure) => {
-        return measure.find(
-          ({ productId }) =>
-            productId === givenProductId
-        ).measures.length;
-      }));
-    let value;
-    length$.pipe(first()).subscribe(data => (value = data));
-    if (value === 0) {
-      this.products$.next(
-        [
-          ...current.filter(product => product.productId !== givenProductId)
-        ]
-      );
+      measures: value.productId === bothId.givenProductId
+        ? measures.filter(({ measureId }) => measureId !== bothId.givenMeasureId)
+        : measures
+    }))];
+      ({ productId }) =>
+        productId === bothId.givenProductId
+    ));
+    console.table(newProducts);
+    if (newProducts.find(
+      ({ productId }) =>
+        productId === bothId.givenProductId
+    ).measures.length === 0) {
+      newProducts = [...newProducts.filter(product => product.productId !== bothId.givenProductId)];
     }
+    this.products$.next([...newProducts]);
     this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
   }
-
 }
-
-// można dodać i wybrać pustą miarę, produkt, kcal

@@ -22,23 +22,21 @@ export class RecipiePageComponent implements OnInit {
   }
 
   edit$: Observable<boolean> = combineLatest([this.activatedRoute.paramMap
-    .pipe(map(() => window.history.state))]).pipe(map(([{ edit }]) => {
-    console.log('Edycja', edit);
-    return edit;
-  }));
+    .pipe(map(() => history.state))]).pipe(map(([{ edit }]) => edit));
   dishId$: Observable<string> = combineLatest([this.route.url.pipe(
     map(value => value[1].path))]).pipe(map(([dishId]) => {
     console.log('Id posiłku', dishId);
     return dishId;
   }));
   reset$: Observable<boolean> = combineLatest([this.activatedRoute.paramMap
-    .pipe(map(() => window.history.state))]).pipe(map(([{ reset }]) => {
+    .pipe(map(() => history.state))]).pipe(map(([{ reset }]) => {
     console.log('Reset', reset);
     return reset;
   }));
 
   ngOnInit(): void {
   }
+
   nameEdited(newName) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.nameChange(newName, dishId)
@@ -52,7 +50,7 @@ export class RecipiePageComponent implements OnInit {
     );
   }
 
-  addProduct(newProduct) {
+  addProduct(newProduct: { duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> } }) {
     this.productService.addProduct(newProduct);
   }
 
@@ -61,14 +59,14 @@ export class RecipiePageComponent implements OnInit {
       this.dishService.stepChange(newStepSet, dishId)
     );
   }
+
   typeEdition(dishType) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.typeChange(dishType, dishId)
     );
   }
-  deleteProdMeasure([measureId, productId]) {
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.productService.deleteProdMeasure([measureId, productId])
-    );
+
+  deleteProdMeasure(bothId: { givenMeasureId: string, givenProductId: string }) {
+    this.productService.deleteProdMeasure(bothId);
   }
 }

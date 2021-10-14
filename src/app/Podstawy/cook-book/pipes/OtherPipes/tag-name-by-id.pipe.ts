@@ -14,13 +14,13 @@ export class TagNameByIdPipe implements PipeTransform {
   tags$: Observable<Array<Hash>> = this.tagsService.tags$;
   allergens$: Observable<Array<Hash>> = this.allergenService.allergens$;
 
-  transform(value: string, x: string): any {
-    if (x === 'tags') {
+  transform(id: string, type: string) {
+    if (type === 'tags') {
       return this.tags$.pipe(
         map((tag) => {
           return tag.find(
             ({ hashId }) =>
-              hashId === value
+              hashId === id
           )?.name;
         }));
     } else {
@@ -28,7 +28,7 @@ export class TagNameByIdPipe implements PipeTransform {
         map((tag) => {
           return tag.find(
             ({ hashId }) =>
-              hashId === value
+              hashId === id
           )?.name;
         }));
     }

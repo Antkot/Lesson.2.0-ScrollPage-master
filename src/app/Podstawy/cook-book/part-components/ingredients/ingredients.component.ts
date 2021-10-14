@@ -39,7 +39,7 @@ export class IngredientsComponent
     amount: ['', [Validators.required, Validators.min(1)]]
   });
   finalCombine$ = new BehaviorSubject<Array<Measure>>([]);
-  typedMeasureId;
+  typedMeasureId: string;
   productFromList: boolean;
   isMeasureDuplicated: boolean;
   modelClone: {
@@ -47,6 +47,7 @@ export class IngredientsComponent
     measure?: string,
     amount: string,
   } = { product: '', amount: '' };
+  x;
 
   constructor(
     private productsService: ProductsStorageService,
@@ -56,16 +57,17 @@ export class IngredientsComponent
   }
 
   ngOnInit() {
-    // this.model.controls[`measure`].disable();
+    this.model.controls[`measure`].disable();
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         take(100),   // działa ? xD
         // zmiana musi być na this.model
         filter((value) => this.modelClone.product !== value.product || (value?.measure && this.modelClone?.measure !== value.measure)),
-        tap((value) => {
-          console.log(111111111111111);
-          console.table(value);
-          console.table(this.model.value);
+        tap((value: {
+          product: string,
+          measure?: string,
+          amount: string,
+        }) => {
           this.products$.pipe(first()).subscribe((products) => {
             this.measures$.pipe(first()).subscribe((measures) => {
               this.finalCombine$.next(products.find(({ name }) => name === value.product)
@@ -74,46 +76,50 @@ export class IngredientsComponent
                   name: measures.find((m) => m.measureId === measureId).name,
                   shortcut: measures.find((m) => m.measureId === measureId).shortcut
                 })) : []);
-
-              console.log('czy działa?');
               this.isMeasureDuplicated = !!products.find(({ name }) => name === value.product)?.measures
                 .find(({ measureId }) => measureId === this.typedMeasureId);
-              console.log('duplikat miary: ');
-              console.log(products.find(({ name }) => name === value.product)?.measures
-                .find(({ measureId }) => measureId === this.typedMeasureId));
-              //
+              products.find(({ name }) => name === value.product)?.measures
+                .find(({ measureId }) => measureId === this.typedMeasureId);
 
 
               this.productFromList = !!(products.find(({ name }) => name === value.product)?.name);
               this.typedMeasureId = measures.find(({ name }) => name === value?.measure)?.measureId;
-              console.log('stworzoną kopię');
               this.modelClone = { ...value };
+              console.log('this.productFromList', this.productFromList);
               if (this.productFromList) {
-                console.log('produkt z listy');
-                // return this.funkcja();
-                // jednak nie działa
-              } else if (!!value?.measure) {
-                console.log('istnieje miara');
-                this.model.controls[`measure`].setValue('Wpisz produkt', { emitEvent: false });
-              } else {
-                console.log('brak miary i listy');
-              }
-              console.log('Długość tablicy: ');
-              console.log(products.find(({ name }) => name === value.product)?.measures.length);
-              if (products.find(({ name }) => name === value.product)?.measures.length === 1) {
-                this.isMeasureDuplicated = true;
-                const onlyMeasureName$ = this.measures$.pipe(
-                  map((measure) => {
-                    return measure.find(
-                      ({ measureId }) =>
-                        measureId === products.find(({ name }) => name === value.product)?.measures[0].measureId
-                    ).name;
-                  }));
-                let onlyMeasureName;
-                onlyMeasureName$.subscribe(event => onlyMeasureName = event);
-                this.model.controls[`measure`].setValue(onlyMeasureName, { emitEvent: false });
-              }
+                let onlyMeasureName = '';
+                if (products.find(({ name }) => name === value.product)?.measures.length === 1) {
+                  console.log('lenght: ', products.find(({ name }) => name === value.product)?.measures.length);
+                  this.isMeasureDuplicated = true;
 
+                  // this.measures$.pipe(
+                  //   map((measure) => {
+                  //     const t = measure.find(
+                  //       ({ measureId }) =>
+                  //         measureId === products.find(({ name }) => name === value.product)?.measures[0].measureId
+                  //     );
+                  //     console.log('t', t);
+                  //   }));
+                  // console.log('t2', products.find(({ name }) => name === value.product)?.measures[0].measureId);
+                  //
+
+
+                  this.measures$.pipe(
+                    first()).subscribe((measure) => {
+                      onlyMeasureName = measure.find(
+                        ({ measureId }) =>
+                          measureId === products.find(({ name }) => name === value.product).measures[0].measureId
+                      ).name;
+                    });
+                  console.log('onlyMeasureName: ');
+                  console.log(onlyMeasureName);
+                }
+
+                return this.modelReset(true, onlyMeasureName);
+              } else if (!!value?.measure) {
+                return this.modelReset(false, '');
+              } else {
+              }
             });
           });
         })
@@ -151,22 +157,21 @@ export class IngredientsComponent
   }
 
   newUsedProduct() {
-    console.log('Wyemitowano used product:');
     this.addUsedProduct.emit(this.model.value);
     this.model.reset();
 
+
   }
 
-  funkcja() {
-    console.log('funkcja');
-    this.model.controls[`measure`].enable({
-      onlySelf: true,
-      emitEvent: false
-    });
-    this.model.controls[`measure`].reset({
-      onlySelf: true,
-      emitEvent: false
-    });
+  modelReset(reset, onlyMeasureName) {
+    if (reset) {
+      this.model.controls[`measure`].reset();
+      this.model.controls[`measure`].enable();
+      this.model.controls[`measure`].setValue(onlyMeasureName);
+    } else {
+      this.model.controls[`measure`].setValue('Wpisz produkt');
+      this.model.controls[`measure`].disable();
+    }
   }
 
 
@@ -178,7 +183,7 @@ export class IngredientsComponent
     this.addedProduct.emit(newProduct);
   }
 
-  deleteProdMeasure([measureId, productId]) {
-    this.prodMeasureDeleted.emit([measureId, productId]);
+  deleteProdMeasure(bothId: { givenMeasureId: string, givenProductId: string }) {
+    this.prodMeasureDeleted.emit(bothId);
   }
 }
