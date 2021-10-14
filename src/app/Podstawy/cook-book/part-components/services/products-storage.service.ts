@@ -46,27 +46,29 @@ export class ProductsStorageService {
         )?.measureId;
       });
     }
-    this.products$.pipe(
-      map((product) => {
+    this.products$.pipe(first()).subscribe((product) => {
         this.typedProductId = product.find(
           ({ name }) =>
             name === addedProduct.product.product
         )?.productId;
-      }));
+      });
     if (!this.typedProductId) {
       this.typedProductId = cuid();
     } else {
+
+      // tu
+      console.log('Istniejący produkt zostanie nadpisany');
       if (addedProduct.duplicateState) {
-        this.measures$.pipe(
-          map((measure) => {
+        console.log('Istniejąca miara zostanie nadpisana');
+        this.measures$.pipe(first()).subscribe((measure) => {
             this.measureId = measure.find(
               ({ name }) =>
                 name === addedProduct.product.measure
             ).measureId;
-          }));
+          });
         this.products$.next(current.map(({ measures, allergens, ...value }) => ({
           ...value,
-          allergens: addedProduct.product.allergens,
+          allergens: value.productId === this.typedProductId ? addedProduct.product.allergens : allergens,
           measures: value.productId === this.typedProductId ? [...measures.map(({ measureId, kcal }) => ({
               measureId,
               kcal: measureId === this.measureId ? addedProduct.product.kcal : kcal
@@ -74,19 +76,24 @@ export class ProductsStorageService {
           ))] : measures
         })));
       } else {
+        console.log('Zostanie dodana nowa miara');
         this.products$.next(current.map(({ measures, allergens, ...value }) => ({
           ...value,
-          allergens: addedProduct.product.allergens,
+          allergens: value.productId === this.typedProductId ? addedProduct.product.allergens : allergens,
           measures: value.productId === this.typedProductId ? [...measures, {
             measureId: this.typedMeasureId,
             kcal: addedProduct.product.kcal
           }] : measures
         })));
       }
-      this.localStorageService.setItem('products', JSON.stringify(this.products$.value)); /*error*/
+      console.log('Istniejący produkt - zakończono procedurę');
+      this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
       // this.products$.pipe(first()).subscribe(value => console.log('Edytowano miary produktu', value));
       return;
     }
+    //
+
+
     this.products$.next([...current, {
       productId: this.typedProductId,
       name: addedProduct.product.product,
