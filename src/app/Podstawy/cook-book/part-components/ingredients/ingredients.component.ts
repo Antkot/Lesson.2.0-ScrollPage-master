@@ -80,8 +80,6 @@ export class IngredientsComponent
                 .find(({ measureId }) => measureId === this.typedMeasureId);
               products.find(({ name }) => name === value.product)?.measures
                 .find(({ measureId }) => measureId === this.typedMeasureId);
-
-
               this.productFromList = !!(products.find(({ name }) => name === value.product)?.name);
               this.typedMeasureId = measures.find(({ name }) => name === value?.measure)?.measureId;
               this.modelClone = { ...value };
@@ -91,19 +89,6 @@ export class IngredientsComponent
                 if (products.find(({ name }) => name === value.product)?.measures.length === 1) {
                   console.log('lenght: ', products.find(({ name }) => name === value.product)?.measures.length);
                   this.isMeasureDuplicated = true;
-
-                  // this.measures$.pipe(
-                  //   map((measure) => {
-                  //     const t = measure.find(
-                  //       ({ measureId }) =>
-                  //         measureId === products.find(({ name }) => name === value.product)?.measures[0].measureId
-                  //     );
-                  //     console.log('t', t);
-                  //   }));
-                  // console.log('t2', products.find(({ name }) => name === value.product)?.measures[0].measureId);
-                  //
-
-
                   this.measures$.pipe(
                     first()).subscribe((measure) => {
                       onlyMeasureName = measure.find(
@@ -114,7 +99,6 @@ export class IngredientsComponent
                   console.log('onlyMeasureName: ');
                   console.log(onlyMeasureName);
                 }
-
                 return this.modelReset(true, onlyMeasureName);
               } else if (!!value?.measure) {
                 return this.modelReset(false, '');
@@ -159,8 +143,6 @@ export class IngredientsComponent
   newUsedProduct() {
     this.addUsedProduct.emit(this.model.value);
     this.model.reset();
-
-
   }
 
   modelReset(reset, onlyMeasureName) {

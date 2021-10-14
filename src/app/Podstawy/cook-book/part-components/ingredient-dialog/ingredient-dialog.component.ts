@@ -34,7 +34,7 @@ export class IngredientDialogComponent
   model = this.fb.group({
     // name: new FormControl({ value: '', disabled: this.disabled }),
     product: ['', [Validators.required, Validators.minLength(1)]],
-    allergens: [[]],
+    allergens: [[{ allergenId: '' }], []],
     kcal: ['', [Validators.required, Validators.min(0)]],
     measure: ['', [Validators.required, Validators.minLength(1)]]
   });

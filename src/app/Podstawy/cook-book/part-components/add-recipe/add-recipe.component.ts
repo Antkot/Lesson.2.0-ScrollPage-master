@@ -6,6 +6,7 @@ import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorF
 import { combineLatest, Observable } from 'rxjs';
 import { DishStorageService } from '../services/dish-storage.service';
 import { stringify } from 'querystring';
+import { number } from '@storybook/addon-knobs';
 
 @Component({
   selector: 'app-add-recipe',
@@ -66,7 +67,7 @@ export class AddRecipeComponent implements OnInit {
 
   }
 
-  addUsedProduct(newUsedProduct) {
+  addUsedProduct(newUsedProduct: {product: string, measure: string, amount: number}) {
     this.usedProductToAdd.emit(newUsedProduct);
   }
 

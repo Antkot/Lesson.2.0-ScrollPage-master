@@ -5,6 +5,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { DishStorageService } from '../../part-components/services/dish-storage.service';
 import { UsedProductsStorageService } from '../../part-components/services/used-products-storage.service';
 import { ProductsStorageService } from '../../part-components/services/products-storage.service';
+import { number } from '@storybook/addon-knobs';
 
 @Component({
   selector: 'app-recipie-page',
@@ -43,7 +44,7 @@ export class RecipiePageComponent implements OnInit {
     );
   }
 
-  addUsedProduct(newUsedProduct) {
+  addUsedProduct(newUsedProduct: {product: string, measure: string, amount: number}) {
     const newProd = this.usedProductService.addProduct(newUsedProduct);
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.addProduct(newProd, dishId)

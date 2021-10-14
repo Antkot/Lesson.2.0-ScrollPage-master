@@ -35,24 +35,21 @@ export class UsedProductsStorageService {
     }
   }
 
-  addProduct(addedProduct) {
-    // this.usedProducts$.pipe(first()).subscribe(value => console.log('Lista przed', value));
+  addProduct(addedProduct: {product: string, measure: string, amount: number}) {
     const current = JSON.parse(this.localStorageService.getItem('usedProducts'));
-    const givenProduct$ = this.products$.pipe(
-      map((usedProduct) => {
+    this.products$.pipe(first()).subscribe((usedProduct) => {
         this.productId = usedProduct.find(
           ({ name }) =>
             name === addedProduct.product
         ).productId;
-      }));
+      });
 
-    const givenMeasure$ = this.measures$.pipe(
-      map((usedProduct) => {
+    this.measures$.pipe(first()).subscribe((usedProduct) => {
         this.measureId = usedProduct.find(
           ({ name }) =>
             name === addedProduct.measure
         ).measureId;
-      }));
+      });
 
     const newProd: UsedProduct = {
       usedProductId: cuid(),
@@ -61,7 +58,6 @@ export class UsedProductsStorageService {
       measuresId: this.measureId
     };
     this.usedProducts$.next([...current, newProd]);
-    // this.usedProducts$.pipe(first()).subscribe(value => console.log('Lista po', value));
     this.localStorageService.setItem('usedProducts', JSON.stringify(this.usedProducts$.value));
     return newProd;
   }

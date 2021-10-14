@@ -43,24 +43,26 @@
   </div>
   <div class='gridTable'>
     <div>Nazwa</div>
-    <div>Miary</div>
     <div>Alergeny</div>
+    <div>Miary</div>
     <div></div>
   </div>
 
   <mat-dialog-content class='mat-typography'>
       <div class='gridTable tableBorder' *ngFor='let product of products$ | async'>
         <div>{{product.name}}</div>
-        <div><a *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
-          ({{measure.kcal}}) <br />
-        </a></div>
         <div>
           <a *ngFor='let allergen of product.allergens'>
-            {{allergen.allergenId}}
+            {{allergen | json}}d
+            {{allergen.allergenId | tagNameById: 'allergen' | async}}x
             {{allergen | tagNameById: 'allergen' | async}}
           </a>
         </div>
-        <div><button *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
+        <div><a *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
+          ({{measure.kcal}} kcal) <br />
+        </a></div>
+
+        <div><button mat-button *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
         </button></div>
     </div>
   </mat-dialog-content>
