@@ -105,10 +105,7 @@ export class ProductsStorageService {
         ? measures.filter(({ measureId }) => measureId !== bothId.givenMeasureId)
         : measures
     }))];
-      ({ productId }) =>
-        productId === bothId.givenProductId
-    ));
-    console.table(newProducts);
+
     if (newProducts.find(
       ({ productId }) =>
         productId === bothId.givenProductId
