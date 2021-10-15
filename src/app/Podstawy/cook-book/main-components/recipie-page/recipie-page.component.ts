@@ -62,7 +62,7 @@ export class RecipiePageComponent implements OnInit {
     );
   }
 
-  typeEdition(dishType: Array<{dishType: string}>) {
+  typeEdition(dishType: Array<{ dishId: string }>) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.typeChange(dishType, dishId)
     );
