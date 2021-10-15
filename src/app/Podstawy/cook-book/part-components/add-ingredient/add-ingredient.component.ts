@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntil } from 'rxjs/operators';
 import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
+import { AddedProuctType, BothIdType } from '../../types';
 
 @Component({
   selector: 'app-add-ingredient',
@@ -18,16 +19,16 @@ export class AddIngredientComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(IngredientDialogComponent, { panelClass: 'dialog-container-custom' });
-    dialogRef.componentInstance.addProduct.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: {duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> }}) => {
+    dialogRef.componentInstance.addProduct.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProuctType) => {
       console.log('Dialog result:');
       console.table(result);
       this.addProduct.emit(result);
     });
-    dialogRef.componentInstance.prodMeasureDeleted.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: { givenMeasureId: string, givenProductId: string }) => {
+    dialogRef.componentInstance.prodMeasureDeleted.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: BothIdType) => {
       console.table(result);
       this.prodMeasureDeleted.emit(result);
     });
-    dialogRef.componentInstance.close.pipe(takeUntil(dialogRef.afterClosed())).subscribe(() => {
+    dialogRef.componentInstance.closed.pipe(takeUntil(dialogRef.afterClosed())).subscribe(() => {
       dialogRef.close();
     });
   }

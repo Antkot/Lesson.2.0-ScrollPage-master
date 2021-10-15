@@ -47,7 +47,7 @@ export class SideFilterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  timeLimiting($event) {
+  timeLimiting($event: string) {
     this.timeLimit = $event;
   }
 

@@ -12,8 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ListPageComponent implements OnInit {
   allFilterOptions = new EventEmitter();
-  filterOption$: Observable<object>;
-  temporary;
+  filterOption$: Observable<{allFilterOptions: boolean, navigationId: number}>;
+  temporary: {allFilterOptions: boolean, navigationId: number};
 
   constructor(private tagsService: TagsStorageService, private allergenService: AllergensStorageService, public activatedRoute: ActivatedRoute) {
 
@@ -21,20 +21,23 @@ export class ListPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.filterOption$ = this.activatedRoute.paramMap
-      .pipe(map(() => window.history.state));
+      .pipe(map(() => history.state));
     this.filterOption$.subscribe(data => this.temporary = data);
-    this.allFilterOptions = this.temporary.allFilterOptions;
+    console.log(123456789000000000);
+    // do przebudowy
+    console.log(this.temporary);
+    this.allFilterOptions.emit(this.temporary.allFilterOptions);
   }
-  removedTag(deletedTag) {
+  removedTag(deletedTag: number) {
     this.tagsService.remove(deletedTag);
   }
-  removedAllergen(deletedAllergen) {
-    this.allergenService.remove(deletedAllergen);
+  removedAllergen(hashIndex: number) {
+    this.allergenService.remove(hashIndex);
   }
-  addedTag(newTag) {
+  addedTag(newTag: string) {
     this.tagsService.add(newTag);
   }
-  addedAllergen(newAllergen) {
+  addedAllergen(newAllergen: string) {
     this.allergenService.add(newAllergen);
   }
 }

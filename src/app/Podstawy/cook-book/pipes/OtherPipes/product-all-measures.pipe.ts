@@ -11,7 +11,7 @@ export class ProductAllMeasuresPipe implements PipeTransform {
 
   constructor(private productsService: ProductsStorageService) {
   }
-
+// /usunąć?
   transform(givenMeasureArray: Array<{ measureId: string, kcal: number }>) {
     // return givenMeasureArray.pipe(
     //   map((value) => {

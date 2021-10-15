@@ -25,7 +25,7 @@ export class TagsStorageService {
     }
   }
 
-  add(newTag): void {
+  add(newTag: string): void {
     let duplicat = false;
     const value = newTag.trim();
     if (value) {

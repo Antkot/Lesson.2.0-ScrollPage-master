@@ -73,7 +73,7 @@ export class DishStorageService {
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
-  typeChange(types, givenDishId: string) {
+  typeChange(types: Array<{ dishId: string }>, givenDishId: string) {
     givenDishId = this.idCheck(givenDishId);
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
     this.dishesList$.next(current.map(({ dishType, ...value }) => ({
@@ -85,7 +85,7 @@ export class DishStorageService {
     this.dishesList$.pipe(first()).subscribe(value => console.log('typ zmieniony: ', value));
   }
 
-  idCheck(givenDishId) {
+  idCheck(givenDishId: string) {
     if (givenDishId === 'new' || givenDishId === undefined) {
       givenDishId = cuid();
       const current = JSON.parse(this.localStorageService.getItem('dishList'));
@@ -96,7 +96,7 @@ export class DishStorageService {
     return givenDishId;
   }
 
-  deleteDish(dishId) {
+  deleteDish(dishId: string) {
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
     this.dishesList$.next(
       [

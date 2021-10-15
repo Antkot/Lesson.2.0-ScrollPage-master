@@ -35,7 +35,7 @@ export class AllergensStorageService {
     }
   }
 
-  add(newAllergen): void {
+  add(newAllergen: string): void {
     let duplicat = false;
     const value = newAllergen.trim();
     if (value) {
@@ -62,13 +62,13 @@ export class AllergensStorageService {
     }
   }
 
-  remove(hashId: number) {
+  remove(hashIndex: number) {
     const current = this.allergens$.value;
     console.table(current);
-    const deleto = this.allergens$.value[hashId].hashId;
+    const deletedHash = this.allergens$.value[hashIndex].hashId;
     this.allergens$.next(
       [
-        ...current.filter(record => record.hashId !== deleto)
+        ...current.filter(record => record.hashId !== deletedHash)
       ]
     );
     this.localStorageService.removeItem('allergens');

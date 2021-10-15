@@ -14,11 +14,10 @@ import { xor } from 'lodash';
 export class ListedComponent implements OnInit {
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   dishType$: Observable<{ dishId: string; }>;
-
+  dishes = [];
   constructor(private dishesService: DishStorageService) {
   }
 
-  x = [];
   shownDishesList$: Observable<Dish> = combineLatest([this.dishType$, this.dishesList$]).pipe(map(([dishTyped, dishesList]) => {
     return dishesList.find(({ dishType }) => dishType.includes(dishTyped));
   }));
@@ -26,12 +25,12 @@ export class ListedComponent implements OnInit {
   ngOnInit(): void {
     this.dishesList$.pipe(first()).subscribe(value => {
       console.log('Dania: ', value);
-      this.x = value;
+      this.dishes = value;
     });
-    console.log(this.x);
+    console.log(this.dishes);
   }
 
-  deleteDsih(dishId) {
+  deleteDsih(dishId: string) {
     this.dishesService.deleteDish(dishId);
   }
 }

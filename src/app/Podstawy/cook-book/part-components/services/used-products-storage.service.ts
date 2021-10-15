@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Dish, Measure, Product, UsedProduct } from '../../types';
+import { AddedUsedProductType, Dish, Measure, Product, UsedProduct } from '../../types';
 import * as cuid from 'cuid';
 import { first, map } from 'rxjs/operators';
 import { TagsStorageService } from './tags-storage.service';
@@ -35,7 +35,7 @@ export class UsedProductsStorageService {
     }
   }
 
-  addProduct(addedProduct: {product: string, measure: string, amount: number}) {
+  addProduct(addedProduct: AddedUsedProductType) {
     const current = JSON.parse(this.localStorageService.getItem('usedProducts'));
     this.products$.pipe(first()).subscribe((usedProduct) => {
         this.productId = usedProduct.find(

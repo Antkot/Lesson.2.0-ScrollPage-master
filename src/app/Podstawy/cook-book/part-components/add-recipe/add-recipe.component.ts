@@ -55,7 +55,7 @@ export class AddRecipeComponent implements OnInit {
     this.nameChange.emit(this.model.value.name);
   }
 
-  stepsEdtied(newStepSet) {
+  stepsEdtied(newStepSet: Array<string>) {
     this.stepsEmitter.emit(newStepSet);
   }
 
@@ -80,7 +80,7 @@ export class AddRecipeComponent implements OnInit {
   }
 
 
-  typeEdition(newTypes) {
+  typeEdition(newTypes: Array<{dishType: string}>) {
     this.model.value.dishType = newTypes;
     this.typeChange.emit(this.model.value.dishType);
   }

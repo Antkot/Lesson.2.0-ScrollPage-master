@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MeasuresStorageService } from '../services/measures-storage.service';
-import { Dish, Hash, Measure, Product } from '../../types';
+import { BothIdType, Dish, Hash, Measure, Product } from '../../types';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { ProductsStorageService } from '../services/products-storage.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -24,7 +24,7 @@ export class IngredientDialogComponent
   allergens$: Observable<Array<Hash>> = this.allergenService.allergens$;
   autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
   autoMeasure$ = new BehaviorSubject<Array<{ name: string, measureId: string }>>([]);
-  @Output() close = new EventEmitter();
+  @Output() closed = new EventEmitter();
   @Output() addProduct = new EventEmitter();
   @Output() prodMeasureDeleted = new EventEmitter();
   selectedName: string;
@@ -58,56 +58,54 @@ export class IngredientDialogComponent
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         // filter(({ product }) => !!product),
-        tap(({ product, allergens, kcal, measure }) => {
+        tap((value: { product: string, allergens: Array<{ allergenId: '' }>, kcal: number, measure: string }) => {
           this.products$.pipe(first()).subscribe((products) => {
             this.measures$.pipe(first()).subscribe((measures) => {
               this.finalCombine$.next(measures.filter(({ measureId }) =>
-                !products.find(({ name }) => name === product) || (!products.find(({ name }) => name === product)
+                !products.find(({ name }) => name === value.product) || (!products.find(({ name }) => name === value.product)
                   .measures.find((m) => m.measureId === measureId))));
             });
-            this.counter(product, allergens, kcal, measure);
+            this.counter(value.product, value.allergens, value.kcal, value.measure);
 
             // console.log('TU PACZ MODEL (Jest)');
             // console.log(this.model.value.allergens);
 
 
             this.measures$.pipe(first()).subscribe((measures) => {
-              this.typedMeasureId = measures.find(({ name }) => name === measure)?.measureId;
+              this.typedMeasureId = measures.find(({ name }) => name === value.measure)?.measureId;
             });
 
             let productsResult = null;
-            if (product?.length > 0 && product) {
+            if (value.product?.length > 0 && value.product) {
               const options = {
                 keys: ['name']
               };
               const fuse = new Fuse(products, options);
-              productsResult = fuse.search(product).map(({ item }) => item);
+              productsResult = fuse.search(value.product).map(({ item }) => item);
             } else {
               productsResult = products;
             }
             this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
             console.log(111111111, this.typedMeasureId);
-            products.find(({ name }) => name === product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
+            products.find(({ name }) => name === value.product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
               ? console.log('Kopia miary wprowadzona! - zmiana przycisku') : console.log('Nowa miara');
-            products.find(({ name }) => name === product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
+            products.find(({ name }) => name === value.product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
               ? this.isMeasureDuplicated = true : this.isMeasureDuplicated = false;
           });
         })
       )
     );
 
-    this.model.valueChanges.subscribe(({ product, measure, allergens, kcal }) => {
-      // this.products$.pipe(first()).subscribe((products) => {
-      //
+    this.model.valueChanges.subscribe((value: { measure: string }) => {
       // });
       this.finalCombine$.pipe(first()).subscribe((measures) => {
         let measuresResult = null;
-        if (measure?.length > 0 && measure) {
+        if (value.measure?.length > 0 && value.measure) {
           const options = {
             keys: ['name']
           };
           const fuse = new Fuse(measures, options);
-          measuresResult = fuse.search(measure).map(({ item }) => item);
+          measuresResult = fuse.search(value.measure).map(({ item }) => item);
         } else {
           measuresResult = measures;
         }
@@ -118,7 +116,7 @@ export class IngredientDialogComponent
     });
   }
 
-  counter(product, allergens, kcal, measure) {
+  counter(product: string, allergens: Array<{ allergenId: '' }>, kcal: number, measure: string) {
     if (this.oldProduct !== product) {
       this.products$.pipe(first()).subscribe((products) => {
         if (!!products.find(({ name }) => name === product)) {
@@ -139,8 +137,8 @@ export class IngredientDialogComponent
     this.model.reset();
   }
 
-  deleteProdMeasure(measureId, productId) {
-    const bothId: { givenMeasureId: string, givenProductId: string} = { givenMeasureId: measureId, givenProductId: productId };
+  deleteProdMeasure(measureId: string, productId: string) {
+    const bothId: BothIdType = { givenMeasureId: measureId, givenProductId: productId };
     this.prodMeasureDeleted.emit(bothId);
   }
 

@@ -41,7 +41,7 @@ export class StepsComponent implements OnInit {
     this.stepsChanged.emit(this.steps);
   }
 
-  done(editedStep) {
+  done(editedStep: string) {
     this.delete(this.edited);
     this.add();
     const index = this.steps.indexOf(this.edited);
@@ -51,12 +51,12 @@ export class StepsComponent implements OnInit {
     this.editedStep = '';
   }
 
-  refactor(step) {
+  refactor(step: string) {
     this.edited = step;
     this.editedStep = step;
   }
 
-  delete(step) {
+  delete(step: string) {
     const index = this.steps.indexOf(step);
     this.steps.splice(index, 1);
   }

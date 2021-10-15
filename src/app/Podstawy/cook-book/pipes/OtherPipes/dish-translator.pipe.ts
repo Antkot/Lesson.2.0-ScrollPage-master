@@ -11,7 +11,7 @@ export class DishTranslatorPipe implements PipeTransform {
   dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
   constructor(private dishService: DishStorageService) {}
 
-  transform(linkId: string, search: string) {
+  transform(linkId: string, search: string): Observable<any> {
     return this.dishesList$.pipe(
       map((dishes) => {
         return dishes.find(

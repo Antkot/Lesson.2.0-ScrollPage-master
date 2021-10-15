@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Measure, Product } from '../../types';
+import { AddedProuctType, BothIdType, Measure, Product } from '../../types';
 import { LocalStorageService } from './local-storage-service';
 import { find, first, map } from 'rxjs/operators';
 import { MeasuresStorageService } from './measures-storage.service';
@@ -29,7 +29,7 @@ export class ProductsStorageService {
     }
   }
 
-  addProduct(addedProduct: { duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> } }) {
+  addProduct(addedProduct: AddedProuctType) {
     const current = JSON.parse(this.localStorageService.getItem('products'));
     this.measures$.pipe(first()).subscribe(measure => {
       this.typedMeasureId = measure.find(
@@ -104,7 +104,7 @@ export class ProductsStorageService {
     // this.products$.pipe(first()).subscribe(value => console.log('Dodano nowy produkt, zapisano', value));
   }
 
-  deleteProdMeasure(bothId: { givenMeasureId: string, givenProductId: string }) {
+  deleteProdMeasure(bothId: BothIdType) {
     const oldProducts: Array<Product> = JSON.parse(this.localStorageService.getItem('products'));
     let newProducts: Array<Product> = [...oldProducts.map(({ measures, ...value }) => ({
       ...value,

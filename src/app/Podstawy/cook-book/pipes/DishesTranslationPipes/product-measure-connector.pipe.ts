@@ -13,7 +13,7 @@ export class ProductMeasureConnectorPipe implements PipeTransform {
   constructor(private usedProductsService: ProductsStorageService) {
   }
 
-  transform(givenMeasureId: string, givenProductId: string) {
+  transform(givenMeasureId: string, givenProductId: string): Observable<number> {
     return this.products$.pipe(
       map((usedProduct) => {
          return usedProduct.find(

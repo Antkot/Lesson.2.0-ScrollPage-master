@@ -14,7 +14,7 @@ export class MeasuresTranslatorPipe implements PipeTransform {
   constructor(private measureService: MeasuresStorageService) {
   }
 
-  transform(givenMeasureId: string) {
+  transform(givenMeasureId: string): Observable<string> {
     return this.measures$.pipe(
       map((measure) => {
         return measure.find(

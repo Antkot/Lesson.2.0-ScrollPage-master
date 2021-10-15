@@ -47,7 +47,6 @@ export class IngredientsComponent
     measure?: string,
     amount: string,
   } = { product: '', amount: '' };
-  x;
 
   constructor(
     private productsService: ProductsStorageService,
@@ -102,7 +101,6 @@ export class IngredientsComponent
                 return this.modelReset(true, onlyMeasureName);
               } else if (!!value?.measure) {
                 return this.modelReset(false, '');
-              } else {
               }
             });
           });
@@ -110,15 +108,15 @@ export class IngredientsComponent
       )
     );
 
-    this.model.valueChanges.subscribe(({ product, measure }) => {
+    this.model.valueChanges.subscribe((value: { product: string, measure: string }) => {
       this.products$.pipe(first()).subscribe((products) => {
         let productsResult = null;
-        if (product?.length > 0 && product) {
+        if (value.product?.length > 0 && value.product) {
           const options = {
             keys: ['name']
           };
           const fuse = new Fuse(products, options);
-          productsResult = fuse.search(product).map(({ item }) => item);
+          productsResult = fuse.search(value.product).map(({ item }) => item);
         } else {
           productsResult = products;
         }
@@ -126,12 +124,12 @@ export class IngredientsComponent
       });
       this.finalCombine$.pipe(first()).subscribe((measures) => {
         let measuresResult = null;
-        if (measure?.length > 0 && measure) {
+        if (value.measure?.length > 0 && value.measure) {
           const options = {
             keys: ['name']
           };
           const fuse = new Fuse(measures, options);
-          measuresResult = fuse.search(measure).map(({ item }) => item);
+          measuresResult = fuse.search(value.measure).map(({ item }) => item);
         } else {
           measuresResult = measures;
         }
@@ -145,7 +143,7 @@ export class IngredientsComponent
     this.model.reset();
   }
 
-  modelReset(reset, onlyMeasureName) {
+  modelReset(reset: boolean, onlyMeasureName: string) {
     if (reset) {
       this.model.controls[`measure`].reset();
       this.model.controls[`measure`].enable();

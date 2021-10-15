@@ -27,7 +27,7 @@ export class MeasuresStorageService {
       this.localStorageService.setItem('measures', JSON.stringify(this.measures$.value));
     }
   }
-  addMeasure(measureName) {
+  addMeasure(measureName: string) {
     console.log('dodawanie miary: ', measureName);
     const current = JSON.parse(this.localStorageService.getItem('measures'));
     this.measures$.next([...current, { measureId: cuid(), name: measureName, shortcut : null }]);

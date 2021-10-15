@@ -1,4 +1,5 @@
 import { TablicaToDo } from '../to-do-list/to-do-list.component.stories';
+import { number } from '@storybook/addon-knobs';
 
 
 export interface DishType {
@@ -48,4 +49,20 @@ export interface UsedProduct {
   productId: string;
   measuresId: string;
   amount: number;
+}
+
+export interface AddedProuctType {
+  duplicateState: boolean;
+  product: { product: string, measure: string, kcal: number, allergens: Array<string> };
+}
+
+export interface AddedUsedProductType {
+  product: string;
+  measure: string;
+  amount: number;
+}
+
+export interface BothIdType {
+  givenMeasureId: string;
+  givenProductId: string;
 }

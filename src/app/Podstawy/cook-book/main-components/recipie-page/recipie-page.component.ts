@@ -6,6 +6,7 @@ import { DishStorageService } from '../../part-components/services/dish-storage.
 import { UsedProductsStorageService } from '../../part-components/services/used-products-storage.service';
 import { ProductsStorageService } from '../../part-components/services/products-storage.service';
 import { number } from '@storybook/addon-knobs';
+import { AddedProuctType, AddedUsedProductType, BothIdType } from '../../types';
 
 @Component({
   selector: 'app-recipie-page',
@@ -38,36 +39,36 @@ export class RecipiePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  nameEdited(newName) {
+  nameEdited(newName: string) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.nameChange(newName, dishId)
     );
   }
 
-  addUsedProduct(newUsedProduct: {product: string, measure: string, amount: number}) {
+  addUsedProduct(newUsedProduct: AddedUsedProductType) {
     const newProd = this.usedProductService.addProduct(newUsedProduct);
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.addProduct(newProd, dishId)
     );
   }
 
-  addProduct(newProduct: { duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> } }) {
+  addProduct(newProduct: AddedProuctType) {
     this.productService.addProduct(newProduct);
   }
 
-  stepEdit(newStepSet) {
+  stepEdit(newStepSet: Array<string>) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.stepChange(newStepSet, dishId)
     );
   }
 
-  typeEdition(dishType) {
+  typeEdition(dishType: Array<{dishType: string}>) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.typeChange(dishType, dishId)
     );
   }
 
-  deleteProdMeasure(bothId: { givenMeasureId: string, givenProductId: string }) {
+  deleteProdMeasure(bothId: BothIdType) {
     this.productService.deleteProdMeasure(bothId);
   }
 }

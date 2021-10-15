@@ -17,7 +17,7 @@ export class MainMenuComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  dishTyped(dishType) {
+  dishTyped(dishType: string) {
     console.log(dishType);
     // this.dishType$.next({ dishId: dishType });
   }

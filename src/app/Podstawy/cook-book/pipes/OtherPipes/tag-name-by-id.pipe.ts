@@ -14,7 +14,7 @@ export class TagNameByIdPipe implements PipeTransform {
   tags$: Observable<Array<Hash>> = this.tagsService.tags$;
   allergens$: Observable<Array<Hash>> = this.allergenService.allergens$;
 
-  transform(id: string, type: string) {
+  transform(id: string, type: string): Observable<string> {
     if (type === 'tags') {
       return this.tags$.pipe(
         map((tag) => {

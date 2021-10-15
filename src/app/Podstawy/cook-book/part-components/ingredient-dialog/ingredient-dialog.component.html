@@ -53,8 +53,8 @@
         <div>{{product.name}}</div>
         <div>
           <a *ngFor='let allergen of product.allergens'>
-            {{allergen | json}}d
-            {{allergen.allergenId | tagNameById: 'allergen' | async}}x
+<!--            {{allergen | json}}d-->
+<!--            {{allergen.allergenId | tagNameById: 'allergen' | async}}x-->
             {{allergen | tagNameById: 'allergen' | async}}
           </a>
         </div>
