@@ -58,11 +58,11 @@
             {{allergen | tagNameById: 'allergen' | async}}
           </a>
         </div>
-        <div><a *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
+        <div><a   class='allergenHeight' *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
           ({{measure.kcal}} kcal) <br />
         </a></div>
 
-        <div><button mat-button *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
+        <div><button mat-button class='addButton' *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
         </button></div>
     </div>
   </mat-dialog-content>
