@@ -50,8 +50,8 @@
 
   <mat-dialog-content class='mat-typography'>
       <div class='gridTable tableBorder' *ngFor='let product of products$ | async'>
-        <div>{{product.name}}</div>
-        <div>
+        <div class='centerV'>{{product.name}}</div>
+        <div  class='centerV'>
           <a *ngFor='let allergen of product.allergens'>
 <!--            {{allergen | json}}d-->
 <!--            {{allergen.allergenId | tagNameById: 'allergen' | async}}x-->
@@ -62,7 +62,7 @@
           ({{measure.kcal}} kcal) <br />
         </a></div>
 
-        <div><button mat-button class='addButton' *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
+        <div><button mat-button class='delButton' *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
         </button></div>
     </div>
   </mat-dialog-content>
