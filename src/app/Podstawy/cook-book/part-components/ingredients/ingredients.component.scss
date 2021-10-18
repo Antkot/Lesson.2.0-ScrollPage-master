@@ -41,7 +41,21 @@
     //background: rebeccapurple;
   }
 }
-
+.table2{
+  grid-template-columns: 1fr 1fr 1fr 1fr 120px;
+}
+.clickable{
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.clickable:active{
+  transform: scale(0.95);
+  color: white;
+}
+.white-icon {
+  color: white;
+}
 .grid-item {
   //background: rebeccapurple;
 }

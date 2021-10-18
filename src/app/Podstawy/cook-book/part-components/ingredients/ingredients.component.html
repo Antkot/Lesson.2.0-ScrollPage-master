@@ -30,13 +30,14 @@
 <!--    <a *ngIf='model.invalid'>Niepoprawne dane</a>-->
 <!--  </div>-->
   <div>
-    <div class='table'>
-      <div class='grid-item'><h4>Produkt</h4></div>
-      <div class='grid-item'><h4>ilość</h4></div>
-      <div class='grid-item'><h4>Miara</h4></div>
-      <div class='grid-item'><h4>kcal</h4></div>
-    </div>
-    <div class='colorizer'>
+
+    <div class='colorizer' *ngIf='!edit'>
+      <div class='table'>
+        <div class='grid-item'><h4>Produkt</h4></div>
+        <div class='grid-item'><h4>ilość</h4></div>
+        <div class='grid-item'><h4>Miara</h4></div>
+        <div class='grid-item'><h4>kcal</h4></div>
+      </div>
       <div class='table' *ngFor='let product of products'>
         <div class='grid-item'>
           {{(((product.usedProductId | usedProductConnector) | async).productId | productConnect | async).name}}
@@ -56,6 +57,35 @@
       </div>
       <div *ngIf='!products.length' > Brak produktów</div>
     </div>
+
+    <div class='colorizer' *ngIf='edit'>
+      <div class='table table2'>
+        <div class='grid-item'><h4>Produkt</h4></div>
+        <div class='grid-item'><h4>ilość</h4></div>
+        <div class='grid-item'><h4>Miara</h4></div>
+        <div class='grid-item'><h4>kcal</h4></div>
+      </div>
+      <div class='table table2' *ngFor='let product of products'>
+        <div class='grid-item'>
+          {{(((product.usedProductId | usedProductConnector) | async).productId | productConnect | async).name}}
+        </div>
+        <div class='grid-item'>
+          {{((product.usedProductId | usedProductConnector) | async).amount}}
+        </div>
+        <div class='grid-item'>
+          {{((((product.usedProductId | usedProductConnector) | async).measuresId) | measuresTranslator) | async}}
+        </div>
+        <div class='grid-item'>
+          {{(((((product.usedProductId | usedProductConnector) | async).measuresId)
+          | productMeasureConnector: ((product.usedProductId | usedProductConnector)
+          | async).productId) | async) |multiplication: (((product.usedProductId
+          | usedProductConnector) | async).amount)}}
+        </div>
+        <div> <button class='clickable'><mat-icon class='white-icon'>edit</mat-icon></button><button class='clickable'><mat-icon class='white-icon'>delete</mat-icon></button></div>
+      </div>
+      <div *ngIf='!products.length' > Brak produktów</div>
+    </div>
+
   </div>
 </div>
 <mat-autocomplete #autoProduct='matAutocomplete'>

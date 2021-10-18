@@ -53,7 +53,7 @@ export interface UsedProduct {
 
 export interface AddedProductType {
   duplicateState: boolean;
-  product: { product: string, measure: string, kcal: number, allergens: Array<string> };
+  product: { product: string, measure: string, kcal: number, allergens: Array<{ allergenId: '' }> };
 }
 
 export interface AddedUsedProductType {

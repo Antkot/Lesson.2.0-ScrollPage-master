@@ -32,16 +32,16 @@
         <mat-form-field class="editor" *ngIf="edited === step">
           <input matInput [(ngModel)]="editedStep" [value]='step' [placeholder]='step'>
         </mat-form-field>
+        <button mat-menu-item *ngIf="edited === step" (click)="done(editedStep)" [disabled]='model.invalid'>
+          <mat-icon>done</mat-icon>
+          <span>Gotowe</span>
+        </button>
         <span *ngIf="edited !== step">{{step}}</span>
         <div>
-          <div class="menu" [matMenuTriggerFor]="menu">
+          <div class="menu" [matMenuTriggerFor]="menu"  *ngIf='edited !== step'>
             <mat-icon>more_vert</mat-icon>
           </div>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="edited === step" (click)="done(editedStep)" [disabled]='model.invalid'>
-              <mat-icon>done</mat-icon>
-              <span>Gotowe</span>
-            </button>
             <button mat-menu-item *ngIf="edited !== step" (click)="refactor(step)">
               <mat-icon>edit</mat-icon>
               <span>Edytuj</span>

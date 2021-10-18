@@ -6,6 +6,8 @@ import { LocalStorageService } from './local-storage-service';
 import { find, first, map } from 'rxjs/operators';
 import { MeasuresStorageService } from './measures-storage.service';
 import { async } from '@angular/core/testing';
+import { number } from '@storybook/addon-knobs';
+import { add } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -47,11 +49,11 @@ export class ProductsStorageService {
       });
     }
     this.products$.pipe(first()).subscribe((product) => {
-        this.typedProductId = product.find(
-          ({ name }) =>
-            name === addedProduct.product.product
-        )?.productId;
-      });
+      this.typedProductId = product.find(
+        ({ name }) =>
+          name === addedProduct.product.product
+      )?.productId;
+    });
     if (!this.typedProductId) {
       this.typedProductId = cuid();
     } else {
@@ -61,11 +63,11 @@ export class ProductsStorageService {
       if (addedProduct.duplicateState) {
         console.log('Istniejąca miara zostanie nadpisana');
         this.measures$.pipe(first()).subscribe((measure) => {
-            this.measureId = measure.find(
-              ({ name }) =>
-                name === addedProduct.product.measure
-            ).measureId;
-          });
+          this.measureId = measure.find(
+            ({ name }) =>
+              name === addedProduct.product.measure
+          ).measureId;
+        });
         this.products$.next(current.map(({ measures, allergens, ...value }) => ({
           ...value,
           allergens: value.productId === this.typedProductId ? addedProduct.product.allergens : allergens,

@@ -53,16 +53,16 @@
         <div class='centerV'>{{product.name}}</div>
         <div  class='centerV'>
           <a *ngFor='let allergen of product.allergens'>
-<!--            {{allergen | json}}d-->
-<!--            {{allergen.allergenId | tagNameById: 'allergen' | async}}x-->
-            {{allergen | tagNameById: 'allergen' | async}}
+            1. {{allergen | json}}<br/>
+            2. {{allergen.allergenId | tagNameById: 'allergen' | async}}<br/>
+            3. {{allergen | tagNameById: 'allergen' | async}}
           </a>
         </div>
-        <div><a   class='allergenHeight' *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
+        <div class='centerV'><a   class='allergenHeight' *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
           ({{measure.kcal}} kcal) <br />
         </a></div>
 
-        <div><button mat-button class='delButton' *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
+        <div class='centerV'><button mat-button class='delButton' *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
         </button></div>
     </div>
   </mat-dialog-content>
