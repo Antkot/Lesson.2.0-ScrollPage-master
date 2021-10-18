@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { takeUntil } from 'rxjs/operators';
 import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
-import { AddedProuctType, BothIdType } from '../../types';
+import { AddedProductType, BothIdType } from '../../types';
 
 @Component({
   selector: 'app-add-ingredient',
@@ -19,7 +19,7 @@ export class AddIngredientComponent {
 
   openDialog() {
     const dialogRef = this.dialog.open(IngredientDialogComponent, { panelClass: 'dialog-container-custom' });
-    dialogRef.componentInstance.addProduct.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProuctType) => {
+    dialogRef.componentInstance.addProduct.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProductType) => {
       console.log('Dialog result:');
       console.table(result);
       this.addProduct.emit(result);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AddedProuctType, BothIdType, Measure, Product } from '../../types';
+import { AddedProductType, BothIdType, Measure, Product } from '../../types';
 import { LocalStorageService } from './local-storage-service';
 import { find, first, map } from 'rxjs/operators';
 import { MeasuresStorageService } from './measures-storage.service';
@@ -29,7 +29,7 @@ export class ProductsStorageService {
     }
   }
 
-  addProduct(addedProduct: AddedProuctType) {
+  addProduct(addedProduct: AddedProductType) {
     const current = JSON.parse(this.localStorageService.getItem('products'));
     this.measures$.pipe(first()).subscribe(measure => {
       this.typedMeasureId = measure.find(

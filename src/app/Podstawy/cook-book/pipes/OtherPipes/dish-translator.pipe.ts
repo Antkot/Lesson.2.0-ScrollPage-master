@@ -11,16 +11,16 @@ export class DishTranslatorPipe implements PipeTransform {
   dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
   constructor(private dishService: DishStorageService) {}
 
-  transform(linkId: string, search: string): Observable<any> {
+  transform(givenDishId: string, search: string) {
     return this.dishesList$.pipe(
       map((dishes) => {
         return dishes.find(
           ({ dishId }) =>
-            dishId === linkId
+            dishId === givenDishId
         ) ? dishes.find(
           ({ dishId }) =>
-            dishId === linkId
-        )?.[search] : '';
+            dishId === givenDishId
+        )?.[search] : [];
       }));
   }
 }

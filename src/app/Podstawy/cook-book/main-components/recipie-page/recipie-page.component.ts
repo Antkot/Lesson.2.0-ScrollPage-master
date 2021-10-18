@@ -6,7 +6,7 @@ import { DishStorageService } from '../../part-components/services/dish-storage.
 import { UsedProductsStorageService } from '../../part-components/services/used-products-storage.service';
 import { ProductsStorageService } from '../../part-components/services/products-storage.service';
 import { number } from '@storybook/addon-knobs';
-import { AddedProuctType, AddedUsedProductType, BothIdType } from '../../types';
+import { AddedProductType, AddedUsedProductType, BothIdType } from '../../types';
 
 @Component({
   selector: 'app-recipie-page',
@@ -52,7 +52,7 @@ export class RecipiePageComponent implements OnInit {
     );
   }
 
-  addProduct(newProduct: AddedProuctType) {
+  addProduct(newProduct: AddedProductType) {
     this.productService.addProduct(newProduct);
   }
 

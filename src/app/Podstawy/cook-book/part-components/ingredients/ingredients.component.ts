@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, combineLatest, Observable, ReplaySubject } from 'rxjs';
-import { Dish, Hash, Measure, Product, UsedProduct } from '../../types';
+import { AddedProductType, BothIdType, Dish, Hash, Measure, Product, UsedProduct } from '../../types';
 import { ProductsStorageService } from '../services/products-storage.service';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { MeasuresStorageService } from '../services/measures-storage.service';
@@ -39,8 +39,6 @@ export class IngredientsComponent
     amount: ['', [Validators.required, Validators.min(1)]]
   });
   finalCombine$ = new BehaviorSubject<Array<Measure>>([]);
-  typedMeasureId: string;
-  productFromList: boolean;
   isMeasureDuplicated: boolean;
   modelClone: {
     product: string,
@@ -75,28 +73,24 @@ export class IngredientsComponent
                   name: measures.find((m) => m.measureId === measureId).name,
                   shortcut: measures.find((m) => m.measureId === measureId).shortcut
                 })) : []);
+              const productFromList = !!(products.find(({ name }) => name === value.product)?.name);
+              const typedMeasureId = measures.find(({ name }) => name === value?.measure)?.measureId;
               this.isMeasureDuplicated = !!products.find(({ name }) => name === value.product)?.measures
-                .find(({ measureId }) => measureId === this.typedMeasureId);
-              products.find(({ name }) => name === value.product)?.measures
-                .find(({ measureId }) => measureId === this.typedMeasureId);
-              this.productFromList = !!(products.find(({ name }) => name === value.product)?.name);
-              this.typedMeasureId = measures.find(({ name }) => name === value?.measure)?.measureId;
+                .find(({ measureId }) => measureId === typedMeasureId);
               this.modelClone = { ...value };
-              console.log('this.productFromList', this.productFromList);
-              if (this.productFromList) {
+              console.log('this.productFromList', productFromList);
+              if (productFromList) {
                 let onlyMeasureName = '';
                 if (products.find(({ name }) => name === value.product)?.measures.length === 1) {
                   console.log('lenght: ', products.find(({ name }) => name === value.product)?.measures.length);
                   this.isMeasureDuplicated = true;
                   this.measures$.pipe(
                     first()).subscribe((measure) => {
-                      onlyMeasureName = measure.find(
-                        ({ measureId }) =>
-                          measureId === products.find(({ name }) => name === value.product).measures[0].measureId
-                      ).name;
-                    });
-                  console.log('onlyMeasureName: ');
-                  console.log(onlyMeasureName);
+                    onlyMeasureName = measure.find(
+                      ({ measureId }) =>
+                        measureId === products.find(({ name }) => name === value.product).measures[0].measureId
+                    ).name;
+                  });
                 }
                 return this.modelReset(true, onlyMeasureName);
               } else if (!!value?.measure) {
@@ -145,9 +139,13 @@ export class IngredientsComponent
 
   modelReset(reset: boolean, onlyMeasureName: string) {
     if (reset) {
-      this.model.controls[`measure`].reset();
       this.model.controls[`measure`].enable();
-      this.model.controls[`measure`].setValue(onlyMeasureName);
+      if (onlyMeasureName === '' && this.model.value.measure === 'Wpisz produkt') {
+        this.model.controls[`measure`].reset();
+      } else if (onlyMeasureName !== '') {
+        this.model.controls[`measure`].reset();
+        this.model.controls[`measure`].setValue(onlyMeasureName);
+      }
     } else {
       this.model.controls[`measure`].setValue('Wpisz produkt');
       this.model.controls[`measure`].disable();
@@ -159,11 +157,11 @@ export class IngredientsComponent
     return false;
   }
 
-  addProduct(newProduct) {
+  addProduct(newProduct: AddedProductType) {
     this.addedProduct.emit(newProduct);
   }
 
-  deleteProdMeasure(bothId: { givenMeasureId: string, givenProductId: string }) {
+  deleteProdMeasure(bothId: BothIdType) {
     this.prodMeasureDeleted.emit(bothId);
   }
 }

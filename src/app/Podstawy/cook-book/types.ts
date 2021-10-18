@@ -51,7 +51,7 @@ export interface UsedProduct {
   amount: number;
 }
 
-export interface AddedProuctType {
+export interface AddedProductType {
   duplicateState: boolean;
   product: { product: string, measure: string, kcal: number, allergens: Array<string> };
 }

@@ -116,7 +116,7 @@ export class IngredientDialogComponent
     });
   }
 
-  counter(product: string, allergens: Array<{ allergenId: '' }>, kcal: number, measure: string) {
+  counter(product: string, allergens: Array<{ allergenId: string }>, kcal: number, measure: string) {
     if (this.oldProduct !== product) {
       this.products$.pipe(first()).subscribe((products) => {
         if (!!products.find(({ name }) => name === product)) {
