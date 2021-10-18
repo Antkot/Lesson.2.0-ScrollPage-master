@@ -49,16 +49,19 @@ export class StepsComponent implements OnInit {
     moveItemInArray(this.steps, this.steps.length, index);
     this.edited = null;
     this.editedStep = '';
+    this.editing();
   }
 
   refactor(step: string) {
     this.edited = step;
     this.editedStep = step;
+    this.model.value.step = step;
   }
 
   delete(step: string) {
     const index = this.steps.indexOf(step);
     this.steps.splice(index, 1);
+    this.editing();
   }
 
   add() {

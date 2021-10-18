@@ -13,6 +13,7 @@
         <mat-form-field class="editor"  appearance='outline'>
           <input matInput type="text" id="newStep" placeholder="Dodaj kolejny krok..."
                  formControlName='step'
+                 [(ngModel)]="editedStep"
           />
 <!--          #name="ngModel"-->
         </mat-form-field>
@@ -24,21 +25,25 @@
 <!--            Krok musi mieć conajmniej 5 znaków-->
 <!--          </div>-->
 <!--        </div>-->
-        <button mat-icon-button [disabled]='model.invalid' (click)="add()" >
+        <button mat-icon-button [disabled]='model.invalid' (click)="add()" *ngIf='!edited'>
           <mat-icon class='centerButton'>add_circle</mat-icon>
+        </button>
+        <button mat-icon-button [disabled]='model.invalid' (click)="done(editedStep)" *ngIf='edited'>
+          <mat-icon class='centerButton'>done</mat-icon>
         </button>
       </div>
       <div class="example-box" *ngFor="let step of steps" cdkDrag>
-        <mat-form-field class="editor" *ngIf="edited === step">
-          <input matInput [(ngModel)]="editedStep" [value]='step' [placeholder]='step'>
-        </mat-form-field>
-        <button mat-menu-item *ngIf="edited === step" (click)="done(editedStep)" [disabled]='model.invalid'>
-          <mat-icon>done</mat-icon>
-          <span>Gotowe</span>
-        </button>
-        <span *ngIf="edited !== step">{{step}}</span>
+<!--        <mat-form-field class="editor" *ngIf="edited === step">-->
+<!--          <input matInput [(ngModel)]="editedStep" [value]='step' [placeholder]='step'>-->
+<!--        </mat-form-field>-->
+<!--        <button mat-menu-item *ngIf="edited === step" (click)="done(editedStep)" [disabled]='model.invalid'>-->
+<!--          <mat-icon>done</mat-icon>-->
+<!--          <span>Gotowe</span>-->
+<!--        </button>-->
+<!--        <span *ngIf="edited !== step">{{step}}</span>-->
+        <span>{{step}}</span>
         <div>
-          <div class="menu" [matMenuTriggerFor]="menu"  *ngIf='edited !== step'>
+          <div class="menu" [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
           </div>
           <mat-menu #menu="matMenu">
