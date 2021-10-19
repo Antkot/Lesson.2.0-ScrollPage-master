@@ -58,7 +58,7 @@ export class IngredientDialogComponent
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         // filter(({ product }) => !!product),
-        tap((value: { product: string, allergens: Array<{ allergenId: '' }>, kcal: number, measure: string }) => {
+        tap((value:  { product: string, allergens: Array<{ allergenId: '' }>, kcal: number, measure: string }) => {
           this.products$.pipe(first()).subscribe((products) => {
             this.measures$.pipe(first()).subscribe((measures) => {
               this.finalCombine$.next(measures.filter(({ measureId }) =>

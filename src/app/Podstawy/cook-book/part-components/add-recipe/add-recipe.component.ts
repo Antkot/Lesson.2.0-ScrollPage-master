@@ -62,13 +62,16 @@ export class AddRecipeComponent implements OnInit {
   deletedStepEmitter(index: number) {
     this.deletedStep.emit(index);
   }
-  editStepEmitter(editedStep: {step: string, index: number}) {
+
+  editStepEmitter(editedStep: { step: string, index: number }) {
     this.editStep.emit(editedStep);
   }
+
   newStepEmitter(newStep: string) {
     this.newStep.emit(newStep);
   }
-  reindexStepEmitter(reindex: {previousIndex: number, currentIndex: number }) {
+
+  reindexStepEmitter(reindex: { previousIndex: number, currentIndex: number }) {
     this.reindexStep.emit(reindex);
   }
 
@@ -80,11 +83,11 @@ export class AddRecipeComponent implements OnInit {
 
   }
 
-  addUsedProduct(newUsedProduct: {product: string, measure: string, amount: number}) {
+  addUsedProduct(newUsedProduct: { product: string, measure: string, amount: number }) {
     this.usedProductToAdd.emit(newUsedProduct);
   }
 
-  addProduct(newProduct: {duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> }}) {
+  addProduct(newProduct: { duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> } }) {
     this.addedProduct.emit(newProduct);
   }
 
@@ -93,9 +96,15 @@ export class AddRecipeComponent implements OnInit {
   }
 
 
-  typeEdition(newTypes: Array<{dishType: string}>) {
-    this.model.value.dishType = newTypes;
-    this.typeChange.emit(this.model.value.dishType);
+  typeEdition(newTypes: Array<{ dishType: string }>) {
+    const name = this.model.value.name;
+    this.model.setValue(
+      {
+        name,
+        type: newTypes
+      }
+    );
+    this.typeChange.emit(this.model.value.type);
   }
 
   deleteProdMeasure(deletedMeasure: { givenMeasureId: string, givenProductId: string }) {

@@ -110,11 +110,16 @@ export class DishStorageService {
   }
 
   typeChange(types: Array<{ dishId: string }>, givenDishId: string) {
-    givenDishId = this.idCheck(givenDishId);
+
+    // console.log('serviced types');
+    // console.log(types);
+
+    const checkedDishId = this.idCheck(givenDishId);
+    console.log(333333333333, checkedDishId);
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
     this.dishesList$.next(current.map(({ dishType, ...value }) => ({
       ...value,
-      dishType: value.dishId === givenDishId ? types : dishType
+      dishType: value.dishId === checkedDishId ? types : dishType
     })));
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
 
@@ -123,11 +128,12 @@ export class DishStorageService {
 
   idCheck(givenDishId: string) {
     if (givenDishId === 'new' || givenDishId === undefined) {
+      console.log(44444444444444);
       givenDishId = cuid();
       const current = JSON.parse(this.localStorageService.getItem('dishList'));
+      this.myRouter.navigate(['../recipe/', givenDishId], { state: { edit: true, reset: true } });
       this.dishesList$.next([...current, { dishId: givenDishId, dishType: [], products: [], name: '', steps: [], tags: [] }]);
       this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
-      this.myRouter.navigate(['../recipe/', givenDishId], { state: { edit: true, reset: true } });
     }
     return givenDishId;
   }
