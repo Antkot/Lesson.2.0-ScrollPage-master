@@ -31,8 +31,7 @@ export class StepsComponent implements OnInit {
   ngOnInit(): void {}
 
   drop(event: CdkDragDrop<Array<string>>) {
-    this.reindexStep.emit({previousIndex: event.previousIndex, currentIndex: event.currentIndex })
-    // moveItemInArray(this.steps, event.previousIndex, event.currentIndex);
+    this.reindexStep.emit({previousIndex: event.previousIndex, currentIndex: event.currentIndex });
   }
 
   done() {

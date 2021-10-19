@@ -14,12 +14,15 @@ import { number } from '@storybook/addon-knobs';
   styleUrls: ['./add-recipe.component.scss']
 })
 export class AddRecipeComponent implements OnInit {
-  @Output() stepsEmitter = new EventEmitter();
   @Output() prodMeasureDeleted = new EventEmitter();
   @Output() usedProductToAdd = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
   @Output() nameChange = new EventEmitter();
   @Output() typeChange = new EventEmitter();
+  @Output() newStep = new EventEmitter();
+  @Output() deletedStep = new EventEmitter();
+  @Output() editStep = new EventEmitter();
+  @Output() reindexStep = new EventEmitter();
   @Input() edit = true;
   @Input() reset = false;
   dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
@@ -55,8 +58,18 @@ export class AddRecipeComponent implements OnInit {
     this.nameChange.emit(this.model.value.name);
   }
 
-  stepsEdtied(newStepSet: Array<string>) {
-    this.stepsEmitter.emit(newStepSet);
+
+  deletedStepEmitter(index: number) {
+    this.deletedStep.emit(index);
+  }
+  editStepEmitter(editedStep: {step: string, index: number}) {
+    this.editStep.emit(editedStep);
+  }
+  newStepEmitter(newStep: string) {
+    this.newStep.emit(newStep);
+  }
+  reindexStepEmitter(reindex: {previousIndex: number, currentIndex: number }) {
+    this.reindexStep.emit(reindex);
   }
 
   editable() {

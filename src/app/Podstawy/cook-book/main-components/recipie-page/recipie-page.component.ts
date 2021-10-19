@@ -56,11 +56,27 @@ export class RecipiePageComponent implements OnInit {
     this.productService.addProduct(newProduct);
   }
 
-  stepEdit(newStepSet: Array<string>) {
+  newStepEmitter(newStep: string) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.stepChange(newStepSet, dishId)
+      this.dishService.newStep(newStep, dishId)
     );
   }
+  deletedStepEmitter(index: number) {
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.deleteStep(index, dishId)
+    );
+  }
+  editStepEmitter(editedStep: {step: string, index: number}) {
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.editStep(editedStep, dishId)
+    );
+  }
+  reindexStepEmitter(reindex: {previousIndex: number, currentIndex: number }) {
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.reindexStep(reindex, dishId)
+    );
+  }
+
 
   typeEdition(dishType: Array<{ dishId: string }>) {
     this.dishId$.pipe(first()).subscribe((dishId) =>

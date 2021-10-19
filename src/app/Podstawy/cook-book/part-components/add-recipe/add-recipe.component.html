@@ -36,7 +36,11 @@
       <mat-divider></mat-divider>
       <div class='divide marg'>
         <app-steps [edit]='edit' [steps]="(recipe$ | async).steps"
-                   (stepsChanged)='stepsEdtied($event)' ></app-steps>
+                   (deletedStep)='deletedStepEmitter($event)'
+                   (editStep)='editStepEmitter($event)'
+                   (newStep)='newStepEmitter($event)'
+                   (reindexStep)='reindexStepEmitter($event)'
+        ></app-steps>
       </div>
     </div>
     <footer class='confirm' *ngIf='edit' (click)='editable()'>

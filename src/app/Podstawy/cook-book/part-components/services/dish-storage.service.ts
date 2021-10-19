@@ -6,6 +6,8 @@ import { TagsStorageService } from './tags-storage.service';
 import { LocalStorageService } from './local-storage-service';
 import { first, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { number } from '@storybook/addon-knobs';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Injectable({
   providedIn: 'root'
@@ -53,14 +55,48 @@ export class DishStorageService {
     this.dishesList$.pipe(first()).subscribe(value => console.log('DISH2', value));
   }
 
-  stepChange(newStepSet: Array<string>, givenDishId: string) {
-    givenDishId = this.idCheck(givenDishId);
+  newStep(newStep: string, givenDishId: string) {
+    const checkedDishId = this.idCheck(givenDishId);
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
     this.dishesList$.next(current.map(({ steps, ...value }) => ({
       ...value,
-      steps: value.dishId === givenDishId ? newStepSet : steps
+      steps: value.dishId === checkedDishId ? [...steps, newStep] : steps
     })));
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+  }
+
+  deleteStep(index: number, givenDishId: string) {
+    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
+    this.dishesList$.next(current.map(({ steps, ...value }) => ({
+      ...value,
+      steps: value.dishId === givenDishId ? steps.filter((value1, index1) => index1 !== index) : steps
+    })));
+    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+  }
+
+  editStep(editedStep: { step: string, index: number }, givenDishId) {
+    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
+    this.dishesList$.next(current.map(({ steps, ...value }) => ({
+      ...value,
+      steps: value.dishId === givenDishId ? steps.map((value1, index1) => (index1 === editedStep.index) ? editedStep.step : value1) : steps
+    })));
+    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+  }
+
+  reindexStep(reindex: { previousIndex: number, currentIndex: number }, givenDishId) {
+    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
+    this.dishesList$.next(current.map(({ steps, ...value }) => ({
+      ...value,
+      steps: value.dishId === givenDishId ? this.reindex(steps, reindex.previousIndex, reindex.currentIndex) : steps
+      // steps: value.dishId === givenDishId ? moveItemInArray(steps, reindex.previousIndex, reindex.currentIndex) : steps
+    })));
+    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+  }
+
+  // steps.map(() => moveItemInArray(steps, reindex.previousIndex, reindex.currentIndex))
+  reindex(steps, previousIndex, currentIndex) {
+    moveItemInArray(steps, previousIndex, currentIndex);
+    return steps;
   }
 
   nameChange(newName: string, givenDishId: string) {
