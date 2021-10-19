@@ -81,7 +81,23 @@
           | async).productId) | async) |multiplication: (((product.usedProductId
           | usedProductConnector) | async).amount)}}
         </div>
-        <div> <button class='clickable'><mat-icon class='white-icon'>edit</mat-icon></button><button class='clickable'><mat-icon class='white-icon'>delete</mat-icon></button></div>
+
+
+        <div>
+          <button class='menu' [matMenuTriggerFor]='menu'>
+            <mat-icon class='white-icon'>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu='matMenu'>
+            <button mat-menu-item>
+              <mat-icon>edit</mat-icon>
+              <span>Edytuj</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>delete</mat-icon>
+              <span>Usuń</span>
+            </button>
+          </mat-menu>
+        </div>
       </div>
       <div *ngIf='!products.length' > Brak produktów</div>
     </div>

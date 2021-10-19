@@ -43,15 +43,15 @@
         <!--        <span *ngIf="edited !== step">{{step}}</span>-->
         <span>{{step}}</span>
         <div>
-          <button class='menu' [matMenuTriggerFor]='menu' [disabled]='edited === step'>
-            <mat-icon>more_vert</mat-icon>
+          <button class='menu' [matMenuTriggerFor]='menu' [disabled]='edited === i'>
+            <mat-icon class='white-icon'>more_vert</mat-icon>
           </button>
           <mat-menu #menu='matMenu'>
             <button mat-menu-item (click)='refactor(i)'>
               <mat-icon>edit</mat-icon>
               <span>Edytuj</span>
             </button>
-            <button mat-menu-item (click)='delete(step)'>
+            <button mat-menu-item (click)='delete(i)'>
               <mat-icon>delete</mat-icon>
               <span>Usuń</span>
             </button>

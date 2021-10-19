@@ -13,7 +13,6 @@ export class StepsComponent implements OnInit {
   });
   @Input() edit = false;
   edited: number = null;
-  newStep: string;
   @Input() steps = [
     'Krok z braku inputu',
     'Obierz cebulę i pokrój na drobne kawałeczki',
@@ -22,32 +21,23 @@ export class StepsComponent implements OnInit {
     'Ugotowany makaron dosyp do cebuli',
     'Wbij jaja do całości, dopraw wegług smaku'
   ];
-  @Output() stepsChanged = new EventEmitter();
+  @Output() newStep = new EventEmitter();
+  @Output() deletedStep = new EventEmitter();
+  @Output() editStep = new EventEmitter();
+  @Output() reindexStep = new EventEmitter();
 
-  constructor(
-    private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {}
 
   drop(event: CdkDragDrop<Array<string>>) {
-    moveItemInArray(this.steps, event.previousIndex, event.currentIndex);
-    this.editing();
+    this.reindexStep.emit({previousIndex: event.previousIndex, currentIndex: event.currentIndex })
+    // moveItemInArray(this.steps, event.previousIndex, event.currentIndex);
   }
 
-  ngOnInit(): void {
-  }
-
-  editing() {
-    this.stepsChanged.emit(this.steps);
-  }
-
-  done(editedStep: string) {
-    console.log(111111111111, this.edited, this.model.value.step);
-    this.steps.map((text, index) =>
-      index === this.edited ? this.model.value.step : '1'
-    );
-    console.table(this.steps);
+  done() {
+    this.editStep.emit({ step: this.model.value.step, index: this.edited });
     this.edited = null;
-    this.editing();
     this.model.reset();
   }
 
@@ -56,24 +46,13 @@ export class StepsComponent implements OnInit {
     this.model.setValue({ step: this.steps[index] });
   }
 
-  delete(step: string) {
-    const index = this.steps.indexOf(step);
-    this.steps.splice(index, 1);
-    this.editing();
+  delete(index: number) {
+    this.deletedStep.emit(index);
   }
 
   add() {
-    // newStep = this.duplicateCheck(newStep);
-    this.steps.push(this.model.value.step);
+    this.newStep.emit(this.model.value.step);
     this.model.reset();
   }
-
-  // duplicateCheck(step) {
-  //   if (this.steps.includes(step)) {
-  //     step = step + ' ';
-  //     step = this.duplicateCheck(step);
-  //   }
-  //   return step;
-  // }
 
 }
