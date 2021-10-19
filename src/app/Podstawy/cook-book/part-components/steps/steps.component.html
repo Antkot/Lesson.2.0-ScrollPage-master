@@ -1,57 +1,57 @@
-<div class="container">
-  <div class="steps">
-    <ng-container *ngTemplateOutlet="information"></ng-container>
+<div class='container'>
+  <div class='steps'>
+    <ng-container *ngTemplateOutlet='information'></ng-container>
   </div>
   <ng-template #information>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" cdkDropListDisabled *ngIf="!edit">
-      <div class="example-box" style="cursor: default;" *ngFor="let step of steps" cdkDrag>
+    <div cdkDropList class='example-list' (cdkDropListDropped)='drop($event)' cdkDropListDisabled *ngIf='!edit'>
+      <div class='example-box' style='cursor: default;' *ngFor='let step of steps' cdkDrag>
         {{step}}
       </div>
     </div>
-    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)" *ngIf="edit">
-      <div class="example-box def" [formGroup]='model' >
-        <mat-form-field class="editor"  appearance='outline'>
-          <input matInput type="text" id="newStep" placeholder="Dodaj kolejny krok..."
+    <div cdkDropList class='example-list' (cdkDropListDropped)='drop($event)' *ngIf='edit'>
+      <div class='example-box def' [formGroup]='model'>
+        <mat-form-field class='editor' appearance='outline'>
+          <input matInput type='text' id='newStep' placeholder='Dodaj kolejny krok...'
                  formControlName='step'
-                 [(ngModel)]="editedStep"
           />
-<!--          #name="ngModel"-->
+          <!--                 [(ngModel)]='editedStep'-->
+          <!--          #name="ngModel"-->
         </mat-form-field>
-<!--        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">-->
-<!--          <div *ngIf="name.errors?.required">-->
-<!--            Brak kroku!-->
-<!--          </div>-->
-<!--          <div *ngIf="name.errors?.minlength">-->
-<!--            Krok musi mieć conajmniej 5 znaków-->
-<!--          </div>-->
-<!--        </div>-->
-        <button mat-icon-button [disabled]='model.invalid' (click)="add()" *ngIf='!edited'>
+        <!--        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert">-->
+        <!--          <div *ngIf="name.errors?.required">-->
+        <!--            Brak kroku!-->
+        <!--          </div>-->
+        <!--          <div *ngIf="name.errors?.minlength">-->
+        <!--            Krok musi mieć conajmniej 5 znaków-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <button mat-icon-button [disabled]='model.invalid' (click)='add()' *ngIf='!edited'>
           <mat-icon class='centerButton'>add_circle</mat-icon>
         </button>
-        <button mat-icon-button [disabled]='model.invalid' (click)="done(editedStep)" *ngIf='edited'>
+        <button mat-icon-button [disabled]='model.invalid' (click)='done()' *ngIf='edited'>
           <mat-icon class='centerButton'>done</mat-icon>
         </button>
       </div>
-      <div class="example-box" *ngFor="let step of steps" cdkDrag>
-<!--        <mat-form-field class="editor" *ngIf="edited === step">-->
-<!--          <input matInput [(ngModel)]="editedStep" [value]='step' [placeholder]='step'>-->
-<!--        </mat-form-field>-->
-<!--        <button mat-menu-item *ngIf="edited === step" (click)="done(editedStep)" [disabled]='model.invalid'>-->
-<!--          <mat-icon>done</mat-icon>-->
-<!--          <span>Gotowe</span>-->
-<!--        </button>-->
-<!--        <span *ngIf="edited !== step">{{step}}</span>-->
+      <div class='example-box' *ngFor='let step of steps index as i' cdkDrag>
+        <!--        <mat-form-field class="editor" *ngIf="edited === step">-->
+        <!--          <input matInput [(ngModel)]="editedStep" [value]='step' [placeholder]='step'>-->
+        <!--        </mat-form-field>-->
+        <!--        <button mat-menu-item *ngIf="edited === step" (click)="done(editedStep)" [disabled]='model.invalid'>-->
+        <!--          <mat-icon>done</mat-icon>-->
+        <!--          <span>Gotowe</span>-->
+        <!--        </button>-->
+        <!--        <span *ngIf="edited !== step">{{step}}</span>-->
         <span>{{step}}</span>
         <div>
-          <div class="menu" [matMenuTriggerFor]="menu">
+          <button class='menu' [matMenuTriggerFor]='menu' [disabled]='edited === step'>
             <mat-icon>more_vert</mat-icon>
-          </div>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item *ngIf="edited !== step" (click)="refactor(step)">
+          </button>
+          <mat-menu #menu='matMenu'>
+            <button mat-menu-item (click)='refactor(i)'>
               <mat-icon>edit</mat-icon>
               <span>Edytuj</span>
             </button>
-            <button mat-menu-item (click)="delete(step)">
+            <button mat-menu-item (click)='delete(step)'>
               <mat-icon>delete</mat-icon>
               <span>Usuń</span>
             </button>

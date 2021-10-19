@@ -12,9 +12,8 @@ export class StepsComponent implements OnInit {
     step: ['', [Validators.required, Validators.minLength(1)]]
   });
   @Input() edit = false;
-  edited = null;
-  private newStep: string;
-  private editedStep: string;
+  edited: number = null;
+  newStep: string;
   @Input() steps = [
     'Krok z braku inputu',
     'Obierz cebulę i pokrój na drobne kawałeczki',
@@ -42,20 +41,19 @@ export class StepsComponent implements OnInit {
   }
 
   done(editedStep: string) {
-    this.delete(this.edited);
-    this.add();
-    const index = this.steps.indexOf(this.edited);
-    const index2 = this.steps.indexOf(editedStep);
-    moveItemInArray(this.steps, this.steps.length, index);
+    console.log(111111111111, this.edited, this.model.value.step);
+    this.steps.map((text, index) =>
+      index === this.edited ? this.model.value.step : '1'
+    );
+    console.table(this.steps);
     this.edited = null;
-    this.editedStep = '';
     this.editing();
+    this.model.reset();
   }
 
-  refactor(step: string) {
-    this.edited = step;
-    this.editedStep = step;
-    this.model.value.step = step;
+  refactor(index: number) {
+    this.edited = index;
+    this.model.setValue({ step: this.steps[index] });
   }
 
   delete(step: string) {
