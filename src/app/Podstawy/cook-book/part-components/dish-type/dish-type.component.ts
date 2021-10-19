@@ -20,9 +20,9 @@ export class DishTypeComponent implements OnInit {
   dishId$: Observable<any> = combineLatest([this.route.url.pipe(
     map(value => value[1].path))]);
   selectedDishes$ = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishes]) => {
-      // console.log(11111111111111111, id);
-      // console.log(11111111111111111, dishes);
-      // console.table(dishes.find(({ dishId }) => dishId === id));
+      console.log(11111111111111111, id);
+      console.log(11111111111111111, dishes);
+      console.table(dishes.find(({ dishId }) => dishId === id));
       return dishes.find(({ dishId }) => dishId === id).dishType.map(({ dishId }) => (dishId));
     }
   ));

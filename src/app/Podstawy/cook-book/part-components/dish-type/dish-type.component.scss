@@ -1,4 +1,4 @@
-.margin{
+.margin {
   margin: 5px;
   padding: 20px;
   border: double gold 12px;
@@ -6,6 +6,14 @@
   background: dodgerblue;
   color: white;
 }
-.margin:hover{
+
+.margin:hover {
   border: darkgoldenrod 12px double;
+}
+
+@media (max-width: 970px) {
+  .margin {
+    width: 50%;
+    display: inline-block;
+  }
 }

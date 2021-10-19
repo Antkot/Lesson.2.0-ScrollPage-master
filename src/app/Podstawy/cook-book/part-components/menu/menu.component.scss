@@ -33,11 +33,20 @@
   float: right;
 }
 
-@media (max-width: 720px){
+@media (max-width: 1000px){
   .option{
     width: calc(25% - 4px);
   }
   .searchBar{
-    width: calc(50% - 4px);
+    width: calc(35% - 4px);
+  }
+}
+
+@media (max-width: 610px){
+  .option{
+    width: calc(30% - 4px);
+  }
+  .searchBar{
+    width: calc(39% - 4px);
   }
 }

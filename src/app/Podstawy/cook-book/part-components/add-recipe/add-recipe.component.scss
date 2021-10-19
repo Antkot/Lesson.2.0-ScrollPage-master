@@ -9,7 +9,7 @@
 }
 
 .container {
-  width: 1000px;
+  max-width: 1000px;
   margin: auto;
 
   > div {
@@ -110,6 +110,7 @@ h1:hover {
   border-radius: 50px;
   display: block;
   width: 1000px;
+  max-width: 100%;
   border: gold 12px double;
   background-color: dodgerblue;
   padding: 14px 28px;

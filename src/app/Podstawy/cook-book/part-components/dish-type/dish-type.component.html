@@ -2,7 +2,7 @@
   <ng-container *ngFor='let dishId of dishes$ | async'>
   <span class='margin'>
   <mat-checkbox (click)='chosenType()' [formControlName]='dishId'>
-        {{dishId}}
+        {{dishId | dishType | async}}
   </mat-checkbox>
   </span>
   </ng-container>
