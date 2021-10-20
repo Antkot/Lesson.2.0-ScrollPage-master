@@ -12,10 +12,10 @@
       Dodaj przepis
     </h1>
   </div>
-  <div *ngIf='dishes.length === 0' class='noRecords'><h1>Brak przepisów</h1></div>
+<!--  <div *ngIf='dishes.length === 0' class='noRecords'><h1>Brak przepisów</h1></div>-->
   <div class="list">
     <mat-divider></mat-divider>
-    <div class="record" *ngFor='let dish of dishesList$ | async'>
+    <div class="record" *ngFor='let dish of shownDishesList$ | async'>
       <div class='recName'   [routerLink]="['/recipe', dish.dishId]"
            routerLinkActive='active' [state]='{ edit: false }'>
       <h1>{{dish.name}}</h1>

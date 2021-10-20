@@ -5,6 +5,7 @@ import { LoadingService } from '../services/loading.service';
 import { DishStorageService } from '../services/dish-storage.service';
 import { first, map } from 'rxjs/operators';
 import { xor } from 'lodash';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-listed',
@@ -13,21 +14,35 @@ import { xor } from 'lodash';
 })
 export class ListedComponent implements OnInit {
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
-  dishType$: Observable<{ dishId: string; }>;
+  dishType$: Observable<string> = combineLatest([this.activatedRoute.paramMap
+    .pipe(map(() => history.state))]).pipe(map(([{ dishTypeId }]) => dishTypeId));
+
   dishes = [];
-  constructor(private dishesService: DishStorageService) {
+  shownDishesList$: Observable<Array<Dish>> = combineLatest([this.dishType$, this.dishesList$]).pipe(
+    map(([dishTyped, dishesList]) => {
+      const lo = dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
+
+      console.log('Dania przed filtrowaniem: ');
+      this.dishesList$.pipe(first()).subscribe(value => {
+        console.table(value);
+      });
+      console.log('Typ : ');
+      this.dishType$.pipe(first()).subscribe(value => {
+        console.table(value);
+      });
+      console.log('filtrowanie: ');
+      console.log(lo);
+
+      return lo;
+    }));
+
+  constructor(private dishesService: DishStorageService, public activatedRoute: ActivatedRoute
+  ) {
   }
 
-  shownDishesList$: Observable<Dish> = combineLatest([this.dishType$, this.dishesList$]).pipe(map(([dishTyped, dishesList]) => {
-    return dishesList.find(({ dishType }) => dishType.includes(dishTyped));
-  }));
 
   ngOnInit(): void {
-    this.dishesList$.pipe(first()).subscribe(value => {
-      console.log('Dania: ', value);
-      this.dishes = value;
-    });
-    console.log(this.dishes);
+
   }
 
   deleteDsih(dishId: string) {

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Dish, DishType } from '../../types';
 import { LoadingService } from '../../part-components/services/loading.service';
+import { first, map } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from '../../part-components/services/local-storage-service';
+import { DishStorageService } from '../../part-components/services/dish-storage.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -9,16 +13,26 @@ import { LoadingService } from '../../part-components/services/loading.service';
   styleUrls: ['./main-menu.component.scss']
 })
 export class MainMenuComponent implements OnInit {
-  dishes$: Observable<Array<DishType>> = this.loadingService.dishes$;
-  dishType$: Observable<{ dishId: string; }>;
-
-  constructor(private loadingService: LoadingService) {
+  dishes$: BehaviorSubject<Array<DishType>> = this.loadingService.dishes$;
+  constructor(
+    private dishStorageService: DishStorageService,
+    private loadingService: LoadingService,
+    private localStorageService: LocalStorageService
+  ) {
   }
 
   ngOnInit(): void {
+
   }
   dishTyped(dishType: string) {
     console.log(dishType);
     // this.dishType$.next({ dishId: dishType });
   }
 }
+// const current = this.allergens$.value;
+// this.allergens$.next(
+//   [
+//     ...current.filter(record => record.hashId !== deletedHash)
+//   ]
+// );
+//
