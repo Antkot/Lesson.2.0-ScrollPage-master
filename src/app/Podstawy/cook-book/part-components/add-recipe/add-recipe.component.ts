@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { first, map } from 'rxjs/operators';
+import { first, map, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dish, UsedProduct } from '../../types';
 import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
@@ -7,13 +7,16 @@ import { combineLatest, Observable } from 'rxjs';
 import { DishStorageService } from '../services/dish-storage.service';
 import { stringify } from 'querystring';
 import { number } from '@storybook/addon-knobs';
+import { AliveState } from '../../../../ActiveState';
 
 @Component({
   selector: 'app-add-recipe',
   templateUrl: './add-recipe.component.html',
   styleUrls: ['./add-recipe.component.scss']
 })
-export class AddRecipeComponent implements OnInit {
+export class AddRecipeComponent
+  extends AliveState
+  implements OnInit {
   @Output() prodMeasureDeleted = new EventEmitter();
   @Output() usedProductToAdd = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
@@ -46,10 +49,23 @@ export class AddRecipeComponent implements OnInit {
     type: [[], []]
   });
 
-  constructor(private route: ActivatedRoute, private fb: FormBuilder, public myRouter: Router, private dishService: DishStorageService) {
+  constructor(private route: ActivatedRoute,
+              private fb: FormBuilder,
+              public myRouter: Router,
+              private dishService: DishStorageService
+  ) {
+    super();
   }
 
   ngOnInit(): void {
+    //
+    // this.subscribeWhileAlive(
+    //   this.model.valueChanges.pipe(
+    //     tap((value: { name: string }) => {
+    //         this.nameChanged();
+    //       }
+    //     )));
+    //
   }
 
   nameChanged() {
