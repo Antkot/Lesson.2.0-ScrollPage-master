@@ -12,9 +12,9 @@
       Dodaj przepis
     </h1>
   </div>
-<!--  <div *ngIf='dishes.length === 0' class='noRecords'><h1>Brak przepisów</h1></div>-->
+  <div class='noRecords'><h1>Brak przepisów</h1></div>
+  <mat-divider></mat-divider>
   <div class="list">
-    <mat-divider></mat-divider>
     <div class="record" *ngFor='let dish of shownDishesList$ | async'>
       <div class='recName'   [routerLink]="['/recipe', dish.dishId]"
            routerLinkActive='active' [state]='{ edit: false }'>
@@ -44,7 +44,7 @@
 <!--        ></app-chips>-->
 <!--      </div>-->
     </div>
-    <mat-divider></mat-divider>
   </div>
+  <mat-divider></mat-divider>
 </div>
 <!--routerLinkActive='active' [state]='{ edit: false, name: dish.name, tags: dish.tags, steps: dish.steps, products: dish.products }'>-->
