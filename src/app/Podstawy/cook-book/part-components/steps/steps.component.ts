@@ -12,7 +12,7 @@ export class StepsComponent implements OnInit {
     step: ['', [Validators.required, Validators.minLength(1)]]
   });
   @Input() edit = false;
-  edited: number = null;
+  edited: number = -1;
   @Input() steps = [
     'Krok z braku inputu',
     'Obierz cebulę i pokrój na drobne kawałeczki',
@@ -36,7 +36,7 @@ export class StepsComponent implements OnInit {
 
   done() {
     this.editStep.emit({ step: this.model.value.step, index: this.edited });
-    this.edited = null;
+    this.edited = -1;
     this.model.reset();
   }
 

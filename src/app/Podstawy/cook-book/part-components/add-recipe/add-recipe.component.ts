@@ -58,14 +58,15 @@ export class AddRecipeComponent
   }
 
   ngOnInit(): void {
-    //
-    // this.subscribeWhileAlive(
-    //   this.model.valueChanges.pipe(
-    //     tap((value: { name: string }) => {
-    //         this.nameChanged();
-    //       }
-    //     )));
-    //
+
+    this.subscribeWhileAlive(
+      this.model.valueChanges.pipe(
+        tap((value: { name: string }) => {
+          console.log('nowa nazwa: ', value.name);
+          // this.nameChange.emit(this.model.value.name);
+          }
+        )));
+
   }
 
   nameChanged() {

@@ -25,10 +25,10 @@
         <!--            Krok musi mieć conajmniej 5 znaków-->
         <!--          </div>-->
         <!--        </div>-->
-        <button mat-icon-button [disabled]='model.invalid' (click)='add()' *ngIf='!edited'>
+        <button mat-icon-button [disabled]='model.invalid' (click)='add()' *ngIf='edited === -1'>
           <mat-icon class='centerButton'>add_circle</mat-icon>
         </button>
-        <button mat-icon-button [disabled]='model.invalid' (click)='done()' *ngIf='edited'>
+        <button mat-icon-button [disabled]='model.invalid' (click)='done()' *ngIf='edited !== -1'>
           <mat-icon class='centerButton'>done</mat-icon>
         </button>
       </div>
