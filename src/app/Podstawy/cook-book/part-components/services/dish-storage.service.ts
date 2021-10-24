@@ -14,6 +14,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class DishStorageService {
   dishesList$ = new BehaviorSubject<Array<Dish>>([]);
+  dishesListCopied$ = new BehaviorSubject<Array<Dish>>([]);
 
   constructor(private tagsService: TagsStorageService, private localStorageService: LocalStorageService, public myRouter: Router) {
 
@@ -41,6 +42,25 @@ export class DishStorageService {
       ]);
       this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
     }
+
+    this.dishesListCopied$.next([
+      {
+        dishId: cuid(),
+        name: 'Pierogi ze storage',
+        steps: ['1', '2 krok', 'ugotuj'],
+        products: [{ usedProductId: 'used1' }, { usedProductId: 'used2' }],
+        tags: [{ hashId: 'fff' }],
+        dishType: [{ dishId: '1' }]
+      },
+      {
+        dishId: cuid(),
+        name: 'Pierogi z observable',
+        steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+        products: [{ usedProductId: 'used1' }],
+        tags: [{ hashId: 'fff' }],
+        dishType: [{ dishId: '1' }]
+      }
+    ]);
   }
 
   addProduct(addedProduct: UsedProduct, givenDishId: string) {
