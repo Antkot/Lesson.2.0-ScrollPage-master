@@ -78,18 +78,6 @@ export class DishStorageService {
     this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
   }
 
-  // addProduct(addedProduct: UsedProduct, givenDishId: string) {
-  //   givenDishId = this.idCheck(givenDishId);
-  //   this.dishesList$.pipe(first()).subscribe(value => console.log('DISH1', value));
-  //   const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
-  //   this.dishesList$.next(current.map(({ products, ...value }) => ({
-  //     ...value,
-  //     products: value.dishId === givenDishId ? [...products, { usedProductId: addedProduct.usedProductId }] : products
-  //   })));
-  //   this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
-  //   this.dishesList$.pipe(first()).subscribe(value => console.log('DISH2', value));
-  // }
-
   newStep(newStep: string, givenDishId: string) {
     const checkedDishId = this.idCheck(givenDishId);
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
