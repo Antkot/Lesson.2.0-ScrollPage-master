@@ -70,13 +70,10 @@ export class DishStorageService {
     givenDishId = this.idCheck(givenDishId);
     this.dishesListCopied$.next({
       dishId: givenDishId,
-      name: this.dishesListCopied$.value.name,
-      steps: this.dishesListCopied$.value.steps,
+      ...this.dishesListCopied$.value,
       products: this.dishesListCopied$.value.dishId === givenDishId
         ? [...this.dishesListCopied$.value.products, { usedProductId: addedProduct.usedProductId }]
         : this.dishesListCopied$.value.products,
-      tags: this.dishesListCopied$.value.tags,
-      dishType: this.dishesListCopied$.value.dishType
     });
     this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
   }
