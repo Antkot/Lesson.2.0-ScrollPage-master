@@ -26,6 +26,7 @@ export class DishStorageService {
 
   constructor(private tagsService: TagsStorageService, private localStorageService: LocalStorageService, public myRouter: Router) {
 
+
     if (!!localStorage.dishList) {
       const current = JSON.parse(this.localStorageService.getItem('dishList'));
       this.dishesList$.next([...current]);
@@ -51,72 +52,62 @@ export class DishStorageService {
       this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
     }
 
-    // this.dishesListCopied$.next(
-    //   {
-    //     dishId: cuid(),
-    //     name: 'Pierogi ze storage',
-    //     steps: ['1', '2 krok', 'ugotuj'],
-    //     products: [{ usedProductId: 'used1' }, { usedProductId: 'used2' }],
-    //     tags: [{ hashId: 'fff' }],
-    //     dishType: [{ dishId: '1' }]
-    //   }
-    // );
   }
 
-  // this.dishesList$.next({...this.dishesListCopied$.value, ...dishesListCopied$});
-
-
   addProduct(addedProduct: UsedProduct, givenDishId: string) {
-    givenDishId = this.idCheck(givenDishId);
+    const checkedDishId = this.idCheck(givenDishId);
     this.dishesListCopied$.next({
-      dishId: givenDishId,
+      dishId: checkedDishId,
       ...this.dishesListCopied$.value,
-      products: this.dishesListCopied$.value.dishId === givenDishId
+      products: this.dishesListCopied$.value.dishId === checkedDishId
         ? [...this.dishesListCopied$.value.products, { usedProductId: addedProduct.usedProductId }]
-        : this.dishesListCopied$.value.products,
+        : this.dishesListCopied$.value.products
     });
     this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
   }
 
   newStep(newStep: string, givenDishId: string) {
     const checkedDishId = this.idCheck(givenDishId);
-    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
-    this.dishesList$.next(current.map(({ steps, ...value }) => ({
-      ...value,
-      steps: value.dishId === checkedDishId ? [...steps, newStep] : steps
-    })));
-    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+    this.dishesListCopied$.next({
+      dishId: givenDishId,
+      ...this.dishesListCopied$.value,
+      steps: this.dishesListCopied$.value.dishId === checkedDishId
+        ? [...this.dishesListCopied$.value.steps, newStep] :
+        this.dishesListCopied$.value.steps
+    });
   }
 
   deleteStep(index: number, givenDishId: string) {
-    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
-    this.dishesList$.next(current.map(({ steps, ...value }) => ({
-      ...value,
-      steps: value.dishId === givenDishId ? steps.filter((value1, index1) => index1 !== index) : steps
-    })));
-    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+    this.dishesListCopied$.next({
+      dishId: givenDishId,
+      ...this.dishesListCopied$.value,
+      steps: this.dishesListCopied$.value.dishId === givenDishId
+        ? this.dishesListCopied$.value.steps.filter((value1, index1) => index1 !== index)
+        : this.dishesListCopied$.value.steps
+    });
   }
 
   editStep(editedStep: { step: string, index: number }, givenDishId) {
-    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
-    this.dishesList$.next(current.map(({ steps, ...value }) => ({
-      ...value,
-      steps: value.dishId === givenDishId ? steps.map((value1, index1) => (index1 === editedStep.index) ? editedStep.step : value1) : steps
-    })));
-    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+    this.dishesListCopied$.next({
+      dishId: givenDishId,
+      ...this.dishesListCopied$.value,
+      steps: this.dishesListCopied$.value.dishId === givenDishId
+        ? this.dishesListCopied$.value.steps.map((value1, index1) => (index1 === editedStep.index) ? editedStep.step : value1)
+        : this.dishesListCopied$.value.steps
+    });
   }
 
   reindexStep(reindex: { previousIndex: number, currentIndex: number }, givenDishId) {
-    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
-    this.dishesList$.next(current.map(({ steps, ...value }) => ({
-      ...value,
-      steps: value.dishId === givenDishId ? this.reindex(steps, reindex.previousIndex, reindex.currentIndex) : steps
-      // steps: value.dishId === givenDishId ? moveItemInArray(steps, reindex.previousIndex, reindex.currentIndex) : steps
-    })));
-    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+    this.dishesListCopied$.next({
+      dishId: givenDishId,
+      ...this.dishesListCopied$.value,
+      steps: this.dishesListCopied$.value.dishId === givenDishId
+        ? this.reindex(this.dishesListCopied$.value.steps, reindex.previousIndex, reindex.currentIndex)
+        : this.dishesListCopied$.value.steps
+
+    });
   }
 
-  // steps.map(() => moveItemInArray(steps, reindex.previousIndex, reindex.currentIndex))
   reindex(steps, previousIndex, currentIndex) {
     moveItemInArray(steps, previousIndex, currentIndex);
     return steps;
@@ -124,29 +115,20 @@ export class DishStorageService {
 
   nameChange(newName: string, givenDishId: string) {
     givenDishId = this.idCheck(givenDishId);
-    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
-    this.dishesList$.next(current.map(({ name, ...value }) => ({
-      ...value,
-      name: value.dishId === givenDishId ? newName : name
-    })));
-    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+    this.dishesListCopied$.next({
+      dishId: givenDishId,
+      ...this.dishesListCopied$.value,
+      name: this.dishesListCopied$.value.dishId === givenDishId ? newName : this.dishesListCopied$.value.name
+    });
   }
 
   typeChange(types: Array<{ dishId: string }>, givenDishId: string) {
-
-    // console.log('serviced types');
-    // console.log(types);
-
     const checkedDishId = this.idCheck(givenDishId);
-    console.log(333333333333, checkedDishId);
-    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
-    this.dishesList$.next(current.map(({ dishType, ...value }) => ({
-      ...value,
-      dishType: value.dishId === checkedDishId ? types : dishType
-    })));
-    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
-
-    this.dishesList$.pipe(first()).subscribe(value => console.log('typ zmieniony: ', value));
+    this.dishesListCopied$.next({
+      dishId: givenDishId,
+      ...this.dishesListCopied$.value,
+      dishType: this.dishesListCopied$.value.dishId === checkedDishId ? types : this.dishesListCopied$.value.dishType
+    });
   }
 
   idCheck(givenDishId: string) {
@@ -171,8 +153,6 @@ export class DishStorageService {
         });
       }
     }
-
-
     return givenDishId;
   }
 
@@ -186,20 +166,8 @@ export class DishStorageService {
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
-// nie użyte
-//   add(event): void {
-//     const current = JSON.parse(this.localStorageService.getItem('dishList'));
-//     this.dishesList$.next(
-//       [
-//         ...current,
-//         {
-//           hashId: cuid(),
-//           name: event
-//         }]);
-//     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
-//   }
   endEdition() {
-    // merge dishesList$ i dishesListCopied$
+    this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value } ]);
     this.editState = false;
     console.log('Zakończono edycję');
   }

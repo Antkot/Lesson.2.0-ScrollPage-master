@@ -3,7 +3,7 @@ import { first, map, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Dish, UsedProduct } from '../../types';
 import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { DishStorageService } from '../services/dish-storage.service';
 import { stringify } from 'querystring';
 import { number } from '@storybook/addon-knobs';
@@ -30,6 +30,8 @@ export class AddRecipeComponent
   @Input() edit = true;
   @Input() reset = false;
   dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
+  dishesListCopied$ = this.dishService.dishesListCopied$;
+  editionInProgress$ = new BehaviorSubject<boolean>(false);
   dishId$ = this.route.url.pipe(
     map(value => value[1].path));
   recipe$: Observable<Dish> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishesList]) => {
@@ -59,6 +61,15 @@ export class AddRecipeComponent
   }
 
   ngOnInit(): void {
+    this.dishesListCopied$.subscribe(
+      value => {
+        if (value === { dishId: '', name: '', tags: [], steps: [], products: [], dishType: [] }) {
+          this.editionInProgress$.next(false);
+        } else {
+          this.editionInProgress$.next(true);
+        }
+      });
+
 
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
