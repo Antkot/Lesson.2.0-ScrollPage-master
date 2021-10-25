@@ -131,13 +131,13 @@
   top: 50%;
   right: 40%;
 }
-.list:empty{
-  height: 10px;
-  background: red;
-  .noRecords{
-    display: block;
-  }
-}
+//.list:empty{
+  //height: 10px;
+  //background: red;
+  //.noRecords{
+  //  display: block;
+  //}
+//}
 .list:empty + .noRecords{
   display: block;
 }

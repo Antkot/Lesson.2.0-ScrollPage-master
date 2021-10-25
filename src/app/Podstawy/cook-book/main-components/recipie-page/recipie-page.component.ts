@@ -88,4 +88,7 @@ export class RecipiePageComponent implements OnInit {
   deleteProdMeasure(bothId: BothIdType) {
     this.productService.deleteProdMeasure(bothId);
   }
+  endEdition() {
+    this.dishService.endEdition();
+  }
 }

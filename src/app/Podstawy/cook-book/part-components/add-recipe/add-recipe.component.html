@@ -44,7 +44,7 @@
       </div>
     </div>
     <footer class='confirm' *ngIf='edit' (click)='editable()'>
-      <button [disabled]='model.invalid' class='block'>
+      <button [disabled]='model.invalid' class='block' (click)='endEdition()'>
         Zakończ edycję
       </button>
     </footer>

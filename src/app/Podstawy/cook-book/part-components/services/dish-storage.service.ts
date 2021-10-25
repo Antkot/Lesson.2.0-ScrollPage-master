@@ -14,7 +14,15 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 })
 export class DishStorageService {
   dishesList$ = new BehaviorSubject<Array<Dish>>([]);
-  dishesListCopied$ = new BehaviorSubject<Array<Dish>>([]);
+  dishesListCopied$ = new BehaviorSubject<Dish>({
+    dishId: '',
+    name: '',
+    tags: [],
+    steps: [],
+    products: [],
+    dishType: []
+  });
+  editState = false;
 
   constructor(private tagsService: TagsStorageService, private localStorageService: LocalStorageService, public myRouter: Router) {
 
@@ -43,37 +51,47 @@ export class DishStorageService {
       this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
     }
 
-    this.dishesListCopied$.next([
-      {
-        dishId: cuid(),
-        name: 'Pierogi ze storage',
-        steps: ['1', '2 krok', 'ugotuj'],
-        products: [{ usedProductId: 'used1' }, { usedProductId: 'used2' }],
-        tags: [{ hashId: 'fff' }],
-        dishType: [{ dishId: '1' }]
-      },
-      {
-        dishId: cuid(),
-        name: 'Pierogi z observable',
-        steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
-        products: [{ usedProductId: 'used1' }],
-        tags: [{ hashId: 'fff' }],
-        dishType: [{ dishId: '1' }]
-      }
-    ]);
+    // this.dishesListCopied$.next(
+    //   {
+    //     dishId: cuid(),
+    //     name: 'Pierogi ze storage',
+    //     steps: ['1', '2 krok', 'ugotuj'],
+    //     products: [{ usedProductId: 'used1' }, { usedProductId: 'used2' }],
+    //     tags: [{ hashId: 'fff' }],
+    //     dishType: [{ dishId: '1' }]
+    //   }
+    // );
   }
+
+  // this.dishesList$.next({...this.dishesListCopied$.value, ...dishesListCopied$});
+
 
   addProduct(addedProduct: UsedProduct, givenDishId: string) {
     givenDishId = this.idCheck(givenDishId);
-    this.dishesList$.pipe(first()).subscribe(value => console.log('DISH1', value));
-    const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
-    this.dishesList$.next(current.map(({ products, ...value }) => ({
-      ...value,
-      products: value.dishId === givenDishId ? [...products, { usedProductId: addedProduct.usedProductId }] : products
-    })));
-    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
-    this.dishesList$.pipe(first()).subscribe(value => console.log('DISH2', value));
+    this.dishesListCopied$.next({
+      dishId: givenDishId,
+      name: this.dishesListCopied$.value.name,
+      steps: this.dishesListCopied$.value.steps,
+      products: this.dishesListCopied$.value.dishId === givenDishId
+        ? [...this.dishesListCopied$.value.products, { usedProductId: addedProduct.usedProductId }]
+        : this.dishesListCopied$.value.products,
+      tags: this.dishesListCopied$.value.tags,
+      dishType: this.dishesListCopied$.value.dishType
+    });
+    this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
   }
+
+  // addProduct(addedProduct: UsedProduct, givenDishId: string) {
+  //   givenDishId = this.idCheck(givenDishId);
+  //   this.dishesList$.pipe(first()).subscribe(value => console.log('DISH1', value));
+  //   const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
+  //   this.dishesList$.next(current.map(({ products, ...value }) => ({
+  //     ...value,
+  //     products: value.dishId === givenDishId ? [...products, { usedProductId: addedProduct.usedProductId }] : products
+  //   })));
+  //   this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+  //   this.dishesList$.pipe(first()).subscribe(value => console.log('DISH2', value));
+  // }
 
   newStep(newStep: string, givenDishId: string) {
     const checkedDishId = this.idCheck(givenDishId);
@@ -150,11 +168,26 @@ export class DishStorageService {
     if (givenDishId === 'new' || givenDishId === undefined) {
       console.log(44444444444444);
       givenDishId = cuid();
+      if (this.editState === false) {
+        this.editState = true;
+      }
       const current = JSON.parse(this.localStorageService.getItem('dishList'));
       this.myRouter.navigate(['../recipe/', givenDishId], { state: { edit: true, reset: true } });
       this.dishesList$.next([...current, { dishId: givenDishId, dishType: [], products: [], name: '', steps: [], tags: [] }]);
       this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+    } else {
+      if (this.editState === false) {
+        this.editState = true;
+        this.dishesList$.subscribe(value => {
+          this.dishesListCopied$.next(
+            value.filter(({ dishId }) =>
+              dishId === givenDishId
+            )[0]);
+        });
+      }
     }
+
+
     return givenDishId;
   }
 
@@ -180,4 +213,10 @@ export class DishStorageService {
 //         }]);
 //     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
 //   }
+  endEdition() {
+    // merge dishesList$ i dishesListCopied$
+    this.editState = false;
+    console.log('Zakończono edycję');
+  }
+
 }

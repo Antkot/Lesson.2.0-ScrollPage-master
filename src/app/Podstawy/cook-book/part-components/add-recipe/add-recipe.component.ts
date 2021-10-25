@@ -26,6 +26,7 @@ export class AddRecipeComponent
   @Output() deletedStep = new EventEmitter();
   @Output() editStep = new EventEmitter();
   @Output() reindexStep = new EventEmitter();
+  @Output() editionEnded = new EventEmitter();
   @Input() edit = true;
   @Input() reset = false;
   dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
@@ -62,8 +63,8 @@ export class AddRecipeComponent
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         tap((value: { name: string }) => {
-          console.log('nowa nazwa: ', value.name);
-          // this.nameChange.emit(this.model.value.name);
+            console.log('nowa nazwa: ', value.name);
+            // this.nameChange.emit(this.model.value.name);
           }
         )));
 
@@ -128,6 +129,9 @@ export class AddRecipeComponent
     this.prodMeasureDeleted.emit(deletedMeasure);
   }
 
+  endEdition() {
+    this.editionEnded.emit();
+  }
 }
 
 // function customV(): ValidatorFn {
