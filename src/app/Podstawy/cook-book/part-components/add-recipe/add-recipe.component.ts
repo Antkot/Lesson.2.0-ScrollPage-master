@@ -27,14 +27,14 @@ export class AddRecipeComponent
   @Output() editStep = new EventEmitter();
   @Output() reindexStep = new EventEmitter();
   @Output() editionEnded = new EventEmitter();
+  nameOfDish = { name: '' };
   @Input() edit = true;
   @Input() reset = false;
   dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
-  dishesListCopied$ = this.dishService.dishesListCopied$;
-  editionInProgress$ = new BehaviorSubject<boolean>(false);
   dishId$ = this.route.url.pipe(
     map(value => value[1].path));
-  recipe$: Observable<Dish> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishesList]) => {
+  recipe$ = this.dishService.dishesListCopied$;
+  recipe2$: Observable<Dish> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishesList]) => {
     const recipe = dishesList.find(({ dishId }) => dishId === id) ?? {
       dishId: '',
       name: '',
@@ -61,21 +61,14 @@ export class AddRecipeComponent
   }
 
   ngOnInit(): void {
-    this.dishesListCopied$.subscribe(
-      value => {
-        if (value === { dishId: '', name: '', tags: [], steps: [], products: [], dishType: [] }) {
-          this.editionInProgress$.next(false);
-        } else {
-          this.editionInProgress$.next(true);
-        }
-      });
-
-
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         tap((value: { name: string }) => {
-            console.log('nowa nazwa: ', value.name);
-            // this.nameChange.emit(this.model.value.name);
+            if (this.nameOfDish !== value) {
+              console.log('nowa nazwa: ', value.name);
+              this.nameChange.emit(this.model.value.name);
+              this.nameOfDish = value;
+            }
           }
         )));
 
@@ -143,6 +136,7 @@ export class AddRecipeComponent
   endEdition() {
     this.editionEnded.emit();
   }
+
 }
 
 // function customV(): ValidatorFn {

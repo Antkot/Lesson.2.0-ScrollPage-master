@@ -4,16 +4,20 @@ import { MenuComponent } from './menu.component';
 import { withKnobs } from '@storybook/addon-knobs';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { MatIconModule } from '@angular/material/icon';
+import { AbandonEditionComponent } from '../abandon-edition/abandon-edition.component';
+
 
 const decoration: NgModule = {
   declarations: [
     MenuComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    AbandonEditionComponent
   ],
   imports: [
-    MatIconModule
+    MatIconModule,
+    AbandonEditionComponent
   ],
-  providers: []
+  providers: [AbandonEditionComponent]
 };
 
 storiesOf('Podstawy / cook / parts', module)

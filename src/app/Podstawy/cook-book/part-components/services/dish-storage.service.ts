@@ -8,11 +8,14 @@ import { first, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { number } from '@storybook/addon-knobs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DishStorageService {
+  editionInProgress$ = new BehaviorSubject<boolean>(false);
   dishesList$ = new BehaviorSubject<Array<Dish>>([]);
   dishesListCopied$ = new BehaviorSubject<Dish>({
     dishId: '',
@@ -24,8 +27,12 @@ export class DishStorageService {
   });
   editState = false;
 
-  constructor(private tagsService: TagsStorageService, private localStorageService: LocalStorageService, public myRouter: Router) {
-
+  constructor(
+    private tagsService: TagsStorageService,
+    private localStorageService: LocalStorageService,
+    public myRouter: Router,
+    private addRecipeComponent: AddRecipeComponent
+  ) {
 
     if (!!localStorage.dishList) {
       const current = JSON.parse(this.localStorageService.getItem('dishList'));
@@ -145,14 +152,32 @@ export class DishStorageService {
     } else {
       if (this.editState === false) {
         this.editState = true;
-        this.dishesList$.subscribe(value => {
+        this.addRecipeComponent.recipe2$.subscribe(value =>
           this.dishesListCopied$.next(
-            value.filter(({ dishId }) =>
-              dishId === givenDishId
-            )[0]);
-        });
+            value
+          ));
+
       }
     }
+
+    let x;
+    this.dishesList$.subscribe(value => {
+      x = value.filter(({ dishId }) =>
+        dishId === givenDishId
+      )[0];
+    });
+    stringify(x);
+    let y;
+    this.editionInProgress$.subscribe(value => y = value);
+    stringify(y);
+    console.log('x');
+    console.log(x);
+    console.log('y');
+    console.log(y);
+    console.log('x === y');
+    console.log(x === y);
+
+
     return givenDishId;
   }
 
@@ -167,7 +192,8 @@ export class DishStorageService {
   }
 
   endEdition() {
-    this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value } ]);
+    //dwa takie same produkty
+    this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
     this.editState = false;
     console.log('Zakończono edycję');
   }
