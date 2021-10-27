@@ -17,7 +17,7 @@ export class LoadingComponent implements OnInit {
   constructor(public myRouter: Router, private dishService: DishStorageService) {
   }
   ngOnInit() {
-    this.myRouter.navigate(['/main']);
+    // this.myRouter.navigate(['/main']);
   }
 }
 

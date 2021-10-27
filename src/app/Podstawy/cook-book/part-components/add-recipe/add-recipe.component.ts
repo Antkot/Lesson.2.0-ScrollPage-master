@@ -33,20 +33,20 @@ export class AddRecipeComponent
   dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
   dishId$ = this.route.url.pipe(
     map(value => value[1].path));
-  recipe$ = this.dishService.dishesListCopied$;
-  recipe2$: Observable<Dish> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishesList]) => {
-    const recipe = dishesList.find(({ dishId }) => dishId === id) ?? {
-      dishId: '',
-      name: '',
-      tags: [],
-      steps: [],
-      products: [],
-      dishType: []
-    };
-    this.model.setValue({ name: recipe.name, type: recipe.dishType }
-    );
-    return recipe;
-  }));
+  recipe$: Observable<Dish> = this.dishService.dishesListCopied$;
+  // recipe2$: Observable<Dish> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishesList]) => {
+  //   const recipe = dishesList.find(({ dishId }) => dishId === id) ?? {
+  //     dishId: '',
+  //     name: '',
+  //     tags: [],
+  //     steps: [],
+  //     products: [],
+  //     dishType: []
+  //   };
+  //   this.model.setValue({ name: recipe.name, type: recipe.dishType }
+  //   );
+  //   return recipe;
+  // }));
   model = this.fb.group({
     name: ['', [Validators.required]],
     type: [[], []]
@@ -61,6 +61,10 @@ export class AddRecipeComponent
   }
 
   ngOnInit(): void {
+    this.route.url.pipe(
+      map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.newDish(url)
+    );
+
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         tap((value: { name: string }) => {

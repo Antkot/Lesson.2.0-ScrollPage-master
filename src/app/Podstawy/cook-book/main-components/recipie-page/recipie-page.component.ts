@@ -41,9 +41,9 @@ export class RecipiePageComponent implements OnInit {
 
   nameEdited(newName: string) {
     console.log('nazwa zmieniona');
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.nameChange(newName, dishId)
-    );
+    // this.dishId$.pipe(first()).subscribe((dishId) =>
+    //   this.dishService.nameChange(newName, dishId)
+    // );
   }
 
   addUsedProduct(newUsedProduct: AddedUsedProductType) {
@@ -62,17 +62,20 @@ export class RecipiePageComponent implements OnInit {
       this.dishService.newStep(newStep, dishId)
     );
   }
+
   deletedStepEmitter(index: number) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.deleteStep(index, dishId)
     );
   }
-  editStepEmitter(editedStep: {step: string, index: number}) {
+
+  editStepEmitter(editedStep: { step: string, index: number }) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.editStep(editedStep, dishId)
     );
   }
-  reindexStepEmitter(reindex: {previousIndex: number, currentIndex: number }) {
+
+  reindexStepEmitter(reindex: { previousIndex: number, currentIndex: number }) {
     this.dishId$.pipe(first()).subscribe((dishId) =>
       this.dishService.reindexStep(reindex, dishId)
     );
@@ -88,7 +91,10 @@ export class RecipiePageComponent implements OnInit {
   deleteProdMeasure(bothId: BothIdType) {
     this.productService.deleteProdMeasure(bothId);
   }
+
   endEdition() {
-    this.dishService.endEdition();
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.endEdition(dishId)
+    );
   }
 }

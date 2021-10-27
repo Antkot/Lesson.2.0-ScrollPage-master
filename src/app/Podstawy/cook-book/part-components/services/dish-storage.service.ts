@@ -27,11 +27,11 @@ export class DishStorageService {
   });
   editState = false;
 
+
   constructor(
     private tagsService: TagsStorageService,
     private localStorageService: LocalStorageService,
-    public myRouter: Router,
-    private addRecipeComponent: AddRecipeComponent
+    public myRouter: Router
   ) {
 
     if (!!localStorage.dishList) {
@@ -61,8 +61,33 @@ export class DishStorageService {
 
   }
 
+
+  newDish(url: string) {
+    this.dishesList$.pipe(first()).subscribe(dishesList => {
+      const findDish = dishesList.find(({ dishId }) => dishId === url);
+      if (findDish) {
+        this.dishesListCopied$.next({ ...findDish });
+      } else {
+        this.dishesListCopied$.next({
+          dishId: '',
+          name: '',
+          tags: [],
+          steps: [],
+          products: [],
+          dishType: []
+        });
+      }
+    });
+  }
+
+
   addProduct(addedProduct: UsedProduct, givenDishId: string) {
     const checkedDishId = this.idCheck(givenDishId);
+    //
+    this.dishesListCopied$.pipe(first()).subscribe(value => {
+      value.dishId = checkedDishId;
+    });
+    //
     this.dishesListCopied$.next({
       dishId: checkedDishId,
       ...this.dishesListCopied$.value,
@@ -70,7 +95,8 @@ export class DishStorageService {
         ? [...this.dishesListCopied$.value.products, { usedProductId: addedProduct.usedProductId }]
         : this.dishesListCopied$.value.products
     });
-    this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
+    // this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
+    this.editCheck(givenDishId);
   }
 
   newStep(newStep: string, givenDishId: string) {
@@ -82,6 +108,7 @@ export class DishStorageService {
         ? [...this.dishesListCopied$.value.steps, newStep] :
         this.dishesListCopied$.value.steps
     });
+    this.editCheck(givenDishId);
   }
 
   deleteStep(index: number, givenDishId: string) {
@@ -92,6 +119,7 @@ export class DishStorageService {
         ? this.dishesListCopied$.value.steps.filter((value1, index1) => index1 !== index)
         : this.dishesListCopied$.value.steps
     });
+    this.editCheck(givenDishId);
   }
 
   editStep(editedStep: { step: string, index: number }, givenDishId) {
@@ -102,6 +130,7 @@ export class DishStorageService {
         ? this.dishesListCopied$.value.steps.map((value1, index1) => (index1 === editedStep.index) ? editedStep.step : value1)
         : this.dishesListCopied$.value.steps
     });
+    this.editCheck(givenDishId);
   }
 
   reindexStep(reindex: { previousIndex: number, currentIndex: number }, givenDishId) {
@@ -111,8 +140,8 @@ export class DishStorageService {
       steps: this.dishesListCopied$.value.dishId === givenDishId
         ? this.reindex(this.dishesListCopied$.value.steps, reindex.previousIndex, reindex.currentIndex)
         : this.dishesListCopied$.value.steps
-
     });
+    this.editCheck(givenDishId);
   }
 
   reindex(steps, previousIndex, currentIndex) {
@@ -127,6 +156,7 @@ export class DishStorageService {
       ...this.dishesListCopied$.value,
       name: this.dishesListCopied$.value.dishId === givenDishId ? newName : this.dishesListCopied$.value.name
     });
+    this.editCheck(givenDishId);
   }
 
   typeChange(types: Array<{ dishId: string }>, givenDishId: string) {
@@ -136,6 +166,7 @@ export class DishStorageService {
       ...this.dishesListCopied$.value,
       dishType: this.dishesListCopied$.value.dishId === checkedDishId ? types : this.dishesListCopied$.value.dishType
     });
+    this.editCheck(givenDishId);
   }
 
   idCheck(givenDishId: string) {
@@ -152,32 +183,12 @@ export class DishStorageService {
     } else {
       if (this.editState === false) {
         this.editState = true;
-        this.addRecipeComponent.recipe2$.subscribe(value =>
-          this.dishesListCopied$.next(
-            value
-          ));
-
+        // this.addRecipeComponent.recipe2$.subscribe(value =>
+        //   this.dishesListCopied$.next(
+        //     value
+        //   ));
       }
     }
-
-    let x;
-    this.dishesList$.subscribe(value => {
-      x = value.filter(({ dishId }) =>
-        dishId === givenDishId
-      )[0];
-    });
-    stringify(x);
-    let y;
-    this.editionInProgress$.subscribe(value => y = value);
-    stringify(y);
-    console.log('x');
-    console.log(x);
-    console.log('y');
-    console.log(y);
-    console.log('x === y');
-    console.log(x === y);
-
-
     return givenDishId;
   }
 
@@ -191,11 +202,39 @@ export class DishStorageService {
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
-  endEdition() {
-    //dwa takie same produkty
-    this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
+  endEdition(givenDishId) {
+    if (!this.dishesList$.subscribe(value => {
+      value.filter(({ dishId }) =>
+        dishId === givenDishId
+      );
+    })) {
+      this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
+    } else {
+      this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
+    }
     this.editState = false;
     console.log('Zakończono edycję');
+  }
+
+  editCheck(givenDishId) {
+    // !!! SIMPLIFY
+    let afterEdition;
+    this.dishesList$.subscribe(value => {
+      afterEdition = value.filter(({ dishId }) =>
+        dishId === givenDishId
+      )[0];
+    });
+    let beforeEdition;
+    this.dishesListCopied$.subscribe(value => beforeEdition = value);
+    console.log('x');
+    console.log(afterEdition);
+    console.log('y');
+    console.log(beforeEdition);
+    console.log('x === y');
+    console.log(stringify(afterEdition) === stringify(beforeEdition));
+    this.editionInProgress$.next(stringify(afterEdition) !== stringify(beforeEdition));
+    this.editionInProgress$.subscribe(value => console.log('Edycja trwa: ', value));
+    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
 }

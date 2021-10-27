@@ -17,12 +17,11 @@ import { Dish } from '../../types';
 })
 export class MenuComponent implements OnInit {
 
-  dishesListCopied$: BehaviorSubject<Dish> = this.dishService.dishesListCopied$;
+  // dishesListCopied$: BehaviorSubject<Dish> = this.dishService.dishesListCopied$;
   editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
   // beforeEdition$: Observable<Dish> = this.addRecipeComponent.recipe2$;
 
   constructor(
-    // private addRecipeComponent: AddRecipeComponent,
     public myRouter: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
