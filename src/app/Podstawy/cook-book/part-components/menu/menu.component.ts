@@ -19,6 +19,7 @@ export class MenuComponent implements OnInit {
 
   // dishesListCopied$: BehaviorSubject<Dish> = this.dishService.dishesListCopied$;
   editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
+
   // beforeEdition$: Observable<Dish> = this.addRecipeComponent.recipe2$;
 
   constructor(
@@ -48,13 +49,13 @@ export class MenuComponent implements OnInit {
   }
 
   abandonEdition() {
-    this.editionInProgress$.subscribe(value => {
-        if (value === true) {
-          this.dialog.open(AbandonEditionComponent, { panelClass: 'dialog-container-custom' });
-          console.log('EDYCJA PORZuCONa');
-          console.log(value);
-        }
-      }
-    );
+    // this.editionInProgress$.subscribe(value => {
+    //     if (value === true) {
+    //       this.dialog.open(AbandonEditionComponent, { panelClass: 'dialog-container-custom' });
+    //       console.log('EDYCJA PORZuCONa');
+    //       console.log(value);
+    //     }
+    //   }
+    // );
   }
 }
