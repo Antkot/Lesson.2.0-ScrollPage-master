@@ -61,7 +61,7 @@ export class AddRecipeComponent
   }
 
   ngOnInit(): void {
-    this.recipe$.subscribe(value =>
+      this.recipe$.pipe(first()).subscribe(value =>
       this.model.controls['name'].setValue(value.name)
     );
 

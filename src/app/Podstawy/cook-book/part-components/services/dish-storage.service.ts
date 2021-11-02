@@ -63,6 +63,7 @@ export class DishStorageService {
 
 
   newDish(url: string) {
+    console.log('newDish');
     this.dishesList$.pipe(first()).subscribe(dishesList => {
       const findDish = dishesList.find(({ dishId }) => dishId === url);
       if (findDish) {
@@ -82,16 +83,17 @@ export class DishStorageService {
 
 
   addProduct(addedProduct: UsedProduct, givenDishId: string) {
-    const checkedDishId = this.idCheck(givenDishId);
+    console.log('addProduct');
+    // const checkedDishId = this.idCheck(givenDishId);
     //
     this.dishesListCopied$.pipe(first()).subscribe(value => {
-      value.dishId = checkedDishId;
+      value.dishId = givenDishId;
     });
     //
     this.dishesListCopied$.next({
-      dishId: checkedDishId,
+      dishId: givenDishId,
       ...this.dishesListCopied$.value,
-      products: this.dishesListCopied$.value.dishId === checkedDishId
+      products: this.dishesListCopied$.value.dishId === givenDishId
         ? [...this.dishesListCopied$.value.products, { usedProductId: addedProduct.usedProductId }]
         : this.dishesListCopied$.value.products
     });
@@ -100,11 +102,12 @@ export class DishStorageService {
   }
 
   newStep(newStep: string, givenDishId: string) {
-    const checkedDishId = this.idCheck(givenDishId);
+    console.log('newStep');
+    // const checkedDishId = this.idCheck(givenDishId);
     this.dishesListCopied$.next({
       dishId: givenDishId,
       ...this.dishesListCopied$.value,
-      steps: this.dishesListCopied$.value.dishId === checkedDishId
+      steps: this.dishesListCopied$.value.dishId === givenDishId
         ? [...this.dishesListCopied$.value.steps, newStep] :
         this.dishesListCopied$.value.steps
     });
@@ -112,6 +115,7 @@ export class DishStorageService {
   }
 
   deleteStep(index: number, givenDishId: string) {
+    console.log('deleteStep');
     this.dishesListCopied$.next({
       dishId: givenDishId,
       ...this.dishesListCopied$.value,
@@ -123,6 +127,7 @@ export class DishStorageService {
   }
 
   editStep(editedStep: { step: string, index: number }, givenDishId) {
+    console.log('editStep');
     this.dishesListCopied$.next({
       dishId: givenDishId,
       ...this.dishesListCopied$.value,
@@ -134,6 +139,7 @@ export class DishStorageService {
   }
 
   reindexStep(reindex: { previousIndex: number, currentIndex: number }, givenDishId) {
+    console.log('reindexStep');
     this.dishesListCopied$.next({
       dishId: givenDishId,
       ...this.dishesListCopied$.value,
@@ -150,52 +156,56 @@ export class DishStorageService {
   }
 
   nameChange(newName: string, givenDishId: string) {
-    givenDishId = this.idCheck(givenDishId);
+    console.log('nameChange');
+    console.log(newName);
+    console.log(givenDishId);
     this.dishesListCopied$.next({
-      dishId: givenDishId,
       ...this.dishesListCopied$.value,
+      dishId: givenDishId,
       name: this.dishesListCopied$.value.dishId === givenDishId ? newName : this.dishesListCopied$.value.name
     });
+    this.dishesListCopied$.subscribe(val2ue => console.log(val2ue));
     this.editCheck(givenDishId);
   }
 
   typeChange(types: Array<{ dishId: string }>, givenDishId: string) {
-    const checkedDishId = this.idCheck(givenDishId);
+    console.log('typeChange');
     this.dishesListCopied$.next({
-      dishId: givenDishId,
       ...this.dishesListCopied$.value,
-      dishType: this.dishesListCopied$.value.dishId === checkedDishId ? types : this.dishesListCopied$.value.dishType
+      dishId: givenDishId,
+      dishType: this.dishesListCopied$.value.dishId === givenDishId ? types : this.dishesListCopied$.value.dishType
     });
     this.editCheck(givenDishId);
   }
 
-  idCheck(givenDishId: string) {
-    if (givenDishId === 'new' || givenDishId === undefined) {
-      console.log(44444444444444);
-      // 3x się wykonuje :v
-      // co tworzy 3 puste dania
-      // po kliknięciu dodaj przepis nie znikają dane, więc model mysli że się zmienił i tworzy przepis
-      givenDishId = cuid();
-      if (this.editState === false) {
-        this.editState = true;
-      }
-      const current = JSON.parse(this.localStorageService.getItem('dishList'));
-      this.myRouter.navigate(['../recipe/', givenDishId], { state: { edit: true, reset: true } });
-      this.dishesList$.next([...current, { dishId: givenDishId, dishType: [], products: [], name: '', steps: [], tags: [] }]);
-      this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
-    } else {
-      if (this.editState === false) {
-        this.editState = true;
-        // this.addRecipeComponent.recipe2$.subscribe(value =>
-        //   this.dishesListCopied$.next(
-        //     value
-        //   ));
-      }
-    }
-    return givenDishId;
-  }
+  // idCheck(givenDishId: string) {
+  //   if (givenDishId === 'new' || givenDishId === undefined) {
+  //     console.log(44444444444444);
+  //     // 3x się wykonuje :v
+  //     // co tworzy 3 puste dania
+  //     // po kliknięciu dodaj przepis nie znikają dane, więc model mysli że się zmienił i tworzy przepis
+  //     givenDishId = cuid();
+  //     if (this.editState === false) {
+  //       this.editState = true;
+  //     }
+  //     // const current = JSON.parse(this.localStorageService.getItem('dishList'));
+  //     this.myRouter.navigate(['../recipe/', givenDishId], { state: { edit: true, reset: true } });
+  //     // this.dishesList$.next([...current, { dishId: givenDishId, dishType: [], products: [], name: '', steps: [], tags: [] }]);
+  //     // this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+  //   } else {
+  //     if (this.editState === false) {
+  //       this.editState = true;
+  //       // this.addRecipeComponent.recipe2$.subscribe(value =>
+  //       //   this.dishesListCopied$.next(
+  //       //     value
+  //       //   ));
+  //     }
+  //   }
+  //   return givenDishId;
+  // }
 
   deleteDish(dishId: string) {
+    console.log('deleteDish');
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
     this.dishesList$.next(
       [
@@ -206,10 +216,12 @@ export class DishStorageService {
   }
 
   endEdition(givenDishId) {
+    console.log('endEdition');
     if (!this.dishesList$.subscribe(value => {
       value.filter(({ dishId }) =>
         dishId === givenDishId
       );
+      this.dishesListCopied$.subscribe(val2ue => console.log(val2ue));
     })) {
       this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
     } else {

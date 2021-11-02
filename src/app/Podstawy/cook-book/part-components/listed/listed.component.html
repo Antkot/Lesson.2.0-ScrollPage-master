@@ -7,14 +7,14 @@
       <app-sorter></app-sorter>
     </div>
   </div>
-  <div class="add" [routerLink]="'/recipe/new'" routerLinkActive="active" [state]="{ edit: true, reset: true}">
+  <div class="add" [routerLink]="['/recipe/', randomDishId]" routerLinkActive="active" [state]="{ edit: true, reset: true}">
     <h1>
       Dodaj przepis
     </h1>
   </div>
   <mat-divider></mat-divider>
   <div class='noRecords' *ngIf='!(shownDishesList$ | async).length'><h1>Brak przepisów</h1></div>
-  <div class="list">
+  <div class="list" *ngIf='(shownDishesList$ | async).length'>
     <div class="record" *ngFor='let dish of shownDishesList$ | async'>
       <div class='recName'   [routerLink]="['/recipe', dish.dishId]"
            routerLinkActive='active' [state]='{ edit: false }'>
@@ -30,7 +30,7 @@
           <mat-icon>edit</mat-icon>
           <span>Edycja</span>
         </button>
-        <button mat-menu-item (click)='deleteDsih(dish.dishId)'>
+        <button mat-menu-item (click)='deleteDish(dish.dishId)'>
           <mat-icon>delete</mat-icon>
           <span>Usuń</span>
         </button>

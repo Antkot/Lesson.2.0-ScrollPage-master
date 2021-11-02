@@ -9,6 +9,8 @@ import { AbandonEditionComponent } from '../abandon-edition/abandon-edition.comp
 import { MatDialog } from '@angular/material/dialog';
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 import { Dish } from '../../types';
+import * as cuid from 'cuid';
+
 
 @Component({
   selector: 'app-menu',
@@ -45,7 +47,9 @@ export class MenuComponent implements OnInit {
 
   redirectTo() {
     this.abandonEdition();
-    this.myRouter.navigate(['../recipe/new'], { state: { edit: true, reset: true } });
+    const givenDishId = cuid();
+    this.myRouter.navigate(['../recipe/', givenDishId], { state: { edit: true, reset: true } });
+    // this.myRouter.navigate(['../recipe/new'], { state: { edit: true, reset: true } });
   }
 
   abandonEdition() {
@@ -58,4 +62,10 @@ export class MenuComponent implements OnInit {
     //   }
     // );
   }
+
+
+
+
+
+
 }

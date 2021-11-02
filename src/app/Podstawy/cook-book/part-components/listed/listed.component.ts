@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Dish } from '../../types';
-import { LoadingService } from '../services/loading.service';
 import { DishStorageService } from '../services/dish-storage.service';
-import { first, map } from 'rxjs/operators';
-import { xor } from 'lodash';
+import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
+import * as cuid from 'cuid';
 
 @Component({
   selector: 'app-listed',
@@ -13,39 +12,26 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./listed.component.scss']
 })
 export class ListedComponent implements OnInit {
+  randomDishId = cuid();
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   dishType$: Observable<string> = combineLatest([this.activatedRoute.paramMap
-    .pipe(map(() => history.state))]).pipe(map(([{ dishTypeId }]) => dishTypeId));
+    .pipe(map(() => history.state))]).pipe(map(([{ dishTypeId }]) => {
+    return dishTypeId;
+  }));
 
   dishes = [];
   shownDishesList$: Observable<Array<Dish>> = combineLatest([this.dishType$, this.dishesList$]).pipe(
     map(([dishTyped, dishesList]) => {
-      const lo = dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
-
-      console.log('Dania przed filtrowaniem: ');
-      this.dishesList$.pipe(first()).subscribe(value => {
-        console.table(value);
-      });
-      console.log('Typ : ');
-      this.dishType$.pipe(first()).subscribe(value => {
-        console.table(value);
-      });
-      console.log('filtrowanie: ');
-      console.log(lo);
-
-      return lo;
+      return dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
     }));
 
-  constructor(private dishesService: DishStorageService, public activatedRoute: ActivatedRoute
-  ) {
+  constructor(private dishesService: DishStorageService, public activatedRoute: ActivatedRoute) {
   }
-
 
   ngOnInit(): void {
-
   }
 
-  deleteDsih(dishId: string) {
+  deleteDish(dishId: string) {
     this.dishesService.deleteDish(dishId);
   }
 }
