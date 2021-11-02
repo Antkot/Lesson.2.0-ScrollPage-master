@@ -172,6 +172,9 @@ export class DishStorageService {
   idCheck(givenDishId: string) {
     if (givenDishId === 'new' || givenDishId === undefined) {
       console.log(44444444444444);
+      // 3x się wykonuje :v
+      // co tworzy 3 puste dania
+      // po kliknięciu dodaj przepis nie znikają dane, więc model mysli że się zmienił i tworzy przepis
       givenDishId = cuid();
       if (this.editState === false) {
         this.editState = true;
@@ -217,6 +220,7 @@ export class DishStorageService {
   }
 
   editCheck(givenDishId) {
+    console.log('Edit Check');
     // !!! SIMPLIFY
     let afterEdition;
     this.dishesList$.subscribe(value => {
@@ -226,12 +230,12 @@ export class DishStorageService {
     });
     let beforeEdition;
     this.dishesListCopied$.subscribe(value => beforeEdition = value);
-    console.log('x');
-    console.log(afterEdition);
-    console.log('y');
-    console.log(beforeEdition);
-    console.log('x === y');
-    console.log(stringify(afterEdition) === stringify(beforeEdition));
+    // console.log('x');
+    // console.log(afterEdition);
+    // console.log('y');
+    // console.log(beforeEdition);
+    // console.log('x === y');
+    // console.log(stringify(afterEdition) === stringify(beforeEdition));
     this.editionInProgress$.next(stringify(afterEdition) !== stringify(beforeEdition));
     this.editionInProgress$.subscribe(value => console.log('Edycja trwa: ', value));
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));

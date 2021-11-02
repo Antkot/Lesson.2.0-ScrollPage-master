@@ -14,11 +14,8 @@ import { first } from 'rxjs/operators';
 })
 export class LoadingComponent implements OnInit {
 
-  constructor(public myRouter: Router, private dishService: DishStorageService) {
-  }
-  ngOnInit() {
-    // this.myRouter.navigate(['/main']);
-  }
+  constructor(public myRouter: Router, private dishService: DishStorageService) {}
+  ngOnInit() {}
 }
 
 const decoration: NgModule = {

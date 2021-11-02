@@ -41,9 +41,9 @@ export class RecipiePageComponent implements OnInit {
 
   nameEdited(newName: string) {
     console.log('nazwa zmieniona');
-    // this.dishId$.pipe(first()).subscribe((dishId) =>
-    //   this.dishService.nameChange(newName, dishId)
-    // );
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.nameChange(newName, dishId)
+    );
   }
 
   addUsedProduct(newUsedProduct: AddedUsedProductType) {

@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DishStorageService } from '../services/dish-storage.service';
 import { cloneDeep } from 'lodash';
 import { AliveState } from '../../../../ActiveState';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-dish-type',
@@ -29,6 +30,7 @@ export class DishTypeComponent
         ? dishes.find(({ dishId }) => dishId === id[0]).dishType : [];
     }
   ));
+  controlDishType = [];
   dishes$ = combineLatest([
     this.selectedDishes$,
     this.dishesType$])
@@ -88,11 +90,12 @@ export class DishTypeComponent
       this.model.valueChanges.pipe(
         filter(model => model?.['1'] !== null),
         tap(model => {
-            // console.log(22222222222, model?.['1'] !== null);
             if (model?.['1'] !== null) {
               const dishesId = Object.entries(model).filter((value) => !!value[1]).map((value) => ({ dishId: value[0] }));
-              console.log(dishesId);
-              this.typeOfDish.emit(dishesId);
+              if (JSON.stringify(this.controlDishType) !== JSON.stringify(dishesId)) {
+                this.controlDishType = dishesId;
+                this.typeOfDish.emit(dishesId);
+              }
             }
           }
         )
