@@ -60,7 +60,16 @@ export class DishStorageService {
     }
 
   }
-
+  erase() {
+    this.dishesListCopied$.next({
+      dishId: '',
+      name: '',
+      tags: [],
+      steps: [],
+      products: [],
+      dishType: []
+    });
+  }
 
   newDish(url: string) {
     console.log('newDish');

@@ -5,6 +5,7 @@ import { DishStorageService } from '../services/dish-storage.service';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import * as cuid from 'cuid';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-listed',
@@ -13,6 +14,7 @@ import * as cuid from 'cuid';
 })
 export class ListedComponent implements OnInit {
   randomDishId = cuid();
+  filteredDishType$: Observable<string>  = this.loadingService.filteredDishType$;
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   dishType$: Observable<string> = combineLatest([this.activatedRoute.paramMap
     .pipe(map(() => history.state))]).pipe(map(([{ dishTypeId }]) => {
@@ -20,12 +22,13 @@ export class ListedComponent implements OnInit {
   }));
 
   dishes = [];
-  shownDishesList$: Observable<Array<Dish>> = combineLatest([this.dishType$, this.dishesList$]).pipe(
+  // shownDishesList$: Observable<Array<Dish>> = combineLatest([this.dishType$, this.dishesList$]).pipe(
+  shownDishesList$: Observable<Array<Dish>> = combineLatest([this.filteredDishType$, this.dishesList$]).pipe(
     map(([dishTyped, dishesList]) => {
       return dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
     }));
 
-  constructor(private dishesService: DishStorageService, public activatedRoute: ActivatedRoute) {
+  constructor(private dishesService: DishStorageService, public activatedRoute: ActivatedRoute, private loadingService: LoadingService) {
   }
 
   ngOnInit(): void {

@@ -8,6 +8,7 @@ import { DishStorageService } from '../services/dish-storage.service';
 import { stringify } from 'querystring';
 import { number } from '@storybook/addon-knobs';
 import { AliveState } from '../../../../ActiveState';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-add-recipe',
@@ -17,6 +18,7 @@ import { AliveState } from '../../../../ActiveState';
 export class AddRecipeComponent
   extends AliveState
   implements OnInit {
+  edition$ = this.loadingService.edition$;
   @Output() prodMeasureDeleted = new EventEmitter();
   @Output() usedProductToAdd = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
@@ -28,7 +30,7 @@ export class AddRecipeComponent
   @Output() reindexStep = new EventEmitter();
   @Output() editionEnded = new EventEmitter();
   nameOfDish = { name: '' };
-  @Input() edit = true;
+  // @Input() edit = true;
   @Input() reset = false;
   dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
   dishId$ = this.route.url.pipe(
@@ -55,13 +57,15 @@ export class AddRecipeComponent
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
               public myRouter: Router,
-              private dishService: DishStorageService
+              private dishService: DishStorageService,
+              private loadingService: LoadingService
   ) {
     super();
   }
 
   ngOnInit(): void {
-      this.recipe$.pipe(first()).subscribe(value =>
+    this.dishService.erase();
+    this.recipe$.pipe(first()).subscribe(value =>
       this.model.controls['name'].setValue(value.name)
     );
 
@@ -73,10 +77,10 @@ export class AddRecipeComponent
       this.model.valueChanges.pipe(
         tap((value: { name: string }) => {
             if (this.nameOfDish.name !== value.name) {
-              console.log ('Stara nazwa: ', this.nameOfDish.name);
+              console.log('Stara nazwa: ', this.nameOfDish.name);
               console.log('nowa nazwa: ', value.name);
               this.nameOfDish = { name: value.name };
-              console.log ('Stara nazwa po zmainiae: ', this.nameOfDish.name);
+              console.log('Stara nazwa po zmainiae: ', this.nameOfDish.name);
               this.nameChange.emit(this.model.value.name);
             }
           }
@@ -108,10 +112,7 @@ export class AddRecipeComponent
   }
 
   editable() {
-    // if (this.edit === true) {
-      // this.nameChanged();
-    // }
-    this.edit = !this.edit;
+    this.edition$.next(false);
 
   }
 
@@ -124,7 +125,7 @@ export class AddRecipeComponent
   }
 
   redirectTo() {
-    this.edit = true;
+    this.edition$.next(true);
   }
 
 

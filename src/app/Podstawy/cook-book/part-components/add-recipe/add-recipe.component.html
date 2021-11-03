@@ -5,11 +5,11 @@
     <!--  2{{(dishId | dishType) | async | json}}-->
     <mat-divider></mat-divider>
     <div class='name'>
-      <input *ngIf='edit'
+      <input *ngIf='edition$ | async'
              type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
              formControlName='name' />
-      <h1 *ngIf='!edit' class='header'>{{(recipe$ | async).name}}
-        <div class='editButton noColor' *ngIf='!edit'>
+      <h1 *ngIf='(edition$ | async) === false' class='header'>{{(recipe$ | async).name}}
+        <div class='editButton noColor' *ngIf='(edition$ | async) === false'>
           <button mat-fab (click)='redirectTo()' class='editButton'>
             <mat-icon  class="white-icon">edit</mat-icon>
           </button>
@@ -22,20 +22,20 @@
       <!--      <app-chips [removable]="edit" [entity]="'Tag'" [elements]="(dishId | dishTranslator: 'tags') | async "></app-chips>-->
       <!--    </div>-->
       <div class='single'>
-        <app-dish-type [edit]='edit' (typeOfDish)='typeEdition($event)'></app-dish-type>
+        <app-dish-type (typeOfDish)='typeEdition($event)'></app-dish-type>
       </div>
     </div>
     <mat-divider></mat-divider>
     <div class='ingredients'>
       <div class='divide'>
-        <app-ingredients [edit]='edit' [products]="(recipe$ | async).products"
+        <app-ingredients [products]="(recipe$ | async).products"
                          (addUsedProduct)='addUsedProduct($event)'
                          (addedProduct)='addProduct($event)'
         (prodMeasureDeleted)='deleteProdMeasure($event)'></app-ingredients>
       </div>
       <mat-divider></mat-divider>
       <div class='divide marg'>
-        <app-steps [edit]='edit' [steps]="(recipe$ | async).steps"
+        <app-steps [steps]="(recipe$ | async).steps"
                    (deletedStep)='deletedStepEmitter($event)'
                    (editStep)='editStepEmitter($event)'
                    (newStep)='newStepEmitter($event)'
@@ -43,12 +43,12 @@
         ></app-steps>
       </div>
     </div>
-    <footer class='confirm' *ngIf='edit' (click)='editable()'>
+    <footer class='confirm' *ngIf='edition$ | async' (click)='editable()'>
       <button [disabled]='model.invalid' class='block' (click)='endEdition()'>
         Zakończ edycję
       </button>
     </footer>
-    <footer class='confirm' *ngIf='!edit'>
+    <footer class='confirm' *ngIf='(edition$ | async) === false'>
       <button class='block'>
         Gotuj!
       </button>

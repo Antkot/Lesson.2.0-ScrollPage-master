@@ -1,4 +1,4 @@
-<div *ngIf='edit' [formGroup]='model'>
+<div *ngIf='edition$ | async' [formGroup]='model'>
   <ng-container *ngFor='let dishId of dishes$ | async'>
   <span class='margin'>
   <mat-checkbox [formControlName]='dishId'>
@@ -7,7 +7,7 @@
   </span>
   </ng-container>
 </div>
-<div *ngIf='!edit'>
+<div *ngIf='(edition$ | async) === false'>
   <ng-container *ngFor='let dish of selectedDishes$ | async'>
     <span class='margin'>{{dish.dishId | dishType | async}}</span>
   </ng-container>

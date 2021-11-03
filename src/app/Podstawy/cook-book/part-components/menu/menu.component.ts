@@ -20,7 +20,7 @@ import * as cuid from 'cuid';
 export class MenuComponent implements OnInit {
 
   // dishesListCopied$: BehaviorSubject<Dish> = this.dishService.dishesListCopied$;
-  editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
+  // editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
 
   // beforeEdition$: Observable<Dish> = this.addRecipeComponent.recipe2$;
 

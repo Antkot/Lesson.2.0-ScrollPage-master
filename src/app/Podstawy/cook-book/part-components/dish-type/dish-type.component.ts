@@ -72,7 +72,7 @@ export class DishTypeComponent
   // });
 
 
-  @Input() edit: boolean;
+  edition$ = this.loadingService.edition$;
   model = this.fb.group(
     {});
   @Output() typeOfDish = new EventEmitter();

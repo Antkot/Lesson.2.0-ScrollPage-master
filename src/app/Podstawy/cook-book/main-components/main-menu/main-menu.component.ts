@@ -14,6 +14,7 @@ import { DishStorageService } from '../../part-components/services/dish-storage.
 })
 export class MainMenuComponent implements OnInit {
   dishes$: BehaviorSubject<Array<DishType>> = this.loadingService.dishes$;
+  filteredDishType$ = this.loadingService.filteredDishType$;
   constructor(
     private dishStorageService: DishStorageService,
     private loadingService: LoadingService,
@@ -26,7 +27,7 @@ export class MainMenuComponent implements OnInit {
   }
   dishTyped(dishType: string) {
     console.log(dishType);
-    // this.dishType$.next({ dishId: dishType });
+    this.filteredDishType$.next(dishType);
   }
 }
 // const current = this.allergens$.value;

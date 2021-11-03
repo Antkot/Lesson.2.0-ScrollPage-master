@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { DishType, Level } from '../../types';
 import * as cuid from 'cuid';
+import { number } from '@storybook/addon-knobs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,8 @@ import * as cuid from 'cuid';
 export class LoadingService {
   levels$ = new BehaviorSubject<Array<Level>>([]);
   dishes$ = new BehaviorSubject<Array<DishType>>([]);
+  edition$ = new BehaviorSubject(false);
+  filteredDishType$ = new BehaviorSubject('1');
 
   constructor() {
     if (!!localStorage.levelData) {

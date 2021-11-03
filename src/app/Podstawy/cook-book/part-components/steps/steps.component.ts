@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-steps',
@@ -11,7 +12,7 @@ export class StepsComponent implements OnInit {
   model = this.fb.group({
     step: ['', [Validators.required, Validators.minLength(1)]]
   });
-  @Input() edit = false;
+  edition$ = this.loadingService.edition$;
   edited: number = -1;
   @Input() steps = [
     'Krok z braku inputu',
@@ -26,7 +27,7 @@ export class StepsComponent implements OnInit {
   @Output() editStep = new EventEmitter();
   @Output() reindexStep = new EventEmitter();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private loadingService: LoadingService) {}
 
   ngOnInit(): void {}
 

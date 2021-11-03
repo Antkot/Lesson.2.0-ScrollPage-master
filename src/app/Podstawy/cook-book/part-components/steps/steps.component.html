@@ -3,12 +3,12 @@
     <ng-container *ngTemplateOutlet='information'></ng-container>
   </div>
   <ng-template #information>
-    <div cdkDropList class='example-list' (cdkDropListDropped)='drop($event)' cdkDropListDisabled *ngIf='!edit'>
+    <div cdkDropList class='example-list' (cdkDropListDropped)='drop($event)' cdkDropListDisabled *ngIf='(edition$ | async) === false'>
       <div class='example-box' style='cursor: default;' *ngFor='let step of steps' cdkDrag>
         {{step}}
       </div>
     </div>
-    <div cdkDropList class='example-list' (cdkDropListDropped)='drop($event)' *ngIf='edit'>
+    <div cdkDropList class='example-list' (cdkDropListDropped)='drop($event)' *ngIf='edition$ | async'>
       <div class='example-box def' [formGroup]='model'>
         <mat-form-field class='editor' appearance='outline'>
           <input matInput type='text' id='newStep' placeholder='Dodaj kolejny krok...'
