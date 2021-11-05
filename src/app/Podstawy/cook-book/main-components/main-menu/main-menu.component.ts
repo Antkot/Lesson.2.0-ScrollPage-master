@@ -25,10 +25,23 @@ export class MainMenuComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  dishTyped(dishType: string) {
-    console.log(dishType);
-    this.filteredDishType$.next(dishType);
+  dishTyped(dishTyped: string) {
+    console.log(dishTyped);
+    this.dishes$.pipe(first()).subscribe(dishType => {
+      const x = dishType.find(
+        ({name}) =>
+      name ===  dishTyped
+      ).dishId;
+      this.filteredDishType$.next(x);
+    });
   }
+
+  // this.measures$.pipe(first()).subscribe(measure => {
+  // this.typedMeasureId = measure.find(
+  //   ({ name }) =>
+  //     name === addedProduct.product.measure
+  // )?.measureId;
+// });
 }
 // const current = this.allergens$.value;
 // this.allergens$.next(

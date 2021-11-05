@@ -14,7 +14,7 @@ import { LoadingService } from '../services/loading.service';
 })
 export class ListedComponent implements OnInit {
   randomDishId = cuid();
-  filteredDishType$: Observable<string>  = this.loadingService.filteredDishType$;
+  filteredDishType$: Observable<string> = this.loadingService.filteredDishType$;
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   dishType$: Observable<string> = combineLatest([this.activatedRoute.paramMap
     .pipe(map(() => history.state))]).pipe(map(([{ dishTypeId }]) => {
@@ -23,7 +23,7 @@ export class ListedComponent implements OnInit {
 
   dishes = [];
   // shownDishesList$: Observable<Array<Dish>> = combineLatest([this.dishType$, this.dishesList$]).pipe(
-  shownDishesList$: Observable<Array<Dish>> = combineLatest([this.filteredDishType$, this.dishesList$]).pipe(
+    shownDishesList$: Observable<Array<Dish>> = combineLatest([this.filteredDishType$, this.dishesList$]).pipe(
     map(([dishTyped, dishesList]) => {
       return dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
     }));
@@ -32,6 +32,9 @@ export class ListedComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('xd');
+    this.dishType$.subscribe(value => console.log(value));
+    this.filteredDishType$.subscribe(value => console.log(value));
   }
 
   deleteDish(dishId: string) {

@@ -47,6 +47,7 @@ import { ProductAllMeasuresPipe } from './pipes/OtherPipes/product-all-measures.
 import { MultiplicationPipe } from './pipes/OtherPipes/multiplication.pipe';
 import { DishTypeComponent } from './part-components/dish-type/dish-type.component';
 import { AbandonEditionComponent } from './part-components/abandon-edition/abandon-edition.component';
+import { MainScreenComponent } from './main-components/main-screen/main-screen.component';
 
 const links = [
   {
@@ -97,6 +98,7 @@ const links = [
     MultiplicationPipe,
     DishTypeComponent,
     AbandonEditionComponent,
+    MainScreenComponent,
 
   ],
   exports: [
