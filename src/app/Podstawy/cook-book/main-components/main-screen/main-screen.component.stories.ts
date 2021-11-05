@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { moduleMetadata, storiesOf } from '@storybook/angular';
 import { withKnobs } from '@storybook/addon-knobs';
-import {MatSelectModule} from '@angular/material/select';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainScreenComponent } from './main-screen.component';
+import { MenuComponent } from '../../part-components/menu/menu.component';
 
 const decoration: NgModule = {
-  declarations: [MainScreenComponent],
+  declarations: [MainScreenComponent, MenuComponent],
   imports: [ ],
   providers: []
 };

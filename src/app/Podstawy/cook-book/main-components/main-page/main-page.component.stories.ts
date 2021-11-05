@@ -4,11 +4,11 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { CookBookModule } from '../../cook-book.module';
+import { MainScreenComponent } from '../main-screen/main-screen.component';
 
 
 const decoration: NgModule = {
-  declarations: [
-  ],
+  declarations: [MainScreenComponent],
   imports: [
     CookBookModule,
     MatIconModule,

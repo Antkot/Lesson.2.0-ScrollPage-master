@@ -70,7 +70,6 @@ const links = [
 
 @NgModule({
   declarations: [
-    SearchBarComponent,
     SideFilterComponent,
     MenuComponent,
     TimeSliderComponent,
@@ -98,7 +97,6 @@ const links = [
     MultiplicationPipe,
     DishTypeComponent,
     AbandonEditionComponent,
-    MainScreenComponent,
 
   ],
   exports: [
