@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DihsIdGeneratorService } from './dihs-id-generator.service';
+import { DishIdGeneratorService } from './dish-id-generator.service';
 
 describe('DihsIdGeneratorService', () => {
-  let service: DihsIdGeneratorService;
+  let service: DishIdGeneratorService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DihsIdGeneratorService);
+    service = TestBed.inject(DishIdGeneratorService);
   });
 
   it('should be created', () => {

@@ -13,6 +13,7 @@ import { cloneDeep, forEach, result } from 'lodash';
 import { number } from '@storybook/addon-knobs';
 import { AliveState } from '../../../../ActiveState';
 import { stringify } from 'querystring';
+import { LoadingService } from '../services/loading.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class IngredientsComponent
   @Output() prodMeasureDeleted = new EventEmitter();
   products$: Observable<Array<Product>> = this.productsService.products$;
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
-  @Input() edit: boolean;
+  edition$ = this.loadingService.edition$;
+  // @Input() edit: boolean;
   @Input() products: Array<{ usedProductId: string }>;
   autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
   autoMeasure$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
@@ -49,7 +51,8 @@ export class IngredientsComponent
   constructor(
     private productsService: ProductsStorageService,
     private measureService: MeasuresStorageService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private loadingService: LoadingService) {
     super();
   }
 

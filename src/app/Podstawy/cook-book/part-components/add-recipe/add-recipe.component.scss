@@ -151,5 +151,23 @@ button[disabled] {
 }
 .white-icon {
   color: white;
-  z-index: -1;
 }
+.return{
+  position: relative;
+  float: left;
+  cursor: pointer;
+  user-select: none;
+}
+.icoUndo{
+  position: absolute;
+  transform: rotate(-45deg);
+  text-align: center;
+  border-radius: 50px;
+  border: 12px double gold;
+  background: dodgerblue;
+  width: 128px;
+  height: 64px;
+  font-size: 64px;
+  color: white;
+}
+

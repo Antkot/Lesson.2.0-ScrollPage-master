@@ -93,3 +93,9 @@ mat-label {
   background: none;
   cursor: pointer;
 }
+@media (max-width: 1000px) {
+.x{
+  display: inline-block;
+  width: 80%;
+}
+}

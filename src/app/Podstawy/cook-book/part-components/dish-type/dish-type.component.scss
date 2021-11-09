@@ -1,4 +1,5 @@
 .margin {
+  position: static;
   margin: 5px;
   padding: 20px;
   border: double gold 12px;
@@ -11,9 +12,14 @@
   border: darkgoldenrod 12px double;
 }
 
-@media (max-width: 970px) {
+@media (max-width: 1000px) {
   .margin {
     width: 50%;
     display: inline-block;
   }
 }
+.check{
+  z-index: -1;
+  position: static;
+}
+

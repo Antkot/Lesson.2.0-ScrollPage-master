@@ -1,9 +1,9 @@
 <div class='container'>
-  <div class='headerButtons' *ngIf='edit'>
+  <div class='headerButtons' *ngIf='edition$ | async'>
     <app-add-ingredient (addProduct)='addProduct($event)' (prodMeasureDeleted)='deleteProdMeasure($event)'></app-add-ingredient>
   </div>
 
-    <span *ngIf='edit' [formGroup]='model' class='table'>
+    <span *ngIf='edition$ | async' [formGroup]='model' class='table x'>
         <ng-container class='mat-typography' [formGroup]='model'>
           <mat-form-field appearance='outline' class='listedOptions'>
             <mat-label>Nazwa produktu</mat-label>
@@ -31,7 +31,7 @@
 <!--  </div>-->
   <div>
 
-    <div class='colorizer' *ngIf='!edit'>
+    <div class='colorizer' *ngIf='(edition$ | async) === false'>
       <div class='table'>
         <div class='grid-item'><h4>Produkt</h4></div>
         <div class='grid-item'><h4>ilość</h4></div>
@@ -58,7 +58,7 @@
       <div *ngIf='!products.length' > Brak produktów</div>
     </div>
 
-    <div class='colorizer' *ngIf='edit'>
+    <div class='colorizer' *ngIf='edition$ | async'>
       <div class='table table2'>
         <div class='grid-item'><h4>Produkt</h4></div>
         <div class='grid-item'><h4>ilość</h4></div>

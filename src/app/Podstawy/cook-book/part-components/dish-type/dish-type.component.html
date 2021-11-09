@@ -1,7 +1,7 @@
 <div *ngIf='edition$ | async' [formGroup]='model'>
   <ng-container *ngFor='let dishId of dishes$ | async'>
   <span class='margin'>
-  <mat-checkbox [formControlName]='dishId'>
+  <mat-checkbox [formControlName]='dishId' class='check'>
         {{dishId | dishType | async}}
   </mat-checkbox>
   </span>

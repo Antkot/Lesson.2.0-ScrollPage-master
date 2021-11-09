@@ -65,9 +65,11 @@ export class AddRecipeComponent
 
   ngOnInit(): void {
     this.dishService.erase();
-    this.recipe$.pipe(first()).subscribe(value =>
-      this.model.controls['name'].setValue(value.name)
-    );
+    this.recipe$.pipe().subscribe(value => {
+        this.model.controls['name'].setValue(value.name, { emitEvent: false });
+      }
+  );
+
 
     this.route.url.pipe(
       map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.newDish(url)
@@ -77,23 +79,13 @@ export class AddRecipeComponent
       this.model.valueChanges.pipe(
         tap((value: { name: string }) => {
             if (this.nameOfDish.name !== value.name) {
-              console.log('Stara nazwa: ', this.nameOfDish.name);
-              console.log('nowa nazwa: ', value.name);
               this.nameOfDish = { name: value.name };
-              console.log('Stara nazwa po zmainiae: ', this.nameOfDish.name);
               this.nameChange.emit(this.model.value.name);
             }
           }
         )));
 
   }
-
-  // nameChanged() {
-  //   console.log('Wykryto zmianę nazwy');
-  //   console.log(this.model.value.name);
-  //   this.nameChange.emit(this.model.value.name);
-  // }
-
 
   deletedStepEmitter(index: number) {
     this.deletedStep.emit(index);

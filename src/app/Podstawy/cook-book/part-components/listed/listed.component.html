@@ -7,7 +7,7 @@
       <app-sorter></app-sorter>
     </div>
   </div>
-  <div class="add" [routerLink]="['/recipe/', randomDishId]" routerLinkActive="active" [state]="{ edit: true, reset: true}">
+  <div class="add" (click)='redirect()'>
     <h1>
       Dodaj przepis
     </h1>
@@ -16,8 +16,8 @@
   <div class='noRecords' *ngIf='!(shownDishesList$ | async).length'><h1>Brak przepisów</h1></div>
   <div class="list" *ngIf='(shownDishesList$ | async).length'>
     <div class="record" *ngFor='let dish of shownDishesList$ | async'>
-      <div class='recName'   [routerLink]="['/recipe', dish.dishId]"
-           routerLinkActive='active' [state]='{ edit: false }'>
+      <div class='recName'
+           (click)='redirectView(false, dish.dishId)'>
       <h1>{{dish.name}}</h1>
       </div>
       <div class='recMenu'  [matMenuTriggerFor]="menu"  matRipple >
@@ -25,8 +25,8 @@
         <mat-icon class='menuIcon'>more_vert</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
-        <button mat-menu-item [routerLink]="['/recipe', dish.dishId]"
-                routerLinkActive='active' [state]='{ edit: true }'>
+        <button mat-menu-item
+                (click)='redirectView(true, dish.dishId)'>
           <mat-icon>edit</mat-icon>
           <span>Edycja</span>
         </button>

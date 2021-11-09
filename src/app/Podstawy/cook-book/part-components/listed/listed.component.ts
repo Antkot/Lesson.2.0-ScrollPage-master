@@ -3,9 +3,10 @@ import { combineLatest, Observable } from 'rxjs';
 import { Dish } from '../../types';
 import { DishStorageService } from '../services/dish-storage.service';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as cuid from 'cuid';
 import { LoadingService } from '../services/loading.service';
+import { DishIdGeneratorService } from '../services/dish-id-generator.service';
 
 @Component({
   selector: 'app-listed',
@@ -23,12 +24,19 @@ export class ListedComponent implements OnInit {
 
   dishes = [];
   // shownDishesList$: Observable<Array<Dish>> = combineLatest([this.dishType$, this.dishesList$]).pipe(
-    shownDishesList$: Observable<Array<Dish>> = combineLatest([this.filteredDishType$, this.dishesList$]).pipe(
+  shownDishesList$: Observable<Array<Dish>> = combineLatest([this.filteredDishType$, this.dishesList$]).pipe(
     map(([dishTyped, dishesList]) => {
       return dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
     }));
+  edition$ = this.loadingService.edition$;
 
-  constructor(private dishesService: DishStorageService, public activatedRoute: ActivatedRoute, private loadingService: LoadingService) {
+  constructor(
+    private dishesService: DishStorageService,
+    public activatedRoute: ActivatedRoute,
+    private loadingService: LoadingService,
+    public idGenerator: DishIdGeneratorService,
+    public myRouter: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -39,5 +47,19 @@ export class ListedComponent implements OnInit {
 
   deleteDish(dishId: string) {
     this.dishesService.deleteDish(dishId);
+  }
+
+  redirect() {
+    this.edition$.next(true);
+    this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
+  }
+
+  redirectView(edit: boolean, dishId: string) {
+    if (edit) {
+      this.edition$.next(true);
+    } else {
+      this.edition$.next(false);
+    }
+    this.myRouter.navigate(['../recipe/', dishId]);
   }
 }

@@ -10,6 +10,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 import { Dish } from '../../types';
 import * as cuid from 'cuid';
+import { DishIdGeneratorService } from '../services/dish-id-generator.service';
+import { LoadingService } from '../services/loading.service';
 
 
 @Component({
@@ -19,8 +21,9 @@ import * as cuid from 'cuid';
 })
 export class MenuComponent implements OnInit {
 
-  // dishesListCopied$: BehaviorSubject<Dish> = this.dishService.dishesListCopied$;
+  dishesListCopied$: BehaviorSubject<Dish> = this.dishService.dishesListCopied$;
   // editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
+  edition$ = this.loadingService.edition$;
 
   // beforeEdition$: Observable<Dish> = this.addRecipeComponent.recipe2$;
 
@@ -29,7 +32,10 @@ export class MenuComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private dishService: DishStorageService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog,
+    public idGenerator: DishIdGeneratorService,
+    private loadingService: LoadingService
+  ) {
   }
 
   ngOnInit(): void {
@@ -47,9 +53,17 @@ export class MenuComponent implements OnInit {
 
   redirectTo() {
     this.abandonEdition();
-    const givenDishId = cuid();
-    this.myRouter.navigate(['../recipe/', givenDishId], { state: { edit: true, reset: true } });
+    this.dishesListCopied$.next({
+      dishId: '',
+      name: '',
+      steps: [],
+      dishType: [],
+      tags: [],
+      products: []
+    });
+    this.edition$.next(true);
     // this.myRouter.navigate(['../recipe/new'], { state: { edit: true, reset: true } });
+    this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
   }
 
   abandonEdition() {
@@ -62,10 +76,6 @@ export class MenuComponent implements OnInit {
     //   }
     // );
   }
-
-
-
-
 
 
 }

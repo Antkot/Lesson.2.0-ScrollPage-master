@@ -12,12 +12,17 @@
   background: dodgerblue;
 }
 .option{
+  margin-top: -12px;
+  border: 12px gold double;
+  border-radius:  0 0 50px 50px;
   color: white;
   text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background: dodgerblue;
-  width: calc(15% - 2px);
-  border: 1px gold solid;
-  height: 80%;
+  width: calc(20% - 12px);
+  //border: 1px gold solid;
+  height: 50%;
   float: left;
   margin-right:5px;
 }
@@ -35,7 +40,7 @@
 
 @media (max-width: 1000px){
   .option{
-    width: calc(25% - 4px);
+    width: calc(30% - 4px);
   }
   .searchBar{
     width: calc(35% - 4px);
@@ -49,4 +54,14 @@
   .searchBar{
     width: calc(39% - 4px);
   }
+}
+.logo{
+  position: absolute;
+  height: 64px;
+  top: -20px;
+  left: 20px;
+}
+.marg{
+  margin-right: 20px;
+float: right;
 }

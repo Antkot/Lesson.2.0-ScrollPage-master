@@ -1,10 +1,13 @@
 <div class='all'>
+
   <div class='container' [formGroup]='model'>
     <mat-divider></mat-divider>
-
     <!--  2{{(dishId | dishType) | async | json}}-->
     <mat-divider></mat-divider>
     <div class='name'>
+      <div class='return'>
+        <mat-icon class='icoUndo' routerLink='/list'>undo</mat-icon>
+      </div>
       <input *ngIf='edition$ | async'
              type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
              formControlName='name' />
