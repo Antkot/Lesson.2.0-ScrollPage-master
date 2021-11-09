@@ -36,6 +36,8 @@ export class AddRecipeComponent
   dishId$ = this.route.url.pipe(
     map(value => value[1].path));
   recipe$: Observable<Dish> = this.dishService.dishesListCopied$;
+  lastLink$ = this.loadingService.lastLink$;
+
   // recipe2$: Observable<Dish> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishesList]) => {
   //   const recipe = dishesList.find(({ dishId }) => dishId === id) ?? {
   //     dishId: '',
@@ -69,7 +71,6 @@ export class AddRecipeComponent
         this.model.controls['name'].setValue(value.name, { emitEvent: false });
       }
   );
-
 
     this.route.url.pipe(
       map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.newDish(url)

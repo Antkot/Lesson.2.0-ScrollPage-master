@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { DishStorageService } from '../services/dish-storage.service';
-import { take } from 'rxjs/operators';
+import { first, take } from 'rxjs/operators';
 import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
 import { AbandonEditionComponent } from '../abandon-edition/abandon-edition.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -24,6 +24,7 @@ export class MenuComponent implements OnInit {
   dishesListCopied$: BehaviorSubject<Dish> = this.dishService.dishesListCopied$;
   // editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
   edition$ = this.loadingService.edition$;
+  lastLink$ = this.loadingService.lastLink$;
 
   // beforeEdition$: Observable<Dish> = this.addRecipeComponent.recipe2$;
 
@@ -49,6 +50,12 @@ export class MenuComponent implements OnInit {
     //       }
     //     })
     // );
+  }
+
+  goBack() {
+    this.lastLink$.pipe(first()).subscribe(value => {
+      this.myRouter.navigate([value]);
+    });
   }
 
   redirectTo() {

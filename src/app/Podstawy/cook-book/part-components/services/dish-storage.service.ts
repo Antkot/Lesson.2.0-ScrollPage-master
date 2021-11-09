@@ -54,6 +54,102 @@ export class DishStorageService {
           products: [{ usedProductId: 'used1' }],
           tags: [{ hashId: 'fff' }],
           dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi',
+          steps: ['Ciasto zmieszaj z mąką', 'Dodaj drożdzy i mleka', 'zalep krztałt pierogów', 'Włóż do piekarnika na 20 minut'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
+        },
+        {
+          dishId: cuid(),
+          name: 'Pierogi z observable',
+          steps: ['1', '2 krok', 'ugotuj', 'ugotuj'],
+          products: [{ usedProductId: 'used1' }],
+          tags: [{ hashId: 'fff' }],
+          dishType: [{ dishId: '1' }]
         }
       ]);
       this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));

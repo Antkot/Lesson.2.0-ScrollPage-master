@@ -15,14 +15,22 @@ import { DishStorageService } from '../../part-components/services/dish-storage.
 export class MainMenuComponent implements OnInit {
   dishes$: BehaviorSubject<Array<DishType>> = this.loadingService.dishes$;
   filteredDishType$ = this.loadingService.filteredDishType$;
+  lastLink$ = this.loadingService.lastLink$;
+
   constructor(
     private dishStorageService: DishStorageService,
     private loadingService: LoadingService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private route: ActivatedRoute,
+
   ) {
   }
 
   ngOnInit(): void {
+
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    );
 
   }
   dishTyped(dishTyped: string) {

@@ -1,12 +1,16 @@
 <div class='wraper'>
 <div class='option' routerLink="/main" routerLinkActive="active">
-  <img src='../../../../../assets/cookBook/logo.svg' class='logo'/>
+  <img src='../../../../../assets/cookBook/logo1.svg' class='logo'/>
+  <img src='../../../../../assets/cookBook/logo2.svg' class='logo'/>
+  <img src='../../../../../assets/cookBook/logo3.svg' class='logo'/>
   <span class='marg'>
-    STRONA GŁÓWNA
   </span>
 </div>
 <div (click)='redirectTo()' class='option'>Dodaj przepis</div>
   <div class='searchBar'>
     <app-search-bar></app-search-bar>
+  </div>
+  <div class='return'>
+    <mat-icon class='icoUndo' (click)='goBack()'>undo</mat-icon>
   </div>
 </div>

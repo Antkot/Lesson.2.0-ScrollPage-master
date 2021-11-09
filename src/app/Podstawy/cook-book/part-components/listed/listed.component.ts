@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { Dish } from '../../types';
 import { DishStorageService } from '../services/dish-storage.service';
-import { map } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as cuid from 'cuid';
 import { LoadingService } from '../services/loading.service';
@@ -29,18 +29,23 @@ export class ListedComponent implements OnInit {
       return dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
     }));
   edition$ = this.loadingService.edition$;
-
+  lastLink$ = this.loadingService.lastLink$;
   constructor(
     private dishesService: DishStorageService,
     public activatedRoute: ActivatedRoute,
     private loadingService: LoadingService,
     public idGenerator: DishIdGeneratorService,
+    private route: ActivatedRoute,
     public myRouter: Router
   ) {
   }
 
   ngOnInit(): void {
-    console.log('xd');
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    );
+
+
     this.dishType$.subscribe(value => console.log(value));
     this.filteredDishType$.subscribe(value => console.log(value));
   }

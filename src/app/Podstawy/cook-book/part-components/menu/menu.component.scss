@@ -1,20 +1,23 @@
-:host{
+:host {
   top: 0;
   position: fixed;
   width: 100%;
   user-select: none;
-  font-size: 150%
+  font-size: 150%;
+  z-index: 1;
 }
-.wraper{
-  height: 50px;
+
+.wraper {
+  height: 78px;
   width: 100%;
   align-content: center;
   background: dodgerblue;
 }
-.option{
+
+.option {
   margin-top: -12px;
   border: 12px gold double;
-  border-radius:  0 0 50px 50px;
+  //border-radius: 0 0 50px 50px;
   color: white;
   text-align: center;
   padding-top: 10px;
@@ -24,44 +27,66 @@
   //border: 1px gold solid;
   height: 50%;
   float: left;
-  margin-right:5px;
+  margin-right: 5px;
 }
-.option:hover{
-  background: cornflowerblue;
+
+.option:hover {
+  //background: cornflowerblue;
+  border: goldenrod 12px double;
 }
-.option:active{
+
+.option:active {
   background: royalblue;
 }
-.searchBar{
+
+.searchBar {
   margin-top: 5px;
   width: calc(30% - 2px);
   float: right;
 }
 
-@media (max-width: 1000px){
-  .option{
+@media (max-width: 1000px) {
+  .option {
     width: calc(30% - 4px);
   }
-  .searchBar{
+  .searchBar {
     width: calc(35% - 4px);
   }
 }
 
-@media (max-width: 610px){
-  .option{
+@media (max-width: 610px) {
+  .option {
     width: calc(30% - 4px);
   }
-  .searchBar{
+  .searchBar {
     width: calc(39% - 4px);
   }
 }
-.logo{
-  position: absolute;
-  height: 64px;
-  top: -20px;
-  left: 20px;
+
+.logo {
+  margin-top: -10px;
+  //height: 45px;
+  width: 33.3%;
+  display: inline-block;
 }
-.marg{
+
+.marg {
   margin-right: 20px;
-float: right;
+  float: right;
+}
+.return{
+  top: 58px;
+  right: 80px;
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  //margin-top: 20px;
+  //margin-bottom: 20px;
+}
+.icoUndo{
+  font-size: 64px;
+  color: white;
+}
+.icoUndo:hover{
+  color: goldenrod;
 }

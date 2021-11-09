@@ -11,6 +11,7 @@ export class LoadingService {
   levels$ = new BehaviorSubject<Array<Level>>([]);
   dishes$ = new BehaviorSubject<Array<DishType>>([]);
   edition$ = new BehaviorSubject(false);
+  lastLink$ = new BehaviorSubject('');
   filteredDishType$ = new BehaviorSubject('1');
 
   constructor() {
