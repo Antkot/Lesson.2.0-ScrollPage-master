@@ -13,8 +13,12 @@
   overflow: hidden;
 }
 .example-box {
-  line-break: strict;
-  word-break: break-all;
+  //overflow-wrap: break-word;
+  //display: inline-block;
+  word-break: break-word;
+  //line-break: strict;
+  //word-break: break-all;
+  //white-space: pre-wrap;
   max-height: 200px;
   user-select: none;
   padding: 20px;

@@ -75,8 +75,11 @@
   float: right;
 }
 .return{
-  top: 58px;
-  right: 80px;
+  margin-top: 5px;
+  width: calc(30% - 2px);
+  float: right;
+  //top: 58px;
+  right: -450px;
   position: absolute;
   cursor: pointer;
   user-select: none;

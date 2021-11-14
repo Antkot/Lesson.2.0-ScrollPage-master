@@ -31,7 +31,6 @@ export class DishStorageService {
   constructor(
     private tagsService: TagsStorageService,
     private localStorageService: LocalStorageService,
-    public myRouter: Router
   ) {
 
     if (!!localStorage.dishList) {
@@ -189,12 +188,6 @@ export class DishStorageService {
 
   addProduct(addedProduct: UsedProduct, givenDishId: string) {
     console.log('addProduct');
-    // const checkedDishId = this.idCheck(givenDishId);
-    //
-    this.dishesListCopied$.pipe(first()).subscribe(value => {
-      value.dishId = givenDishId;
-    });
-    //
     this.dishesListCopied$.next({
       dishId: givenDishId,
       ...this.dishesListCopied$.value,

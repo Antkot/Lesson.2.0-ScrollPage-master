@@ -16,7 +16,7 @@ import { AddedProductType, AddedUsedProductType, BothIdType } from '../../types'
 export class RecipiePageComponent implements OnInit {
 
   constructor(
-    public activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private productService: ProductsStorageService,
     private dishService: DishStorageService,
     private usedProductService: UsedProductsStorageService,

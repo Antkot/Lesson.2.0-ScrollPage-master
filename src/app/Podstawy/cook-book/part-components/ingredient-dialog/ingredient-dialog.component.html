@@ -53,9 +53,8 @@
         <div class='centerV'>{{product.name}}</div>
         <div  class='centerV'>
           <a *ngFor='let allergen of product.allergens'>
-            1. {{allergen | json}}<br/>
-            2. {{allergen.allergenId | tagNameById: 'allergen' | async}}<br/>
-            3. {{allergen | tagNameById: 'allergen' | async}}
+<!--            1. {{allergen.allergenId | tagNameById: 'allergen' | async}}<br/>-->
+            {{allergen | tagNameById: 'allergen' | async}}
           </a>
         </div>
         <div class='centerV'><a   class='allergenHeight' *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}

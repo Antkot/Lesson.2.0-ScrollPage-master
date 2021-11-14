@@ -32,11 +32,11 @@ export class ListedComponent implements OnInit {
   lastLink$ = this.loadingService.lastLink$;
   constructor(
     private dishesService: DishStorageService,
-    public activatedRoute: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private loadingService: LoadingService,
-    public idGenerator: DishIdGeneratorService,
+    private idGenerator: DishIdGeneratorService,
     private route: ActivatedRoute,
-    public myRouter: Router
+    private myRouter: Router
   ) {
   }
 

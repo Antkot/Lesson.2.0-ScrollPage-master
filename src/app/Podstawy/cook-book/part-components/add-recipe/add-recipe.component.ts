@@ -58,7 +58,6 @@ export class AddRecipeComponent
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
-              public myRouter: Router,
               private dishService: DishStorageService,
               private loadingService: LoadingService
   ) {

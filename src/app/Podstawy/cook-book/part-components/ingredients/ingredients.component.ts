@@ -60,8 +60,6 @@ export class IngredientsComponent
     this.model.controls[`measure`].disable();
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
-        take(100),   // działa ? xD
-        // zmiana musi być na this.model
         filter((value) => this.modelClone.product !== value.product || (value?.measure && this.modelClone?.measure !== value.measure)),
         tap((value: {
           product: string,

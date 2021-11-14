@@ -15,7 +15,7 @@ export class ListPageComponent implements OnInit {
   filterOption$: Observable<{allFilterOptions: boolean, navigationId: number}>;
   temporary: {allFilterOptions: boolean, navigationId: number};
 
-  constructor(private tagsService: TagsStorageService, private allergenService: AllergensStorageService, public activatedRoute: ActivatedRoute) {
+  constructor(private tagsService: TagsStorageService, private allergenService: AllergensStorageService, private activatedRoute: ActivatedRoute) {
 
   }
 

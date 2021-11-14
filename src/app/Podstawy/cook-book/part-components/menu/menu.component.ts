@@ -29,12 +29,12 @@ export class MenuComponent implements OnInit {
   // beforeEdition$: Observable<Dish> = this.addRecipeComponent.recipe2$;
 
   constructor(
-    public myRouter: Router,
+    private myRouter: Router,
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private dishService: DishStorageService,
     public dialog: MatDialog,
-    public idGenerator: DishIdGeneratorService,
+    private idGenerator: DishIdGeneratorService,
     private loadingService: LoadingService
   ) {
   }
@@ -77,7 +77,7 @@ export class MenuComponent implements OnInit {
     // this.editionInProgress$.subscribe(value => {
     //     if (value === true) {
     //       this.dialog.open(AbandonEditionComponent, { panelClass: 'dialog-container-custom' });
-    //       console.log('EDYCJA PORZuCONa');
+    //       console.log('EDYCJA PORZUCONA');
     //       console.log(value);
     //     }
     //   }

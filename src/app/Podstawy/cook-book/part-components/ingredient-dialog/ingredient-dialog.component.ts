@@ -27,10 +27,10 @@ export class IngredientDialogComponent
   @Output() closed = new EventEmitter();
   @Output() addProduct = new EventEmitter();
   @Output() prodMeasureDeleted = new EventEmitter();
-  selectedName: string;
-  selectedProductId: string;
-  selectedMeasureId: string;
-  selectedMeasureKcal: number;
+  // selectedName: string;
+  // selectedProductId: string;
+  // selectedMeasureId: string;
+  // selectedMeasureKcal: number;
   model = this.fb.group({
     // name: new FormControl({ value: '', disabled: this.disabled }),
     product: ['', [Validators.required, Validators.minLength(1)]],
