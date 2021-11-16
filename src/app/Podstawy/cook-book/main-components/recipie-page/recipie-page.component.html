@@ -1,13 +1,15 @@
-<app-add-recipe
-  [reset]="reset$ | async"
-  (usedProductToAdd)='addUsedProduct($event)'
-  (addedProduct)='addProduct($event);'
-  (deletedStep)='deletedStepEmitter($event)'
-  (editStep)='editStepEmitter($event)'
-  (newStep)='newStepEmitter($event)'
-  (reindexStep)='reindexStepEmitter($event)'
-  (nameChange)='nameEdited($event)'
-  (typeChange)='typeEdition($event)'
-  (prodMeasureDeleted)='deleteProdMeasure($event)'
-  (editionEnded)='endEdition()'
-></app-add-recipe>
+<div class='all'>
+  <app-add-recipe
+    [reset]='reset$ | async'
+    (usedProductToAdd)='addUsedProduct($event)'
+    (addedProduct)='addProduct($event);'
+    (deletedStep)='deletedStepEmitter($event)'
+    (editStep)='editStepEmitter($event)'
+    (newStep)='newStepEmitter($event)'
+    (reindexStep)='reindexStepEmitter($event)'
+    (nameChange)='nameEdited($event)'
+    (typeChange)='typeEdition($event)'
+    (prodMeasureDeleted)='deleteProdMeasure($event)'
+    (editionEnded)='endEdition()'
+  ></app-add-recipe>
+</div>
