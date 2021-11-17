@@ -1,6 +1,7 @@
 <div class='all'>
   <div class='container'>
-    <div class='option' routerLink="/menu" routerLinkActive="active">Wszystkie przepisy</div>
+<!--    <div class='option' routerLink="/menu" routerLinkActive="active">Wszystkie przepisy</div>-->
+    <div class='option' (click)='redirectTo()'>Wszystkie przepisy</div>
     <div class='option'>Ulubione (nie działa)</div>
 <!--    <div class='option' routerLink="/list" routerLinkActive="active" [state]="{ allFilterOptions: true}">Ostatnio dodane</div>-->
     <div class='option' (click)='redirect()'>Ostatnio dodane</div>

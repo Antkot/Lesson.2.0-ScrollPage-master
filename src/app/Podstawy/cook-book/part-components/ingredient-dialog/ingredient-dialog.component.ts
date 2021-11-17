@@ -51,10 +51,9 @@ export class IngredientDialogComponent
     private fb: FormBuilder) {
     super();
   }
-
+// dobłe
   ngOnInit(): void {
     // const current = JSON.parse(this.localStorageService.getItem('measures'));
-
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         // filter(({ product }) => !!product),
@@ -66,15 +65,9 @@ export class IngredientDialogComponent
                   .measures.find((m) => m.measureId === measureId))));
             });
             this.counter(value.product, value.allergens, value.kcal, value.measure);
-
-            // console.log('TU PACZ MODEL (Jest)');
-            // console.log(this.model.value.allergens);
-
-
             this.measures$.pipe(first()).subscribe((measures) => {
               this.typedMeasureId = measures.find(({ name }) => name === value.measure)?.measureId;
             });
-
             let productsResult = null;
             if (value.product?.length > 0 && value.product) {
               const options = {
@@ -95,7 +88,6 @@ export class IngredientDialogComponent
         })
       )
     );
-
     this.model.valueChanges.subscribe((value: { measure: string }) => {
       // });
       this.finalCombine$.pipe(first()).subscribe((measures) => {

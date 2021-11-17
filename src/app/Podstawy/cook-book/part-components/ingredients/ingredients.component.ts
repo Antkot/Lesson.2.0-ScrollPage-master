@@ -55,7 +55,7 @@ export class IngredientsComponent
     private loadingService: LoadingService) {
     super();
   }
-
+// złe
   ngOnInit() {
     this.model.controls[`measure`].disable();
     this.subscribeWhileAlive(

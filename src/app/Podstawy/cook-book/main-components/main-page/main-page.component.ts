@@ -18,13 +18,24 @@ export class MainPageComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   redirect() {
     this.route.url.pipe(
       map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
     );
+    console.log('Zmieniono ostatni link. Teraz to: ');
+    this.lastLink$.pipe(first()).subscribe(value => console.log(value));
     this.myRouter.navigate(['../list']);
   }
 
+  redirectTo() {
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    );
+    console.log('Zmieniono ostatni link. Teraz to: ');
+    this.lastLink$.pipe(first()).subscribe(value => console.log(value));
+    this.myRouter.navigate(['/menu']);
+  }
 }

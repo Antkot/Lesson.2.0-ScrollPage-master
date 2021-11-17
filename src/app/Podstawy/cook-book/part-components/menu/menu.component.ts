@@ -40,6 +40,9 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe().subscribe(url => console.log('Wykryto zmianę URL:', url)
+    );
     // this.beforeEdition$.pipe().subscribe(originalValue =>
     //   this.dishesListCopied$.subscribe(
     //     value => {
@@ -62,6 +65,8 @@ export class MenuComponent implements OnInit {
     this.route.url.pipe(
       map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
     );
+    console.log('Zmieniono ostatni link. Teraz to: ');
+    this.lastLink$.pipe(first()).subscribe(value => console.log(value));
     this.myRouter.navigate(['../main']);
   }
 
@@ -69,6 +74,8 @@ export class MenuComponent implements OnInit {
     this.route.url.pipe(
       map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
     );
+    console.log('Zmieniono ostatni link. Teraz to: ');
+    this.lastLink$.pipe(first()).subscribe(value => console.log(value));
     this.abandonEdition();
     this.dishesListCopied$.next({
       dishId: '',
