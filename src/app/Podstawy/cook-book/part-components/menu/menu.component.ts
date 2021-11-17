@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { DishStorageService } from '../services/dish-storage.service';
-import { first, take } from 'rxjs/operators';
+import { first, map, take } from 'rxjs/operators';
 import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
 import { AbandonEditionComponent } from '../abandon-edition/abandon-edition.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -58,7 +58,17 @@ export class MenuComponent implements OnInit {
     });
   }
 
+  redirect() {
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    );
+    this.myRouter.navigate(['../main']);
+  }
+
   redirectTo() {
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    );
     this.abandonEdition();
     this.dishesListCopied$.next({
       dishId: '',

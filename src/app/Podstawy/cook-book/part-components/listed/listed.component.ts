@@ -30,6 +30,7 @@ export class ListedComponent implements OnInit {
     }));
   edition$ = this.loadingService.edition$;
   lastLink$ = this.loadingService.lastLink$;
+
   constructor(
     private dishesService: DishStorageService,
     private activatedRoute: ActivatedRoute,
@@ -41,13 +42,8 @@ export class ListedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.url.pipe(
-      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
-    );
-
-
-    this.dishType$.subscribe(value => console.log(value));
-    this.filteredDishType$.subscribe(value => console.log(value));
+    // this.dishType$.subscribe(value => console.log(value));
+    // this.filteredDishType$.subscribe(value => console.log(value));
   }
 
   deleteDish(dishId: string) {
@@ -56,6 +52,9 @@ export class ListedComponent implements OnInit {
 
   redirect() {
     this.edition$.next(true);
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    );
     this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
   }
 
@@ -65,6 +64,9 @@ export class ListedComponent implements OnInit {
     } else {
       this.edition$.next(false);
     }
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    );
     this.myRouter.navigate(['../recipe/', dishId]);
   }
 }

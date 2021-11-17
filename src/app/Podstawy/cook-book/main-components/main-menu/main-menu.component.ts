@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Dish, DishType } from '../../types';
 import { LoadingService } from '../../part-components/services/loading.service';
 import { first, map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from '../../part-components/services/local-storage-service';
 import { DishStorageService } from '../../part-components/services/dish-storage.service';
 
@@ -22,26 +22,29 @@ export class MainMenuComponent implements OnInit {
     private loadingService: LoadingService,
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
-
+    private myRouter: Router
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
+  redirect() {
     this.route.url.pipe(
       map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
     );
-
+    this.myRouter.navigate(['../list']);
   }
+
   dishTyped(dishTyped: string) {
     console.log(dishTyped);
     this.dishes$.pipe(first()).subscribe(dishType => {
       const x = dishType.find(
-        ({name}) =>
-      name ===  dishTyped
+        ({ name }) =>
+          name === dishTyped
       ).dishId;
       this.filteredDishType$.next(x);
     });
+    this.redirect();
   }
 
   // this.measures$.pipe(first()).subscribe(measure => {
@@ -51,6 +54,7 @@ export class MainMenuComponent implements OnInit {
   // )?.measureId;
 // });
 }
+
 // const current = this.allergens$.value;
 // this.allergens$.next(
 //   [

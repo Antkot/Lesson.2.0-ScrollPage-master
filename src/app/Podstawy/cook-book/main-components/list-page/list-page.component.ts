@@ -23,9 +23,6 @@ export class ListPageComponent implements OnInit {
     this.filterOption$ = this.activatedRoute.paramMap
       .pipe(map(() => history.state));
     this.filterOption$.subscribe(data => this.temporary = data);
-    // console.log(123456789000000000);
-    // do przebudowy
-    // console.log(this.temporary);
     this.allFilterOptions.emit(this.temporary.allFilterOptions);
   }
   removedTag(deletedTag: number) {

@@ -38,7 +38,7 @@ export class IngredientsComponent
     product: ['', [Validators.required, Validators.minLength(1)]],
     measure: ['Wpisz produkt', [Validators.required, Validators.minLength(1)]],
     // amount: ['', [this.model.value.product.length === 0,  Validators.required, Validators.min(1)]]
-    amount: ['', [Validators.required, Validators.min(1)]]
+    amount: ['', [Validators.required, Validators.min(0.01)]]
   });
   finalCombine$ = new BehaviorSubject<Array<Measure>>([]);
   isMeasureDuplicated: boolean;

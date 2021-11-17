@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { first, map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingService } from '../../part-components/services/loading.service';
 
 @Component({
@@ -14,13 +14,17 @@ export class MainPageComponent implements OnInit {
   constructor(
     private loadingService: LoadingService,
     private route: ActivatedRoute,
+    private myRouter: Router
   ) {
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  redirect() {
     this.route.url.pipe(
       map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
     );
+    this.myRouter.navigate(['../list']);
   }
 
 }
