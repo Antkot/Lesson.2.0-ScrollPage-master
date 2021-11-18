@@ -30,7 +30,7 @@ export class DishStorageService {
 
   constructor(
     private tagsService: TagsStorageService,
-    private localStorageService: LocalStorageService,
+    private localStorageService: LocalStorageService
   ) {
 
     if (!!localStorage.dishList) {
@@ -155,6 +155,7 @@ export class DishStorageService {
     }
 
   }
+
   erase() {
     this.dishesListCopied$.next({
       dishId: '',
@@ -188,27 +189,55 @@ export class DishStorageService {
 
   addProduct(addedProduct: UsedProduct, givenDishId: string) {
     console.log('addProduct');
+    console.log('givenDishId');
+    console.log(givenDishId);
     this.dishesListCopied$.next({
-      dishId: givenDishId,
       ...this.dishesListCopied$.value,
+      dishId: givenDishId,
       products: this.dishesListCopied$.value.dishId === givenDishId
         ? [...this.dishesListCopied$.value.products, { usedProductId: addedProduct.usedProductId }]
         : this.dishesListCopied$.value.products
     });
-    // this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
+    this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
     this.editCheck(givenDishId);
   }
 
   newStep(newStep: string, givenDishId: string) {
     console.log('newStep');
-    // const checkedDishId = this.idCheck(givenDishId);
-    this.dishesListCopied$.next({
+    console.log('givenDishId');
+    console.log(givenDishId);
+    let temporary;
+    this.dishesListCopied$.pipe(first()).subscribe(value => temporary = value);
+    this.dishesListCopied$.next(temporary.steps.map(({ dishId, steps, ...value }) => ({
+      ...value,
       dishId: givenDishId,
-      ...this.dishesListCopied$.value,
       steps: this.dishesListCopied$.value.dishId === givenDishId
-        ? [...this.dishesListCopied$.value.steps, newStep] :
-        this.dishesListCopied$.value.steps
-    });
+        ? [...this.dishesListCopied$.value.steps, newStep]
+        : this.dishesListCopied$.value.steps,
+    })));
+
+     // this.products$.next(current.map(({ measures, allergens, ...value }) => ({
+    //   ...value,
+    //   allergens: value.productId === this.typedProductId ? addedProduct.product.allergens : allergens,
+    //   measures: value.productId === this.typedProductId ? [...measures.map(({ measureId, kcal }) => ({
+    //       measureId,
+    //       kcal: measureId === this.measureId ? addedProduct.product.kcal : kcal
+    //     }
+    //   ))] : measures
+    // })));
+
+
+
+
+
+    // this.dishesListCopied$.next({
+    //   ...this.dishesListCopied$.value,
+    //   steps: this.dishesListCopied$.value.dishId === givenDishId
+    //     ? [...this.dishesListCopied$.value.steps, newStep]
+    //     : this.dishesListCopied$.value.steps,
+    //   dishId: givenDishId,
+    // });
+    this.dishesListCopied$.pipe(first()).subscribe(value => console.log(value));
     this.editCheck(givenDishId);
   }
 
@@ -319,13 +348,17 @@ export class DishStorageService {
       value.filter(({ dishId }) =>
         dishId === givenDishId
       );
-      this.dishesListCopied$.subscribe(val2ue => console.log(val2ue));
+      this.dishesListCopied$.subscribe(val2ue => console.table(val2ue));
     })) {
+      console.log(1);
       this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
     } else {
+      console.log(2);
       this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
     }
     this.editState = false;
+    this.dishesList$.subscribe(val3ue => console.table(val3ue));
+    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
     console.log('Zakończono edycję');
   }
 
