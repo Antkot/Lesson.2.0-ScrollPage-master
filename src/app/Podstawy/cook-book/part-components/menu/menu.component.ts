@@ -13,6 +13,7 @@ import * as cuid from 'cuid';
 import { DishIdGeneratorService } from '../services/dish-id-generator.service';
 import { LoadingService } from '../services/loading.service';
 import {Location} from '@angular/common';
+import { UrlService } from '../services/url.service';
 
 
 @Component({
@@ -37,16 +38,19 @@ export class MenuComponent implements OnInit {
     public dialog: MatDialog,
     private idGenerator: DishIdGeneratorService,
     private loadingService: LoadingService,
-    private location: Location
+    private location: Location,
+    private urlService: UrlService,
+
   ) {
   }
   backClicked() {
     this.location.back();
   }
     ngOnInit(): void {
-    this.route.url.pipe(
-      map(value => value[0].path)).pipe().subscribe(url => console.log('Wykryto zmianę URL:', url)
-    );
+      this.urlService.getUrl();
+    //   this.route.url.pipe(
+    //   map(value => value[0].path)).pipe().subscribe(url => console.log('Wykryto zmianę URL:', url)
+    // );
     // this.beforeEdition$.pipe().subscribe(originalValue =>
     //   this.dishesListCopied$.subscribe(
     //     value => {

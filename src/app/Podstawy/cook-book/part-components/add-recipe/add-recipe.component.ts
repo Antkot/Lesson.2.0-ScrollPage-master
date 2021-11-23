@@ -41,6 +41,7 @@ export class AddRecipeComponent
   recipe$: Observable<Dish> = this.dishService.dishesListCopied$;
   lastLink$ = this.loadingService.lastLink$;
   browserRefresh = false;
+  filteredDishType$: Observable<string> = this.loadingService.filteredDishType$;
 
   model = this.fb.group({
     name: ['', [Validators.required]],
@@ -88,6 +89,13 @@ export class AddRecipeComponent
             }
           }
         )));
+    this.filteredDishType$.pipe(first()).subscribe(value => {
+      this.model.controls['type'].setValue([{ dishId: value }], { emitEvent: false });
+      console.log('xd');
+      console.log(this.model.value.type);
+      this.typeChange.emit(this.model.value.type);
+    });
+    console.log('koniec');
   }
 
 
