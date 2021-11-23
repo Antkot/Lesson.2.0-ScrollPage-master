@@ -1,9 +1,5 @@
 <div class='all'>
   <div class='container' [formGroup]='model'>
-    <mat-divider></mat-divider>
-
-    <!--  2{{(dishId | dishType) | async | json}}-->
-    <mat-divider></mat-divider>
     <div class='name'>
       <input *ngIf='edition$ | async'
              type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'

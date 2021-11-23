@@ -34,7 +34,7 @@ export class IngredientDialogComponent
   model = this.fb.group({
     // name: new FormControl({ value: '', disabled: this.disabled }),
     product: ['', [Validators.required, Validators.minLength(1)]],
-    allergens: [[{ allergenId: '' }], []],
+    allergens: [[], []],
     kcal: ['', [Validators.required, Validators.min(0)]],
     measure: ['', [Validators.required, Validators.minLength(1)]]
   });
@@ -81,8 +81,6 @@ export class IngredientDialogComponent
             this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
             console.log(111111111, this.typedMeasureId);
             products.find(({ name }) => name === value.product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
-              ? console.log('Kopia miary wprowadzona! - zmiana przycisku') : console.log('Nowa miara');
-            products.find(({ name }) => name === value.product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
               ? this.isMeasureDuplicated = true : this.isMeasureDuplicated = false;
           });
         })
@@ -122,6 +120,7 @@ export class IngredientDialogComponent
       });
     }
     this.oldProduct = product;
+    console.log(this.model.value);
   }
 
   newProduct() {

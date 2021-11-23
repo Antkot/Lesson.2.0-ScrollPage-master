@@ -175,7 +175,7 @@ export class DishStorageService {
         this.dishesListCopied$.next({ ...findDish });
       } else {
         this.dishesListCopied$.next({
-          dishId: '',
+          dishId: url,
           name: '',
           tags: [],
           steps: [],
@@ -204,39 +204,13 @@ export class DishStorageService {
 
   newStep(newStep: string, givenDishId: string) {
     console.log('newStep');
-    console.log('givenDishId');
-    console.log(givenDishId);
-    let temporary;
-    this.dishesListCopied$.pipe(first()).subscribe(value => temporary = value);
-    this.dishesListCopied$.next(temporary.steps.map(({ dishId, steps, ...value }) => ({
-      ...value,
-      dishId: givenDishId,
+    this.dishesListCopied$.next({
+      ...this.dishesListCopied$.value,
       steps: this.dishesListCopied$.value.dishId === givenDishId
         ? [...this.dishesListCopied$.value.steps, newStep]
         : this.dishesListCopied$.value.steps,
-    })));
-
-     // this.products$.next(current.map(({ measures, allergens, ...value }) => ({
-    //   ...value,
-    //   allergens: value.productId === this.typedProductId ? addedProduct.product.allergens : allergens,
-    //   measures: value.productId === this.typedProductId ? [...measures.map(({ measureId, kcal }) => ({
-    //       measureId,
-    //       kcal: measureId === this.measureId ? addedProduct.product.kcal : kcal
-    //     }
-    //   ))] : measures
-    // })));
-
-
-
-
-
-    // this.dishesListCopied$.next({
-    //   ...this.dishesListCopied$.value,
-    //   steps: this.dishesListCopied$.value.dishId === givenDishId
-    //     ? [...this.dishesListCopied$.value.steps, newStep]
-    //     : this.dishesListCopied$.value.steps,
-    //   dishId: givenDishId,
-    // });
+      dishId: givenDishId,
+    });
     this.dishesListCopied$.pipe(first()).subscribe(value => console.log(value));
     this.editCheck(givenDishId);
   }

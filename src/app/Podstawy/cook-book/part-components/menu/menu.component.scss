@@ -8,7 +8,7 @@
 }
 
 .wraper {
-  height: 78px;
+  height: 70px;
   width: 100%;
   align-content: center;
   background: dodgerblue;
@@ -23,9 +23,8 @@
   padding-top: 10px;
   padding-bottom: 10px;
   background: dodgerblue;
-  width: calc(20% - 12px);
-  //border: 1px gold solid;
-  height: 50%;
+  width: 206px;
+  height: 38px;
   float: left;
   margin-right: 5px;
 }
@@ -39,57 +38,87 @@
   background: royalblue;
 }
 
-.searchBar {
+
+
+.return {
   margin-top: 5px;
-  width: calc(30% - 2px);
-  float: right;
-}
-
-@media (max-width: 1000px) {
-  .option {
-    width: calc(30% - 4px);
-  }
-  .searchBar {
-    width: calc(35% - 4px);
-  }
-}
-
-@media (max-width: 610px) {
-  .option {
-    width: calc(30% - 4px);
-  }
-  .searchBar {
-    width: calc(39% - 4px);
-  }
-}
-
-.logo {
-  margin-top: -10px;
-  //height: 45px;
-  width: 33.3%;
-  display: inline-block;
-}
-
-.marg {
-  margin-right: 20px;
-  float: right;
-}
-.return{
-  margin-top: 5px;
-  width: calc(30% - 2px);
+  //width: calc(30% - 2px);
   float: right;
   //top: 58px;
-  right: -450px;
-  position: absolute;
+  margin-right: 50px;
+  //position: absolute;
   cursor: pointer;
   user-select: none;
   //margin-top: 20px;
   //margin-bottom: 20px;
 }
-.icoUndo{
+
+.searchBar {
+  margin-top: 16px;
+  width: 250px;
+  float: right;
+}
+
+.logo {
+  margin-top: -10px;
+  height: 58px;
+  display: inline-block;
+}
+
+@media (max-width: 850px) {
+  .option {
+    font-size: 80%;
+    height: 18px;
+    width: 135px;
+  }
+  .logo {
+    margin-top: -10px;
+    height: 38px;
+    display: inline-block;
+  }
+  .wraper {
+    height: 50px;
+  }
+  .searchBar {
+    margin-top: 5px;
+  }
+  .return{
+    margin-top: -5px;
+  }
+}
+
+@media (max-width: 665px) {
+  .option {
+    height: 20px;
+    width: 142px;
+    font-size: 75%;
+  }
+  .logo {
+    margin-top: -10px;
+    height: 40px;
+    display: inline-block;
+  }
+  .wraper {
+    height: 52px;
+  }
+  .searchBar {
+    margin-top: 0;
+  }
+}
+
+
+.marg {
+  margin-right: 20px;
+  float: right;
+}
+
+
+
+.icoUndo {
   font-size: 64px;
   color: white;
 }
-.icoUndo:hover{
+
+.icoUndo:hover {
   color: goldenrod;
 }

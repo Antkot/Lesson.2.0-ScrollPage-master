@@ -24,7 +24,7 @@
       <mat-form-field appearance='outline'>
         <mat-label>Alergie</mat-label>
         <mat-select formControlName='allergens' multiple>
-          <mat-option *ngFor='let allergen of allergens$ | async' [value]='allergen.hashId' class='margin'>
+          <mat-option *ngFor='let allergen of allergens$ | async' [value]='{ allergenId: allergen.hashId}' class='margin'>
             {{allergen.name}}
           </mat-option>
         </mat-select>
@@ -53,8 +53,7 @@
         <div class='centerV'>{{product.name}}</div>
         <div  class='centerV'>
           <a *ngFor='let allergen of product.allergens'>
-<!--            1. {{allergen.allergenId | tagNameById: 'allergen' | async}}<br/>-->
-            {{allergen | tagNameById: 'allergen' | async}}
+            {{allergen.allergenId | tagNameById: 'allergen' | async}}<br/>
           </a>
         </div>
         <div class='centerV'><a   class='allergenHeight' *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}

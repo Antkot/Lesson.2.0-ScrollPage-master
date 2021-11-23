@@ -1,14 +1,14 @@
 :host {
-  height: 100%;
-  overflow: hidden;
+  height: 100vh;
+  max-width: 1000px;
 }
 
 .all {
-  margin-top: 25px;
-  //overflow: scroll;
-  overflow: visible;
-  height: 100%;
-  //width: 100vw;
+  margin-top: 65px;
+  overflow: scroll;
+  overflow: paged-x;
+  scroll-behavior: smooth;
+  height: calc(100vh - 70px);
   background: lightgoldenrodyellow;
 }
 
@@ -27,7 +27,7 @@
     display: inline-block;
     text-align: left;
     background: palegoldenrod;
-    padding: 0px;
+    padding: 0;
   }
 
   .hash {
