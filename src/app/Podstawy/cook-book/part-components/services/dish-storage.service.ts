@@ -200,6 +200,7 @@ export class DishStorageService {
     });
     this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
     this.editCheck(givenDishId);
+    this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
   newStep(newStep: string, givenDishId: string) {
@@ -209,10 +210,11 @@ export class DishStorageService {
       steps: this.dishesListCopied$.value.dishId === givenDishId
         ? [...this.dishesListCopied$.value.steps, newStep]
         : this.dishesListCopied$.value.steps,
-      dishId: givenDishId,
+      dishId: givenDishId
     });
     this.dishesListCopied$.pipe(first()).subscribe(value => console.log(value));
     this.editCheck(givenDishId);
+    this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
   deleteStep(index: number, givenDishId: string) {
@@ -225,6 +227,7 @@ export class DishStorageService {
         : this.dishesListCopied$.value.steps
     });
     this.editCheck(givenDishId);
+    this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
   editStep(editedStep: { step: string, index: number }, givenDishId) {
@@ -237,6 +240,7 @@ export class DishStorageService {
         : this.dishesListCopied$.value.steps
     });
     this.editCheck(givenDishId);
+    this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
   reindexStep(reindex: { previousIndex: number, currentIndex: number }, givenDishId) {
@@ -249,6 +253,7 @@ export class DishStorageService {
         : this.dishesListCopied$.value.steps
     });
     this.editCheck(givenDishId);
+    this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
   reindex(steps, previousIndex, currentIndex) {
@@ -267,6 +272,7 @@ export class DishStorageService {
     });
     this.dishesListCopied$.subscribe(val2ue => console.log(val2ue));
     this.editCheck(givenDishId);
+    this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
   typeChange(types: Array<{ dishId: string }>, givenDishId: string) {
@@ -277,6 +283,7 @@ export class DishStorageService {
       dishType: this.dishesListCopied$.value.dishId === givenDishId ? types : this.dishesListCopied$.value.dishType
     });
     this.editCheck(givenDishId);
+    this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
   // idCheck(givenDishId: string) {
@@ -356,6 +363,14 @@ export class DishStorageService {
     this.editionInProgress$.next(stringify(afterEdition) !== stringify(beforeEdition));
     this.editionInProgress$.subscribe(value => console.log('Edycja trwa: ', value));
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+  }
+
+  editCheckStorage(id) {
+    const editedDishStoraged = JSON.parse(this.localStorageService.getItem('editedDish'));
+    if (id === editedDishStoraged.dishId) {
+      console.log('Jest zapis tego dania');
+    }
+    console.log('editCheckStorage zakończono');
   }
 
 }

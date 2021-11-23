@@ -6,6 +6,7 @@ import { first, map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageService } from '../../part-components/services/local-storage-service';
 import { DishStorageService } from '../../part-components/services/dish-storage.service';
+import { UrlService } from '../../part-components/services/url.service';
 
 @Component({
   selector: 'app-main-menu',
@@ -22,16 +23,20 @@ export class MainMenuComponent implements OnInit {
     private loadingService: LoadingService,
     private localStorageService: LocalStorageService,
     private route: ActivatedRoute,
-    private myRouter: Router
+    private myRouter: Router,
+    private urlService: UrlService,
+
   ) {
   }
 
   ngOnInit(): void {}
 
   redirect() {
-    this.route.url.pipe(
-      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
-    );
+    this.urlService.getUrl();
+
+    // this.route.url.pipe(
+    //   map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    // );
     console.log('Zmieniono ostatni link. Teraz to: ');
     this.lastLink$.pipe(first()).subscribe(value => console.log(value));
     this.myRouter.navigate(['../list']);

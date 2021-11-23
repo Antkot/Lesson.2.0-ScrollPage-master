@@ -55,7 +55,7 @@
 
 .confirm {
   position: sticky;
-  bottom: 0px;
+  bottom: 0;
   width: 100%;
   text-align: center;
   float: bottom;
@@ -81,14 +81,18 @@
 }
 
 .input, h1 {
+  resize: none;
+  word-break: break-word;
+  //word-break: break-word;
   margin-top: 25px;
   text-align: center;
   border: gold 12px double;
   border-radius: 50px;
   background: dodgerblue;
   color: white;
-  height: 50px;
+  //height: 50px;
   font-size: 300%;
+  height: 100%;
   width: 80%;
   padding: 20px;
 }

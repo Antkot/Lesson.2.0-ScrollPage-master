@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { Dish } from '../../types';
 import { DishStorageService } from '../services/dish-storage.service';
-import { first, map } from 'rxjs/operators';
+import { first, map, share, shareReplay } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as cuid from 'cuid';
 import { LoadingService } from '../services/loading.service';
@@ -42,8 +42,8 @@ export class ListedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.dishType$.subscribe(value => console.log(value));
-    // this.filteredDishType$.subscribe(value => console.log(value));
+    this.dishType$.subscribe(value => console.log(value));
+    this.filteredDishType$.subscribe(value => console.log(value), shareReplay(1));
   }
 
   deleteDish(dishId: string) {

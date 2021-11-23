@@ -12,6 +12,7 @@ import { Dish } from '../../types';
 import * as cuid from 'cuid';
 import { DishIdGeneratorService } from '../services/dish-id-generator.service';
 import { LoadingService } from '../services/loading.service';
+import {Location} from '@angular/common';
 
 
 @Component({
@@ -35,11 +36,14 @@ export class MenuComponent implements OnInit {
     private dishService: DishStorageService,
     public dialog: MatDialog,
     private idGenerator: DishIdGeneratorService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private location: Location
   ) {
   }
-
-  ngOnInit(): void {
+  backClicked() {
+    this.location.back();
+  }
+    ngOnInit(): void {
     this.route.url.pipe(
       map(value => value[0].path)).pipe().subscribe(url => console.log('Wykryto zmianę URL:', url)
     );
