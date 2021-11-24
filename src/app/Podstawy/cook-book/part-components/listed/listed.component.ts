@@ -27,7 +27,7 @@ export class ListedComponent implements OnInit {
   shownDishesList$: Observable<Array<Dish>> = combineLatest([this.filteredDishType$, this.dishesList$]).pipe(
     map(([dishTyped, dishesList]) => {
       return dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
-    }));
+    }), shareReplay(1));
   edition$ = this.loadingService.edition$;
   lastLink$ = this.loadingService.lastLink$;
 
@@ -41,9 +41,7 @@ export class ListedComponent implements OnInit {
   ) {
   }
 
-  ngOnInit(): void {
-    this.dishType$.subscribe(value => console.log(value));
-    this.filteredDishType$.subscribe(value => console.log(value), shareReplay(1));
+  ngOnInit() {
   }
 
   deleteDish(dishId: string) {

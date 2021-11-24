@@ -1,12 +1,12 @@
 <div class='all'>
   <div class='container' [formGroup]='model'>
     <div class='name'>
-<!--      <input *ngIf='edition$ | async'-->
-<!--             type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'-->
-<!--             formControlName='name' />-->
-      <textarea *ngIf='edition$ | async'
+      <input *ngIf='edition$ | async'
              type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
-                formControlName='name'> </textarea>
+             formControlName='name' />
+<!--      <textarea *ngIf='edition$ | async'-->
+<!--             type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'-->
+<!--                formControlName='name'> </textarea>-->
 
       <h1 *ngIf='(edition$ | async) === false' class='header'>
         {{(recipe$ | async).name}}
@@ -23,7 +23,9 @@
       <!--      <app-chips [removable]="edit" [entity]="'Tag'" [elements]="(dishId | dishTranslator: 'tags') | async "></app-chips>-->
       <!--    </div>-->
       <div class='single'>
-        <app-dish-type (typeOfDish)='typeEdition($event)'></app-dish-type>
+        <app-dish-type (typeOfDish)='typeEdition($event)'
+        [dishTypes]="(recipe$ | async).dishType"
+        ></app-dish-type>
       </div>
     </div>
     <mat-divider></mat-divider>

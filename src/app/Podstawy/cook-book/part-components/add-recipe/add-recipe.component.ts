@@ -45,7 +45,7 @@ export class AddRecipeComponent
 
   model = this.fb.group({
     name: ['', [Validators.required]],
-    type: [[], []]
+      type: [[], []]
   });
   subscription: Subscription;
 
@@ -79,7 +79,12 @@ export class AddRecipeComponent
     this.route.url.pipe(
       map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.newDish(url)
     );
-
+    this.filteredDishType$.pipe(first()).subscribe(dishId => {
+      this.model.controls['type'].setValue([{ dishId }]);
+      console.log('xd');
+      console.table(this.model.value.type);
+      this.typeChange.emit(this.model.value.type);
+    });
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         tap((value: { name: string }) => {
@@ -89,12 +94,6 @@ export class AddRecipeComponent
             }
           }
         )));
-    this.filteredDishType$.pipe(first()).subscribe(value => {
-      this.model.controls['type'].setValue([{ dishId: value }], { emitEvent: false });
-      console.log('xd');
-      console.log(this.model.value.type);
-      this.typeChange.emit(this.model.value.type);
-    });
     console.log('koniec');
   }
 
@@ -141,6 +140,7 @@ export class AddRecipeComponent
         type: newTypes
       }
     );
+    console.table(this.model.controls['type'].value);
     this.typeChange.emit(this.model.value.type);
   }
 

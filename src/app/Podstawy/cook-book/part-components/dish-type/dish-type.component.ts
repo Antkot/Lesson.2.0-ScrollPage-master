@@ -30,6 +30,7 @@ export class DishTypeComponent
         ? dishes.find(({ dishId }) => dishId === id[0]).dishType : [];
     }
   ));
+  @Input() dishTypes = [];
   controlDishType = [];
   dishes$ = combineLatest([
     this.selectedDishes$,
@@ -53,6 +54,12 @@ export class DishTypeComponent
             this.model.addControl(patchKey, new FormControl());
           });
           this.model.setValue(model, { emitEvent: false });
+        } else {
+          // nie ma else
+          console.log('DZIECKO:');
+          console.log(this.dishTypes[0]);
+          console.log(this.model.value);
+          this.model.setValue(this.dishTypes[0]);
         }
         return dishesType.map(({ dishId }) => (dishId));
       }));
