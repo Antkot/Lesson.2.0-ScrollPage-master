@@ -61,8 +61,7 @@ export class DishTypeComponent
           console.log(this.model.value);
           this.model.setValue(this.dishTypes[0]);
         }
-        return dishesType.map(({ dishId }) => (dishId));
-      }));
+        return dishesType.map(({ dishId }) => (dishId));     }));
   // this.selectedDishes$.pipe(first()).subscribe(value => this.selectedDishes = value);
 
 
