@@ -9,7 +9,7 @@
   overflow: paged-x;
   scroll-behavior: smooth;
   height: calc(100vh - 70px);
-  background: lightgoldenrodyellow;
+  //background: lightgoldenrodyellow;
 }
 
 .container {
@@ -80,7 +80,7 @@
 .confirm:active {
 }
 
-.input, h1 {
+.input, .nameh1 {
   resize: none;
   word-break: break-word;
   //word-break: break-word;
@@ -93,21 +93,28 @@
   //height: 50px;
   font-size: 300%;
   height: 100%;
-  width: 80%;
+  width: calc(100% - 24px);
   padding: 20px;
 }
-
-.h1 {
-  width: 50%;
+.nameh1{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  font-size: 150%;
+}
+h1 {
+  //background: red;
+  width: 90%;
 }
 
 .input:hover {
   border: darkgoldenrod 12px double;
 }
 
-h1:hover {
-  border: gold 12px double;
-}
+//h1:hover {
+//  border: gold 12px double;
+//}
 .name{
   height: 100%;
 }
@@ -144,11 +151,11 @@ button[disabled] {
 
 .editButton {
   z-index: 0;
-  margin-top: -2px;
   justify-self: center;
   border: none;
   background: none;
-  margin-right: -2px;
+  position: center;
+  //margin-top: calc( 50% - 30px);
 }
 
 .editButton:hover {

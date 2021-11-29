@@ -72,6 +72,19 @@
   .twoInputs {
     width: 100%;
   }
+  .content {
+    height: calc(561px - 235px);
+  }
+
+  //.tableBorder{
+  //  height: 200px;
+  //}
+}
+
+@media (max-width: 1300px) {
+  .content {
+    height: calc(561px - 150px);
+  }
 }
 
 @media (max-width: 400px) {

@@ -7,15 +7,17 @@
 <!--      <textarea *ngIf='edition$ | async'-->
 <!--             type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'-->
 <!--                formControlName='name'> </textarea>-->
+<div  *ngIf='(edition$ | async) === false'  class='nameh1' >
+  <h1 class='header'>
+    {{(recipe$ | async).name}}
+  </h1>
+  <div class='editButton noColor' *ngIf='(edition$ | async) === false'>
+    <button mat-fab (click)='redirectTo()' class='editButton'>
+      <mat-icon  class="white-icon">edit</mat-icon>
+    </button>
+  </div>
+</div>
 
-      <h1 *ngIf='(edition$ | async) === false' class='header'>
-        {{(recipe$ | async).name}}
-        <div class='editButton noColor' *ngIf='(edition$ | async) === false'>
-          <button mat-fab (click)='redirectTo()' class='editButton'>
-            <mat-icon  class="white-icon">edit</mat-icon>
-          </button>
-        </div>
-      </h1>
     </div>
     <mat-divider></mat-divider>
     <div class='hash'>
@@ -31,6 +33,7 @@
     <mat-divider></mat-divider>
     <div class='ingredients'>
       <div class='divide'>
+
         <app-ingredients [products]="(recipe$ | async).products"
                          (addUsedProduct)='addUsedProduct($event)'
                          (addedProduct)='addProduct($event)'
