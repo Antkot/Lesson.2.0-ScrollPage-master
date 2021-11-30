@@ -10,6 +10,7 @@
   scroll-behavior: smooth;
   height: calc(100vh - 70px);
   //background: lightgoldenrodyellow;
+  background: transparent;
 }
 
 .container {
@@ -17,7 +18,7 @@
   margin: auto;
 
   > div {
-    background: palegoldenrod;
+    //background: palegoldenrod;
     text-align: center;
     padding: 50px 0;
   }
@@ -26,14 +27,14 @@
     width: 100%;
     display: inline-block;
     text-align: left;
-    background: palegoldenrod;
+    //background: palegoldenrod;
     padding: 0;
   }
 
   .hash {
     padding: 0;
     //height: 200px;
-    background: palegoldenrod;
+    //background: palegoldenrod;
   }
 }
 

@@ -23,13 +23,16 @@ export class DishTypeComponent
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   dishId$: Observable<any> = combineLatest([this.route.url.pipe(
     map(value => value[1].path))]);
-  selectedDishes$ = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishes]) => {
-      // console.log(11111111111111111, id[0]);
-      // console.table(dishes.find(({ dishId }) => dishId === id[0]));
-      return dishes.find(({ dishId }) => dishId === id[0])
-        ? dishes.find(({ dishId }) => dishId === id[0]).dishType : [];
+  copiedDishes$: Observable<Dish> = this.dishService.dishesListCopied$;
+  selectedDishes$: Observable<Array<{dishId: string}>> = this.copiedDishes$.pipe(map((dishes) => {
+      return dishes.dishType;
     }
   ));
+  // selectedDishes$: Observable<Array<{dishId: string}>> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishes]) => {
+  // return dishes.find(({ dishId }) => dishId === id[0])
+  //   ? dishes.find(({ dishId }) => dishId === id[0]).dishType : [];
+  // }
+  // ));
   @Input() dishTypes = [];
   controlDishType = [];
   dishes$ = combineLatest([
@@ -39,8 +42,6 @@ export class DishTypeComponent
       map(([
              selectedDishes,
              dishesType]) => {
-        // console.log(1111111);
-        // console.table(dishesType);
         const model = dishesType.reduce(
           (obj, { dishId }) => ({
             ...obj,
@@ -61,7 +62,8 @@ export class DishTypeComponent
           console.log(this.model.value);
           this.model.setValue(this.dishTypes[0]);
         }
-        return dishesType.map(({ dishId }) => (dishId));     }));
+        return dishesType.map(({ dishId }) => (dishId));
+      }));
   // this.selectedDishes$.pipe(first()).subscribe(value => this.selectedDishes = value);
 
 
@@ -83,7 +85,8 @@ export class DishTypeComponent
     {});
   @Output() typeOfDish = new EventEmitter();
 
-  constructor(private dishesService: DishStorageService,
+  constructor(private dishService: DishStorageService,
+              private dishesService: DishStorageService,
               private route: ActivatedRoute,
               private loadingService: LoadingService,
               private fb: FormBuilder
@@ -92,6 +95,8 @@ export class DishTypeComponent
   }
 
   ngOnInit(): void {
+    console.log('this.dishTypes');
+    console.table(this.dishTypes);
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         filter(model => model?.['1'] !== null),
