@@ -1,16 +1,18 @@
 :host {
   height: 100vh;
   max-width: 1000px;
+  overflow: scroll;
+  overflow: paged-x;
 }
 
 .all {
-  margin-top: 65px;
-  overflow: scroll;
-  overflow: paged-x;
+  overflow-x: hidden;
+  overflow-y: auto;
   scroll-behavior: smooth;
   height: calc(100vh - 70px);
-  //background: lightgoldenrodyellow;
-  background: transparent;
+  max-width: 1014px;
+  margin: 65px auto auto auto;
+  background: lightgoldenrodyellow;
 }
 
 .container {
@@ -18,7 +20,7 @@
   margin: auto;
 
   > div {
-    //background: palegoldenrod;
+    background: palegoldenrod;
     text-align: center;
     padding: 50px 0;
   }
@@ -27,14 +29,14 @@
     width: 100%;
     display: inline-block;
     text-align: left;
-    //background: palegoldenrod;
+    background: palegoldenrod;
     padding: 0;
   }
 
   .hash {
     padding: 0;
     //height: 200px;
-    //background: palegoldenrod;
+    background: palegoldenrod;
   }
 }
 
@@ -94,7 +96,7 @@
   //height: 50px;
   font-size: 300%;
   height: 100%;
-  width: calc(100% - 24px);
+  width: calc(1000px - 64px);
   padding: 20px;
 }
 .nameh1{

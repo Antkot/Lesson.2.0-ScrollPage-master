@@ -1,158 +1,158 @@
-:host {
-  width: 1000px;
-  display: block;
-  margin: auto;
-  max-width: 70%;
-  color: white;
-}
+  :host {
+    width: 1000px;
+    display: block;
+    margin: auto;
+    max-width: 70%;
+    color: white;
+  }
 
-.header {
-  text-align: center;
-  //background: palegoldenrod;
-  width: 100%;
-  display: table;
-}
+  .header {
+    text-align: center;
+    background: palegoldenrod;
+    width: 100%;
+    display: table;
+  }
 
-.seenWindow {
-  margin-top: 50px;
-  overflow: auto;
-  height: calc(100vh - 50px);
-  width: 100%;
-  //background: palegoldenrod;
-}
+  .seenWindow {
+    margin-top: 50px;
+    overflow: auto;
+    height: calc(100vh - 50px);
+    width: 100%;
+    background: palegoldenrod;
+  }
 
-.list {
-  width: 100%;
-}
+  .list {
+    width: 100%;
+  }
 
-.record {
-  display: flex;
-  //border: gold 12px double;
-  //border-radius: 50px;
-  //background: dodgerblue;
-  //padding: 10px 20px;
-  //height: 75px;
-  //position: relative;
-}
+  .record {
+    display: flex;
+    //border: gold 12px double;
+    //border-radius: 50px;
+    //background: dodgerblue;
+    //padding: 10px 20px;
+    //height: 75px;
+    //position: relative;
+  }
 
-.record:hover {
-  //border: darkgoldenrod 12px double;
-}
-.recMenu:hover, .recName:hover {
-  border: darkgoldenrod 12px double;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  align-content: center;
-}
+  .record:hover {
+    //border: darkgoldenrod 12px double;
+  }
+  .recMenu:hover, .recName:hover {
+    border: darkgoldenrod 12px double;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+  }
 
-.hash {
-  color: black;
-  margin-right: 6px;
-  padding: 6px;
-  display: inline;
-  background: orange;
-  height: 10%;
-  width: 10%;
-  border: gray solid 1px;
-  border-radius: 20px;
-}
+  .hash {
+    color: black;
+    margin-right: 6px;
+    padding: 6px;
+    display: inline;
+    background: orange;
+    height: 10%;
+    width: 10%;
+    border: gray solid 1px;
+    border-radius: 20px;
+  }
 
-.hash:hover {
-  background: darkorange;
-}
+  .hash:hover {
+    background: darkorange;
+  }
 
 
-.mat-divider {
-  border-top-width: 10px;
-  border-top-style: solid;
-  border-top-color: palegoldenrod;
-}
+  .mat-divider {
+    border-top-width: 10px;
+    border-top-style: solid;
+    border-top-color: palegoldenrod;
+  }
 
-.add {
-  cursor: pointer;
-  z-index: 5;
-  border-radius: 0 0 50px 50px;
-  position: sticky;
-  top: 0;
-  background: dodgerblue;
-  border: gold double 12px;
-  color: white;
-  text-align: center;
-  vertical-align: middle;
-  user-select: none;
-}
+  .add {
+    cursor: pointer;
+    z-index: 5;
+    border-radius: 0 0 50px 50px;
+    position: sticky;
+    top: 20px;
+    background: dodgerblue;
+    border: gold double 12px;
+    color: white;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+  }
 
-.add:hover {
-  border: darkgoldenrod double 12px;
-}
-.record:active, .add:active{
-  transform: scale(0.98);
-}
-.recMenu:active, .recName:active,  .add:active{
-  //transform: scale(0.95);
-}
-.topRight{
-  border: none;
-  background: none;
-  margin: auto;
-  //top: 30%;
-  position: absolute;
-}
-.menuIcon{
-  font-size: 300%;
-  cursor: pointer;
-}
-.recMenu{
-  cursor: pointer;
-  border: gold 12px double;
-  border-radius: 0 50px 50px 0;
-  background: dodgerblue;
-  padding: 10px 20px;
-  //min-height: 75px;
-  min-height: 100%;
-  position: relative;
-  width: 5%;
-  border-left: none;
-  float: left;
-}
-.nameItself{
-  word-break: break-word;
-}
-.recName{
-  cursor: pointer;
-  margin-right: 0;
-  border: gold 12px double;
-  border-right:  none 12px;
-  border-radius: 50px 0 0 50px;
-  background: dodgerblue;
-  padding: 10px 20px;
-  min-height: 75px;
-  height: 100%;
-  position: relative;
-  width: 85%;
-}
-.recMenu, .recName{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  align-content: center;
-}
-.noRecords{
-  //display: none;
-  width: 20%;
-  text-align: center;
-  position: absolute;
-  top: 50%;
-  right: 40%;
-}
-//.list:empty{
-  //height: 10px;
-  //background: red;
-  //.noRecords{
-  //  display: block;
+  .add:hover {
+    border: darkgoldenrod double 12px;
+  }
+  .record:active, .add:active{
+    transform: scale(0.98);
+  }
+  .recMenu:active, .recName:active,  .add:active{
+    //transform: scale(0.95);
+  }
+  .topRight{
+    border: none;
+    background: none;
+    margin: auto;
+    //top: 30%;
+    position: absolute;
+  }
+  .menuIcon{
+    font-size: 300%;
+    cursor: pointer;
+  }
+  .recMenu{
+    cursor: pointer;
+    border: gold 12px double;
+    border-radius: 0 50px 50px 0;
+    background: dodgerblue;
+    padding: 10px 20px;
+    //min-height: 75px;
+    min-height: 100%;
+    position: relative;
+    width: 5%;
+    border-left: none;
+    float: left;
+  }
+  .nameItself{
+    word-break: break-word;
+  }
+  .recName{
+    cursor: pointer;
+    margin-right: 0;
+    border: gold 12px double;
+    border-right:  none 12px;
+    border-radius: 50px 0 0 50px;
+    background: dodgerblue;
+    padding: 10px 20px;
+    min-height: 75px;
+    height: 100%;
+    position: relative;
+    width: 85%;
+  }
+  .recMenu, .recName{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+  }
+  .noRecords{
+    //display: none;
+    width: 20%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    right: 40%;
+  }
+  //.list:empty{
+    //height: 10px;
+    //background: red;
+    //.noRecords{
+    //  display: block;
+    //}
   //}
-//}
-.list:empty + .noRecords{
-  display: block;
-}
+  .list:empty + .noRecords{
+    display: block;
+  }
