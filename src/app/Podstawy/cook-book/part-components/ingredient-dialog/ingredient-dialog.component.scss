@@ -73,6 +73,7 @@
     width: 100%;
   }
   .content {
+    padding: 10px;
     height: calc(561px - 235px);
   }
 
@@ -83,6 +84,7 @@
 
 @media (max-width: 1300px) {
   .content {
+    padding: 10px;
     height: calc(561px - 150px);
   }
 }
