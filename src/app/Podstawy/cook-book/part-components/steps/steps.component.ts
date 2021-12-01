@@ -3,6 +3,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoadingService } from '../services/loading.service';
 import { replace } from 'lodash';
+import { WordPipe } from '../../pipes/OtherPipes/word.pipe';
 
 @Component({
   selector: 'app-steps',
@@ -37,9 +38,6 @@ export class StepsComponent implements OnInit {
   }
 
   done() {
-    const $remove = [' w ', ' z ', ' o ', ' i ', ' a '];
-    const $insert = [' w&nbsp', ' z&nbsp;', ' o&nbsp;', ' i&nbsp;', ' a&nbsp;' ];
-    this.model.value.step.toString().replace($remove, $insert);
     this.editStep.emit({ step: this.model.value.step, index: this.edited });
     this.edited = -1;
     this.model.reset();

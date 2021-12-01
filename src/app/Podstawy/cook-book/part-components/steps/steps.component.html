@@ -5,7 +5,7 @@
   <ng-template #information>
     <div cdkDropList class='example-list' (cdkDropListDropped)='drop($event)' cdkDropListDisabled *ngIf='(edition$ | async) === false'>
       <div class='example-box' style='cursor: default;' *ngFor='let step of steps' cdkDrag>
-        {{step}}
+        {{step | word}}
       </div>
     </div>
     <div cdkDropList class='example-list' (cdkDropListDropped)='drop($event)' *ngIf='edition$ | async'>
@@ -41,7 +41,9 @@
         <!--          <span>Gotowe</span>-->
         <!--        </button>-->
         <!--        <span *ngIf="edited !== step">{{step}}</span>-->
-        <span>{{step}}</span>
+        <span>
+          {{step | word}}
+        </span>
         <div>
           <button class='menu' [matMenuTriggerFor]='menu' [disabled]='edited === i'>
             <mat-icon class='white-icon'>more_vert</mat-icon>

@@ -18,7 +18,7 @@
     <div class="record" *ngFor='let dish of shownDishesList$ | async'>
       <div class='recName'
            (click)='redirectView(false, dish.dishId)'>
-      <h1 class='nameItself'>{{dish.name}}</h1>
+      <h1 class='nameItself'>{{dish.name| word}}</h1>
       </div>
       <div class='recMenu'  [matMenuTriggerFor]="menu"  matRipple >
       <button  class='topRight'>
