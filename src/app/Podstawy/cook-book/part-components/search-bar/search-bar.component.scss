@@ -19,3 +19,10 @@
   height: 24px;
   margin: auto;
 }
+.input:hover, .input:focus, text:focus {
+  border-radius: 50px;
+  border: dodgerblue 1px solid;
+}
+*:focus {
+  outline: none;
+}

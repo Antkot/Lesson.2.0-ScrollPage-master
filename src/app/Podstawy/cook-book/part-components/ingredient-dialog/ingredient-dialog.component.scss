@@ -22,7 +22,9 @@
   float: right;
   cursor: pointer;
 }
-
+.mat-typography{
+  max-height: 420px;
+}
 .delButton {
   color: white;
   background: gold;
@@ -61,7 +63,9 @@
 ::ng-deep .mat-option-pseudo-checkbox.mat-pseudo-checkbox-checked {
   background-color: gold;
 }
-
+.content{
+  overflow: scroll;
+}
 @media (min-width: 1100px) {
   .twoInputs {
     display: inline-block;
@@ -74,7 +78,7 @@
   }
   .content {
     padding: 10px;
-    height: calc(561px - 235px);
+    height: 300px;
   }
 
   //.tableBorder{
@@ -85,7 +89,7 @@
 @media (max-width: 1300px) {
   .content {
     padding: 10px;
-    height: calc(561px - 150px);
+    height: 400px;
   }
 }
 

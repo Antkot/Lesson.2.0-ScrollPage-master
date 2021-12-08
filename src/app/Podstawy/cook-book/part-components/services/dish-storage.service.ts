@@ -371,6 +371,10 @@ export class DishStorageService {
     const editedDishStoraged = JSON.parse(this.localStorageService.getItem('editedDish'));
     if (id === editedDishStoraged.dishId) {
       console.log('Jest zapis tego dania');
+      // const current = JSON.parse(this.localStorageService.getItem('allergens'));
+      // this.dishesListCopied$.next({
+      //   ...current
+      // });
     }
     console.log('editCheckStorage zakończono');
   }

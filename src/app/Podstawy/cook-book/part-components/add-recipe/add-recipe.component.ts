@@ -11,6 +11,7 @@ import { AliveState } from '../../../../ActiveState';
 import { LoadingService } from '../services/loading.service';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { LocalStorageService } from '../services/local-storage-service';
 
 
 @Component({
@@ -42,10 +43,11 @@ export class AddRecipeComponent
   lastLink$ = this.loadingService.lastLink$;
   browserRefresh = false;
   filteredDishType$: Observable<string> = this.loadingService.filteredDishType$;
+  dishesListCopied$ = this.dishService.dishesListCopied$;
 
   model = this.fb.group({
     name: ['', [Validators.required]],
-      type: [[], []]
+    type: [[], []]
   });
   subscription: Subscription;
 
@@ -54,19 +56,11 @@ export class AddRecipeComponent
               private fb: FormBuilder,
               private dishService: DishStorageService,
               private loadingService: LoadingService,
-              private router: Router
+              private router: Router,
+              private localStorageService: LocalStorageService,
   ) {
     super();
-    this.subscription = router.events.subscribe((event) => {
-      if (event instanceof NavigationStart) {
-        this.browserRefresh = !router.navigated;
-        if (this.browserRefresh) {
-          this.route.url.pipe(
-            map(value => this.dishService.editCheckStorage(value[1].path))
-          );
-        }
-      }
-    });
+
   }
 
   ngOnInit(): void {
@@ -95,6 +89,14 @@ export class AddRecipeComponent
           }
         )));
     console.log('koniec');
+    this.route.url.pipe(
+      map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.editCheckStorage(url)
+    );
+    const current = JSON.parse(this.localStorageService.getItem('allergens'));
+    // this.dishesListCopied$.next({
+    //   ...current
+    // });
+    console.log('koniec2');
   }
 
 

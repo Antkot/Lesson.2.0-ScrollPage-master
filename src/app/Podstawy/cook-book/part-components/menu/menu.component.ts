@@ -27,6 +27,7 @@ export class MenuComponent implements OnInit {
   // editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
   edition$ = this.loadingService.edition$;
   lastLink$ = this.loadingService.lastLink$;
+  filteredDishType$ = this.loadingService.filteredDishType$;
 
   // beforeEdition$: Observable<Dish> = this.addRecipeComponent.recipe2$;
 
@@ -79,6 +80,7 @@ export class MenuComponent implements OnInit {
   }
 
   redirectTo() {
+    this.filteredDishType$.next(null);
     this.route.url.pipe(
       map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
     );

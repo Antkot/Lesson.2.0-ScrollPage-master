@@ -50,15 +50,17 @@
         ></app-steps>
       </div>
     </div>
-    <footer class='confirm' *ngIf='edition$ | async' (click)='editable()'>
-      <button [disabled]='model.invalid' class='block' (click)='endEdition()'>
-        Zakończ edycję
-      </button>
-    </footer>
-    <footer class='confirm' *ngIf='(edition$ | async) === false'>
-      <button class='block'>
-        Gotuj!
-      </button>
-    </footer>
   </div>
 </div>
+  <footer class='confirm' *ngIf='edition$ | async' (click)='editable()'>
+    <button [disabled]='model.invalid' class='block' (click)='endEdition()'>
+      Zakończ edycję
+    </button>
+  </footer>
+  <footer class='confirm' *ngIf='(edition$ | async) === false'>
+    <div class='block_rest'>
+    <button class='block'>
+      Gotuj!
+    </button>
+    </div>
+  </footer>

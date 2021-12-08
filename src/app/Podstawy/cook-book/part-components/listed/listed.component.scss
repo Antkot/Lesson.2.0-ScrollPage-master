@@ -14,9 +14,9 @@
   }
 
   .seenWindow {
-    margin-top: 50px;
+    margin-top: 70px;
     overflow: auto;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 70px);
     width: 100%;
     background: palegoldenrod;
   }
@@ -67,7 +67,7 @@
     z-index: 5;
     border-radius: 0 0 50px 50px;
     position: sticky;
-    top: 20px;
+    top: 0;
     background: dodgerblue;
     border: gold double 12px;
     color: white;
@@ -133,7 +133,7 @@
     margin-right: -12px;
   }
   .recMenu:hover{
-    margin-left: -12px;
+    //margin-left: 12px;
   }
   .noRecords{
     width: 20%;
