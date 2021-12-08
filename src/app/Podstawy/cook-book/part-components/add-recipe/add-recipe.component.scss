@@ -91,7 +91,6 @@
   resize: none;
   word-break: break-word;
   //word-break: break-word;
-  margin-top: 25px;
   text-align: center;
   border: gold 12px double;
   border-radius: 50px;
@@ -100,8 +99,9 @@
   //height: 50px;
   font-size: 300%;
   height: 100%;
-  width: calc(1000px - 64px);
-  padding: 20px;
+  width: calc(1000px - 128px);
+  padding: 20px 0 0 64px;
+  margin: 25px auto 0 auto;
 }
 .nameh1{
   display: flex;
