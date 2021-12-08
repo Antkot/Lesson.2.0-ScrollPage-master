@@ -33,6 +33,7 @@
     </div>
     <mat-divider></mat-divider>
     <div class='ingredients'>
+      <h1 class='title'> Niezbędne składniki:  </h1>
       <div class='divide'>
 
         <app-ingredients [products]="(recipe$ | async).products"
@@ -41,6 +42,8 @@
         (prodMeasureDeleted)='deleteProdMeasure($event)'></app-ingredients>
       </div>
       <mat-divider></mat-divider>
+      <h1 class='title'> Kroki do przytgotowania posiłku:  </h1>
+
       <div class='divide marg'>
         <app-steps [steps]="(recipe$ | async).steps"
                    (deletedStep)='deletedStepEmitter($event)'

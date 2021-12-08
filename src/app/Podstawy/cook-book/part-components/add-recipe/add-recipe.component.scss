@@ -48,7 +48,7 @@
   margin: auto;
 }
 .marg{
-  margin-bottom: 100px;
+  margin-bottom: 32px;
 }
 .single {
   padding: 5%;
@@ -86,7 +86,11 @@
 
 .confirm:active {
 }
-
+.title{
+  color: white;
+  text-align: center;
+  margin: 20px auto;
+}
 .input, .nameh1 {
   resize: none;
   word-break: break-word;

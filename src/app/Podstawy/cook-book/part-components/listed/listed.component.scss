@@ -110,6 +110,7 @@
     position: relative;
   }
   .recMenu{
+    margin-left: 12px;
     border-left: none;
     border-radius: 0 50px 50px 0;
     padding: 10px 20px;
@@ -121,19 +122,18 @@
     padding: 10px 20px;
     width: 85%;
   }
+  .recName:hover {
+      z-index: 1;
+  }
   .recMenu:hover, .recName:hover {
       border: darkgoldenrod 12px double;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       align-content: center;
-    }
-  .recName:hover {
-    z-index: 1;
-    margin-right: -12px;
   }
   .recMenu:hover{
-    //margin-left: 12px;
+    margin-left: 0;
   }
   .noRecords{
     width: 20%;
