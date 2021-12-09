@@ -4,12 +4,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { Dish, Hash, UsedProduct } from '../../types';
 import { TagsStorageService } from './tags-storage.service';
 import { LocalStorageService } from './local-storage-service';
-import { first, map } from 'rxjs/operators';
+import { find, first, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { number } from '@storybook/addon-knobs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 import { stringify } from 'querystring';
+import { indexOf } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -256,9 +257,9 @@ export class DishStorageService {
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
-  reindex(steps, previousIndex, currentIndex) {
-    moveItemInArray(steps, previousIndex, currentIndex);
-    return steps;
+  reindex(array, previousIndex, currentIndex) {
+    moveItemInArray(array, previousIndex, currentIndex);
+    return array;
   }
 
   nameChange(newName: string, givenDishId: string) {
@@ -326,6 +327,8 @@ export class DishStorageService {
   }
 
   endEdition(givenDishId) {
+    let indexOfDish;
+    let inedxOfLastDish;
     console.log('endEdition');
     if (!this.dishesList$.subscribe(value => {
       value.filter(({ dishId }) =>
@@ -337,10 +340,19 @@ export class DishStorageService {
       this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
     } else {
       console.log(2);
-      this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
+      this.dishesList$.pipe(first()).subscribe(( dish ) => {
+        indexOfDish =  dish.findIndex(({ dishId }) =>
+          dishId === givenDishId);
+      });
     }
+    this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
     this.editState = false;
     this.dishesList$.subscribe(val3ue => console.table(val3ue));
+    this.dishesList$.pipe(first()).subscribe(( dish ) => {
+      inedxOfLastDish =  dish.findIndex(({ dishId }) =>
+        dishId === givenDishId);
+    });
+    this.reindex(this.dishesList$.value, inedxOfLastDish, indexOfDish);
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
     console.log('Zakończono edycję');
   }
@@ -356,12 +368,6 @@ export class DishStorageService {
     });
     let beforeEdition;
     this.dishesListCopied$.subscribe(value => beforeEdition = value);
-    // console.log('x');
-    // console.log(afterEdition);
-    // console.log('y');
-    // console.log(beforeEdition);
-    // console.log('x === y');
-    // console.log(stringify(afterEdition) === stringify(beforeEdition));
     this.editionInProgress$.next(stringify(afterEdition) !== stringify(beforeEdition));
     this.editionInProgress$.subscribe(value => console.log('Edycja trwa: ', value));
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
