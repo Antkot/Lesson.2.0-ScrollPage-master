@@ -1,8 +1,8 @@
 <div *ngIf='edition$ | async' [formGroup]='model'>
-  <ng-container *ngFor='let dishId of dishes$ | async'>
+  <ng-container *ngFor='let dish of dishesType$ | async'>
   <span class='margin'>
-  <mat-checkbox [formControlName]='dishId' class='check'>
-        {{dishId | dishType | async}}
+  <mat-checkbox [formControlName]='dish.dishId' class='check'>
+        {{dish.dishId | dishType | async}}
   </mat-checkbox>
   </span>
   </ng-container>
@@ -12,3 +12,15 @@
     <span class='margin'>{{dish.dishId | dishType | async}}</span>
   </ng-container>
 </div>
+<!--edycja:-->
+<!--{{edition$ | async}}-->
+<!--<br>-->
+dishes$
+{{dishes$ | async | json}}
+<!--<br>-->
+<!--selectedDishes$-->
+<!--{{selectedDishes$ | async | json}}-->
+<br>
+dishesType$
+{{dishesType$ | async | json}}
+<!--{{validateDishType$ | async | json}}-->

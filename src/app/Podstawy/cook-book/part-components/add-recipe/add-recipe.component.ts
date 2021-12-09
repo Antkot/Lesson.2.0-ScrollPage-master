@@ -64,6 +64,9 @@ export class AddRecipeComponent
   }
 
   ngOnInit(): void {
+    this.route.url.pipe(
+      map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.editCheckStorage(url)
+    );
     this.dishService.erase();
     this.recipe$.pipe().subscribe(value => {
         this.model.controls['name'].setValue(value.name, { emitEvent: false });
@@ -88,15 +91,6 @@ export class AddRecipeComponent
             }
           }
         )));
-    console.log('koniec');
-    this.route.url.pipe(
-      map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.editCheckStorage(url)
-    );
-    const current = JSON.parse(this.localStorageService.getItem('allergens'));
-    // this.dishesListCopied$.next({
-    //   ...current
-    // });
-    console.log('koniec2');
   }
 
 

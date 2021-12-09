@@ -33,6 +33,11 @@ export class DishTypeComponent
   //   ? dishes.find(({ dishId }) => dishId === id[0]).dishType : [];
   // }
   // ));
+  // validateDishType$ = this.selectedDishes$.pipe(first()).subscribe(value => {
+  //   console.log(value.length);
+  //   return !!value.length;
+  //   }
+  // );
   @Input() dishTypes = [];
   controlDishType = [];
   dishes$ = combineLatest([
