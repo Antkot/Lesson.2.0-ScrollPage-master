@@ -24,7 +24,7 @@ import { UrlService } from '../services/url.service';
 export class MenuComponent implements OnInit {
 
   dishesListCopied$: BehaviorSubject<Dish> = this.dishService.dishesListCopied$;
-  // editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
+  editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
   edition$ = this.loadingService.edition$;
   lastLink$ = this.loadingService.lastLink$;
   filteredDishType$ = this.loadingService.filteredDishType$;
@@ -101,14 +101,16 @@ export class MenuComponent implements OnInit {
   }
 
   abandonEdition() {
-    // this.editionInProgress$.subscribe(value => {
-    //     if (value === true) {
-    //       this.dialog.open(AbandonEditionComponent, { panelClass: 'dialog-container-custom' });
-    //       console.log('EDYCJA PORZUCONA');
-    //       console.log(value);
-    //     }
-    //   }
-    // );
+    this.editionInProgress$.subscribe(value => {
+        if (value === true) {
+          // const dialogRef = this.dialog.open(AbandonEditionComponent, { panelClass: 'dialog-container-custom' });
+
+          // this.dialog.open(AbandonEditionComponent, { panelClass: 'dialog-container-custom' });
+          console.log('EDYCJA PORZUCONA');
+          console.log(value);
+        }
+      }
+    );
   }
 
 

@@ -15,9 +15,8 @@ const decoration: NgModule = {
   ],
   imports: [
     MatIconModule,
-    AbandonEditionComponent
   ],
-  providers: [AbandonEditionComponent]
+  providers: [],
 };
 
 storiesOf('Podstawy / cook / parts', module)

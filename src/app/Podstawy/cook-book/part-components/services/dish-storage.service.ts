@@ -11,11 +11,13 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 import { stringify } from 'querystring';
 import { indexOf } from 'lodash';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DishStorageService {
+  edition$ = this.loadingService.edition$;
   editionInProgress$ = new BehaviorSubject<boolean>(false);
   dishesList$ = new BehaviorSubject<Array<Dish>>([]);
   dishesListCopied$ = new BehaviorSubject<Dish>({
@@ -30,6 +32,7 @@ export class DishStorageService {
 
 
   constructor(
+    private loadingService: LoadingService,
     private tagsService: TagsStorageService,
     private localStorageService: LocalStorageService
   ) {
@@ -175,14 +178,15 @@ export class DishStorageService {
       if (findDish) {
         this.dishesListCopied$.next({ ...findDish });
       } else {
-        this.dishesListCopied$.next({
-          dishId: url,
-          name: '',
-          tags: [],
-          steps: [],
-          products: [],
-          dishType: []
-        });
+        this.editCheckStorage(url);
+        // this.dishesListCopied$.next({
+        //   dishId: url,
+        //   name: '',
+        //   tags: [],
+        //   steps: [],
+        //   products: [],
+        //   dishType: []
+        // });
       }
     });
   }
@@ -382,6 +386,11 @@ export class DishStorageService {
       this.dishesListCopied$.next({
         ...editedDishStoraged
       });
+      this.editionInProgress$.next(true);
+      this.edition$.next(true);
+      console.log('edit trwać ma teraz;');
+    } else {
+      this.erase();
     }
     console.log('editCheckStorage zakończono');
   }

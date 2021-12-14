@@ -8,9 +8,8 @@
 <!--      <textarea *ngIf='edition$ | async'-->
 <!--             type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'-->
 <!--                formControlName='name'> </textarea>-->
-<div  *ngIf='(edition$ | async) === false'  class='nameh1' >
+      <div  *ngIf='(edition$ | async) === false'  class='nameh1' >
   <h1 class='header'>
-    {{(recipe$ | async).name}}
   </h1>
   <div class='editButton noColor' *ngIf='(edition$ | async) === false'>
     <button mat-fab (click)='redirectTo()' class='editButton'>
@@ -58,9 +57,11 @@
 </div>
 </div>
   <footer class='confirm' *ngIf='edition$ | async' (click)='editable()'>
+    <div class='block_rest'>
     <button [disabled]='model.invalid' class='block' (click)='endEdition()'>
       Zakończ edycję
     </button>
+    </div>
   </footer>
   <footer class='confirm' *ngIf='(edition$ | async) === false'>
     <div class='block_rest'>
