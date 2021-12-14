@@ -24,20 +24,15 @@ export class DishTypeComponent
   dishId$: Observable<any> = combineLatest([this.route.url.pipe(
     map(value => value[1].path))]);
   copiedDishes$: Observable<Dish> = this.dishService.dishesListCopied$;
-  selectedDishes$: Observable<Array<{dishId: string}>> = this.copiedDishes$.pipe(map((dishes) => {
+  selectedDishes$: Observable<Array<{ dishId: string }>> = this.copiedDishes$.pipe(map((dishes) => {
       return dishes.dishType;
     }
   ));
-  // selectedDishes$: Observable<Array<{dishId: string}>> = combineLatest([this.dishId$, this.dishesList$]).pipe(map(([id, dishes]) => {
-  // return dishes.find(({ dishId }) => dishId === id[0])
-  //   ? dishes.find(({ dishId }) => dishId === id[0]).dishType : [];
-  // }
-  // ));
-  // validateDishType$ = this.selectedDishes$.pipe(first()).subscribe(value => {
-  //   console.log(value.length);
-  //   return !!value.length;
-  //   }
-  // );
+  validateDishType$: Observable<boolean> = this.selectedDishes$.pipe(map((value) => {
+      console.log(value.length);
+      return !!value.length;
+    }
+  ));
   @Input() dishTypes = [];
   controlDishType = [];
   dishes$ = combineLatest([
@@ -65,12 +60,12 @@ export class DishTypeComponent
           console.log('DZIECKO:');
           console.log(this.dishTypes[0]);
           console.log(this.model.value);
-          this.model.setValue(this.dishTypes[0]);
+          // this.model.setValue(this.dishTypes[0]);
+          // !!! ^
         }
         return dishesType.map(({ dishId }) => (dishId));
       }));
   // this.selectedDishes$.pipe(first()).subscribe(value => this.selectedDishes = value);
-
 
   // selectedDishes$ = this.dishesList$.pipe(
   //   map((dish) => {
@@ -106,12 +101,13 @@ export class DishTypeComponent
       this.model.valueChanges.pipe(
         filter(model => model?.['1'] !== null),
         tap(model => {
+            console.log(this.model.value);
             if (model?.['1'] !== null) {
               const dishesId = Object.entries(model).filter((value) => !!value[1]).map((value) => ({ dishId: value[0] }));
-              if (JSON.stringify(this.controlDishType) !== JSON.stringify(dishesId)) {
-                this.controlDishType = dishesId;
-                this.typeOfDish.emit(dishesId);
-              }
+              // if (JSON.stringify(this.controlDishType) !== JSON.stringify(dishesId)) {
+              this.controlDishType = dishesId;
+              this.typeOfDish.emit(dishesId);
+              // }
             }
           }
         )

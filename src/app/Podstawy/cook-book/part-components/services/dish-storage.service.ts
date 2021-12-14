@@ -286,7 +286,6 @@ export class DishStorageService {
     this.editCheck(givenDishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
     this.dishesListCopied$.pipe(first()).subscribe(val2ue => console.table(val2ue));
-
   }
 
   // idCheck(givenDishId: string) {

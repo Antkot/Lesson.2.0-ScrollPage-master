@@ -3,18 +3,19 @@
   max-width: 1000px;
   overflow: scroll;
   overflow: paged-x;
-  background: palegoldenrod;
 }
-
+.canvas{
+  background: lightgoldenrodyellow;
+}
 .all {
   overflow-x: hidden;
   overflow-y: scroll;
   scroll-behavior: smooth;
   height: calc(100vh - 140px);
   max-width: 100%;
-  width: 100%;
+  width: 1015px;
   margin: 70px auto auto auto;
-  background: lightgoldenrodyellow;
+  //background: gold;
 }
 
 .container {
@@ -104,8 +105,11 @@
   font-size: 300%;
   height: 100%;
   width: calc(1000px - 128px);
-  padding: 20px 0 0 64px;
+  padding: 20px 0 0 88px;
   margin: 25px auto 0 auto;
+}
+.input{
+  padding-left: 0;
 }
 .nameh1{
   display: flex;

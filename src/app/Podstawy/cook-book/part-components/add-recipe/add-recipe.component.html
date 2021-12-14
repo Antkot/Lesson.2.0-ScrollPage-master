@@ -1,3 +1,4 @@
+  <div class='canvas'>
   <div class='all'>
   <div class='container' [formGroup]='model'>
     <div class='name'>
@@ -42,7 +43,7 @@
         (prodMeasureDeleted)='deleteProdMeasure($event)'></app-ingredients>
       </div>
       <mat-divider></mat-divider>
-      <h1 class='title'> Kroki do przytgotowania posiłku:  </h1>
+      <h1 class='title'> Kroki do przygotowania posiłku:  </h1>
 
       <div class='divide marg'>
         <app-steps [steps]="(recipe$ | async).steps"
@@ -54,6 +55,7 @@
       </div>
     </div>
   </div>
+</div>
 </div>
   <footer class='confirm' *ngIf='edition$ | async' (click)='editable()'>
     <button [disabled]='model.invalid' class='block' (click)='endEdition()'>

@@ -44,10 +44,9 @@ export class AddRecipeComponent
   browserRefresh = false;
   filteredDishType$: Observable<string> = this.loadingService.filteredDishType$;
   dishesListCopied$ = this.dishService.dishesListCopied$;
-
   model = this.fb.group({
     name: ['', [Validators.required]],
-    type: [[], []]
+    type: [[], [Validators.required]]
   });
   subscription: Subscription;
 
@@ -129,6 +128,8 @@ export class AddRecipeComponent
 
 
   typeEdition(newTypes: Array<{ dishType: string }>) {
+    console.log("XDDDDDD NIE DZIAłą XDDD");
+    console.log(newTypes);
     const name = this.model.value.name;
     this.model.setValue(
       {
