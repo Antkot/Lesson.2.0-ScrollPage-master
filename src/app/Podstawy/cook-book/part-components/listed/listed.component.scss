@@ -18,7 +18,7 @@
   overflow: auto;
   height: calc(100vh - 70px);
   width: 100%;
-  background: palegoldenrod;
+  background: lightgoldenrodyellow;
 }
 
 .list {
@@ -37,6 +37,9 @@
 
 .record:hover {
   //border: darkgoldenrod 12px double;
+}
+.background{
+  background: palegoldenrod;
 }
 
 .hash {
