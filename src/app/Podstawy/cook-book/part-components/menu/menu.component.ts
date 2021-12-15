@@ -101,11 +101,9 @@ export class MenuComponent implements OnInit {
   }
 
   abandonEdition() {
-    this.editionInProgress$.subscribe(value => {
+    this.editionInProgress$.pipe(first()).subscribe(value => {
         if (value === true) {
-          // const dialogRef = this.dialog.open(AbandonEditionComponent, { panelClass: 'dialog-container-custom' });
-
-          // this.dialog.open(AbandonEditionComponent, { panelClass: 'dialog-container-custom' });
+          const x = this.dialog.open(AbandonEditionComponent);
           console.log('EDYCJA PORZUCONA');
           console.log(value);
         }

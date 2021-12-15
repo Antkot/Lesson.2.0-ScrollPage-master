@@ -15,7 +15,7 @@
   max-width: 100%;
   width: 1015px;
   margin: 70px auto auto auto;
-  //background: gold;
+  //background: palegoldenrod;
 }
 
 .container {
@@ -90,7 +90,7 @@
 .title{
   color: white;
   text-align: center;
-  margin: 20px auto;
+  margin: 20px auto -30px auto;
 }
 .input, .nameh1 {
   resize: none;
@@ -105,7 +105,7 @@
   font-size: 300%;
   height: 100%;
   width: calc(1000px - 128px);
-  padding: 20px 0 0 88px;
+  padding: 20px 0 20px 88px;
   margin: 25px auto 0 auto;
 }
 .input{

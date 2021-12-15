@@ -136,7 +136,8 @@ const links = [
     MatRippleModule
   ],
   entryComponents: [
-    IngredientDialogComponent
+    IngredientDialogComponent,
+    AbandonEditionComponent
   ]
 })
 export class CookBookModule {
