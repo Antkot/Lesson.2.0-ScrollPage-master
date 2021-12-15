@@ -79,7 +79,6 @@ export class IngredientDialogComponent
               productsResult = products;
             }
             this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
-            console.log(111111111, this.typedMeasureId);
             products.find(({ name }) => name === value.product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
               ? this.isMeasureDuplicated = true : this.isMeasureDuplicated = false;
           });
@@ -120,7 +119,6 @@ export class IngredientDialogComponent
       });
     }
     this.oldProduct = product;
-    console.log(this.model.value);
   }
 
   newProduct() {

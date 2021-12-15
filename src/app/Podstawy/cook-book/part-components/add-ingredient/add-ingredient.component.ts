@@ -20,8 +20,6 @@ export class AddIngredientComponent {
   openDialog() {
     const dialogRef = this.dialog.open(IngredientDialogComponent, { panelClass: 'dialog-container-custom' });
     dialogRef.componentInstance.addProduct.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProductType) => {
-      console.log('Dialog result:');
-      console.table(result);
       this.addProduct.emit(result);
     });
     dialogRef.componentInstance.prodMeasureDeleted.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: BothIdType) => {

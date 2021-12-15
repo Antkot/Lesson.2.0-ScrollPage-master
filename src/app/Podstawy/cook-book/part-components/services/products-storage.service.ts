@@ -57,11 +57,7 @@ export class ProductsStorageService {
     if (!this.typedProductId) {
       this.typedProductId = cuid();
     } else {
-
-      // tu
-      console.log('Istniejący produkt zostanie nadpisany');
       if (addedProduct.duplicateState) {
-        console.log('Istniejąca miara zostanie nadpisana');
         this.measures$.pipe(first()).subscribe((measure) => {
           this.measureId = measure.find(
             ({ name }) =>
@@ -78,7 +74,6 @@ export class ProductsStorageService {
           ))] : measures
         })));
       } else {
-        console.log('Zostanie dodana nowa miara');
         this.products$.next(current.map(({ measures, allergens, ...value }) => ({
           ...value,
           allergens: value.productId === this.typedProductId ? addedProduct.product.allergens : allergens,
@@ -88,9 +83,7 @@ export class ProductsStorageService {
           }] : measures
         })));
       }
-      console.log('Istniejący produkt - zakończono procedurę');
       this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
-      // this.products$.pipe(first()).subscribe(value => console.log('Edytowano miary produktu', value));
       return;
     }
     //

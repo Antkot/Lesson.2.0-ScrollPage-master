@@ -193,9 +193,6 @@ export class DishStorageService {
 
 
   addProduct(addedProduct: UsedProduct, givenDishId: string) {
-    console.log('addProduct');
-    console.log('givenDishId');
-    console.log(givenDishId);
     this.dishesListCopied$.next({
       ...this.dishesListCopied$.value,
       dishId: givenDishId,
@@ -203,13 +200,11 @@ export class DishStorageService {
         ? [...this.dishesListCopied$.value.products, { usedProductId: addedProduct.usedProductId }]
         : this.dishesListCopied$.value.products
     });
-    this.dishesListCopied$.pipe(first()).subscribe(value => console.log('EditedDish', value));
     this.editCheck(givenDishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
   newStep(newStep: string, givenDishId: string) {
-    console.log('newStep');
     this.dishesListCopied$.next({
       ...this.dishesListCopied$.value,
       steps: this.dishesListCopied$.value.dishId === givenDishId
@@ -217,13 +212,11 @@ export class DishStorageService {
         : this.dishesListCopied$.value.steps,
       dishId: givenDishId
     });
-    this.dishesListCopied$.pipe(first()).subscribe(value => console.log(value));
     this.editCheck(givenDishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
   deleteStep(index: number, givenDishId: string) {
-    console.log('deleteStep');
     this.dishesListCopied$.next({
       dishId: givenDishId,
       ...this.dishesListCopied$.value,
@@ -236,7 +229,6 @@ export class DishStorageService {
   }
 
   editStep(editedStep: { step: string, index: number }, givenDishId) {
-    console.log('editStep');
     this.dishesListCopied$.next({
       dishId: givenDishId,
       ...this.dishesListCopied$.value,
@@ -249,7 +241,6 @@ export class DishStorageService {
   }
 
   reindexStep(reindex: { previousIndex: number, currentIndex: number }, givenDishId) {
-    console.log('reindexStep');
     this.dishesListCopied$.next({
       dishId: givenDishId,
       ...this.dishesListCopied$.value,
@@ -267,15 +258,11 @@ export class DishStorageService {
   }
 
   nameChange(newName: string, givenDishId: string) {
-    console.log('nameChange');
-    console.log(newName);
-    console.log(givenDishId);
     this.dishesListCopied$.next({
       ...this.dishesListCopied$.value,
       dishId: givenDishId,
       name: this.dishesListCopied$.value.dishId === givenDishId ? newName : this.dishesListCopied$.value.name
     });
-    this.dishesListCopied$.subscribe(val2ue => console.log(val2ue));
     this.editCheck(givenDishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
@@ -319,7 +306,6 @@ export class DishStorageService {
   // }
 
   deleteDish(dishId: string) {
-    console.log('deleteDish');
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
     this.dishesList$.next(
       [
@@ -339,10 +325,8 @@ export class DishStorageService {
       );
       this.dishesListCopied$.subscribe(val2ue => console.table(val2ue));
     })) {
-      console.log(1);
       this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
     } else {
-      console.log(2);
       this.dishesList$.pipe(first()).subscribe(( dish ) => {
         indexOfDish =  dish.findIndex(({ dishId }) =>
           dishId === givenDishId);

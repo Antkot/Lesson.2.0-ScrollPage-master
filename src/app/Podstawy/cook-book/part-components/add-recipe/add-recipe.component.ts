@@ -76,8 +76,6 @@ export class AddRecipeComponent
     );
     this.filteredDishType$.pipe(first()).subscribe(dishId => {
       this.model.controls['type'].setValue([{ dishId }]);
-      console.log('xd');
-      console.table(this.model.value.type);
       this.typeChange.emit(this.model.value.type);
     });
     this.subscribeWhileAlive(

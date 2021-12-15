@@ -79,11 +79,9 @@ export class IngredientsComponent
               this.isMeasureDuplicated = !!products.find(({ name }) => name === value.product)?.measures
                 .find(({ measureId }) => measureId === typedMeasureId);
               this.modelClone = { ...value };
-              console.log('this.productFromList', productFromList);
               if (productFromList) {
                 let onlyMeasureName = '';
                 if (products.find(({ name }) => name === value.product)?.measures.length === 1) {
-                  console.log('lenght: ', products.find(({ name }) => name === value.product)?.measures.length);
                   this.isMeasureDuplicated = true;
                   this.measures$.pipe(
                     first()).subscribe((measure) => {
