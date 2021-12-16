@@ -6,7 +6,7 @@
   <span class='marg'>
   </span>
 </div>
-<div (click)='redirectTo()' class='option'>Dodaj przepis</div>
+  <div (click)='redirectTo()' class='option'>Dodaj przepis</div>
   <div class='return'>
 <!--    <mat-icon class='icoUndo' (click)='goBack()'>undo</mat-icon>-->
     <mat-icon class='icoUndo' (click)='backClicked()'>undo</mat-icon>
@@ -15,4 +15,6 @@
     <app-search-bar class='x'></app-search-bar>
   </div>
 
+  <a>Edycja w trakcie: {{edition$ | async}}</a><br>
+  <a>Różnica od orginału: {{editionInProgress$ | async}}</a><br>
 </div>

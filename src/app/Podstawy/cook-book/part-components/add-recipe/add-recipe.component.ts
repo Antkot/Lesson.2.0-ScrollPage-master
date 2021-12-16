@@ -1,17 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { first, map, tap } from 'rxjs/operators';
-import { ActivatedRoute, NavigationStart, Router } from '@angular/router';
-import { Dish, UsedProduct } from '../../types';
-import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Dish } from '../../types';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { DishStorageService } from '../services/dish-storage.service';
-import { stringify } from 'querystring';
-import { number } from '@storybook/addon-knobs';
 import { AliveState } from '../../../../ActiveState';
 import { LoadingService } from '../services/loading.service';
-import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import { LocalStorageService } from '../services/local-storage-service';
 
 
 @Component({
@@ -25,6 +20,7 @@ export class AddRecipeComponent
   edition$ = this.loadingService.edition$;
   @Output() prodMeasureDeleted = new EventEmitter();
   @Output() usedProductToAdd = new EventEmitter();
+  @Output() usedProductToDelete = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
   @Output() nameChange = new EventEmitter();
   @Output() typeChange = new EventEmitter();
@@ -34,29 +30,22 @@ export class AddRecipeComponent
   @Output() reindexStep = new EventEmitter();
   @Output() editionEnded = new EventEmitter();
   nameOfDish = { name: '' };
-  // @Input() edit = true;
   @Input() reset = false;
-  dishesList$: Observable<Array<Dish>> = this.dishService.dishesList$;
   dishId$ = this.route.url.pipe(
     map(value => value[1].path));
   recipe$: Observable<Dish> = this.dishService.dishesListCopied$;
-  lastLink$ = this.loadingService.lastLink$;
   browserRefresh = false;
   filteredDishType$: Observable<string> = this.loadingService.filteredDishType$;
-  // dishesListCopied$ = this.dishService.dishesListCopied$;
   model = this.fb.group({
     name: ['', [Validators.required]],
     type: [[], [Validators.required]]
   });
-  subscription: Subscription;
 
 
   constructor(private route: ActivatedRoute,
               private fb: FormBuilder,
               private dishService: DishStorageService,
               private loadingService: LoadingService,
-              private router: Router,
-              private localStorageService: LocalStorageService,
   ) {
     super();
 
@@ -67,7 +56,7 @@ export class AddRecipeComponent
       map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.editCheckStorage(url)
     );
     this.recipe$.pipe().subscribe(value => {
-        this.model.controls['name'].setValue(value.name, { emitEvent: false });
+        this.model.controls[`name`].setValue(value.name, { emitEvent: false });
       }
     );
 
@@ -75,7 +64,7 @@ export class AddRecipeComponent
       map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.newDish(url)
     );
     this.filteredDishType$.pipe(first()).subscribe(dishId => {
-      this.model.controls['type'].setValue([{ dishId }]);
+      this.model.controls[`type`].setValue([{ dishId }]);
       this.typeChange.emit(this.model.value.type);
     });
     this.subscribeWhileAlive(
@@ -114,6 +103,9 @@ export class AddRecipeComponent
   addUsedProduct(newUsedProduct: { product: string, measure: string, amount: number }) {
     this.usedProductToAdd.emit(newUsedProduct);
   }
+  addDeletedProduct(productId: string) {
+    this.usedProductToDelete.emit(productId);
+  }
 
   addProduct(newProduct: { duplicateState: boolean, product: { product: string, measure: string, kcal: number, allergens: Array<string> } }) {
     this.addedProduct.emit(newProduct);
@@ -133,7 +125,7 @@ export class AddRecipeComponent
         type: newTypes
       }
     );
-    console.table(this.model.controls['type'].value);
+    console.table(this.model.controls[`type`].value);
     this.typeChange.emit(this.model.value.type);
   }
 
@@ -146,12 +138,3 @@ export class AddRecipeComponent
   }
 
 }
-
-// function customV(): ValidatorFn {
-// JSON.stringify(this.model.value.type);
-// return (control: AbstractControl): { [key: string]: any } | null =>
-//   control.value?.toLowerCase() === 'blue'
-//     ? null : {wrongColor: control.value};
-// return null;
-// }
-

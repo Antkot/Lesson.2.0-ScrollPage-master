@@ -10,6 +10,7 @@
 <!--                formControlName='name'> </textarea>-->
       <div  *ngIf='(edition$ | async) === false'  class='nameh1' >
   <h1 class='header'>
+    {{(recipe$ | async).name}}
   </h1>
   <div class='editButton noColor' *ngIf='(edition$ | async) === false'>
     <button mat-fab (click)='redirectTo()' class='editButton'>
@@ -35,11 +36,13 @@
     <div class='ingredients'>
       <h1 class='title'> Niezbędne składniki:  </h1>
       <div class='divide'>
-
-        <app-ingredients [products]="(recipe$ | async).products"
-                         (addUsedProduct)='addUsedProduct($event)'
-                         (addedProduct)='addProduct($event)'
-        (prodMeasureDeleted)='deleteProdMeasure($event)'></app-ingredients>
+        <app-ingredients
+          [products]="(recipe$ | async).products"
+          (addUsedProduct)='addUsedProduct($event)'
+          (addedProduct)='addProduct($event)'
+          (addDeletedProduct)='addDeletedProduct($event)'
+          (prodMeasureDeleted)='deleteProdMeasure($event)'>
+        </app-ingredients>
       </div>
       <mat-divider></mat-divider>
       <h1 class='title'> Kroki do przygotowania posiłku:  </h1>

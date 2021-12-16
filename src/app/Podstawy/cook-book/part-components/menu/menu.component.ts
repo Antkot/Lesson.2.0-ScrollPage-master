@@ -45,6 +45,15 @@ export class MenuComponent implements OnInit {
   ) {
   }
   backClicked() {
+    this.abandonEdition();
+    //
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if(result == true){
+    //     return true;
+    //   }else{
+    //     return false;
+    //   }
+    //
     this.location.back();
   }
     ngOnInit(): void {
@@ -74,6 +83,7 @@ export class MenuComponent implements OnInit {
     this.route.url.pipe(
       map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
     );
+    this.abandonEdition();
     this.myRouter.navigate(['../main']);
   }
 
@@ -99,7 +109,7 @@ export class MenuComponent implements OnInit {
   abandonEdition() {
     this.editionInProgress$.pipe(first()).subscribe(value => {
         if (value === true) {
-          const x = this.dialog.open(AbandonEditionComponent);
+          const dialogRef = this.dialog.open(AbandonEditionComponent);
           console.log('EDYCJA PORZUCONA');
           console.log(value);
         }

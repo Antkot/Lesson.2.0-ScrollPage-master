@@ -52,6 +52,11 @@ export class RecipiePageComponent implements OnInit {
       this.dishService.addProduct(newProd, dishId)
     );
   }
+  deleteUsedProduct(deletedProductId: string) {
+    this.dishId$.pipe(first()).subscribe((dishId) =>
+      this.dishService.deleteProduct(deletedProductId, dishId)
+    );
+  }
 
   addProduct(newProduct: AddedProductType) {
     this.productService.addProduct(newProduct);

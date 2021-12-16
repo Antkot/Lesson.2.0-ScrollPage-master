@@ -10,7 +10,7 @@ import { number } from '@storybook/addon-knobs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
 import { stringify } from 'querystring';
-import { indexOf } from 'lodash';
+import { after, indexOf } from 'lodash';
 import { LoadingService } from './loading.service';
 
 @Injectable({
@@ -29,7 +29,14 @@ export class DishStorageService {
     dishType: []
   });
   editState = false;
-
+  empty = {
+    dishId: '',
+    name: '',
+    tags: [],
+    steps: [],
+    products: [],
+    dishType: []
+  };
 
   constructor(
     private loadingService: LoadingService,
@@ -203,6 +210,17 @@ export class DishStorageService {
     this.editCheck(givenDishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
+  deleteProduct(deletedProductId: string, dishId: string) {
+    this.dishesListCopied$.next({
+      ...this.dishesListCopied$.value,
+      dishId,
+      products: this.dishesListCopied$.value.dishId === dishId
+        ? [...this.dishesListCopied$.value.products.filter((usedId) => usedId[0] !== deletedProductId)]
+        : this.dishesListCopied$.value.products
+    });
+    this.editCheck(dishId);
+    this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
+  }
 
   newStep(newStep: string, givenDishId: string) {
     this.dishesListCopied$.next({
@@ -216,12 +234,12 @@ export class DishStorageService {
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
 
-  deleteStep(index: number, givenDishId: string) {
+  deleteStep(deletedStepIndex: number, givenDishId: string) {
     this.dishesListCopied$.next({
       dishId: givenDishId,
       ...this.dishesListCopied$.value,
       steps: this.dishesListCopied$.value.dishId === givenDishId
-        ? this.dishesListCopied$.value.steps.filter((value1, index1) => index1 !== index)
+        ? this.dishesListCopied$.value.steps.filter((value, index) => index !== deletedStepIndex)
         : this.dishesListCopied$.value.steps
     });
     this.editCheck(givenDishId);
@@ -276,7 +294,6 @@ export class DishStorageService {
     });
     this.editCheck(givenDishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
-    this.dishesListCopied$.pipe(first()).subscribe(val2ue => console.table(val2ue));
   }
 
   // idCheck(givenDishId: string) {
@@ -305,25 +322,24 @@ export class DishStorageService {
   //   return givenDishId;
   // }
 
-  deleteDish(dishId: string) {
+  deleteDish(givenDishId: string) {
     const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
     this.dishesList$.next(
       [
-        ...current.filter(record => record.dishId !== dishId)
+        ...current.filter(({ dishId }) => dishId !== givenDishId)
       ]
     );
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
-  endEdition(givenDishId) {
-    let indexOfDish;
-    let inedxOfLastDish;
+  endEdition(givenDishId: string) {
+    let indexOfDish: number;
+    let indexOfLastDish: number;
     console.log('endEdition');
     if (!this.dishesList$.subscribe(value => {
       value.filter(({ dishId }) =>
         dishId === givenDishId
       );
-      this.dishesListCopied$.subscribe(val2ue => console.table(val2ue));
     })) {
       this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
     } else {
@@ -334,29 +350,35 @@ export class DishStorageService {
     }
     this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
     this.editState = false;
-    this.dishesList$.subscribe(val3ue => console.table(val3ue));
     this.dishesList$.pipe(first()).subscribe(( dish ) => {
-      inedxOfLastDish =  dish.findIndex(({ dishId }) =>
+      indexOfLastDish =  dish.findIndex(({ dishId }) =>
         dishId === givenDishId);
     });
-    this.reindex(this.dishesList$.value, inedxOfLastDish, indexOfDish);
+    this.reindex(this.dishesList$.value, indexOfLastDish, indexOfDish);
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
     console.log('Zakończono edycję');
   }
 
   editCheck(givenDishId) {
+    this.empty.dishId = givenDishId;
     console.log('Edit Check');
     // !!! SIMPLIFY
-    let afterEdition;
-    this.dishesList$.subscribe(value => {
-      afterEdition = value.filter(({ dishId }) =>
-        dishId === givenDishId
+    let beforeEdition;
+    this.dishesList$.pipe(first()).subscribe(value => {
+      beforeEdition = value.filter(({ dishId }) =>
+        dishId === givenDishId,
+
       )[0];
     });
-    let beforeEdition;
-    this.dishesListCopied$.subscribe(value => beforeEdition = value);
-    this.editionInProgress$.next(stringify(afterEdition) !== stringify(beforeEdition));
-    this.editionInProgress$.subscribe(value => console.log('Edycja trwa: ', value));
+    let afterEdition;
+    this.dishesListCopied$.subscribe(value => afterEdition = value);
+    console.log(1111);
+    console.table(stringify(afterEdition));
+    console.table(stringify(this.empty));
+    console.log(afterEdition === this.empty);
+    this.editionInProgress$.next((stringify(afterEdition) !== stringify(beforeEdition))
+      && (stringify(afterEdition) !== stringify(this.empty)));
+    this.editionInProgress$.pipe(first()).subscribe(value => console.log('Edycja trwa: ', value));
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
@@ -370,7 +392,6 @@ export class DishStorageService {
       this.dishesListCopied$.next({
         ...editedDishStoraged
       });
-      this.editionInProgress$.next(true);
       this.edition$.next(true);
       console.log('edit trwać ma teraz;');
     } else {

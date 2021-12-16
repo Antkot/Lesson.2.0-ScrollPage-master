@@ -2,6 +2,7 @@
   <app-add-recipe
     [reset]='reset$ | async'
     (usedProductToAdd)='addUsedProduct($event)'
+    (usedProductToDelete)='deleteUsedProduct($event)'
     (addedProduct)='addProduct($event);'
     (deletedStep)='deletedStepEmitter($event)'
     (editStep)='editStepEmitter($event)'

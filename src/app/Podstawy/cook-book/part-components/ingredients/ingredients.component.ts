@@ -25,6 +25,7 @@ export class IngredientsComponent
   extends AliveState
   implements OnInit {
   @Output() addUsedProduct = new EventEmitter();
+  @Output() addDeletedProduct = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
   @Output() prodMeasureDeleted = new EventEmitter();
   products$: Observable<Array<Product>> = this.productsService.products$;
@@ -33,7 +34,7 @@ export class IngredientsComponent
   // @Input() edit: boolean;
   @Input() products: Array<{ usedProductId: string }>;
   autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
-  autoMeasure$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
+  autoMeasure$ = new BehaviorSubject<Array<{ name: string, measureId: string }>>([]);
   model = this.fb.group({
     product: ['', [Validators.required, Validators.minLength(1)]],
     measure: ['Wpisz produkt', [Validators.required, Validators.minLength(1)]],
@@ -55,6 +56,7 @@ export class IngredientsComponent
     private loadingService: LoadingService) {
     super();
   }
+
 // złe
   ngOnInit() {
     this.model.controls[`measure`].disable();
@@ -83,13 +85,10 @@ export class IngredientsComponent
                 let onlyMeasureName = '';
                 if (products.find(({ name }) => name === value.product)?.measures.length === 1) {
                   this.isMeasureDuplicated = true;
-                  this.measures$.pipe(
-                    first()).subscribe((measure) => {
-                    onlyMeasureName = measure.find(
-                      ({ measureId }) =>
-                        measureId === products.find(({ name }) => name === value.product).measures[0].measureId
-                    ).name;
-                  });
+                  onlyMeasureName = measures.find(
+                    ({ measureId }) =>
+                      measureId === products.find(({ name }) => name === value.product).measures[0].measureId
+                  ).name;
                 }
                 return this.modelReset(true, onlyMeasureName);
               } else if (!!value?.measure) {
@@ -116,16 +115,11 @@ export class IngredientsComponent
         this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
       });
       this.finalCombine$.pipe(first()).subscribe((measures) => {
-        let measuresResult = null;
-        if (value.measure?.length > 0 && value.measure) {
-          const options = {
+        const measuresResult: Array<Measure>  = value.measure?.length > 0 && value.measure ? new Fuse(measures, {
             keys: ['name']
-          };
-          const fuse = new Fuse(measures, options);
-          measuresResult = fuse.search(value.measure).map(({ item }) => item);
-        } else {
-          measuresResult = measures;
-        }
+          }).search(value.measure).map(({ item }) => item)
+          :
+          measures;
         this.autoMeasure$.next(measuresResult.map(({ name, measureId }) => ({ name, measureId })));
       });
     });
@@ -162,5 +156,9 @@ export class IngredientsComponent
 
   deleteProdMeasure(bothId: BothIdType) {
     this.prodMeasureDeleted.emit(bothId);
+  }
+
+  deleteUsedProduct(productId: string) {
+    this.addDeletedProduct.emit(productId);
   }
 }
