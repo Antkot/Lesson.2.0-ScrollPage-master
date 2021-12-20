@@ -5,6 +5,7 @@ import { DishType, Hash, Level } from '../../types';
 import { TagsStorageService } from '../services/tags-storage.service';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { AllergensStorageService } from '../services/allergens-storage.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-side-filter',
@@ -38,7 +39,7 @@ export class SideFilterComponent implements OnInit {
     private  tagsService: TagsStorageService,
     private  allergensService: AllergensStorageService
   ) {
-    this.tags$.subscribe(data => this.allElements = data);
+    this.tags$.pipe(first()).subscribe(data => this.allElements = data);
     // this.final = this.allElements.map(({ name }) => name);
     // console.table(this.final);
   }
