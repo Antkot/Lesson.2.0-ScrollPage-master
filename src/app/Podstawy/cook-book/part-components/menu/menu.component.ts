@@ -3,16 +3,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormBuilder } from '@angular/forms';
 import { DishStorageService } from '../services/dish-storage.service';
-import { first, map, take } from 'rxjs/operators';
+import { first, map, take, takeUntil } from 'rxjs/operators';
 import { IngredientDialogComponent } from '../ingredient-dialog/ingredient-dialog.component';
 import { AbandonEditionComponent } from '../abandon-edition/abandon-edition.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AddRecipeComponent } from '../add-recipe/add-recipe.component';
-import { Dish } from '../../types';
+import { AddedProductType, BothIdType, Dish } from '../../types';
 import * as cuid from 'cuid';
 import { DishIdGeneratorService } from '../services/dish-id-generator.service';
 import { LoadingService } from '../services/loading.service';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { UrlService } from '../services/url.service';
 
 
@@ -40,10 +40,10 @@ export class MenuComponent implements OnInit {
     private idGenerator: DishIdGeneratorService,
     private loadingService: LoadingService,
     private location: Location,
-    private urlService: UrlService,
-
+    private urlService: UrlService
   ) {
   }
+
   backClicked() {
     this.abandonEdition();
     //
@@ -56,8 +56,9 @@ export class MenuComponent implements OnInit {
     //
     this.location.back();
   }
-    ngOnInit(): void {
-      this.urlService.getUrl();
+
+  ngOnInit(): void {
+    this.urlService.getUrl();
     //   this.route.url.pipe(
     //   map(value => value[0].path)).pipe().subscribe(url => console.log('Wykryto zmianę URL:', url)
     // );
@@ -92,7 +93,11 @@ export class MenuComponent implements OnInit {
     this.route.url.pipe(
       map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
     );
-    this.abandonEdition();
+    const confirm = this.abandonEdition();
+    if (confirm === 0) {
+      return;
+    }
+    console.log(confirm, 'confirm');
     this.dishesListCopied$.next({
       dishId: '',
       name: '',
@@ -106,16 +111,43 @@ export class MenuComponent implements OnInit {
     this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
   }
 
-  abandonEdition() {
+  abandonEdition(): number {
+    let confirm = 3;
     this.editionInProgress$.pipe(first()).subscribe(value => {
         if (value === true) {
           const dialogRef = this.dialog.open(AbandonEditionComponent);
+          dialogRef.componentInstance.go.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProductType) => {
+            confirm = 1;
+          });
+          dialogRef.componentInstance.abort.pipe(takeUntil(dialogRef.afterClosed())).subscribe(() => {
+            dialogRef.close();
+          });
+
           console.log('EDYCJA PORZUCONA');
           console.log(value);
+          confirm = 2;
+        } else {
+          // confirm = 0;
         }
       }
     );
+    return confirm;
   }
-
-
 }
+//
+// const buttonPromise = new Promise((resolve) => {
+//   const button = document.getElementById("my-confirm-button");
+//   const resolver = () => {
+//     resolve();
+//     button.removeEventListener("click", resolver);
+//   }
+//
+//   button.addEventListener("click", resolver);
+// });
+//
+//
+// // Once the user has selected a name, do something with it
+// buttonPromise.then(() => {
+//   var person: Person;
+//   person.name = selectedName;
+// })

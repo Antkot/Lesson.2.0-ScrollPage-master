@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -7,18 +7,13 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./abandon-edition.component.scss']
 })
 export class AbandonEditionComponent implements OnInit {
+  @Output() go = new EventEmitter();
+  @Output() abort = new EventEmitter();
 
-  constructor(public dialogRef: MatDialogRef<AbandonEditionComponent>) {
+  constructor() {
   }
 
   ngOnInit(): void {
   }
 
-  go() {
-    this.dialogRef.close(true);
-  }
-
-  goBack() {
-    this.dialogRef.close(false);
-  }
 }
