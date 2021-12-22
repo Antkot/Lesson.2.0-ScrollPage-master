@@ -48,9 +48,6 @@
   padding: 5%;
   margin: auto;
 }
-.marg{
-  margin-bottom: 32px;
-}
 .single {
   padding: 5%;
 }
@@ -95,53 +92,42 @@
 .input, .nameh1 {
   resize: none;
   word-break: break-word;
-  //word-break: break-word;
   text-align: center;
   border: gold 12px double;
   border-radius: 50px;
   background: dodgerblue;
   color: white;
-  //height: 50px;
   font-size: 300%;
-  height: 100%;
+  //height: 100%;
   width: calc(1000px - 128px);
   padding: 20px 0 20px 88px;
-  margin: 25px auto 0 auto;
+  margin: 0 auto;
 }
 .input{
-  padding-left: 0;
+  //font-style: italic;
+  padding-left: 20px;
+  width: calc(1000px - 60px);
+  height: 50px;
 }
 .nameh1{
+  height: 50px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
   font-size: 150%;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 h1 {
-  //background: red;
   width: 90%;
+  margin: 10px;
 }
 
 .input:hover {
   border: darkgoldenrod 12px double;
 }
-
-//h1:hover {
-//  border: gold 12px double;
-//}
-.name{
-  height: 100%;
-}
-.header {
-  height: 100%;
-  display: inline-block;
-}
-
 .block {
-  //position: fixed;
   bottom: 0;
   border-radius: 30px 30px 0 0;
   display: block;

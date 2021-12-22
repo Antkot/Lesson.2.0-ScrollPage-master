@@ -202,7 +202,7 @@ export class DishStorageService {
       dishId: givenDishId,
       products: this.dishesListCopied$.value.dishId === givenDishId
         ? [...this.dishesListCopied$.value.products, { usedProductId: addedProduct.usedProductId }]
-        : this.dishesListCopied$.value.products
+        : this.dishesListCopied$.value.products,
     });
     this.editCheck(givenDishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
@@ -223,10 +223,10 @@ export class DishStorageService {
   newStep(newStep: string, givenDishId: string) {
     this.dishesListCopied$.next({
       ...this.dishesListCopied$.value,
+      dishId: givenDishId,
       steps: this.dishesListCopied$.value.dishId === givenDishId
         ? [...this.dishesListCopied$.value.steps, newStep]
-        : this.dishesListCopied$.value.steps,
-      dishId: givenDishId
+        : this.dishesListCopied$.value.steps
     });
     this.editCheck(givenDishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
@@ -330,25 +330,54 @@ export class DishStorageService {
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
-  endEdition(givenDishId: string) {
+  // endEdition(givenDishId: string) {
+  //
+  //   let indexOfDish: number;
+  //   let indexOfLastDish: number;
+  //
+  //   this.dishesList$.pipe(first()).subscribe(dish => {
+  //     if (dish.find(({ dishId }) => dishId === givenDishId)) {
+  //       this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
+  //     } else {
+  //       indexOfDish = dish.findIndex(({ dishId }) =>
+  //         dishId === givenDishId);
+  //     }
+  //     this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
+  //     this.editState = false;
+  //     indexOfLastDish = dish.findIndex(({ dishId }) =>
+  //       dishId === givenDishId);
+  //   });
+  //   this.reindex(this.dishesList$.value, indexOfLastDish, indexOfDish);
+  //
+  //   this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
+  //   console.log('Zakończono edycję');
+  // }
 
-    let indexOfDish: number;
-    let indexOfLastDish: number;
-
-    this.dishesList$.pipe(first()).subscribe(dish => {
-      if (dish.find(({ dishId }) => dishId === givenDishId)) {
-        this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
-      } else {
-        indexOfDish = dish.findIndex(({ dishId }) =>
+  endEdition(givenDishId) {
+    let indexOfDish;
+    let inedxOfLastDish;
+    console.log('endEdition');
+    if (!this.dishesList$.subscribe(value => {
+      value.filter(({ dishId }) =>
+        dishId === givenDishId
+      );
+      this.dishesListCopied$.subscribe(val2ue => console.table(val2ue));
+    })) {
+      this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
+    } else {
+      this.dishesList$.pipe(first()).subscribe(( dish ) => {
+        indexOfDish =  dish.findIndex(({ dishId }) =>
           dishId === givenDishId);
-      }
-      this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
-      this.editState = false;
-      indexOfLastDish = dish.findIndex(({ dishId }) =>
+      });
+    }
+    this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
+    this.editState = false;
+    this.dishesList$.subscribe(val3ue => console.table(val3ue));
+    this.dishesList$.pipe(first()).subscribe(( dish ) => {
+      inedxOfLastDish =  dish.findIndex(({ dishId }) =>
         dishId === givenDishId);
     });
-    this.reindex(this.dishesList$.value, indexOfLastDish, indexOfDish);
-
+    this.reindex(this.dishesList$.value, inedxOfLastDish, indexOfDish);
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
     console.log('Zakończono edycję');
   }
