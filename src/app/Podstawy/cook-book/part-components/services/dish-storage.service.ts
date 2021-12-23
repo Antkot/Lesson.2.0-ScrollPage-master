@@ -8,7 +8,7 @@ import { first } from 'rxjs/operators';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { stringify } from 'querystring';
 import { LoadingService } from './loading.service';
-import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
 
 @Injectable({
   providedIn: 'root'
@@ -202,7 +202,7 @@ export class DishStorageService {
       dishId: givenDishId,
       products: this.dishesListCopied$.value.dishId === givenDishId
         ? [...this.dishesListCopied$.value.products, { usedProductId: addedProduct.usedProductId }]
-        : this.dishesListCopied$.value.products,
+        : this.dishesListCopied$.value.products
     });
     this.editCheck(givenDishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
@@ -365,21 +365,35 @@ export class DishStorageService {
     })) {
       this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
     } else {
-      this.dishesList$.pipe(first()).subscribe(( dish ) => {
-        indexOfDish =  dish.findIndex(({ dishId }) =>
+      this.dishesList$.pipe(first()).subscribe((dish) => {
+        indexOfDish = dish.findIndex(({ dishId }) =>
           dishId === givenDishId);
       });
     }
     this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
     this.editState = false;
     this.dishesList$.subscribe(val3ue => console.table(val3ue));
-    this.dishesList$.pipe(first()).subscribe(( dish ) => {
-      inedxOfLastDish =  dish.findIndex(({ dishId }) =>
+    this.dishesList$.pipe(first()).subscribe((dish) => {
+      inedxOfLastDish = dish.findIndex(({ dishId }) =>
         dishId === givenDishId);
     });
     this.reindex(this.dishesList$.value, inedxOfLastDish, indexOfDish);
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
     console.log('Zakończono edycję');
+  }
+
+  abandonEdition() {
+    this.dishesListCopied$.pipe(first()).subscribe(dish => {
+      const givenDishId = dish.dishId;
+      this.dishesList$.pipe(first()).subscribe(dishesList => {
+        const findDish = dishesList.find(({ dishId }) => dishId === givenDishId);
+        if (findDish) {
+          this.dishesListCopied$.next({ ...findDish });
+        }
+      });
+      this.editionInProgress$.next(false);
+      this.edition$.next(false);
+    });
   }
 
   editCheck(givenDishId) {

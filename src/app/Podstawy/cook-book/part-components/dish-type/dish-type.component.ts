@@ -3,13 +3,10 @@ import { combineLatest, Observable } from 'rxjs';
 import { Dish, DishType } from '../../types';
 import { LoadingService } from '../services/loading.service';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { RecipiePageComponent } from '../../main-components/recipie-page/recipie-page.component';
 import { filter, first, map, take, tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { DishStorageService } from '../services/dish-storage.service';
-import { cloneDeep } from 'lodash';
 import { AliveState } from '../../../../ActiveState';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-dish-type',
@@ -33,6 +30,10 @@ export class DishTypeComponent
       return !!value.length;
     }
   ));
+  edition$ = this.loadingService.edition$;
+  model = this.fb.group(
+    {});
+  @Output() typeOfDish = new EventEmitter();
   @Input() dishTypes = [];
   controlDishType = [];
   dishes$ = combineLatest([
@@ -49,8 +50,9 @@ export class DishTypeComponent
           }),
           {}
         );
-        // console.log(1111111111, JSON.stringify(model), JSON.stringify(this.model.value));
+        console.log(1111111111, JSON.stringify(model), JSON.stringify(this.model.value));
         if (JSON.stringify(model) !== JSON.stringify(this.model.value)) {
+          console.log('informacja');
           Object.keys(model).forEach((patchKey) => {
             this.model.addControl(patchKey, new FormControl());
           });
@@ -63,9 +65,10 @@ export class DishTypeComponent
           // this.model.setValue(this.dishTypes[0]);
           // !!! ^
         }
+        console.log(222222, JSON.stringify(model), JSON.stringify(this.model.value));
+        this.selectedDishes$.pipe(first()).subscribe(value => console.log(3, value));
         return dishesType.map(({ dishId }) => (dishId));
       }));
-  // this.selectedDishes$.pipe(first()).subscribe(value => this.selectedDishes = value);
 
   // selectedDishes$ = this.dishesList$.pipe(
   //   map((dish) => {
@@ -79,11 +82,6 @@ export class DishTypeComponent
   //   return value;
   // });
 
-
-  edition$ = this.loadingService.edition$;
-  model = this.fb.group(
-    {});
-  @Output() typeOfDish = new EventEmitter();
 
   constructor(private dishService: DishStorageService,
               private dishesService: DishStorageService,

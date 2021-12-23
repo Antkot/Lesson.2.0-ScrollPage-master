@@ -126,6 +126,7 @@ export class MenuComponent implements OnInit {
           console.log('EDYCJA PORZUCONA');
           console.log(value);
           confirm = 2;
+          this.dishService.abandonEdition();
         } else {
           // confirm = 0;
         }
