@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Dish, UsedProduct } from '../../types';
 import { TagsStorageService } from './tags-storage.service';
 import { LocalStorageService } from './local-storage-service';
-import { first } from 'rxjs/operators';
+import { first, map } from 'rxjs/operators';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { stringify } from 'querystring';
 import { LoadingService } from './loading.service';
@@ -209,13 +209,23 @@ export class DishStorageService {
   }
 
   deleteProduct(deletedProductId: string, dishId: string) {
+    console.log('deletedProductId');
+    console.log(deletedProductId);
     this.dishesListCopied$.next({
       ...this.dishesListCopied$.value,
       dishId,
-      products: this.dishesListCopied$.value.dishId === dishId
-        ? [...this.dishesListCopied$.value.products.filter((usedId) => usedId[0] !== deletedProductId)]
-        : this.dishesListCopied$.value.products
+      products: this.dishesListCopied$.value.products.filter(({ usedProductId }) =>
+        usedProductId !== deletedProductId
+      )
     });
+    this.dishesListCopied$.pipe(first()).subscribe(value => console.log(value));
+    console.log('pa tera');
+    console.log(this.dishesListCopied$.pipe(map(({ products }) => products.find(
+      product => product.usedProductId !== deletedProductId
+    ))).subscribe(dishCopy => {
+        console.log(dishCopy);
+      }
+    ));
     this.editCheck(dishId);
     this.localStorageService.setItem('editedDish', JSON.stringify(this.dishesListCopied$.value));
   }
@@ -330,57 +340,38 @@ export class DishStorageService {
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
-  // endEdition(givenDishId: string) {
-  //
-  //   let indexOfDish: number;
-  //   let indexOfLastDish: number;
-  //
-  //   this.dishesList$.pipe(first()).subscribe(dish => {
-  //     if (dish.find(({ dishId }) => dishId === givenDishId)) {
-  //       this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
-  //     } else {
+  endEdition(givenDishId: string) {
+
+  }
+
+  // endEdition(givenDishId) {
+  //   let indexOfDish;
+  //   let inedxOfLastDish;
+  //   console.log('endEdition');
+  //   if (!this.dishesList$.subscribe(value => {
+  //     value.filter(({ dishId }) =>
+  //       dishId === givenDishId
+  //     );
+  //     this.dishesListCopied$.subscribe(val2ue => console.table(val2ue));
+  //   })) {
+  //     this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
+  //   } else {
+  //     this.dishesList$.pipe(first()).subscribe((dish) => {
   //       indexOfDish = dish.findIndex(({ dishId }) =>
   //         dishId === givenDishId);
-  //     }
-  //     this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
-  //     this.editState = false;
-  //     indexOfLastDish = dish.findIndex(({ dishId }) =>
+  //     });
+  //   }
+  //   this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
+  //   this.editState = false;
+  //   this.dishesList$.subscribe(val3ue => console.table(val3ue));
+  //   this.dishesList$.pipe(first()).subscribe((dish) => {
+  //     inedxOfLastDish = dish.findIndex(({ dishId }) =>
   //       dishId === givenDishId);
   //   });
-  //   this.reindex(this.dishesList$.value, indexOfLastDish, indexOfDish);
-  //
+  //   this.reindex(this.dishesList$.value, inedxOfLastDish, indexOfDish);
   //   this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   //   console.log('Zakończono edycję');
   // }
-
-  endEdition(givenDishId) {
-    let indexOfDish;
-    let inedxOfLastDish;
-    console.log('endEdition');
-    if (!this.dishesList$.subscribe(value => {
-      value.filter(({ dishId }) =>
-        dishId === givenDishId
-      );
-      this.dishesListCopied$.subscribe(val2ue => console.table(val2ue));
-    })) {
-      this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
-    } else {
-      this.dishesList$.pipe(first()).subscribe((dish) => {
-        indexOfDish = dish.findIndex(({ dishId }) =>
-          dishId === givenDishId);
-      });
-    }
-    this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
-    this.editState = false;
-    this.dishesList$.subscribe(val3ue => console.table(val3ue));
-    this.dishesList$.pipe(first()).subscribe((dish) => {
-      inedxOfLastDish = dish.findIndex(({ dishId }) =>
-        dishId === givenDishId);
-    });
-    this.reindex(this.dishesList$.value, inedxOfLastDish, indexOfDish);
-    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
-    console.log('Zakończono edycję');
-  }
 
   abandonEdition() {
     this.dishesListCopied$.pipe(first()).subscribe(dish => {
@@ -394,6 +385,7 @@ export class DishStorageService {
       this.editionInProgress$.next(false);
       this.edition$.next(false);
     });
+    this.localStorageService.removeItem('editedDish');
   }
 
   editCheck(givenDishId) {

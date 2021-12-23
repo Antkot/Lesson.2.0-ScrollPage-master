@@ -14,6 +14,8 @@ import { number } from '@storybook/addon-knobs';
 import { AliveState } from '../../../../ActiveState';
 import { stringify } from 'querystring';
 import { LoadingService } from '../services/loading.service';
+import { DishStorageService } from '../services/dish-storage.service';
+import { UsedProductsStorageService } from '../services/used-products-storage.service';
 
 
 @Component({
@@ -24,6 +26,8 @@ import { LoadingService } from '../services/loading.service';
 export class IngredientsComponent
   extends AliveState
   implements OnInit {
+  usedProducts$: Observable<Array<UsedProduct>> = this.usedProductsService.usedProducts$;
+  copiedDishes$: Observable<Dish> = this.dishService.dishesListCopied$;
   @Output() addUsedProduct = new EventEmitter();
   @Output() addDeletedProduct = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
@@ -50,6 +54,8 @@ export class IngredientsComponent
   } = { product: '', amount: '' };
 
   constructor(
+    private usedProductsService: UsedProductsStorageService,
+    private dishService: DishStorageService,
     private productsService: ProductsStorageService,
     private measureService: MeasuresStorageService,
     private fb: FormBuilder,
@@ -145,6 +151,23 @@ export class IngredientsComponent
     }
   }
 
+refactor(givenUsedProductId: string) {
+  this.usedProducts$.pipe(
+    map((usedProduct) => {
+      const x = usedProduct.find(
+        ({ usedProductId }) =>
+          usedProductId === givenUsedProductId
+      );
+      this.copiedDishes$.pipe(first()).subscribe(value =>
+        this.model.setValue({
+          product: x.productId,
+          measure: x.measuresId,
+          amount: x.amount,
+        })
+      );
+    }));
+
+}
 
   disabled() {
     return false;
