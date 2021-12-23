@@ -33,12 +33,6 @@ export class MainMenuComponent implements OnInit {
 
   redirect() {
     this.urlService.getUrl();
-
-    // this.route.url.pipe(
-    //   map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
-    // );
-    console.log('Zmieniono ostatni link. Teraz to: ');
-    this.lastLink$.pipe(first()).subscribe(value => console.log(value));
     this.myRouter.navigate(['../list']);
   }
 
@@ -53,19 +47,4 @@ export class MainMenuComponent implements OnInit {
     });
     this.redirect();
   }
-
-  // this.measures$.pipe(first()).subscribe(measure => {
-  // this.typedMeasureId = measure.find(
-  //   ({ name }) =>
-  //     name === addedProduct.product.measure
-  // )?.measureId;
-// });
 }
-
-// const current = this.allergens$.value;
-// this.allergens$.next(
-//   [
-//     ...current.filter(record => record.hashId !== deletedHash)
-//   ]
-// );
-//

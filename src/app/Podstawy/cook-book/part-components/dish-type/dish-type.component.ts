@@ -51,6 +51,7 @@ export class DishTypeComponent
           {}
         );
         console.log(1111111111, JSON.stringify(model), JSON.stringify(this.model.value));
+
         if (JSON.stringify(model) !== JSON.stringify(this.model.value)) {
           console.log('informacja');
           Object.keys(model).forEach((patchKey) => {
@@ -65,6 +66,10 @@ export class DishTypeComponent
           // this.model.setValue(this.dishTypes[0]);
           // !!! ^
         }
+
+        console.log(this.dishTypes[0]);
+        console.log(this.model.value);
+
         console.log(222222, JSON.stringify(model), JSON.stringify(this.model.value));
         this.selectedDishes$.pipe(first()).subscribe(value => console.log(3, value));
         return dishesType.map(({ dishId }) => (dishId));
@@ -77,10 +82,7 @@ export class DishTypeComponent
   //         dishId === this.dishId
   //     ).dishType;
   //   }));
-  //
-  // selectedDishes = this.selectedDishes$.pipe(first()).subscribe(value => {
-  //   return value;
-  // });
+
 
 
   constructor(private dishService: DishStorageService,
@@ -93,6 +95,7 @@ export class DishTypeComponent
   }
 
   ngOnInit(): void {
+    this.selectedDishes$.pipe(first()).subscribe(value => console.log(value));
     console.log('this.dishTypes');
     console.table(this.dishTypes);
     this.subscribeWhileAlive(

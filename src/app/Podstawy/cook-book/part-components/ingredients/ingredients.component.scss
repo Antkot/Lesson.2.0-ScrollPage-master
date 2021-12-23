@@ -4,6 +4,7 @@
 }
 
 .container {
+  max-width: 100%;
   border: gold 12px double;
   border-radius: 50px;
   background: dodgerblue;
@@ -33,6 +34,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 700px;
+  max-width: 90%;
   column-gap: 10px;
   row-gap: 10px;
 
@@ -96,6 +98,6 @@ mat-label {
 @media (max-width: 1000px) {
 .x{
   display: inline-block;
-  width: 80%;
+  width: 100%;
 }
 }

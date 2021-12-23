@@ -64,6 +64,7 @@ export class AddRecipeComponent
       map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.newDish(url)
     );
     this.filteredDishType$.pipe(first()).subscribe(dishId => {
+      console.log('TUT: ', dishId);
       this.model.controls[`type`].setValue([{ dishId }]);
       this.typeChange.emit(this.model.value.type);
     });

@@ -14,10 +14,10 @@
 }
 
 .seenWindow {
-  margin-top: 70px;
   overflow: auto;
   height: calc(100vh - 70px);
-  width: 100%;
+  width: 80%;
+  margin: 70px auto 0 auto;
   background: lightgoldenrodyellow;
 }
 
@@ -27,18 +27,9 @@
 
 .record {
   display: flex;
-  //border: gold 12px double;
-  //border-radius: 50px;
-  //background: dodgerblue;
-  //padding: 10px 20px;
-  //height: 75px;
-  //position: relative;
 }
 
-.record:hover {
-  //border: darkgoldenrod 12px double;
-}
-.background{
+.background {
   background: palegoldenrod;
 }
 
@@ -169,4 +160,16 @@
 .list:empty + .noRecords {
   display: block;
 }
-
+@media (max-width: 1000px) {
+  .seenWindow {
+    width: 100%;
+    margin-top: 50px;
+    margin-right: -100px;
+    height: calc(100vh - 50px);
+  }
+}
+@media (max-width: 850px) {
+  .seenWindow {
+    width: 97%;
+  }
+}
