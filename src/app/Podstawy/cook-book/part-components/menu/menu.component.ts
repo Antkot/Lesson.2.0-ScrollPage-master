@@ -22,7 +22,7 @@ import { UrlService } from '../services/url.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-
+  target = '';
   dishesListCopied$: BehaviorSubject<Dish> = this.dishService.dishesListCopied$;
   editionInProgress$: BehaviorSubject<boolean> = this.dishService.editionInProgress$;
   edition$ = this.loadingService.edition$;
@@ -44,18 +44,6 @@ export class MenuComponent implements OnInit {
   ) {
   }
 
-  backClicked() {
-    this.abandonEdition();
-    //
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if(result == true){
-    //     return true;
-    //   }else{
-    //     return false;
-    //   }
-    //
-    this.location.back();
-  }
 
   ngOnInit(): void {
     this.urlService.getUrl();
@@ -74,81 +62,67 @@ export class MenuComponent implements OnInit {
     // );
   }
 
-  goBack() {
-    this.lastLink$.pipe(first()).subscribe(value => {
-      this.myRouter.navigate([value]);
-    });
-  }
 
-  redirect() {
-    this.route.url.pipe(
-      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
-    );
-    this.abandonEdition();
-    this.myRouter.navigate(['../main']);
-  }
-
-  redirectTo() {
-    this.filteredDishType$.next(null);
-    this.route.url.pipe(
-      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
-    );
-    const confirm = this.abandonEdition();
-    if (confirm === 0) {
-      return;
-    }
-    console.log(confirm, 'confirm');
-    this.dishesListCopied$.next({
-      dishId: '',
-      name: '',
-      steps: [],
-      dishType: [],
-      tags: [],
-      products: []
-    });
-    this.edition$.next(true);
-    // this.myRouter.navigate(['../recipe/new'], { state: { edit: true, reset: true } });
-    this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
-  }
-
-  abandonEdition(): number {
-    let confirm = 3;
+  redirected(param: string) {
+    this.target = param;
     this.editionInProgress$.pipe(first()).subscribe(value => {
-        if (value === true) {
-          const dialogRef = this.dialog.open(AbandonEditionComponent);
-          dialogRef.componentInstance.go.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProductType) => {
-            confirm = 1;
-          });
-          dialogRef.componentInstance.abort.pipe(takeUntil(dialogRef.afterClosed())).subscribe(() => {
-            dialogRef.close();
-          });
-
-          console.log('EDYCJA PORZUCONA');
-          console.log(value);
-          confirm = 2;
+      if (value === true) {
+        const dialogRef = this.dialog.open(AbandonEditionComponent);
+        dialogRef.componentInstance.go.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProductType) => {
+          switch (param) {
+            case 'redirect':
+              this.myRouter.navigate(['../main']);
+              break;
+            case 'redirectToNew':
+              // this.filteredDishType$.next(null);
+              this.dishesListCopied$.next({
+                dishId: '',
+                name: '',
+                steps: [],
+                dishType: [],
+                tags: [],
+                products: []
+              });
+              this.edition$.next(true);
+              this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
+              break;
+            case 'backClicked':
+              this.location.back();
+              break;
+            default:
+              break;
+          }
           this.dishService.abandonEdition();
-        } else {
-          // confirm = 0;
+          dialogRef.close();
+        });
+        dialogRef.componentInstance.cancel.pipe(takeUntil(dialogRef.afterClosed())).subscribe(() => {
+          dialogRef.close();
+        });
+      } else {
+        switch (param) {
+          case 'redirect':
+            this.myRouter.navigate(['../main']);
+            break;
+          case 'redirectToNew':
+            this.edition$.next(true);
+            this.dishesListCopied$.next({
+              dishId: '',
+              name: '',
+              steps: [],
+              dishType: [],
+              tags: [],
+              products: []
+            });
+            this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
+            break;
+          case 'backClicked':
+            this.location.back();
+            break;
+          default:
+            break;
         }
       }
-    );
-    return confirm;
+    });
   }
+
 }
-//
-// const buttonPromise = new Promise((resolve) => {
-//   const button = document.getElementById("my-confirm-button");
-//   const resolver = () => {
-//     resolve();
-//     button.removeEventListener("click", resolver);
-//   }
-//
-//   button.addEventListener("click", resolver);
-// });
-//
-//
-// // Once the user has selected a name, do something with it
-// buttonPromise.then(() => {
-//   var person: Person;
-//   person.name = selectedName;
-// })

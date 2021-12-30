@@ -8,7 +8,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class AbandonEditionComponent implements OnInit {
   @Output() go = new EventEmitter();
-  @Output() abort = new EventEmitter();
+  @Output() cancel = new EventEmitter();
 
   constructor() {
   }

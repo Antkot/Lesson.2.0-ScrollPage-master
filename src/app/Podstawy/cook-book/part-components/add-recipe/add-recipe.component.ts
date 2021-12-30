@@ -52,6 +52,7 @@ export class AddRecipeComponent
   }
 
   ngOnInit(): void {
+    console.log('Add recipe initialised');
     this.route.url.pipe(
       map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.editCheckStorage(url)
     );
