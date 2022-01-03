@@ -148,6 +148,7 @@
   position: absolute;
   top: 50%;
   right: 40%;
+  background: palegoldenrod;
 }
 
 //.list:empty{
@@ -163,13 +164,23 @@
 @media (max-width: 1000px) {
   .seenWindow {
     width: 100%;
-    margin-top: 50px;
+    margin-top: 70px;
     margin-right: -100px;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 70px);
+  }
+  .noRecords {
+    right: 25%;
   }
 }
 @media (max-width: 850px) {
   .seenWindow {
     width: 97%;
+    margin-top: 50px;
+    margin-right: -100px;
+    height: calc(100vh - 50px);
+  }
+  .noRecords {
+    width: 30%;
+    right: 20%;
   }
 }

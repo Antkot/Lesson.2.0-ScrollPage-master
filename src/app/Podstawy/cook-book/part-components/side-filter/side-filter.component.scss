@@ -23,5 +23,6 @@ p {
 @media (max-width: 850px) {
 .container{
   width: 200px;
+  height: calc(100% - 50px);
 }
 }

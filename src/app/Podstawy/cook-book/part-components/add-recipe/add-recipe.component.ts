@@ -58,6 +58,8 @@ export class AddRecipeComponent
     );
     this.recipe$.pipe(first()).subscribe(value => {
         this.model.controls[`name`].setValue(value.name, { emitEvent: false });
+        console.log('value');
+        console.log(value);
       }
     );
 
