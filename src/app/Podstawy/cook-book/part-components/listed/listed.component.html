@@ -14,39 +14,40 @@
       </h1>
     </div>
   </div>
-
   <mat-divider></mat-divider>
   <div class='noRecords' *ngIf='!(shownDishesList$ | async).length'><h1>Brak przepisów</h1></div>
-  <div class='list' *ngIf='(shownDishesList$ | async).length'>
-    <div class='background' *ngFor='let dish of shownDishesList$ | async'>
-      <div class='record'>
-        <div class='recName'
-             (click)='redirectView(false, dish.dishId)'>
-          <h1 class='nameItself'>{{dish.name| word}}</h1>
-        </div>
-        <div class='recMenu' [matMenuTriggerFor]='menu' matRipple>
-          <button class='topRight'>
-            <mat-icon class='menuIcon'>more_vert</mat-icon>
-          </button>
-          <mat-menu #menu='matMenu'>
-            <button mat-menu-item
-                    (click)='redirectView(true, dish.dishId)'>
-              <mat-icon>edit</mat-icon>
-              <span>Edycja</span>
+  <div class='background height'>
+    <div class='list' *ngIf='(shownDishesList$ | async).length'>
+      <div class='background' *ngFor='let dish of shownDishesList$ | async'>
+        <div class='record'>
+          <div class='recName'
+               (click)='redirectView(false, dish.dishId)'>
+            <h1 class='nameItself'>{{dish.name| word}}</h1>
+          </div>
+          <div class='recMenu' [matMenuTriggerFor]='menu' matRipple>
+            <button class='topRight'>
+              <mat-icon class='menuIcon'>more_vert</mat-icon>
             </button>
-            <button mat-menu-item (click)='deleteDish(dish.dishId)'>
-              <mat-icon>delete</mat-icon>
-              <span>Usuń</span>
-            </button>
-          </mat-menu>
+            <mat-menu #menu='matMenu'>
+              <button mat-menu-item
+                      (click)='redirectView(true, dish.dishId)'>
+                <mat-icon>edit</mat-icon>
+                <span>Edycja</span>
+              </button>
+              <button mat-menu-item (click)='deleteDish(dish.dishId)'>
+                <mat-icon>delete</mat-icon>
+                <span>Usuń</span>
+              </button>
+            </mat-menu>
+          </div>
+          <!--      <div>-->
+          <!--        <app-chips-->
+          <!--          [removable]="false"-->
+          <!--          [elements]="dish.tags"-->
+          <!--          [entity]="'Tag'"-->
+          <!--        ></app-chips>-->
+          <!--      </div>-->
         </div>
-        <!--      <div>-->
-        <!--        <app-chips-->
-        <!--          [removable]="false"-->
-        <!--          [elements]="dish.tags"-->
-        <!--          [entity]="'Tag'"-->
-        <!--        ></app-chips>-->
-        <!--      </div>-->
       </div>
     </div>
   </div>
