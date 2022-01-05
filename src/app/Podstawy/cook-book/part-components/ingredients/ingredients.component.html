@@ -11,6 +11,7 @@
                    formControlName='product' />
           </mat-form-field>
         </ng-container>
+      <div class='justify_ing'>
         <mat-form-field appearance='outline' class='listedOptions double'>
           <mat-label>Ilość</mat-label>
           <input type='number' matInput formControlName='amount'>
@@ -25,13 +26,14 @@
       <!--        </mat-form-field>-->
             <button mat-button (click)='newUsedProduct()' [disabled]='model.invalid' class='middle_button' *ngIf='isMeasureDuplicated'>Dodaj</button>
             <button mat-button  disabled class='middle_button' *ngIf='!isMeasureDuplicated'>Dodaj</button>
+      </div>
     </span>
 <!--  <div class='errors'>-->
 <!--    <a *ngIf='model.invalid'>Niepoprawne dane</a>-->
 <!--  </div>-->
   <div>
 
-    <div class='colorizer' *ngIf='(edition$ | async) === false'>
+    <div *ngIf='(edition$ | async) === false'>
       <div class='table'>
         <div class='grid-item'><h4>Produkt</h4></div>
         <div class='grid-item'><h4>ilość</h4></div>
