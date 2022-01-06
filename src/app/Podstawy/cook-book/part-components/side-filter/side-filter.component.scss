@@ -11,8 +11,13 @@
   left: 0;
   height: calc(100% - 50px);
   background: dodgerblue;
-}
+  overflow: scroll;
+  padding-bottom: 0;
 
+}
+::-webkit-scrollbar {
+  display: none;
+}
 a {
   line-height: 300%;
 }
