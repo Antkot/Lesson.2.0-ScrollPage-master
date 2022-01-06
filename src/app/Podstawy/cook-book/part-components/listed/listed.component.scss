@@ -32,6 +32,7 @@
 .background {
   background: palegoldenrod;
 }
+
 .height {
   min-height: calc(100% - 227px);
   width: 100%;
@@ -92,8 +93,8 @@
   background: none;
   margin: auto;
   position: absolute;
-height: 48px;
-  width: 0px;
+  height: 48px;
+  width: 0;
   display: flex;
   justify-content: center;
 }
@@ -170,6 +171,7 @@ height: 48px;
     height: calc(100vh - 70px);
   }
 }
+
 @media (max-width: 850px) {
   .seenWindow {
     width: 97%;

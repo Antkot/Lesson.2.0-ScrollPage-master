@@ -65,16 +65,47 @@ export class MenuComponent implements OnInit {
 
   redirected(param: string) {
     this.target = param;
-    this.editionInProgress$.pipe(first()).subscribe(value => {
-      if (value === true) {
-        const dialogRef = this.dialog.open(AbandonEditionComponent);
-        dialogRef.componentInstance.go.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProductType) => {
+    this.edition$.pipe(first()).subscribe(edition => {
+      this.editionInProgress$.pipe(first()).subscribe(editionInProgress => {
+        if (edition === true && editionInProgress === true) {
+          const dialogRef = this.dialog.open(AbandonEditionComponent);
+          dialogRef.componentInstance.go.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProductType) => {
+            switch (param) {
+              case 'redirect':
+                this.myRouter.navigate(['../main']);
+                break;
+              case 'redirectToNew':
+                // this.filteredDishType$.next(null);
+                this.dishesListCopied$.next({
+                  dishId: '',
+                  name: '',
+                  steps: [],
+                  dishType: [],
+                  tags: [],
+                  products: []
+                });
+                this.edition$.next(true);
+                this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
+                break;
+              case 'backClicked':
+                this.location.back();
+                break;
+              default:
+                break;
+            }
+            this.dishService.abandonEdition();
+            dialogRef.close();
+          });
+          dialogRef.componentInstance.cancel.pipe(takeUntil(dialogRef.afterClosed())).subscribe(() => {
+            dialogRef.close();
+          });
+        } else {
           switch (param) {
             case 'redirect':
               this.myRouter.navigate(['../main']);
               break;
             case 'redirectToNew':
-              // this.filteredDishType$.next(null);
+              this.edition$.next(true);
               this.dishesListCopied$.next({
                 dishId: '',
                 name: '',
@@ -83,7 +114,6 @@ export class MenuComponent implements OnInit {
                 tags: [],
                 products: []
               });
-              this.edition$.next(true);
               this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
               break;
             case 'backClicked':
@@ -92,36 +122,8 @@ export class MenuComponent implements OnInit {
             default:
               break;
           }
-          this.dishService.abandonEdition();
-          dialogRef.close();
-        });
-        dialogRef.componentInstance.cancel.pipe(takeUntil(dialogRef.afterClosed())).subscribe(() => {
-          dialogRef.close();
-        });
-      } else {
-        switch (param) {
-          case 'redirect':
-            this.myRouter.navigate(['../main']);
-            break;
-          case 'redirectToNew':
-            this.edition$.next(true);
-            this.dishesListCopied$.next({
-              dishId: '',
-              name: '',
-              steps: [],
-              dishType: [],
-              tags: [],
-              products: []
-            });
-            this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
-            break;
-          case 'backClicked':
-            this.location.back();
-            break;
-          default:
-            break;
         }
-      }
+      });
     });
   }
 
