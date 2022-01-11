@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { TableData } from './to-do-list.component.stories';
 import { Observable } from 'rxjs';
@@ -16,14 +16,24 @@ export class ToDoListComponent implements OnInit {
   form = this.fb.group({ text: ['', [Validators.minLength(5), Validators.required]] });
   editable = false;
   textId = '';
-  todoId$ = this.route.url.pipe(
-    map(value => value[1].path));
+  // todoId$ = this.route.url.pipe(
+  //   map(value => value[1].path));
+  _tableId = '';
+  @Input() set tableId(id: string) {
+    this._tableId = id;
+
+    this.service.setId(id);
+  }
+
+  get tableId() {
+    return this._tableId;
+  }
 
   constructor(private fb: FormBuilder, private service: ToDoListService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.todoId$.pipe().subscribe(todoId => console.log('TODO ID: ', todoId));
+    // this.todoId$.pipe().subscribe(todoId => console.log('TODO ID: ', todoId));
   }
 
   add() {
@@ -31,7 +41,7 @@ export class ToDoListComponent implements OnInit {
     this.form.reset();
   }
 
-  remove(textId: string) {
+  remove( textId: string) {
     this.service.remove(textId);
   }
 
