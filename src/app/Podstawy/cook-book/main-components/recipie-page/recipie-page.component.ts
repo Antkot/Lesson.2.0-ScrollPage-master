@@ -18,8 +18,8 @@ export class RecipiePageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductsStorageService,
-    private dishService: DishStorageService,
-    private usedProductService: UsedProductsStorageService,
+    private dishService: DishStorageService,    private usedProductService: UsedProductsStorageService,
+
     private route: ActivatedRoute) {
   }
 

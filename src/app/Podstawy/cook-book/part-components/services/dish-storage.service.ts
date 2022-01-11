@@ -341,7 +341,15 @@ export class DishStorageService {
   }
 
   endEdition(givenDishId: string) {
+    // const dishesList: Array<Dish> = {...this.dishesList$.getValue()};
+    // dishesList.map((value) => value.dishId === givenDishId ? this.dishesListCopied$.value : value);
+    // this.dishesList$.next([...dishesList]);
 
+    this.dishesList$.next([...this.dishesList$.getValue().map((value) =>
+      value.dishId === givenDishId ? this.dishesListCopied$.value : value)]);
+    this.edition$.next(false);
+    this.editState = false;
+    this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
   // endEdition(givenDishId) {
@@ -356,6 +364,7 @@ export class DishStorageService {
   //   })) {
   //     this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
   //   } else {
+
   //     this.dishesList$.pipe(first()).subscribe((dish) => {
   //       indexOfDish = dish.findIndex(({ dishId }) =>
   //         dishId === givenDishId);
@@ -426,6 +435,13 @@ export class DishStorageService {
       this.erase();
     }
     console.log('editCheckStorage zakończono');
+  }
+
+  deleteAllOf(bothId) {
+    // usunąć wszystkie product o id
+    //   const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
+    //   this.dishesList$.next([...current.find( ({ dish }) => )]);
+    //   this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 
 }

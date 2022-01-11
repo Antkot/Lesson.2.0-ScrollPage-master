@@ -72,23 +72,25 @@ export class MenuComponent implements OnInit {
           dialogRef.componentInstance.go.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: AddedProductType) => {
             switch (param) {
               case 'redirect':
+                this.edition$.next(false);
                 this.myRouter.navigate(['../main']);
                 break;
               case 'redirectToNew':
-                // this.filteredDishType$.next(null);
-                this.dishesListCopied$.next({
-                  dishId: '',
-                  name: '',
-                  steps: [],
-                  dishType: [],
-                  tags: [],
-                  products: []
-                });
                 this.edition$.next(true);
+                // this.filteredDishType$.next(null);
+                // this.dishesListCopied$.next({
+                //   dishId: '',
+                //   name: 'xD',
+                //   steps: [],
+                //   dishType: [],
+                //   tags: [],
+                //   products: []
+                // });
                 this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
                 break;
               case 'backClicked':
                 this.location.back();
+                this.edition$.next(false);
                 break;
               default:
                 break;
@@ -106,14 +108,14 @@ export class MenuComponent implements OnInit {
               break;
             case 'redirectToNew':
               this.edition$.next(true);
-              this.dishesListCopied$.next({
-                dishId: '',
-                name: '',
-                steps: [],
-                dishType: [],
-                tags: [],
-                products: []
-              });
+              // this.dishesListCopied$.next({
+              //   dishId: '',
+              //   name: 'xD',
+              //   steps: [],
+              //   dishType: [],
+              //   tags: [],
+              //   products: []
+              // });
               this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
               break;
             case 'backClicked':
