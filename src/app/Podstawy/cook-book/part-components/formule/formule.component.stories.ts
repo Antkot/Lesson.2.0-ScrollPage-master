@@ -1,10 +1,12 @@
 import { moduleMetadata, storiesOf } from '@storybook/angular';
 import { NgModule } from '@angular/core';
 import { FormuleComponent } from './formule.component';
+import { FormuleInputComponent } from '../formule-input/formule-input.component';
+import { MatIconModule } from '@angular/material/icon';
 
 const decoration: NgModule = {
-  declarations: [],
-  imports: [],
+  declarations: [FormuleComponent, FormuleInputComponent],
+  imports: [MatIconModule],
   exports: []
 };
 

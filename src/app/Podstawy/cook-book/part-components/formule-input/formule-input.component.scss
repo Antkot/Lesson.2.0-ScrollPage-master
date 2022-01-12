@@ -1,0 +1,28 @@
+:host{
+  overflow: scroll;
+}
+.container{
+  min-height: 23vh;
+  background: gold;
+  margin: 1vh;
+  border: white 2px ridge;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-template-rows: 1fr 3fr;
+  row-gap: 10px;
+  column-gap: 10px;
+  grid-template-areas:
+"name rest"
+". rest";
+  >div{
+    background: goldenrod;
+    border: ridge 2px goldenrod;
+  }
+}
+.name{
+  grid-area: name;
+  text-align: center;
+}
+.rest{
+  grid-area: rest;
+}

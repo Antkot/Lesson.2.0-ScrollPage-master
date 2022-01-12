@@ -1,0 +1,19 @@
+:host{
+}
+.add {
+  border: white ridge 10px;
+  width: min-content;
+  padding: 0 10px;
+  margin: 0 auto;
+  user-select: none;
+  cursor: pointer;
+  background: gold;
+}
+
+.add:hover {
+  background: goldenrod;
+}
+.container{
+  height: 2000px;
+  overflow: scroll;
+}

@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormuleComponent implements OnInit {
 
+  lists: Array<any> = ['Lista 1', 'Lista inna'];
   constructor() { }
 
   ngOnInit(): void {
