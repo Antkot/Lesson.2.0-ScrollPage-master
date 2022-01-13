@@ -26,3 +26,22 @@
 .rest{
   grid-area: rest;
 }
+.add {
+  margin: 15px auto;
+  border: white ridge 1px;
+  width: min-content;
+  padding: 5px;
+  user-select: none;
+  cursor: pointer;
+  background: gold;
+}
+
+.add:hover {
+  background: goldenrod;
+}
+.tile{
+  border: solid 1px darkgoldenrod;
+  margin: 2px;
+  height: max-content;
+  padding-bottom: 20px;
+}

@@ -2,7 +2,7 @@
   <div class="tile" *ngFor='let list of lists'>
     <app-formule-input [name]=list></app-formule-input>
   </div>
-  <div class='add'>
+  <div class='add' (click)='add()'>
     <h1>Dodaj</h1>
   </div>
 </div>

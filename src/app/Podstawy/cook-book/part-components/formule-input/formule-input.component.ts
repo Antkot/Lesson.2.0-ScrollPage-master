@@ -8,7 +8,6 @@ import { FormControl, Validators } from '@angular/forms';
 })
 export class FormuleInputComponent implements OnInit {
   _name: string;
-days: Array<any> = [1, 2, 3];
   @Input() set name(name: string) {
     this._name = name;
   }
@@ -18,13 +17,20 @@ days: Array<any> = [1, 2, 3];
   }
 
   control = new FormControl({
-    name: ['', Validators.required]
+    name: ['', Validators.required],
+    days: [1, 2, 3]
   });
+  days = this.control.value.days;
 
   constructor() {
   }
 
   ngOnInit(): void {
     this.control.patchValue(this._name);
+  }
+
+  add() {
+    // this.control[`days`].setValue(1, 2, 3, 5);
+    this.control[`name`].patchValue('xd');
   }
 }
