@@ -3,10 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormuleComponent } from './formule.component';
 import { FormuleInputComponent } from '../formule-input/formule-input.component';
 import { MatIconModule } from '@angular/material/icon';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const decoration: NgModule = {
   declarations: [FormuleComponent, FormuleInputComponent],
-  imports: [MatIconModule],
+  imports: [MatIconModule, BrowserModule,
+    FormsModule, ReactiveFormsModule],
   exports: []
 };
 

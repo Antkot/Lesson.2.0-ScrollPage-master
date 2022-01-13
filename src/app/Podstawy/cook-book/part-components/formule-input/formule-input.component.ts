@@ -1,12 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { tap } from 'rxjs/operators';
+import { AliveState } from '../../../../ActiveState';
 
 @Component({
   selector: 'app-formule-input',
   templateUrl: './formule-input.component.html',
   styleUrls: ['./formule-input.component.scss']
 })
-export class FormuleInputComponent implements OnInit {
+export class FormuleInputComponent extends AliveState
+  implements OnInit {
   _name: string;
   @Input() set name(name: string) {
     this._name = name;
@@ -16,21 +19,33 @@ export class FormuleInputComponent implements OnInit {
     return this._name;
   }
 
-  control = new FormControl({
-    name: ['', Validators.required],
-    days: [1, 2, 3]
-  });
-  days = this.control.value.days;
 
-  constructor() {
+  model = this.fb.group({
+    name: ['no_name', [Validators.required]],
+    days: [[1, 2, 3], [Validators.required]]
+  });
+  tag = this.model.value.name;
+  days = this.model.value.days;
+
+  constructor(private fb: FormBuilder) {
+    super();
   }
 
   ngOnInit(): void {
-    this.control.patchValue(this._name);
+    this.subscribeWhileAlive(
+      this.model.valueChanges.pipe(
+        tap((name: { name: string }) => {
+            this.tag = this.model.value.name;
+            this.days = this.model.value.days;
+
+          }
+        )));
+    this.model.controls[`name`].patchValue(this._name, { emitEvent: true });
+
   }
 
   add() {
-    // this.control[`days`].setValue(1, 2, 3, 5);
-    this.control[`name`].patchValue('xd');
+    this.model.controls[`name`].patchValue(this._name, { emitEvent: true });
+    this.model.controls[`days`].patchValue([...this.model.controls[`days`].value, this.model.controls[`days`].value.length + 1], { emitEvent: true });
   }
 }
