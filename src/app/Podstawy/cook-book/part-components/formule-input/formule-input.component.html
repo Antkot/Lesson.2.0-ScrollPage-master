@@ -1,7 +1,10 @@
 <div class='container'>
   <div class='name'>
 <!--    <h1>  {{ control.value }} </h1>-->
-    <h1> {{ tag }} </h1>
+    <h1 *ngIf='!nameEdit'> {{ tag }} </h1>
+    <button *ngIf='!nameEdit' (click)='edit()'> edytuj </button>
+    <input *ngIf='nameEdit' >
+    <button *ngIf='nameEdit' (click)='save()'> zapisz </button>
   </div>
   <div class='rest'>
     <div class="tile" *ngFor='let day of days'>

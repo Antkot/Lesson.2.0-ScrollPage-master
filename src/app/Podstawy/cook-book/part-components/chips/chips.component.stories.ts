@@ -11,6 +11,7 @@ import { ChipsComponent } from './chips.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { TagNameByIdPipe } from '../../pipes/OtherPipes/tag-name-by-id.pipe';
+// import { MatDatepickerModule } from '@angular/material/datepicker';
 
 const decoration: NgModule = {
   declarations: [
@@ -27,6 +28,7 @@ const decoration: NgModule = {
     BrowserAnimationsModule,
     MatOptionModule,
     MatFormFieldModule,
+    // MatDatepickerModule
   ]
 };
 

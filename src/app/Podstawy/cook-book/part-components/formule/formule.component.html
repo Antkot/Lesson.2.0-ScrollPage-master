@@ -1,8 +1,27 @@
 <div class='container'>
-  <div class="tile" *ngFor='let list of lists'>
-    <app-formule-input [name]=list></app-formule-input>
+  <div class='tile' *ngFor='let list of lists' [formGroup]='model'>
+    <app-formule-input formControlName='lists'></app-formule-input>
+    <!--    <app-formule-input [name]=list formControlName='lists'></app-formule-input>-->
   </div>
   <div class='add' (click)='add()'>
+    <h1>Dodaj</h1>
+  </div>
+  <!--  ZEGAR-->
+  <!--  <input mdc-datetime-picker="" date="false" time="true" placeholder="Time" minutes="true"-->
+  <!--         min-date="minDate" type="text" id="time" format="hh:mm a" short-time="true" ng-model="time"-->
+  <!--         class=" md-input">-->
+  <div class='tile' *ngFor='let list of something.controls; index as i' [formGroup]='model'>
+    <mat-form-field appearance='fill'>
+      <input matInput
+             formControlName='name'
+             placeholder='Lesson title'>
+    </mat-form-field>
+    <mat-icon class='delete-btn' (click)='delete(i)'>
+      delete_forever
+    </mat-icon>
+  </div>
+  <app-formule-input formControlName='lists'></app-formule-input>
+  <div class='add' (click)='addControl()'>
     <h1>Dodaj</h1>
   </div>
 </div>

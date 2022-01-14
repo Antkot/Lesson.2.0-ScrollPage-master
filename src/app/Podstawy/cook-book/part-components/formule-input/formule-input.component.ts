@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { AliveState } from '../../../../ActiveState';
 
@@ -18,8 +18,7 @@ export class FormuleInputComponent extends AliveState
   get name() {
     return this._name;
   }
-
-
+  nameEdit = false;
   model = this.fb.group({
     name: ['no_name', [Validators.required]],
     days: [[1, 2, 3], [Validators.required]]
@@ -27,7 +26,10 @@ export class FormuleInputComponent extends AliveState
   tag = this.model.value.name;
   days = this.model.value.days;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    // private  fa: FormArray
+  ) {
     super();
   }
 
@@ -47,5 +49,12 @@ export class FormuleInputComponent extends AliveState
   add() {
     this.model.controls[`name`].patchValue(this._name, { emitEvent: true });
     this.model.controls[`days`].patchValue([...this.model.controls[`days`].value, this.model.controls[`days`].value.length + 1], { emitEvent: true });
+  }
+  edit() {
+    this.nameEdit = true;
+  }
+  save() {
+    this.nameEdit = false;
+    this.model.controls[`name`].patchValue('Prosiaczek', { emitEvent: true });
   }
 }
