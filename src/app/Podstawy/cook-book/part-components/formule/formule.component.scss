@@ -1,43 +1,28 @@
-:host{
-  height: 100vw;
-}
-.add {
-  border: white ridge 10px;
-  width: min-content;
-  padding: 0 10px;
-  margin: 50px auto 100px auto;
-  user-select: none;
-  cursor: pointer;
-  background: gold;
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
 }
 
-.add:hover {
-  background: goldenrod;
+table {
+  margin: auto;
+  width: min-content;
+  height: min-content;
 }
-.container{
-  height: 100vh;
-  overflow-y: scroll;
+
+button {
+  position: absolute;
+  bottom: 0;
+  width: 50vw;
+  height: 50px;
 }
-.tile{
+
+.container {
   display: grid;
-  place-items: stretch;
-  min-height: 100px;
-  background: red;
-  width: available;
-  grid-template-columns: 1fr 4fr;
-  column-gap: 10px;
-  grid-template-areas:
-"name app";
-  >div{
-    background: indianred;
-  }
+  grid-template-columns: 1fr 1fr;
 }
-.editionPanel{
-  background: rebeccapurple;
-  margin: 1vh;
-  grid-area: name;
-}
-.app{
-  background: darkred;
-  grid-area: app;
+.input{
+  height: 24px;
+  margin: 13px 0;
 }

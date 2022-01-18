@@ -12,8 +12,8 @@
   row-gap: 10px;
   column-gap: 10px;
   grid-template-areas:
-"rest rest"
-"rest rest";
+"name rest"
+". rest";
   >div{
     background: goldenrod;
     border: ridge 2px goldenrod;

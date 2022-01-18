@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { AliveState } from '../../../../ActiveState';
+import { parse } from 'path';
 
 @Component({
   selector: 'app-formule-input',
@@ -18,43 +19,50 @@ export class FormuleInputComponent extends AliveState
   get name() {
     return this._name;
   }
+
   nameEdit = false;
-  model = this.fb.group({
-    name: ['no_name', [Validators.required]],
-    days: [[1, 2, 3], [Validators.required]]
+  @Input() model = this.fb.group({
+    lists: this.fb.array([])
   });
-  tag = this.model.value.name;
-  days = this.model.value.days;
 
   constructor(
-    private fb: FormBuilder,
-    // private  fa: FormArray
+    private fb: FormBuilder
   ) {
     super();
   }
 
+  get lists() {
+    return this.model.controls[`lists`] as FormArray;
+  }
+
   ngOnInit(): void {
-    this.subscribeWhileAlive(
-      this.model.valueChanges.pipe(
-        tap((name: { name: string }) => {
-            this.tag = this.model.value.name;
-            this.days = this.model.value.days;
-
-          }
-        )));
-    this.model.controls[`name`].patchValue(this._name, { emitEvent: true });
+    // this.subscribeWhileAlive(
+    //   this.model.valueChanges.pipe(
+    //     tap((name: { name: string }) => {
+    //       }
+    //     )));
+    // this.model.controls[`name`].patchValue(this._name, { emitEvent: true });
 
   }
 
+  // formReceiving(data: string) {
+  //   this.data = parse(data);
+  // }
   add() {
-    this.model.controls[`name`].patchValue(this._name, { emitEvent: true });
-    this.model.controls[`days`].patchValue([...this.model.controls[`days`].value, this.model.controls[`days`].value.length + 1], { emitEvent: true });
+    const newDay = this.fb.group({
+      day: 1, meals: [{ meal: 'meal 1', hour: '12', dishes: [] }]
+    });
+    this.lists.controls[`content.days`].push(newDay);
+    //   this.model.controls[`name`].patchValue(this._name, { emitEvent: true });
+    //   this.model.controls[`days`].patchValue([...this.model.controls[`days`].value, this.model.controls[`days`].value.length + 1], { emitEvent: true });
   }
+
   edit() {
     this.nameEdit = true;
   }
+
   save() {
     this.nameEdit = false;
-    this.model.controls[`name`].patchValue('Prosiaczek', { emitEvent: true });
+    // this.model.controls[`content.name`].patchValue('Prosiaczek', { emitEvent: true });
   }
 }

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AliveState } from '../../../../ActiveState';
 import { tap } from 'rxjs/operators';
+import { emit } from 'cluster';
+import { stringify } from 'querystring';
+import { parse } from 'path';
 
 @Component({
   selector: 'app-formule',
@@ -9,43 +12,40 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./formule.component.scss']
 })
 export class FormuleComponent extends AliveState implements OnInit {
-  model = this.fb.group({
-    lists: this.fb.array([])
-  });
+  forms = this.fb.array([]);
+
   constructor(private fb: FormBuilder) {
     super();
   }
-  get lists() {
-    return this.model.controls[`lists`] as FormArray;
+
+  _text = '';
+  set text(value: string) {
+    this._text = value;
   }
 
-  ngOnInit(): void {
+  get text() {
+    return this._text;
+  }
+
+  ngOnInit() {
     this.subscribeWhileAlive(
-      this.model.valueChanges.pipe(
-        tap((name: { name: string }) => {
-            // this.lists = this.model.value.lists;
-          }
-        )));
+      this.forms.valueChanges.pipe(
+        tap((value) => {
+          this.text = JSON.stringify(value);
+        })
+      )
+    );
   }
 
-  add() {
-    this.model.controls[`lists`].patchValue([...this.model.controls[`lists`].value,
-      `lista ${ this.model.controls[`lists`].value.length + 1 }`], { emitEvent: true });
+  addForm() {
+    this.forms.push(
+      new FormGroup({
+        name: new FormControl(
+          `formularz ${this.forms.value.length + 1}`,
+          [Validators.maxLength(14)]),
+        days: new FormControl([])
+      })
+    );
   }
-
-addControl() {
-    const newForm = this.fb.group({
-      name: ['newList', Validators.required],
-      // noContent: ['string for now', Validators.required]
-    });
-    this.lists.push(newForm);
 }
-delete(index: number) {
-    this.lists.removeAt(index);
-  }
-  save() {
-    this.model.controls[`name`].patchValue('Prosiaczek', { emitEvent: true });
-  }
 
-
-}
