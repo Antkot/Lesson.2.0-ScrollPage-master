@@ -14,9 +14,30 @@
 .add:hover {
   background: goldenrod;
 }
-.tile{
-}
 .container{
   height: 100vh;
   overflow-y: scroll;
+}
+.tile{
+  display: grid;
+  place-items: stretch;
+  min-height: 100px;
+  background: red;
+  width: available;
+  grid-template-columns: 1fr 4fr;
+  column-gap: 10px;
+  grid-template-areas:
+"name app";
+  >div{
+    background: indianred;
+  }
+}
+.editionPanel{
+  background: rebeccapurple;
+  margin: 1vh;
+  grid-area: name;
+}
+.app{
+  background: darkred;
+  grid-area: app;
 }
