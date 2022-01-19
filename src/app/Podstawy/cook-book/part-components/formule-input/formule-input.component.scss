@@ -2,6 +2,7 @@
   overflow: scroll;
 }
 .container{
+  width: 10vw;
   min-height: 23vh;
   background: gold;
   margin: 1vh;
@@ -12,8 +13,8 @@
   row-gap: 10px;
   column-gap: 10px;
   grid-template-areas:
-"name rest"
-". rest";
+"rest rest"
+"rest rest";
   >div{
     background: goldenrod;
     border: ridge 2px goldenrod;

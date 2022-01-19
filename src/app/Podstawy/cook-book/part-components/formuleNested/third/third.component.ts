@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AliveState } from '../../../../ActiveState';
 import { tap } from 'rxjs/operators';
+import { AliveState } from '../../../../../ActiveState';
 
 @Component({
-  selector: 'app-formule',
-  templateUrl: './formule.component.html',
-  styleUrls: ['./formule.component.scss']
+  selector: 'app-third',
+  templateUrl: './third.component.html',
+  styleUrls: ['./third.component.scss']
 })
-export class FormuleComponent extends AliveState implements OnInit {
+export class ThirdComponent extends AliveState implements OnInit {
+
   forms = this.fb.array([]);
 
   constructor(private fb: FormBuilder) {
@@ -37,12 +38,13 @@ export class FormuleComponent extends AliveState implements OnInit {
   addForm() {
     this.forms.push(
       new FormGroup({
-        name: new FormControl(
-          `formularz ${this.forms.value.length + 1}`,
+        meal: new FormControl(
+          `posiłek ${this.forms.value.length + 1}`,
           [Validators.maxLength(14)]),
-        days: new FormControl([])
+        hour: new FormControl(
+          `12:00`),
+        dishes: new FormControl([])
       })
     );
   }
 }
-``

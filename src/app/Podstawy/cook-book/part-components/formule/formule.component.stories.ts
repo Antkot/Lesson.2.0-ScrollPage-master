@@ -8,10 +8,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { ThirdComponent } from '../formuleNested/third/third.component';
+import { FourthComponent } from '../formuleNested/fourth/fourth.component';
 // import {MatDatepickerModule} from '@angular/material/datepicker';
 
 const decoration: NgModule = {
-  declarations: [FormuleComponent, FormuleInputComponent],
+  declarations: [FormuleInputComponent, ThirdComponent, FourthComponent],
   imports: [
     MatIconModule,
     BrowserModule,

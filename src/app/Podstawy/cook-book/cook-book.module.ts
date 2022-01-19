@@ -51,6 +51,8 @@ import { MainScreenComponent } from './main-components/main-screen/main-screen.c
 import { WordPipe } from './pipes/OtherPipes/word.pipe';
 import { FormuleComponent } from './part-components/formule/formule.component';
 import { FormuleInputComponent } from './part-components/formule-input/formule-input.component';
+import { ThirdComponent } from './part-components/formuleNested/third/third.component';
+import { FourthComponent } from './part-components/formuleNested/fourth/fourth.component';
 
 const links = [
   {
@@ -103,6 +105,8 @@ const links = [
     WordPipe,
     FormuleComponent,
     FormuleInputComponent,
+    ThirdComponent,
+    FourthComponent,
 
   ],
   exports: [

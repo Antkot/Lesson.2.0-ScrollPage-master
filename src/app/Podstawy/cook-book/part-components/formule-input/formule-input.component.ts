@@ -11,19 +11,10 @@ import { parse } from 'path';
 })
 export class FormuleInputComponent extends AliveState
   implements OnInit {
-  _name: string;
-  @Input() set name(name: string) {
-    this._name = name;
-  }
+  forms = this.fb.array([]);
 
-  get name() {
-    return this._name;
-  }
-
+  @Input() data: string;
   nameEdit = false;
-  @Input() model = this.fb.group({
-    lists: this.fb.array([])
-  });
 
   constructor(
     private fb: FormBuilder
@@ -31,38 +22,39 @@ export class FormuleInputComponent extends AliveState
     super();
   }
 
-  get lists() {
-    return this.model.controls[`lists`] as FormArray;
+
+  _text = '';
+  set text(value: string) {
+    this._text = value;
   }
+
+  get text() {
+    return this._text;
+  }
+
 
   ngOnInit(): void {
-    // this.subscribeWhileAlive(
-    //   this.model.valueChanges.pipe(
-    //     tap((name: { name: string }) => {
-    //       }
-    //     )));
+    this.subscribeWhileAlive(
+      this.forms.valueChanges.pipe(
+        tap((value) => {
+          console.log('data:', this.data);
+          const x = JSON.parse(this.data);
+          console.log('x: ', x);
+          this.text = JSON.stringify(value);
+        })
+      )
+    );
     // this.model.controls[`name`].patchValue(this._name, { emitEvent: true });
-
   }
 
-  // formReceiving(data: string) {
-  //   this.data = parse(data);
-  // }
   add() {
-    const newDay = this.fb.group({
-      day: 1, meals: [{ meal: 'meal 1', hour: '12', dishes: [] }]
-    });
-    this.lists.controls[`content.days`].push(newDay);
-    //   this.model.controls[`name`].patchValue(this._name, { emitEvent: true });
-    //   this.model.controls[`days`].patchValue([...this.model.controls[`days`].value, this.model.controls[`days`].value.length + 1], { emitEvent: true });
-  }
-
-  edit() {
-    this.nameEdit = true;
-  }
-
-  save() {
-    this.nameEdit = false;
-    // this.model.controls[`content.name`].patchValue('Prosiaczek', { emitEvent: true });
+    this.forms.push(
+      new FormGroup({
+        day: new FormControl(
+          `dzień  ${this.forms.value.length + 1}`,
+          [Validators.maxLength(14)]),
+        meals: new FormControl([])
+      })
+    );
   }
 }

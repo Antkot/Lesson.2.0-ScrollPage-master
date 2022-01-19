@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AliveState } from '../../../../ActiveState';
 import { tap } from 'rxjs/operators';
+import { AliveState } from '../../../../../ActiveState';
 
 @Component({
-  selector: 'app-formule',
-  templateUrl: './formule.component.html',
-  styleUrls: ['./formule.component.scss']
+  selector: 'app-fourth',
+  templateUrl: './fourth.component.html',
+  styleUrls: ['./fourth.component.scss']
 })
-export class FormuleComponent extends AliveState implements OnInit {
+export class FourthComponent extends AliveState implements OnInit {
+
   forms = this.fb.array([]);
 
   constructor(private fb: FormBuilder) {
@@ -37,12 +38,12 @@ export class FormuleComponent extends AliveState implements OnInit {
   addForm() {
     this.forms.push(
       new FormGroup({
-        name: new FormControl(
-          `formularz ${this.forms.value.length + 1}`,
+        dish: new FormControl(
+          `Danie ${this.forms.value.length + 1}`,
           [Validators.maxLength(14)]),
-        days: new FormControl([])
+        hmm: new FormControl([])
       })
     );
   }
 }
-``
+
