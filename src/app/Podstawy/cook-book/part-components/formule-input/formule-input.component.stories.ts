@@ -7,6 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ThirdComponent } from '../formuleNested/third/third.component';
 import { FourthComponent } from '../formuleNested/fourth/fourth.component';
+import { MatSelectModule } from '@angular/material/select';
 
 const decoration: NgModule = {
   declarations: [FormuleInputComponent, ThirdComponent, FourthComponent],
@@ -14,6 +15,7 @@ const decoration: NgModule = {
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatSelectModule
   ],
   exports: []
 };

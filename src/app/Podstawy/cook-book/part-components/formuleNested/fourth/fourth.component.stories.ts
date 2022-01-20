@@ -4,13 +4,14 @@ import { withKnobs } from '@storybook/addon-knobs';
 import {MatMenuModule} from '@angular/material/menu';
 import { FourthComponent } from './fourth.component';
 import { ThirdComponent } from '../third/third.component';
+import {MatSelectModule} from '@angular/material/select';
 
 
 const decoration: NgModule = {
   declarations: [
     FourthComponent, ThirdComponent
   ],
-  imports: [MatMenuModule
+  imports: [MatMenuModule, MatSelectModule
   ],
   providers: []
 };

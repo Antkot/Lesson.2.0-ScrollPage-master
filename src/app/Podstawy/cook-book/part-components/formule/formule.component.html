@@ -6,7 +6,8 @@
           <td [formGroup]='forms.controls[i]'>
             <input class='input' formControlName='name' />
           </td>
-          <td><app-formule-input [data]='_text'></app-formule-input></td>
+          <td><app-formule-input [days]='_days[i]'
+          (returnData)='returnData($event, i)'></app-formule-input></td>
         </tr>
       </ng-container>
     </table>
@@ -18,7 +19,9 @@
         <tr *ngFor='let form of forms.controls; index as i'>
           <td [formGroup]='$any(forms.controls[i])'>
         <pre>
-        {{ forms.value[i].name | json }}
+<!--        {{ forms.value[i].name | json }}-->
+        Name: {{ forms.value[i].name | json }}
+        Days: {{ forms.value[i].days | json }}
         </pre>
           </td>
         </tr>

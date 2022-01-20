@@ -4,10 +4,10 @@
       <ng-container>
         <tr *ngFor='let form of forms.controls; index as i'>
           <td [formGroup]='forms.controls[i]'>
-            <input class='input' formControlName='name' />
+            <input class='input' formControlName='meal' />
             <input class='input' formControlName='hour' />
           </td>
-          <td><app-fourth></app-fourth></td>
+<!--          <td><app-fourth  [dish]='_dishes[i]' (returnData)='returnedData($event, i)'></app-fourth></td>-->
         </tr>
       </ng-container>
     </table>

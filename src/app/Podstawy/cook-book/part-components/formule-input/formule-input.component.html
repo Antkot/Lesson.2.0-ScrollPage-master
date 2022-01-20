@@ -1,8 +1,8 @@
 <div class='container'>
   <div class='rest'>
-    <div class="tile" *ngFor='let form of forms.controls'>
+    <div class="tile" *ngFor='let form of forms.controls; index as i'>
       {{form.value.day}} <br/>
-      <td><app-third></app-third></td>
+      <td><app-third [meals]='_meals[i]' (returnData)='returnedData($event, i)'></app-third></td>
     </div>
     <div class='add' (click)='add()'>
       Dodaj dzień

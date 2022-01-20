@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { AliveState } from '../../../../../ActiveState';
@@ -9,6 +9,29 @@ import { AliveState } from '../../../../../ActiveState';
   styleUrls: ['./third.component.scss']
 })
 export class ThirdComponent extends AliveState implements OnInit {
+  @Output() returnData = new EventEmitter();
+
+  @Input() set meals(value: string) {
+    const model = JSON.parse(value);
+    model.forEach(({meal, hour, dishes}) => {
+      this.forms.push(
+        new FormGroup({
+          meal: new FormControl(meal),
+          hour: new FormControl(hour),
+          dishes: new FormControl(dishes)
+        })
+      );
+    });
+  }
+
+  _dishes: Array<{dish: string}> = [];
+  set dishes(value: Array<{dish: string}>) {
+    this._dishes = value;
+  }
+
+  get dishes() {
+    return this._dishes;
+  }
 
   forms = this.fb.array([]);
 
@@ -16,20 +39,15 @@ export class ThirdComponent extends AliveState implements OnInit {
     super();
   }
 
-  _text = '';
-  set text(value: string) {
-    this._text = value;
-  }
-
-  get text() {
-    return this._text;
-  }
-
   ngOnInit() {
+    this.returnData.emit(JSON.stringify(this.forms.value));
+    this.dishes = this.forms.value.map(({ dishes }) => JSON.stringify(dishes));
+
     this.subscribeWhileAlive(
       this.forms.valueChanges.pipe(
         tap((value) => {
-          this.text = JSON.stringify(value);
+          this.dishes = value.map(({ dishes }) => JSON.stringify(dishes));
+          this.returnData.emit(JSON.stringify(value));
         })
       )
     );
@@ -43,8 +61,14 @@ export class ThirdComponent extends AliveState implements OnInit {
           [Validators.maxLength(14)]),
         hour: new FormControl(
           `12:00`),
-        dishes: new FormControl([])
+        dishes: new FormControl([{ dish: `Chleb` }])
       })
     );
+  }
+  returnedData(returnedData: string, index: number) {
+    this.forms.value.find(
+      ({ meal }) =>
+        meal === this.forms.value[index].meal
+    ).dishes = JSON.parse(returnedData);
   }
 }

@@ -23,6 +23,7 @@ const decoration: NgModule = {
     MatFormFieldModule,
     MatOptionModule,
     MatSelectModule,
+
   ],
   exports: []
 };

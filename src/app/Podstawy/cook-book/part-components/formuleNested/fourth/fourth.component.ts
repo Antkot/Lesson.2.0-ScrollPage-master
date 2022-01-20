@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
 import { AliveState } from '../../../../../ActiveState';
@@ -10,26 +10,36 @@ import { AliveState } from '../../../../../ActiveState';
 })
 export class FourthComponent extends AliveState implements OnInit {
 
+  @Output() returnData = new EventEmitter();
+
+  @Input() set dish(value: string) {
+    const model = JSON.parse(value);
+    model.forEach(({ dish }) => {
+      this.forms.push(
+        new FormGroup({
+          name: new FormControl(dish)
+        })
+      );
+    });
+  }
+
+  _dishes: Array<{dish: string}> = [];
+  set dishes(value: Array<{dish: string}>) {
+    this._dishes = value;
+  }
+
   forms = this.fb.array([]);
 
   constructor(private fb: FormBuilder) {
     super();
   }
 
-  _text = '';
-  set text(value: string) {
-    this._text = value;
-  }
-
-  get text() {
-    return this._text;
-  }
 
   ngOnInit() {
     this.subscribeWhileAlive(
       this.forms.valueChanges.pipe(
         tap((value) => {
-          this.text = JSON.stringify(value);
+          this.returnData.emit(JSON.stringify(value));
         })
       )
     );
@@ -40,8 +50,7 @@ export class FourthComponent extends AliveState implements OnInit {
       new FormGroup({
         dish: new FormControl(
           `Danie ${this.forms.value.length + 1}`,
-          [Validators.maxLength(14)]),
-        hmm: new FormControl([])
+          [Validators.maxLength(14)])
       })
     );
   }
