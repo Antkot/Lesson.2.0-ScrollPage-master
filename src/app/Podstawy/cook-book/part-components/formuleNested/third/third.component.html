@@ -4,27 +4,17 @@
       <ng-container>
         <tr *ngFor='let form of forms.controls; index as i'>
           <td [formGroup]='forms.controls[i]'>
-            <input class='input' formControlName='meal' />
-            <input class='input' formControlName='hour' />
+            <input formControlName='meal' />
+            <input formControlName='hour' />
           </td>
-<!--          <td><app-fourth  [dish]='_dishes[i]' (returnData)='returnedData($event, i)'></app-fourth></td>-->
+          <td>
+            {{_dishes | json}}
+            <app-fourth [dish]='_dishes[i]' (dataSync)='dataBackup($event, i)'></app-fourth>
+          </td>
         </tr>
       </ng-container>
     </table>
     <button (click)='addForm()'>Dodaj posiłek</button>
-  </div>
-  <div>
-    <table>
-      <ng-container>
-        <tr *ngFor='let form of forms.controls; index as i'>
-          <td [formGroup]='$any(forms.controls[i])'>
-        <pre>
-        {{ forms.value[i].name | json }}
-        </pre>
-          </td>
-        </tr>
-      </ng-container>
-    </table>
   </div>
 </div>
 

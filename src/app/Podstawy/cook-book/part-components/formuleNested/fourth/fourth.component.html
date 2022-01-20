@@ -4,34 +4,18 @@
       <ng-container>
         <tr *ngFor='let form of forms.controls; index as i'>
           <td [formGroup]='forms.controls[i]'>
-            <mat-form-field appearance="fill">
-              <mat-label  formControlName='dish' >Wybierz danie</mat-label>
-              <select matNativeControl>
-                <option value="-" selected></option>
-                <option value="one">Kompocik</option>
-                <option value="two" disabled>Surówka</option>
-                <option value="third">Ziemniaki</option>
-                <option value="fourth">Schab</option>
-              </select>
-            </mat-form-field>
+              <input formControlName='dish' />
+<!--              <mat-label>Wybierz danie</mat-label>-->
+<!--              <select matNativeControl>-->
+<!--                <option value="-" selected></option>-->
+<!--                <option value="one">Kompocik</option>-->
+<!--                <option value="two" disabled>Surówka</option>-->
+<!--                <option value="third">Ziemniaki</option>-->
+<!--                <option value="fourth">Schab</option>-->
+<!--              </select>-->
           </td>
         </tr>
       </ng-container>
     </table>
     <button (click)='addForm()'>Dodaj Danie</button>
   </div>
-  <div>
-    <table>
-      <ng-container>
-        <tr *ngFor='let form of forms.controls; index as i'>
-          <td [formGroup]='$any(forms.controls[i])'>
-        <pre>
-        {{ forms.value[i] | json }}
-        </pre>
-          </td>
-        </tr>
-      </ng-container>
-    </table>
-  </div>
-</div>
-

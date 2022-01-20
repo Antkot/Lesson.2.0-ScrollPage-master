@@ -10,25 +10,29 @@ import { AliveState } from '../../../../../ActiveState';
 })
 export class FourthComponent extends AliveState implements OnInit {
 
-  @Output() returnData = new EventEmitter();
+  @Output() dataSync = new EventEmitter();
+  forms = this.fb.array([]);
 
   @Input() set dish(value: string) {
-    const model = JSON.parse(value);
-    model.forEach(({ dish }) => {
-      this.forms.push(
-        new FormGroup({
-          name: new FormControl(dish)
-        })
-      );
-    });
+    console.log(11111, value);
+      const model = JSON.parse(value);
+      // model?.forEach(({ dish }, index) => {
+      //   this.forms.setControl(index,
+      //     new FormGroup({
+      //       dish: new FormControl(dish)
+      //     })
+      //   );
+      // });
+    const _forms = [];
+    Object.entries(model ).forEach(
+      (x: {}) => {
+        _forms.push({
+          dish: x[1].dish,
+        });
+      });
+    this.forms.setValue(_forms, {emitEvent: false});
   }
 
-  _dishes: Array<{dish: string}> = [];
-  set dishes(value: Array<{dish: string}>) {
-    this._dishes = value;
-  }
-
-  forms = this.fb.array([]);
 
   constructor(private fb: FormBuilder) {
     super();
@@ -39,7 +43,7 @@ export class FourthComponent extends AliveState implements OnInit {
     this.subscribeWhileAlive(
       this.forms.valueChanges.pipe(
         tap((value) => {
-          this.returnData.emit(JSON.stringify(value));
+          this.dataSync.emit(JSON.stringify(value));
         })
       )
     );
@@ -48,9 +52,7 @@ export class FourthComponent extends AliveState implements OnInit {
   addForm() {
     this.forms.push(
       new FormGroup({
-        dish: new FormControl(
-          `Danie ${this.forms.value.length + 1}`,
-          [Validators.maxLength(14)])
+        dish: new FormControl(`Danie ${this.forms.value.length + 1}`)
       })
     );
   }

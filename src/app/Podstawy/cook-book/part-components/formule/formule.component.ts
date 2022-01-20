@@ -10,8 +10,8 @@ import { tap } from 'rxjs/operators';
 })
 export class FormuleComponent extends AliveState implements OnInit {
   forms = this.fb.array([]);
-  _days: Array<{day: string, meals: Array<{ meal: string, hour: string, dishes: Array<{dish: string}> }>}> = [];
-  set days(value: Array<{day: string, meals: Array<{ meal: string, hour: string, dishes: Array<{dish: string}> }>}>) {
+  _days: Array<string> = [];
+  set days(value: Array<string>) {
     this._days = value;
   }
 
@@ -27,7 +27,7 @@ export class FormuleComponent extends AliveState implements OnInit {
     this.subscribeWhileAlive(
       this.forms.valueChanges.pipe(
         tap((value) => {
-          this.days = value.map(({ days }) => JSON.stringify(days));
+          this.days = [...value.map(({ days }) => JSON.stringify(days)) ];
         })
       )
     );
@@ -37,25 +37,22 @@ export class FormuleComponent extends AliveState implements OnInit {
     this.forms.push(
       new FormGroup({
         name: new FormControl(
-          `formularz ${this.forms.value.length + 1}`,
-          [Validators.maxLength(14)]),
-        days: new FormControl([{
-          day: 'dzień 1',
-          meals: [{
-            meal: 'Nowy',
-            hour: '15:15',
-            dishes: [{ dish: `Chleb 2` }],
-          }]
-        }])
+          `formularz ${this.forms.value.length + 1}`),
+        days: new FormControl([])
       })
     );
   }
 
   returnData(returnedData: string, index: number) {
-    this.forms.value.find(
-      ({ name }) =>
-        name === this.forms.value[index].name
-    ).days = JSON.parse(returnedData);
+    const model = [];
+    Object.entries({ ...this.forms.value }).forEach(
+      (x: {}) => {
+        model.push({
+          name: x[1].name,
+          days: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].days
+        });
+      });
+    this.forms.setValue(model);
   }
 }
 
