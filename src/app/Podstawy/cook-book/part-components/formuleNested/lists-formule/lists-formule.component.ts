@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AliveState } from '../../../../ActiveState';
+import { AliveState } from '../../../../../ActiveState';
 import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-formule',
-  templateUrl: './formule.component.html',
-  styleUrls: ['./formule.component.scss']
+  templateUrl: './lists-formule.component.html',
+  styleUrls: ['./lists-formule.component.scss']
 })
-export class FormuleComponent extends AliveState implements OnInit {
+export class ListsFormuleComponent extends AliveState implements OnInit {
   forms = this.fb.array([]);
   _days: Array<string> = [];
   set days(value: Array<string>) {

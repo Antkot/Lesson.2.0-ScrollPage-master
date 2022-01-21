@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormuleInputComponent } from './formule-input.component';
+import { DaysFormuleComponent } from './days-formule.component';
 
 describe('FormuleInputComponent', () => {
-  let component: FormuleInputComponent;
-  let fixture: ComponentFixture<FormuleInputComponent>;
+  let component: DaysFormuleComponent;
+  let fixture: ComponentFixture<DaysFormuleComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FormuleInputComponent ]
+      declarations: [ DaysFormuleComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FormuleInputComponent);
+    fixture = TestBed.createComponent(DaysFormuleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

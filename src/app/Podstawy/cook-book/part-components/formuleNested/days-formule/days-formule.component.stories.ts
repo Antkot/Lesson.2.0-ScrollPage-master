@@ -1,16 +1,16 @@
 import { moduleMetadata, storiesOf } from '@storybook/angular';
 import { NgModule } from '@angular/core';
-import { FormuleInputComponent } from './formule-input.component';
+import { DaysFormuleComponent } from './days-formule.component';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ThirdComponent } from '../formuleNested/third/third.component';
-import { FourthComponent } from '../formuleNested/fourth/fourth.component';
+import { ThirdComponent } from '../third/third.component';
+import { FourthComponent } from '../fourth/fourth.component';
 import { MatSelectModule } from '@angular/material/select';
 
 const decoration: NgModule = {
-  declarations: [FormuleInputComponent, ThirdComponent, FourthComponent],
+  declarations: [DaysFormuleComponent, ThirdComponent, FourthComponent],
   imports: [MatIconModule, BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -23,8 +23,8 @@ const decoration: NgModule = {
 storiesOf('Podstawy / Pierwsze kroki', module)
   .addDecorator(moduleMetadata(decoration))
   .add('FormuleInputComponent', () => ({
-    props: {} as Partial<FormuleInputComponent>,
-    component: FormuleInputComponent
+    props: {} as Partial<DaysFormuleComponent>,
+    component: DaysFormuleComponent
   }));
 
 

@@ -47,12 +47,11 @@ import { ProductAllMeasuresPipe } from './pipes/OtherPipes/product-all-measures.
 import { MultiplicationPipe } from './pipes/OtherPipes/multiplication.pipe';
 import { DishTypeComponent } from './part-components/dish-type/dish-type.component';
 import { AbandonEditionComponent } from './part-components/abandon-edition/abandon-edition.component';
-import { MainScreenComponent } from './main-components/main-screen/main-screen.component';
 import { WordPipe } from './pipes/OtherPipes/word.pipe';
-import { FormuleComponent } from './part-components/formule/formule.component';
-import { FormuleInputComponent } from './part-components/formule-input/formule-input.component';
 import { ThirdComponent } from './part-components/formuleNested/third/third.component';
 import { FourthComponent } from './part-components/formuleNested/fourth/fourth.component';
+import { ListsFormuleComponent } from './part-components/formuleNested/lists-formule/lists-formule.component';
+import { DaysFormuleComponent } from './part-components/formuleNested/days-formule/days-formule.component';
 
 const links = [
   {
@@ -103,8 +102,8 @@ const links = [
     DishTypeComponent,
     AbandonEditionComponent,
     WordPipe,
-    FormuleComponent,
-    FormuleInputComponent,
+    ListsFormuleComponent,
+    DaysFormuleComponent,
     ThirdComponent,
     FourthComponent,
 

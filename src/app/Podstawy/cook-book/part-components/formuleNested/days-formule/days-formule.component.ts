@@ -1,15 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { filter, tap } from 'rxjs/operators';
-import { AliveState } from '../../../../ActiveState';
+import { AliveState } from '../../../../../ActiveState';
 import { parse } from 'path';
 
 @Component({
   selector: 'app-formule-input',
-  templateUrl: './formule-input.component.html',
-  styleUrls: ['./formule-input.component.scss']
+  templateUrl: './days-formule.component.html',
+  styleUrls: ['./days-formule.component.scss']
 })
-export class FormuleInputComponent extends AliveState
+export class DaysFormuleComponent extends AliveState
   implements OnInit {
   @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
