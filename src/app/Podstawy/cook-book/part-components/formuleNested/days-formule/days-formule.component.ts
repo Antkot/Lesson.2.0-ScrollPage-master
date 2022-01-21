@@ -20,7 +20,6 @@ export class DaysFormuleComponent extends AliveState
 
   _meals: Array<string> = [];
   set meals(value: Array<string>) {
-    console.log('meals', value);
     this._meals = value;
   }
 
@@ -39,9 +38,7 @@ export class DaysFormuleComponent extends AliveState
     this.subscribeWhileAlive(
       this.forms.valueChanges.pipe(
         tap((value) => {
-          console.log('dodanie', value);
           this.meals = [ ...value.map(({ meals }) => JSON.stringify(meals)) ];
-          console.log('do rodzica', value);
           this.dataSync.emit(JSON.stringify(value));
         })
       )
@@ -68,5 +65,9 @@ export class DaysFormuleComponent extends AliveState
         });
       });
     this.forms.setValue(model, {emitEvent: eventEmitter});
+  }
+
+  remove(index) {
+    this.forms.removeAt(index);
   }
 }

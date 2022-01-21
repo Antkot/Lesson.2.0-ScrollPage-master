@@ -2,6 +2,10 @@
   <div class='rest'>
     <div class="tile" *ngFor='let form of forms.controls; index as i'>
       {{form.value.day}} <br/>
+
+      <div (click)='remove(i)'>
+        <mat-icon>delete</mat-icon>
+      </div>
       <td><app-third [meals]='_meals[i]' (dataSync)='dataBackup($event, i, true)'></app-third></td>
     </div>
     <div class='add' (click)='add()'>

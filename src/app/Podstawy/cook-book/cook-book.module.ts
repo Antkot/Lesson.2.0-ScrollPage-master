@@ -48,10 +48,11 @@ import { MultiplicationPipe } from './pipes/OtherPipes/multiplication.pipe';
 import { DishTypeComponent } from './part-components/dish-type/dish-type.component';
 import { AbandonEditionComponent } from './part-components/abandon-edition/abandon-edition.component';
 import { WordPipe } from './pipes/OtherPipes/word.pipe';
-import { ThirdComponent } from './part-components/formuleNested/third/third.component';
-import { FourthComponent } from './part-components/formuleNested/fourth/fourth.component';
+import { DishFormuleComponent } from './part-components/formuleNested/dish-formule/dish-formule.component';
 import { ListsFormuleComponent } from './part-components/formuleNested/lists-formule/lists-formule.component';
 import { DaysFormuleComponent } from './part-components/formuleNested/days-formule/days-formule.component';
+import { MealFormuleComponent } from './part-components/formuleNested/meal-formule/meal-formule.component';
+import { ForbiddenNameDirective } from './part-components/formuleNested/forbidden-name.directive';
 
 const links = [
   {
@@ -104,9 +105,9 @@ const links = [
     WordPipe,
     ListsFormuleComponent,
     DaysFormuleComponent,
-    ThirdComponent,
-    FourthComponent,
-
+    DishFormuleComponent,
+    MealFormuleComponent,
+    ForbiddenNameDirective
   ],
   exports: [
     SideFilterComponent,

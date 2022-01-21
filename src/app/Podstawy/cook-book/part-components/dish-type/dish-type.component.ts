@@ -76,8 +76,8 @@ export class DishTypeComponent
       }));
 
   // selectedDishes$ = this.dishesList$.pipe(
-  //   map((dish) => {
-  //     return dish.find(
+  //   map((dish-formule) => {
+  //     return dish-formule.find(
   //       ({ dishId }) =>
   //         dishId === this.dishId
   //     ).dishType;

@@ -5,15 +5,14 @@ import { AliveState } from '../../../../../ActiveState';
 
 @Component({
   selector: 'app-third',
-  templateUrl: './third.component.html',
-  styleUrls: ['./third.component.scss']
+  templateUrl: './meal-formule.component.html',
+  styleUrls: ['./meal-formule.component.scss']
 })
-export class ThirdComponent extends AliveState implements OnInit {
+export class MealFormuleComponent extends AliveState implements OnInit {
   @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
 
   @Input() set meals(value: string) {
-    console.log('budowanie', value);
     this.dataBackup(value, -1, false);
   }
 
@@ -64,5 +63,8 @@ export class ThirdComponent extends AliveState implements OnInit {
         });
       });
     this.forms.setValue(model, {emitEvent: eventEmitter});
+  }
+  remove(index) {
+    this.forms.removeAt(index);
   }
 }

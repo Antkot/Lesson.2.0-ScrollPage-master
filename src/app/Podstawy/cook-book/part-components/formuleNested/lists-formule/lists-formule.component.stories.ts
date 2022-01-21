@@ -7,12 +7,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import { ThirdComponent } from '../third/third.component';
-import { FourthComponent } from '../fourth/fourth.component';
+import { DishFormuleComponent } from '../dish-formule/dish-formule.component';
 import { DaysFormuleComponent } from '../days-formule/days-formule.component';
+import { MealFormuleComponent } from '../meal-formule/meal-formule.component';
 
 const decoration: NgModule = {
-  declarations: [DaysFormuleComponent, ThirdComponent, FourthComponent],
+  declarations: [DaysFormuleComponent, MealFormuleComponent, DishFormuleComponent],
   imports: [
     MatIconModule,
     BrowserModule,

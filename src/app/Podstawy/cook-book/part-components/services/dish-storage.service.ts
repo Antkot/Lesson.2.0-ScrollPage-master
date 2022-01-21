@@ -365,16 +365,16 @@ export class DishStorageService {
   //     this.dishesList$.next([...this.dishesList$.value, { ...this.dishesListCopied$.value }]);
   //   } else {
 
-  //     this.dishesList$.pipe(first()).subscribe((dish) => {
-  //       indexOfDish = dish.findIndex(({ dishId }) =>
+  //     this.dishesList$.pipe(first()).subscribe((dish-formule) => {
+  //       indexOfDish = dish-formule.findIndex(({ dishId }) =>
   //         dishId === givenDishId);
   //     });
   //   }
   //   this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
   //   this.editState = false;
   //   this.dishesList$.subscribe(val3ue => console.table(val3ue));
-  //   this.dishesList$.pipe(first()).subscribe((dish) => {
-  //     inedxOfLastDish = dish.findIndex(({ dishId }) =>
+  //   this.dishesList$.pipe(first()).subscribe((dish-formule) => {
+  //     inedxOfLastDish = dish-formule.findIndex(({ dishId }) =>
   //       dishId === givenDishId);
   //   });
   //   this.reindex(this.dishesList$.value, inedxOfLastDish, indexOfDish);
@@ -440,7 +440,7 @@ export class DishStorageService {
   deleteAllOf(bothId) {
     // usunąć wszystkie product o id
     //   const current: Array<Dish> = JSON.parse(this.localStorageService.getItem('dishList'));
-    //   this.dishesList$.next([...current.find( ({ dish }) => )]);
+    //   this.dishesList$.next([...current.find( ({ dish-formule }) => )]);
     //   this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }
 

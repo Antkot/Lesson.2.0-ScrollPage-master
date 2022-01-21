@@ -54,5 +54,8 @@ export class ListsFormuleComponent extends AliveState implements OnInit {
       });
     this.forms.setValue(model);
   }
+  remove(index) {
+    this.forms.removeAt(index);
+  }
 }
 

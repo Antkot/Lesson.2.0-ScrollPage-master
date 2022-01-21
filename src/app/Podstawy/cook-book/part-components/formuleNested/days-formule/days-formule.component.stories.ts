@@ -5,12 +5,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ThirdComponent } from '../third/third.component';
-import { FourthComponent } from '../fourth/fourth.component';
+import { DishFormuleComponent } from '../dish-formule/dish-formule.component';
 import { MatSelectModule } from '@angular/material/select';
+import { MealFormuleComponent } from '../meal-formule/meal-formule.component';
 
 const decoration: NgModule = {
-  declarations: [DaysFormuleComponent, ThirdComponent, FourthComponent],
+  declarations: [DaysFormuleComponent, MealFormuleComponent, DishFormuleComponent],
   imports: [MatIconModule, BrowserModule,
     FormsModule,
     ReactiveFormsModule,
