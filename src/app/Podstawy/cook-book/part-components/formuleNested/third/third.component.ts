@@ -14,17 +14,7 @@ export class ThirdComponent extends AliveState implements OnInit {
 
   @Input() set meals(value: string) {
     console.log('budowanie', value);
-    const model = JSON.parse(value);
-    const _forms = [];
-    Object.entries(model).forEach(
-      (x: {}) => {
-        _forms.push({
-          meal: x[1].meal,
-          hour: x[1].hour,
-          dishes: x[1].dishes
-        });
-      });
-    this.forms.setValue(_forms, {emitEvent: false});
+    this.dataBackup(value, -1, false);
   }
 
   _dishes: Array<string> = [];
@@ -63,7 +53,7 @@ export class ThirdComponent extends AliveState implements OnInit {
     );
   }
 
-  dataBackup(returnedData: string, index: number) {
+  dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
     const model = [];
     Object.entries({ ...this.forms.value }).forEach(
       (x: {}) => {
@@ -73,6 +63,6 @@ export class ThirdComponent extends AliveState implements OnInit {
           dishes: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].dishes
         });
       });
-    this.forms.setValue(model);
+    this.forms.setValue(model, {emitEvent: eventEmitter});
   }
 }

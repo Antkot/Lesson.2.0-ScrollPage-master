@@ -15,16 +15,7 @@ export class FormuleInputComponent extends AliveState
   forms = this.fb.array([]);
 
   @Input() set days(value: string) {
-    const model = JSON.parse(value);
-    const _forms = [];
-    Object.entries(model ).forEach(
-      (x: {}) => {
-        _forms.push({
-          day: x[1].day,
-          meals: x[1].meals
-        });
-      });
-    this.forms.setValue(_forms, {emitEvent: false});
+    this.dataBackup(value, -1, false);
   }
 
   _meals: Array<string> = [];
@@ -67,7 +58,7 @@ export class FormuleInputComponent extends AliveState
     );
   }
 
-  dataBackup(returnedData: string, index: number) {
+  dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
     const model = [];
     Object.entries({ ...this.forms.value }).forEach(
       (x: {}) => {
@@ -76,6 +67,6 @@ export class FormuleInputComponent extends AliveState
           meals: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].meals
         });
       });
-    this.forms.setValue(model);
+    this.forms.setValue(model, {emitEvent: eventEmitter});
   }
 }
