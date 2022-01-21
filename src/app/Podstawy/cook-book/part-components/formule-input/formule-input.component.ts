@@ -11,7 +11,7 @@ import { parse } from 'path';
 })
 export class FormuleInputComponent extends AliveState
   implements OnInit {
-  @Output() returnData = new EventEmitter();
+  @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
 
   @Input() set days(value: string) {
@@ -51,7 +51,7 @@ export class FormuleInputComponent extends AliveState
           console.log('dodanie', value);
           this.meals = [ ...value.map(({ meals }) => JSON.stringify(meals)) ];
           console.log('do rodzica', value);
-          this.returnData.emit(JSON.stringify(value));
+          this.dataSync.emit(JSON.stringify(value));
         })
       )
     );
@@ -67,7 +67,7 @@ export class FormuleInputComponent extends AliveState
     );
   }
 
-  returnedData(returnedData: string, index: number) {
+  dataBackup(returnedData: string, index: number) {
     const model = [];
     Object.entries({ ...this.forms.value }).forEach(
       (x: {}) => {

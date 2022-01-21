@@ -7,7 +7,7 @@
             <input formControlName='name' />
           </td>
           <td><app-formule-input [days]='_days[i]'
-          (returnData)='returnData($event, i)'></app-formule-input></td>
+          (dataSync)='dataBackup($event, i)'></app-formule-input></td>
         </tr>
       </ng-container>
     </table>

@@ -43,7 +43,7 @@ export class FormuleComponent extends AliveState implements OnInit {
     );
   }
 
-  returnData(returnedData: string, index: number) {
+  dataBackup(returnedData: string, index: number) {
     const model = [];
     Object.entries({ ...this.forms.value }).forEach(
       (x: {}) => {

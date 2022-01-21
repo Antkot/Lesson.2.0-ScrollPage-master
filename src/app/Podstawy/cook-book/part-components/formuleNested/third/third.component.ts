@@ -9,7 +9,7 @@ import { AliveState } from '../../../../../ActiveState';
   styleUrls: ['./third.component.scss']
 })
 export class ThirdComponent extends AliveState implements OnInit {
-  @Output() dataForwarder = new EventEmitter();
+  @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
 
   @Input() set meals(value: string) {
@@ -45,7 +45,7 @@ export class ThirdComponent extends AliveState implements OnInit {
       this.forms.valueChanges.pipe(
         tap((value) => {
           this.dishes = [...value.map(({ dishes }) => JSON.stringify(dishes))];
-          this.dataForwarder.emit(JSON.stringify(value)
+          this.dataSync.emit(JSON.stringify(value)
           );
         }))
     );
