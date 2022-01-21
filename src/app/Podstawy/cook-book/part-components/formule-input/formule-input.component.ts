@@ -16,14 +16,6 @@ export class FormuleInputComponent extends AliveState
 
   @Input() set days(value: string) {
     const model = JSON.parse(value);
-    // model.forEach(({ day, meals }, index) => {
-    //   this.forms.setControl(index,
-    //     new FormGroup({
-    //       day: new FormControl(day),
-    //       meals: new FormControl(meals)
-    //     })
-    //   );
-    // });
     const _forms = [];
     Object.entries(model ).forEach(
       (x: {}) => {

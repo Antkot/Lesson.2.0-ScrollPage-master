@@ -8,7 +8,6 @@
             <input formControlName='hour' />
           </td>
           <td>
-            {{_dishes | json}}
             <app-fourth [dish]='_dishes[i]' (dataSync)='dataBackup($event, i)'></app-fourth>
           </td>
         </tr>

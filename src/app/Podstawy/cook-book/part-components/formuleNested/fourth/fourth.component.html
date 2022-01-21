@@ -5,14 +5,6 @@
         <tr *ngFor='let form of forms.controls; index as i'>
           <td [formGroup]='forms.controls[i]'>
               <input formControlName='dish' />
-<!--              <mat-label>Wybierz danie</mat-label>-->
-<!--              <select matNativeControl>-->
-<!--                <option value="-" selected></option>-->
-<!--                <option value="one">Kompocik</option>-->
-<!--                <option value="two" disabled>Surówka</option>-->
-<!--                <option value="third">Ziemniaki</option>-->
-<!--                <option value="fourth">Schab</option>-->
-<!--              </select>-->
           </td>
         </tr>
       </ng-container>

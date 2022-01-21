@@ -16,13 +16,6 @@ export class FourthComponent extends AliveState implements OnInit {
   @Input() set dish(value: string) {
     console.log(11111, value);
       const model = JSON.parse(value);
-      // model?.forEach(({ dish }, index) => {
-      //   this.forms.setControl(index,
-      //     new FormGroup({
-      //       dish: new FormControl(dish)
-      //     })
-      //   );
-      // });
     const _forms = [];
     Object.entries(model ).forEach(
       (x: {}) => {

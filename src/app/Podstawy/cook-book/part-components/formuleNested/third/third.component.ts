@@ -15,15 +15,6 @@ export class ThirdComponent extends AliveState implements OnInit {
   @Input() set meals(value: string) {
     console.log('budowanie', value);
     const model = JSON.parse(value);
-    // model.forEach(({ meal, hour, dishes }, index) => {
-    //   this.forms.setControl(index,
-    //     new FormGroup({
-    //       meal: new FormControl(meal),
-    //       hour: new FormControl(hour),
-    //       dishes: new FormControl(dishes)
-    //     })
-    //   );
-    // });
     const _forms = [];
     Object.entries(model).forEach(
       (x: {}) => {
@@ -44,7 +35,6 @@ export class ThirdComponent extends AliveState implements OnInit {
   get dishes() {
     return this._dishes;
   }
-
 
   constructor(private fb: FormBuilder) {
     super();
