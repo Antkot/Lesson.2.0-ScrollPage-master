@@ -1,0 +1,18 @@
+.container{
+  border: palegoldenrod 1px ridge;
+}
+.delete{
+  cursor: pointer;
+  height: max-content;
+  width: max-content;
+}
+tr{
+  padding: 50px 0;
+  display: flex;
+}
+td{
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: 1fr;
+  width: calc(25vw - 2px);
+}
