@@ -15,7 +15,17 @@ export class DaysFormuleComponent extends AliveState
   forms = this.fb.array([]);
 
   @Input() set days(value: string) {
-    this.dataBackup(value, -1, false);
+    this.meals = [...JSON.parse(value).map(({ meals }) => JSON.stringify(meals))];
+    JSON.parse(value).forEach(
+      ({ day, meals }, index) => {
+        if (!!this.forms.controls[index]) {
+          this.forms.setControl(
+            index, new FormGroup({ day: new FormControl(day), meals: new FormControl(meals) }));
+        } else {
+          this.forms.push(
+            new FormGroup({ day: new FormControl(day), meals: new FormControl(meals) }));
+        }
+      });
   }
 
   _meals: Array<string> = [];
@@ -35,10 +45,11 @@ export class DaysFormuleComponent extends AliveState
 
 
   ngOnInit(): void {
+
     this.subscribeWhileAlive(
       this.forms.valueChanges.pipe(
         tap((value) => {
-          this.meals = [ ...value.map(({ meals }) => JSON.stringify(meals)) ];
+          this.meals = [...value.map(({ meals }) => JSON.stringify(meals))];
           this.dataSync.emit(JSON.stringify(value));
         })
       )
@@ -64,7 +75,7 @@ export class DaysFormuleComponent extends AliveState
           meals: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].meals
         });
       });
-    this.forms.setValue(model, {emitEvent: eventEmitter});
+    this.forms.setValue(model, { emitEvent: eventEmitter });
   }
 
   remove(index) {

@@ -5,12 +5,12 @@
         <tr *ngFor='let form of forms.controls; index as i'>
           <td [formGroup]='forms.controls[i]'>
             <input formControlName='name' />
-            <div (click)='remove(i)'>
-              <mat-icon>delete</mat-icon>
-            </div>
           </td>
+          <td><div (click)='remove(i)' class='delete'>
+            <mat-icon>delete</mat-icon>
+          </div></td>
           <td><app-formule-input [days]='_days[i]'
-          (dataSync)='dataBackup($event, i)'></app-formule-input></td>
+          (dataSync)='dataBackup($event, i, true)'></app-formule-input></td>
         </tr>
       </ng-container>
     </table>

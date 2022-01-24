@@ -1,8 +1,9 @@
-:host{
+:host {
   overflow: scroll;
 }
-.container{
-  width: 20vw;
+
+.container {
+  width: 50vw;
   background: gold;
   margin: 1vh;
   border: white 2px ridge;
@@ -14,18 +15,22 @@
   grid-template-areas:
 "rest rest"
 "rest rest";
-  >div{
+
+  > div {
     background: goldenrod;
     border: ridge 2px goldenrod;
   }
 }
-.name{
+
+.name {
   grid-area: name;
   text-align: center;
 }
-.rest{
+
+.rest {
   grid-area: rest;
 }
+
 .add {
   margin: 15px auto;
   border: white ridge 1px;
@@ -39,9 +44,19 @@
 .add:hover {
   background: goldenrod;
 }
-.tile{
-  border: solid 1px darkgoldenrod;
+
+.tile {
   margin: 2px;
-  height: max-content;
+  height: 100px;
   padding-bottom: 20px;
+}
+
+.delete {
+  cursor: pointer;
+  height: max-content;
+  width: max-content;
+}
+
+td {
+  display: flex;
 }

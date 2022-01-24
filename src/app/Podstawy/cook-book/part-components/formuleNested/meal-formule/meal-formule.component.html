@@ -1,20 +1,20 @@
 <div class='container'>
   <div>
     <table>
-      <ng-container>
         <tr *ngFor='let form of forms.controls; index as i'>
           <td [formGroup]='forms.controls[i]'>
+            <div (click)='remove(i)'  class='delete'>
+              <mat-icon>delete</mat-icon>
+            </div>
+            <div>
             <input formControlName='meal' />
             <input formControlName='hour' />
-            <div (click)='remove(i)'>
-              <mat-icon>delete</mat-icon>
             </div>
           </td>
           <td>
             <app-fourth [dish]='_dishes[i]' (dataSync)='dataBackup($event, i, true)'></app-fourth>
           </td>
         </tr>
-      </ng-container>
     </table>
     <button (click)='addForm()' *ngIf='!forms.invalid'>Dodaj posiłek</button>
   </div>

@@ -4,13 +4,15 @@
       <ng-container>
         <tr *ngFor='let form of forms.controls; index as i'>
           <td [formGroup]='forms.controls[i]'>
-            <div (click)='remove(i)'>
+            <div (click)='remove(i)' class='delete'>
               <mat-icon>delete</mat-icon>
             </div>
-            <select formControlName="dish">
-              <option [ngValue]="null" disabled>Wybierz danie</option>
-              <option *ngFor="let dish of dishesList$ | async" [ngValue]="dish.dishId">{{dish.name}}</option>
-            </select>
+            <div>
+              <select formControlName='dish'>
+                <option [ngValue]='null' disabled>Wybierz danie</option>
+                <option *ngFor='let dish of dishesList$ | async' [ngValue]='dish.dishId'>{{dish.name}}</option>
+              </select>
+            </div>
           </td>
         </tr>
       </ng-container>

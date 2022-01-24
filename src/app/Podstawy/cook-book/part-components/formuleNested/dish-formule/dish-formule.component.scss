@@ -1,0 +1,11 @@
+
+.delete{
+  cursor: pointer;
+  height: max-content;
+  width: max-content;
+}
+td{
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: 1fr;
+}

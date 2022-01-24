@@ -17,16 +17,16 @@ export class DishFormuleComponent extends AliveState implements OnInit {
   @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
 
-  @Input() set dish(value: string) {
-    const model = JSON.parse(value);
-    const _forms = [];
-    Object.entries(model).forEach(
-      (x: {}) => {
-        _forms.push({
-          dish: x[1].dish
-        });
-      });
-    this.forms.setValue(_forms, { emitEvent: false });
+  @Input() set dish(value: string) {JSON.parse(value).forEach(
+    ({ dish }, index) => {
+      if (!!this.forms.controls[index]) {
+        this.forms.setControl(
+          index, new FormGroup({ dish: new FormControl(dish)}));
+      } else {
+        this.forms.push(
+          new FormGroup({ dish: new FormControl(dish)}));
+      }
+    });
   }
 
 

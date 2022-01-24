@@ -24,10 +24,22 @@ export class ListsFormuleComponent extends AliveState implements OnInit {
   }
 
   ngOnInit() {
+    setTimeout(() => {
+      const storageData = JSON.parse(localStorage.getItem('formule'));
+      if (!!storageData) {
+        this.days = storageData.map(({ days }) => JSON.stringify(days));
+        storageData.forEach(
+          ({ name, days }) => {
+            this.forms.push(
+              new FormGroup({ name: new FormControl(name), days: new FormControl(days) }));
+          });
+      }
+    }, 2000);
     this.subscribeWhileAlive(
       this.forms.valueChanges.pipe(
         tap((value) => {
-          this.days = [...value.map(({ days }) => JSON.stringify(days)) ];
+          this.days = [...value.map(({ days }) => JSON.stringify(days))];
+          localStorage.setItem('formule', JSON.stringify(value));
         })
       )
     );
@@ -43,7 +55,7 @@ export class ListsFormuleComponent extends AliveState implements OnInit {
     );
   }
 
-  dataBackup(returnedData: string, index: number) {
+  dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
     const model = [];
     Object.entries({ ...this.forms.value }).forEach(
       (x: {}) => {
@@ -52,8 +64,9 @@ export class ListsFormuleComponent extends AliveState implements OnInit {
           days: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].days
         });
       });
-    this.forms.setValue(model);
+    this.forms.setValue(model, { emitEvent: eventEmitter });
   }
+
   remove(index) {
     this.forms.removeAt(index);
   }
