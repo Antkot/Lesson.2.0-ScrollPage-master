@@ -1,21 +1,22 @@
 <div class='container'>
-  <div>
-    <table>
-        <tr *ngFor='let form of forms.controls; index as i'>
-          <td [formGroup]='forms.controls[i]'>
-            <div (click)='remove(i)'  class='delete'>
-              <mat-icon>delete</mat-icon>
-            </div>
-            <div>
-            <input formControlName='meal' />
-            <input formControlName='hour' />
-            </div>
-          </td>
-          <td>
-            <app-fourth [dish]='_dishes[i]' (dataSync)='dataBackup($event, i, true)'></app-fourth>
-          </td>
-        </tr>
-    </table>
+  <div cdkDropList (cdkDropListDropped)='drop($event)'>
+    <div *ngFor='let form of forms.controls; index as i' class='tile'>
+      <div [formGroup]='forms.controls[i]' cdkDrag class='inline'>
+        <mat-icon cdkDragHandle>open_with</mat-icon>
+        <div (click)='remove(i)' class='delete'>
+          <mat-icon>delete</mat-icon>
+        </div>
+        <div>
+          <input formControlName='meal' />
+          <input formControlName='hour' />
+        </div>
+      </div>
+      <div>
+        <app-fourth [dish]='_dishes[i]' (dataSync)='dataBackup($event, i, true)'></app-fourth>
+      </div>
+    </div>
+  </div>
+  <div class='add'>
     <button (click)='addForm()' *ngIf='!forms.invalid'>Dodaj posiłek</button>
   </div>
 </div>

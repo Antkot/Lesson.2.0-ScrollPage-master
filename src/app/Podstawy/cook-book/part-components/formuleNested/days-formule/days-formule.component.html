@@ -1,22 +1,17 @@
-<div class='container'>
-  <table class='rest'>
-    <tr class='tile' *ngFor='let form of forms.controls; index as i' cdkDropList  (cdkDropListDropped)="drop($event)">
-      <ng-container cdkDrag>
-      <td>
+<div class='container' cdkDropList (cdkDropListDropped)='drop($event)'>
+  <div class='tile' *ngFor='let form of forms.controls; index as i'>
+    <div cdkDrag>
+      <div class='inline'>
+        <mat-icon cdkDragHandle>open_with</mat-icon>
         {{form.value.day}}
         <div (click)='remove(i)' class='delete'>
           <mat-icon>delete</mat-icon>
         </div>
-      </td>
-      <td>
-        <app-third [meals]='_meals[i]' (dataSync)='dataBackup($event, i, true)'></app-third>
-      </td>
-      </ng-container>
-    </tr>
-    <tr>
-      <div class='add' (click)='add()'>
-        Dodaj dzień
       </div>
-    </tr>
-  </table>
+      <app-third [meals]='_meals[i]' (dataSync)='dataBackup($event, i, true)'></app-third>
+    </div>
+  </div>
+  <div class='add' (click)='add()'>
+    Dodaj dzień
+  </div>
 </div>

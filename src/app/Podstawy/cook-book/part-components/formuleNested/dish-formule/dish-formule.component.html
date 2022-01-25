@@ -1,22 +1,21 @@
 <div class='container'>
-  <div>
-    <table>
-      <ng-container>
-        <tr *ngFor='let form of forms.controls; index as i'>
-          <td [formGroup]='forms.controls[i]'>
-            <div (click)='remove(i)' class='delete'>
-              <mat-icon>delete</mat-icon>
-            </div>
-            <div>
-              <select formControlName='dish'>
-                <option [ngValue]='null' disabled>Wybierz danie</option>
-                <option *ngFor='let dish of dishesList$ | async' [ngValue]='dish.dishId'>{{dish.name}}</option>
-              </select>
-            </div>
-          </td>
-        </tr>
-      </ng-container>
-    </table>
+  <div class='center'>
+    <div cdkDropList (cdkDropListDropped)='drop($event)'>
+      <div *ngFor='let form of forms.controls; index as i'>
+        <div [formGroup]='forms.controls[i]' cdkDrag class='inline'>
+          <div (click)='remove(i)' class='delete'>
+            <mat-icon>delete</mat-icon>
+          </div>
+          <div>
+            <select formControlName='dish'>
+              <option [ngValue]='null' disabled>Wybierz danie</option>
+              <option *ngFor='let dish of dishesList$ | async' [ngValue]='dish.dishId'>{{dish.name}}</option>
+            </select>
+            <mat-icon cdkDragHandle>open_with</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
     <button (click)='addForm()'>Dodaj Danie</button>
   </div>
 </div>

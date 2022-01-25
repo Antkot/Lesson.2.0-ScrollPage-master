@@ -3,7 +3,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { filter, tap } from 'rxjs/operators';
 import { AliveState } from '../../../../../ActiveState';
 import { parse } from 'path';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-formule-input',
@@ -14,17 +14,7 @@ export class DaysFormuleComponent extends AliveState
   implements OnInit {
   @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
-  movies = [
-    'Episode I - The Phantom Menace',
-    'Episode II - Attack of the Clones',
-    'Episode III - Revenge of the Sith',
-    'Episode IV - A New Hope',
-    'Episode V - The Empire Strikes Back',
-    'Episode VI - Return of the Jedi',
-    'Episode VII - The Force Awakens',
-    'Episode VIII - The Last Jedi',
-    'Episode IX – The Rise of Skywalker',
-  ];
+
   @Input() set days(value: string) {
     this.meals = [...JSON.parse(value).map(({ meals }) => JSON.stringify(meals))];
     JSON.parse(value).forEach(
@@ -56,10 +46,10 @@ export class DaysFormuleComponent extends AliveState
 
 
   ngOnInit(): void {
-
     this.subscribeWhileAlive(
       this.forms.valueChanges.pipe(
         tap((value) => {
+          console.log(value);
           this.meals = [...value.map(({ meals }) => JSON.stringify(meals))];
           this.dataSync.emit(JSON.stringify(value));
         })
@@ -92,8 +82,20 @@ export class DaysFormuleComponent extends AliveState
   remove(index) {
     this.forms.removeAt(index);
   }
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.forms.controls, event.previousIndex, event.currentIndex);
+
+  drop(event: CdkDragDrop<FormGroup[]>) {
+    const dir = event.currentIndex > event.previousIndex ? 1 : -1;
+
+    const from = event.previousIndex;
+    const to = event.currentIndex;
+
+    const temp = this.forms.at(from);
+    for (let i = from; i * dir < to * dir; i = i + dir) {
+      const current = this.forms.at(i + dir);
+      this.forms.setControl(i, current);
+    }
+    this.forms.setControl(to, temp);
   }
+
 
 }

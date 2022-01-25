@@ -1,21 +1,33 @@
-.container{
-  //background: #d4af37;
+.container {
   width: calc(50vw - 10px);
   min-height: 100px;
   border: palegoldenrod 1px ridge;
+  display: grid;
+  justify-content: center;
+  align-content: center;
 }
-.delete{
+
+.delete {
   cursor: pointer;
   height: max-content;
   width: max-content;
 }
-tr{
-  padding: 50px 0;
-  display: flex;
+
+.inline {
+  display: grid;
+  grid-template-columns: max-content max-content max-content 1fr;
 }
-td{
+
+.tile {
+  border-bottom: 4px dashed palegoldenrod;
+  margin-bottom: 50px;
+  padding: 5px;
   display: grid;
   grid-template-columns: max-content 1fr;
-  grid-template-rows: 1fr;
-  width: calc(25vw - 2px);
+  column-gap: 50px;
+  justify-items: center;
+}
+.add{
+  padding: 10px;
+  margin: 10px auto;
 }

@@ -1,23 +1,22 @@
-<div class='container'>
+<div class='container' cdkDropList (cdkDropListDropped)='drop($event)'>
   <div>
-    <table>
-      <ng-container>
-        <tr *ngFor='let form of forms.controls; index as i'>
-          <td [formGroup]='forms.controls[i]'>
-            <input formControlName='name' />
-          </td>
-          <td><div (click)='remove(i)' class='delete'>
+    <div *ngFor='let form of forms.controls; index as i'>
+        <app-formule-input [days]='_days[i]'
+                           (dataSync)='dataBackup($event, i, true)' class='content'></app-formule-input>
+      <div cdkDrag [formGroup]='forms.controls[i]' class='tile'>
+        <div class='inline'>
+          <mat-icon cdkDragHandle>open_with</mat-icon>
+
+          <input formControlName='name' />
+          <div (click)='remove(i)' class='delete'>
             <mat-icon>delete</mat-icon>
-          </div></td>
-          <td><app-formule-input [days]='_days[i]'
-          (dataSync)='dataBackup($event, i, true)'></app-formule-input></td>
-        </tr>
-      </ng-container>
-    </table>
-    <button (click)='addForm()'>Dodaj plan</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <button (click)='addForm()'>Dodaj plan</button>
   <div>
     <pre>{{forms.value | json}}</pre>
   </div>
 </div>
-

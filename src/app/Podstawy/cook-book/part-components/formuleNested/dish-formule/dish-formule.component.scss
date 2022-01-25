@@ -9,3 +9,15 @@ td{
   grid-template-columns: max-content max-content;
   grid-template-rows: 1fr;
 }
+.inline{
+  border-bottom: 2px solid gold;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  display: grid;
+  grid-template-columns: max-content max-content;
+}
+.center{
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}

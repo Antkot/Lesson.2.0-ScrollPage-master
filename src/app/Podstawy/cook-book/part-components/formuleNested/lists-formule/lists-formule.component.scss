@@ -5,17 +5,10 @@
   height: 100vh;
   overflow-y: scroll;
 }
-
-table {
-  margin: auto;
-  width: min-content;
-  height: min-content;
-}
-
 button {
   position: absolute;
   bottom: 0;
-  width: 50vw;
+  width: 100px;
   height: 50px;
 }
 
@@ -31,4 +24,24 @@ button {
   cursor: pointer;
   height: max-content;
   width: max-content;
+}
+.inline{
+  grid-area: name;
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+}
+.tile{
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-template-rows: max-content 1fr;
+  grid-template-areas:
+    "name content"
+    ". content";
+  background: gold;
+  border: 2px solid darkgoldenrod;
+  padding: 5px;
+  margin-bottom: 50px;
+}
+.content{
+  grid-area: content;
 }
