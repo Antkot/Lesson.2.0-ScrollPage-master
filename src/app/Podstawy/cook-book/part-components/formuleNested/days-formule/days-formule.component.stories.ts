@@ -8,10 +8,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { DishFormuleComponent } from '../dish-formule/dish-formule.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MealFormuleComponent } from '../meal-formule/meal-formule.component';
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 const decoration: NgModule = {
   declarations: [DaysFormuleComponent, MealFormuleComponent, DishFormuleComponent],
   imports: [MatIconModule, BrowserModule,
+    DragDropModule,
     FormsModule,
     ReactiveFormsModule,
     MatFormFieldModule,

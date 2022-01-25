@@ -4,13 +4,14 @@ import { withKnobs } from '@storybook/addon-knobs';
 import {MatMenuModule} from '@angular/material/menu';
 import { MealFormuleComponent } from './meal-formule.component';
 import { MatSelectModule } from '@angular/material/select';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 
 const decoration: NgModule = {
   declarations: [
     MealFormuleComponent
   ],
-  imports: [MatMenuModule, MatSelectModule
+  imports: [MatMenuModule, MatSelectModule, DragDropModule
   ],
   providers: []
 };

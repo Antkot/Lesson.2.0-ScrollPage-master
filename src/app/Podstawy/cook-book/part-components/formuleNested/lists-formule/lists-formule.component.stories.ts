@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { DishFormuleComponent } from '../dish-formule/dish-formule.component';
 import { DaysFormuleComponent } from '../days-formule/days-formule.component';
 import { MealFormuleComponent } from '../meal-formule/meal-formule.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 const decoration: NgModule = {
   declarations: [DaysFormuleComponent, MealFormuleComponent, DishFormuleComponent],
@@ -21,6 +22,7 @@ const decoration: NgModule = {
     MatFormFieldModule,
     MatOptionModule,
     MatSelectModule,
+    DragDropModule
 
   ],
   exports: []
