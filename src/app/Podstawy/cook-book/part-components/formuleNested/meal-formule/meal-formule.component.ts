@@ -1,53 +1,79 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
+import { distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { AliveState } from '../../../../../ActiveState';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { AbstractValueAccessor } from '../formControl';
 
 @Component({
   selector: 'app-third',
   templateUrl: './meal-formule.component.html',
   styleUrls: ['./meal-formule.component.scss']
 })
-export class MealFormuleComponent extends AliveState implements OnInit {
-  @Output() dataSync = new EventEmitter();
+export class MealFormuleComponent extends AbstractValueAccessor implements OnInit {
   forms = this.fb.array([]);
 
-  @Input() set meals(value: string) {
-    this.dishes = [...JSON.parse(value).map(({ dishes }) => JSON.stringify(dishes))];
-    JSON.parse(value).forEach(
-      ({ meal, hour,  dishes }, index) => {
-        if (!!this.forms.controls[index]) {
-          this.forms.setControl(
-            index, new FormGroup({ meal: new FormControl(meal), hour: new FormControl(hour), meals: new FormControl(dishes) }));
-        } else {
-          this.forms.push(
-            new FormGroup({ meal: new FormControl(meal), hour: new FormControl(hour), dishes: new FormControl(dishes) }));
-        }
-      });
-  }
+  // @Input() set meals(value: Array<{ meal: string, dishes: Array<{ dish: string }> }>) {
+  //   this.forms.patchValue(value, { emitEvent: false });
+  // }
 
-  _dishes: Array<string> = [];
-  set dishes(value: Array<string>) {
-    this._dishes = value;
-  }
+  // @Input() set meals(value: string) {
+  //   this.dishes = [...JSON.parse(value).map(({ dishes }) => JSON.stringify(dishes))];
+  //   JSON.parse(value).forEach(
+  //     ({ meal, hour,  dishes }, index) => {
+  //       if (!!this.forms.controls[index]) {
+  //         this.forms.setControl(
+  //           index, new FormGroup({ meal: new FormControl(meal), hour: new FormControl(hour), meals: new FormControl(dishes) }));
+  //       } else {
+  //         this.forms.push(
+  //           new FormGroup({ meal: new FormControl(meal), hour: new FormControl(hour), dishes: new FormControl(dishes) }));
+  //       }
+  //     });
+  // }
 
-  get dishes() {
-    return this._dishes;
-  }
+  // _dishes: Array<string> = [];
+  // set dishes(value: Array<string>) {
+  //   this._dishes = value;
+  // }
+  //
+  // get dishes() {
+  //   return this._dishes;
+  // }
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    public elementRef: ElementRef,
+    @Self()
+    @Optional()
+    public ngControl: NgControl,
+    private fb: FormBuilder
+  ) {
     super();
+    this.ngControl.valueAccessor = this;
   }
 
   ngOnInit() {
+    // this.subscribeWhileAlive(
+    //   this.forms.valueChanges.pipe(
+    //     tap((value) => {
+    //       this.dishes = [...value.map(({ dishes }) => JSON.stringify(dishes))];
+    //       this.dataSync.emit(JSON.stringify(value)
+    //       );
+    //     }))
+    // );
+
     this.subscribeWhileAlive(
+      this.valueSubject.pipe(
+        distinctUntilChanged(),
+        tap((currentValue) => {
+          console.log(111111, currentValue);
+          // this.forms.patchValue(currentValue);
+        })
+      ),
       this.forms.valueChanges.pipe(
-        tap((value) => {
-          this.dishes = [...value.map(({ dishes }) => JSON.stringify(dishes))];
-          this.dataSync.emit(JSON.stringify(value)
-          );
-        }))
+        tap((currentValue) => {
+          this.writeValue(currentValue);
+        })
+      )
     );
   }
 
@@ -63,18 +89,19 @@ export class MealFormuleComponent extends AliveState implements OnInit {
     );
   }
 
-  dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
-    const model = [];
-    Object.entries({ ...this.forms.value }).forEach(
-      (x: {}) => {
-        model.push({
-          meal: x[1].meal,
-          hour: x[1].hour,
-          dishes: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].dishes
-        });
-      });
-    this.forms.setValue(model, {emitEvent: eventEmitter});
-  }
+  //
+  // dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
+  //   const model = [];
+  //   Object.entries({ ...this.forms.value }).forEach(
+  //     (x: {}) => {
+  //       model.push({
+  //         meal: x[1].meal,
+  //         hour: x[1].hour,
+  //         dishes: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].dishes
+  //       });
+  //     });
+  //   this.forms.setValue(model, {emitEvent: eventEmitter});
+  // }
   remove(index) {
     this.forms.removeAt(index);
   }

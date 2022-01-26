@@ -1,52 +1,76 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
+import { distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { AliveState } from '../../../../../ActiveState';
 import { Observable } from 'rxjs';
 import { Dish, DishType } from '../../../types';
 import { LoadingService } from '../../services/loading.service';
 import { DishStorageService } from '../../services/dish-storage.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { AbstractValueAccessor } from '../formControl';
 
 @Component({
   selector: 'app-fourth',
   templateUrl: './dish-formule.component.html',
   styleUrls: ['./dish-formule.component.scss']
 })
-export class DishFormuleComponent extends AliveState implements OnInit {
+export class DishFormuleComponent extends AbstractValueAccessor implements OnInit {
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
 
-  @Input() set dish(value: string) {JSON.parse(value).forEach(
-    ({ dish }, index) => {
-      if (!!this.forms.controls[index]) {
-        this.forms.setControl(
-          index, new FormGroup({ dish: new FormControl(dish)}));
-      } else {
-        this.forms.push(
-          new FormGroup({ dish: new FormControl(dish)}));
-      }
-    });
+  @Input() set dish(value: Array<{ day: string, meals: Array<{ meal: string, dishes: Array<{ dish: string }> }> }>) {
+    this.forms.patchValue(value, { emitEvent: false });
   }
 
+  // @Input() set dish(value: string) {JSON.parse(value).forEach(
+  //   ({ dish }, index) => {
+  //     if (!!this.forms.controls[index]) {
+  //       this.forms.setControl(
+  //         index, new FormGroup({ dish: new FormControl(dish)}));
+  //     } else {
+  //       this.forms.push(
+  //         new FormGroup({ dish: new FormControl(dish)}));
+  //     }
+  //   });
+  // }
+  //
 
   constructor(
+    public elementRef: ElementRef,
+    @Self()
+    @Optional()
+    public ngControl: NgControl,
     private fb: FormBuilder,
-    private dishesService: DishStorageService,
+    private dishesService: DishStorageService
   ) {
     super();
+    this.ngControl.valueAccessor = this;
   }
 
 
   ngOnInit() {
+    // this.subscribeWhileAlive(
+    //   this.forms.valueChanges.pipe(
+    //     tap((value) => {
+    //       this.dataSync.emit(JSON.stringify(value));
+    //     })
+    //   )
+    // );
+
     this.subscribeWhileAlive(
+      this.valueSubject.pipe(
+        distinctUntilChanged(),
+        tap((currentValue) => {
+        })
+      ),
       this.forms.valueChanges.pipe(
-        tap((value) => {
-          this.dataSync.emit(JSON.stringify(value));
+        tap((currentValue) => {
+          this.writeValue(currentValue);
         })
       )
     );
+
   }
 
   addForm() {

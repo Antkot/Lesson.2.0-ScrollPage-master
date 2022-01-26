@@ -1,34 +1,43 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AliveState } from '../../../../../ActiveState';
-import { tap } from 'rxjs/operators';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Optional,
+  Output,
+  Self
+} from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
+import { distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { AbstractValueAccessor } from '../formControl';
 
 @Component({
   selector: 'app-formule',
   templateUrl: './lists-formule.component.html',
   styleUrls: ['./lists-formule.component.scss']
 })
-export class ListsFormuleComponent extends AliveState implements OnInit {
+export class ListsFormuleComponent extends AbstractValueAccessor implements OnInit {
   forms = this.fb.array([]);
-  _days: Array<string> = [];
-  set days(value: Array<string>) {
-    this._days = value;
-  }
 
-  get days() {
-    return this._days;
-  }
-
-  constructor(private fb: FormBuilder) {
+  constructor(
+    public elementRef: ElementRef,
+    @Self()
+    @Optional()
+    public ngControl: NgControl,
+    private fb: FormBuilder
+  ) {
     super();
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
   }
 
   ngOnInit() {
     setTimeout(() => {
       const storageData = JSON.parse(localStorage.getItem('formule'));
       if (!!storageData) {
-        this.days = storageData.map(({ days }) => JSON.stringify(days));
         storageData.forEach(
           ({ name, days }) => {
             this.forms.push(
@@ -36,15 +45,26 @@ export class ListsFormuleComponent extends AliveState implements OnInit {
           });
       }
     }, 2000);
+    // this.subscribeWhileAlive(
+    //   this.forms.valueChanges.pipe(
+    //     tap((value) => {
+    //       this.days = [...value.map(({ days }) => JSON.stringify(days))];
+    //       localStorage.setItem('formule', JSON.stringify(value));
+    //     })
+    //   )
+    // );
     this.subscribeWhileAlive(
-      this.forms.valueChanges.pipe(
-        tap((value) => {
-          this.days = [...value.map(({ days }) => JSON.stringify(days))];
-          localStorage.setItem('formule', JSON.stringify(value));
+      this.valueSubject.pipe(
+        tap((currentValue) => {
         })
-      )
-    );
+      ),
+      this.forms.valueChanges.pipe(
+        tap((currentValue) => {
+          this.writeValue(currentValue);
+        })
+      ));
   }
+
 
   addForm() {
     this.forms.push(
@@ -56,21 +76,11 @@ export class ListsFormuleComponent extends AliveState implements OnInit {
     );
   }
 
-  dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
-    const model = [];
-    Object.entries({ ...this.forms.value }).forEach(
-      (x: {}) => {
-        model.push({
-          name: x[1].name,
-          days: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].days
-        });
-      });
-    this.forms.setValue(model, { emitEvent: eventEmitter });
-  }
 
   remove(index) {
     this.forms.removeAt(index);
   }
+
   drop(event: CdkDragDrop<FormGroup[]>) {
     const dir = event.currentIndex > event.previousIndex ? 1 : -1;
 

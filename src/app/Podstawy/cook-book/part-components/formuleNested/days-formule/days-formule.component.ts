@@ -1,57 +1,53 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { filter, tap } from 'rxjs/operators';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
+import { distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { AliveState } from '../../../../../ActiveState';
 import { parse } from 'path';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { AbstractValueAccessor } from '../formControl';
 
 @Component({
   selector: 'app-formule-input',
   templateUrl: './days-formule.component.html',
   styleUrls: ['./days-formule.component.scss']
 })
-export class DaysFormuleComponent extends AliveState
+export class DaysFormuleComponent extends AbstractValueAccessor
   implements OnInit {
-  @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
 
-  @Input() set days(value: string) {
-    this.meals = [...JSON.parse(value).map(({ meals }) => JSON.stringify(meals))];
-    JSON.parse(value).forEach(
-      ({ day, meals }, index) => {
-        if (!!this.forms.controls[index]) {
-          this.forms.setControl(
-            index, new FormGroup({ day: new FormControl(day), meals: new FormControl(meals) }));
-        } else {
-          this.forms.push(
-            new FormGroup({ day: new FormControl(day), meals: new FormControl(meals) }));
-        }
-      });
-  }
-
-  _meals: Array<string> = [];
-  set meals(value: Array<string>) {
-    this._meals = value;
-  }
-
-  get meals() {
-    return this._meals;
-  }
-
   constructor(
-    private fb: FormBuilder
+    public elementRef: ElementRef,
+    @Self()
+    @Optional()
+    public ngControl: NgControl,
+    private fb: FormBuilder,
   ) {
     super();
+    this.ngControl.valueAccessor = this;
   }
 
 
   ngOnInit(): void {
+    // this.subscribeWhileAlive(
+    //   this.forms.valueChanges.pipe(
+    //     tap((value) => {
+    //       console.log(value);
+    //       this.meals = [...value.map(({ meals }) => JSON.stringify(meals))];
+    //       this.dataSync.emit(JSON.stringify(value));
+    //     })
+    //   )
+    // );
+
     this.subscribeWhileAlive(
+      this.valueSubject.pipe(
+        tap((currentValue) => {
+          // this.forms.patchValue(currentValue);
+            // this.days = this.forms.value;
+        })
+      ),
       this.forms.valueChanges.pipe(
-        tap((value) => {
-          console.log(value);
-          this.meals = [...value.map(({ meals }) => JSON.stringify(meals))];
-          this.dataSync.emit(JSON.stringify(value));
+        tap((currentValue) => {
+            this.writeValue(currentValue);
         })
       )
     );
@@ -66,18 +62,17 @@ export class DaysFormuleComponent extends AliveState
       })
     );
   }
-
-  dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
-    const model = [];
-    Object.entries({ ...this.forms.value }).forEach(
-      (x: {}) => {
-        model.push({
-          day: x[1].day,
-          meals: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].meals
-        });
-      });
-    this.forms.setValue(model, { emitEvent: eventEmitter });
-  }
+  // dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
+  //   const model = [];
+  //   Object.entries({ ...this.forms.value }).forEach(
+  //     (x: {}) => {
+  //       model.push({
+  //         day: x[1].day,
+  //         meals: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].meals
+  //       });
+  //     });
+  //   this.forms.setValue(model, { emitEvent: eventEmitter });
+  // }
 
   remove(index) {
     this.forms.removeAt(index);

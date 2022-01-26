@@ -53,6 +53,7 @@ import { ListsFormuleComponent } from './part-components/formuleNested/lists-for
 import { DaysFormuleComponent } from './part-components/formuleNested/days-formule/days-formule.component';
 import { MealFormuleComponent } from './part-components/formuleNested/meal-formule/meal-formule.component';
 import { ForbiddenNameDirective } from './part-components/formuleNested/forbidden-name.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 const links = [
   {
@@ -116,7 +117,12 @@ const links = [
     ChipsComponent,
     AddIngredientComponent,
     MainPageComponent,
-    IngredientDialogComponent
+    IngredientDialogComponent,
+    ListsFormuleComponent,
+    DaysFormuleComponent,
+    DishFormuleComponent,
+    MealFormuleComponent,
+
   ],
   imports: [
     RouterModule.forRoot(links, { useHash: true }),
@@ -141,7 +147,7 @@ const links = [
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
   ],
   entryComponents: [
     IngredientDialogComponent,

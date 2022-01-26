@@ -1,13 +1,11 @@
 <div class='container' cdkDropList (cdkDropListDropped)='drop($event)'>
   <div>
     <div *ngFor='let form of forms.controls; index as i'>
-        <app-formule-input [days]='_days[i]'
-                           (dataSync)='dataBackup($event, i, true)' class='content'></app-formule-input>
       <div cdkDrag [formGroup]='forms.controls[i]' class='tile'>
         <div class='inline'>
           <mat-icon cdkDragHandle>open_with</mat-icon>
-
           <input formControlName='name' />
+          <app-formule-input formControlName='days' class='content'></app-formule-input>
           <div (click)='remove(i)' class='delete'>
             <mat-icon>delete</mat-icon>
           </div>
