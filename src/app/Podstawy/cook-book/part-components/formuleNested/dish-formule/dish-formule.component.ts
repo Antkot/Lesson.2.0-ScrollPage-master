@@ -50,23 +50,26 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
 
 
   ngOnInit() {
-    // this.subscribeWhileAlive(
-    //   this.forms.valueChanges.pipe(
-    //     tap((value) => {
-    //       this.dataSync.emit(JSON.stringify(value));
-    //     })
-    //   )
-    // );
-
+    let updateInProgress = false;
     this.subscribeWhileAlive(
       this.valueSubject.pipe(
-        distinctUntilChanged(),
+        filter(() => !updateInProgress),
         tap((currentValue) => {
+          updateInProgress = true;
+          currentValue.forEach(
+            ({ dish }) => {
+              this.forms.push(
+                new FormGroup({ dish: new FormControl(dish) }));
+            });
+          updateInProgress = false;
         })
       ),
       this.forms.valueChanges.pipe(
+        filter(() => !updateInProgress),
         tap((currentValue) => {
+          updateInProgress = true;
           this.writeValue(currentValue);
+          updateInProgress = false;
         })
       )
     );

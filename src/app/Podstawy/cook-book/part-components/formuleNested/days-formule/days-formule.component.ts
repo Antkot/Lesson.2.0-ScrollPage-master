@@ -20,7 +20,7 @@ export class DaysFormuleComponent extends AbstractValueAccessor
     @Self()
     @Optional()
     public ngControl: NgControl,
-    private fb: FormBuilder,
+    private fb: FormBuilder
   ) {
     super();
     this.ngControl.valueAccessor = this;
@@ -28,26 +28,27 @@ export class DaysFormuleComponent extends AbstractValueAccessor
 
 
   ngOnInit(): void {
-    // this.subscribeWhileAlive(
-    //   this.forms.valueChanges.pipe(
-    //     tap((value) => {
-    //       console.log(value);
-    //       this.meals = [...value.map(({ meals }) => JSON.stringify(meals))];
-    //       this.dataSync.emit(JSON.stringify(value));
-    //     })
-    //   )
-    // );
 
+    let updateInProgress = false;
     this.subscribeWhileAlive(
       this.valueSubject.pipe(
+        filter(() => !updateInProgress),
         tap((currentValue) => {
-          // this.forms.patchValue(currentValue);
-            // this.days = this.forms.value;
+          updateInProgress = true;
+          currentValue.forEach(
+            ({ day, meals }) => {
+              this.forms.push(
+                new FormGroup({ day: new FormControl(day), meals: new FormControl(meals) }));
+            });
+          updateInProgress = false;
         })
       ),
       this.forms.valueChanges.pipe(
+        filter(() => !updateInProgress),
         tap((currentValue) => {
-            this.writeValue(currentValue);
+          updateInProgress = true;
+          this.writeValue(currentValue);
+          updateInProgress = false;
         })
       )
     );
@@ -62,6 +63,7 @@ export class DaysFormuleComponent extends AbstractValueAccessor
       })
     );
   }
+
   // dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
   //   const model = [];
   //   Object.entries({ ...this.forms.value }).forEach(

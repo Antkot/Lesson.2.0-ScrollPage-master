@@ -52,26 +52,31 @@ export class MealFormuleComponent extends AbstractValueAccessor implements OnIni
   }
 
   ngOnInit() {
-    // this.subscribeWhileAlive(
-    //   this.forms.valueChanges.pipe(
-    //     tap((value) => {
-    //       this.dishes = [...value.map(({ dishes }) => JSON.stringify(dishes))];
-    //       this.dataSync.emit(JSON.stringify(value)
-    //       );
-    //     }))
-    // );
-
+    let updateInProgress = false;
     this.subscribeWhileAlive(
       this.valueSubject.pipe(
-        distinctUntilChanged(),
+        filter(() => !updateInProgress),
         tap((currentValue) => {
-          console.log(111111, currentValue);
-          // this.forms.patchValue(currentValue);
+          updateInProgress = true;
+          currentValue.forEach(
+            ({ meal, hour, dishes }) => {
+              this.forms.push(
+                new FormGroup({
+                  meal: new FormControl(meal),
+                  hour: new FormControl(hour),
+                  dishes: new FormControl(dishes)
+                }));
+            });
+          updateInProgress = false;
         })
       ),
+
       this.forms.valueChanges.pipe(
+        filter(() => !updateInProgress),
         tap((currentValue) => {
+          updateInProgress = true;
           this.writeValue(currentValue);
+          updateInProgress = false;
         })
       )
     );
@@ -89,19 +94,6 @@ export class MealFormuleComponent extends AbstractValueAccessor implements OnIni
     );
   }
 
-  //
-  // dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
-  //   const model = [];
-  //   Object.entries({ ...this.forms.value }).forEach(
-  //     (x: {}) => {
-  //       model.push({
-  //         meal: x[1].meal,
-  //         hour: x[1].hour,
-  //         dishes: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].dishes
-  //       });
-  //     });
-  //   this.forms.setValue(model, {emitEvent: eventEmitter});
-  // }
   remove(index) {
     this.forms.removeAt(index);
   }

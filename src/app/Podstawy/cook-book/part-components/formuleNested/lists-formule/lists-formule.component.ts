@@ -12,6 +12,7 @@ import { FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@ang
 import { distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AbstractValueAccessor } from '../formControl';
+import { LocalStorageService } from '../../services/local-storage-service';
 
 @Component({
   selector: 'app-formule',
@@ -22,6 +23,7 @@ export class ListsFormuleComponent extends AbstractValueAccessor implements OnIn
   forms = this.fb.array([]);
 
   constructor(
+    private localStorageService: LocalStorageService,
     public elementRef: ElementRef,
     @Self()
     @Optional()
@@ -35,27 +37,20 @@ export class ListsFormuleComponent extends AbstractValueAccessor implements OnIn
   }
 
   ngOnInit() {
-    setTimeout(() => {
-      const storageData = JSON.parse(localStorage.getItem('formule'));
-      if (!!storageData) {
-        storageData.forEach(
-          ({ name, days }) => {
-            this.forms.push(
-              new FormGroup({ name: new FormControl(name), days: new FormControl(days) }));
-          });
-      }
-    }, 2000);
-    // this.subscribeWhileAlive(
-    //   this.forms.valueChanges.pipe(
-    //     tap((value) => {
-    //       this.days = [...value.map(({ days }) => JSON.stringify(days))];
-    //       localStorage.setItem('formule', JSON.stringify(value));
-    //     })
-    //   )
-    // );
+    // setTimeout(() => {
+    const storageData = JSON.parse(localStorage.getItem('formule'));
+    if (!!storageData) {
+      storageData.forEach(
+        ({ name, days }) => {
+          this.forms.push(
+            new FormGroup({ name: new FormControl(name), days: new FormControl(days) }));
+        });
+    }
+    // }, 2000);
     this.subscribeWhileAlive(
       this.valueSubject.pipe(
         tap((currentValue) => {
+          this.localStorageService.setItem('formule', JSON.stringify(this.forms.value));
         })
       ),
       this.forms.valueChanges.pipe(
