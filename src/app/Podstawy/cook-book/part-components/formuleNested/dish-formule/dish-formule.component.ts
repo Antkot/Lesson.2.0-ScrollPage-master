@@ -23,19 +23,6 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
     this.forms.patchValue(value, { emitEvent: false });
   }
 
-  // @Input() set dish(value: string) {JSON.parse(value).forEach(
-  //   ({ dish }, index) => {
-  //     if (!!this.forms.controls[index]) {
-  //       this.forms.setControl(
-  //         index, new FormGroup({ dish: new FormControl(dish)}));
-  //     } else {
-  //       this.forms.push(
-  //         new FormGroup({ dish: new FormControl(dish)}));
-  //     }
-  //   });
-  // }
-  //
-
   constructor(
     public elementRef: ElementRef,
     @Self()

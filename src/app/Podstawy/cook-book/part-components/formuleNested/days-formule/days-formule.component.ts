@@ -64,18 +64,6 @@ export class DaysFormuleComponent extends AbstractValueAccessor
     );
   }
 
-  // dataBackup(returnedData: string, index: number, eventEmitter: boolean) {
-  //   const model = [];
-  //   Object.entries({ ...this.forms.value }).forEach(
-  //     (x: {}) => {
-  //       model.push({
-  //         day: x[1].day,
-  //         meals: Number(x[0]) === index ? JSON.parse(returnedData) : x[1].meals
-  //       });
-  //     });
-  //   this.forms.setValue(model, { emitEvent: eventEmitter });
-  // }
-
   remove(index) {
     this.forms.removeAt(index);
   }

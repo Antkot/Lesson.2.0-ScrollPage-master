@@ -13,33 +13,6 @@ import { AbstractValueAccessor } from '../formControl';
 export class MealFormuleComponent extends AbstractValueAccessor implements OnInit {
   forms = this.fb.array([]);
 
-  // @Input() set meals(value: Array<{ meal: string, dishes: Array<{ dish: string }> }>) {
-  //   this.forms.patchValue(value, { emitEvent: false });
-  // }
-
-  // @Input() set meals(value: string) {
-  //   this.dishes = [...JSON.parse(value).map(({ dishes }) => JSON.stringify(dishes))];
-  //   JSON.parse(value).forEach(
-  //     ({ meal, hour,  dishes }, index) => {
-  //       if (!!this.forms.controls[index]) {
-  //         this.forms.setControl(
-  //           index, new FormGroup({ meal: new FormControl(meal), hour: new FormControl(hour), meals: new FormControl(dishes) }));
-  //       } else {
-  //         this.forms.push(
-  //           new FormGroup({ meal: new FormControl(meal), hour: new FormControl(hour), dishes: new FormControl(dishes) }));
-  //       }
-  //     });
-  // }
-
-  // _dishes: Array<string> = [];
-  // set dishes(value: Array<string>) {
-  //   this._dishes = value;
-  // }
-  //
-  // get dishes() {
-  //   return this._dishes;
-  // }
-
   constructor(
     public elementRef: ElementRef,
     @Self()
