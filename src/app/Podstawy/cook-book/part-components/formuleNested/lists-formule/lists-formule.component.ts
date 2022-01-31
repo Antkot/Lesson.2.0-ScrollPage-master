@@ -37,20 +37,24 @@ export class ListsFormuleComponent extends AbstractValueAccessor implements OnIn
   }
 
   ngOnInit() {
-    // setTimeout(() => {
-    const storageData = JSON.parse(localStorage.getItem('formule'));
-    if (!!storageData) {
-      storageData.forEach(
-        ({ name, days }) => {
-          this.forms.push(
-            new FormGroup({ name: new FormControl(name), days: new FormControl(days) }));
-        });
-    }
-    // }, 2000);
+    let loaded = false;
+    setTimeout(() => {
+      const storageData = JSON.parse(localStorage.getItem('formule'));
+      if (!!storageData) {
+        storageData.forEach(
+          ({ name, days }) => {
+            this.forms.push(
+              new FormGroup({ name: new FormControl(name), days: new FormControl(days) }));
+          });
+      }
+      loaded = true;
+    }, 2000);
     this.subscribeWhileAlive(
       this.valueSubject.pipe(
         tap((currentValue) => {
-          this.localStorageService.setItem('formule', JSON.stringify(this.forms.value));
+          if (loaded === true) {
+            this.localStorageService.setItem('formule', JSON.stringify(this.forms.value));
+          }
         })
       ),
       this.forms.valueChanges.pipe(
