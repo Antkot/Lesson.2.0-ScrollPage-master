@@ -8,6 +8,7 @@ import { LoadingService } from '../../services/loading.service';
 import { DishStorageService } from '../../services/dish-storage.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AbstractValueAccessor } from '../formControl';
+import Fuse from 'fuse.js';
 
 @Component({
   selector: 'app-fourth',
@@ -18,9 +19,10 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
-  // finalCombine$ = new BehaviorSubject<Dish>({ dishId: '', dishType: [], name: '', products: [], tags: [], steps: [] });
-  modelClone;
   filteredOptions: Observable<string[]>;
+  formCopy: Array<Dish>;
+  edited = '';
+  finalCombine;
 
   @Input() set dish(value: Array<{ day: string, meals: Array<{ meal: string, dishes: Array<{ dish: string }> }> }>) {
     this.forms.patchValue(value, { emitEvent: false });
@@ -60,28 +62,47 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
           updateInProgress = true;
           this.writeValue(currentValue);
           updateInProgress = false;
+
+          if (currentValue !== this.formCopy && !!currentValue && !!this.formCopy) {
+            currentValue.forEach(
+              ({ dish }, index) => {
+                if (currentValue[index] !== this.formCopy[index]) {
+                  this.edited = currentValue[index].dish;
+                }
+              });
+          }
+          this.dishesList$.pipe(first()).subscribe(dishes => {
+            this.formCopy = currentValue;
+            const options = {
+              // isCaseSensitive: false,
+              // includeScore: false,
+              // shouldSort: true,
+              // includeMatches: false,
+              // findAllMatches: false,
+              // minMatchCharLength: 1,
+              // location: 0,
+              // threshold: 0.6,
+              // distance: 100,
+              // useExtendedSearch: false,
+              // ignoreLocation: false,
+              // ignoreFieldNorm: false,
+              // fieldNormWeight: 1,
+              keys: [
+                'name'
+                // 'products.usedProductId'
+              ]
+            };
+            if (!!this.edited) {
+              const fuse = new Fuse(dishes, options);
+              this.finalCombine = fuse.search(this.edited);
+              console.log(this.finalCombine);
+            }
+          });
         })
       ));
-    // this.forms.valueChanges.pipe(
-    //   this.filteredOptions = this.forms.valueChanges.pipe(
-    //     startWith(''),
-    //     map(value => this._filter(value))
-    //   );
-    // tap((value: {
-    //   dish: string,
-    // }) => {
-    //   this.dishesList$.pipe(first()).subscribe((dishes) => {
-    //
-    //   });
-    // })
-    // ));
+
   }
 
-  // private _filter(value: string): string[] {
-  //   const filterValue = value.toLowerCase();
-  //
-  //   return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  // }
   addForm() {
     this.forms.push(
       new FormGroup({

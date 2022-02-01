@@ -19,7 +19,7 @@
 </div>
 
 <mat-autocomplete #autoDishComplete='matAutocomplete' [displayWith]="displayFn.bind(this)">
-  <mat-option *ngFor='let dish of dishesList$ | async' [value]='dish.dishId'>
-    {{dish.name}}
+  <mat-option *ngFor='let dish of finalCombine' [value]='dish.item.dishId'>
+    {{dish.item.name}}
   </mat-option>
 </mat-autocomplete>
