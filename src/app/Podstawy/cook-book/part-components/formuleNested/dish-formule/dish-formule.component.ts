@@ -1,9 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
-import { distinctUntilChanged, filter, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, tap } from 'rxjs/operators';
 import { AliveState } from '../../../../../ActiveState';
-import { Observable } from 'rxjs';
-import { Dish, DishType } from '../../../types';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Dish, DishType, Measure } from '../../../types';
 import { LoadingService } from '../../services/loading.service';
 import { DishStorageService } from '../../services/dish-storage.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -18,6 +18,9 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   @Output() dataSync = new EventEmitter();
   forms = this.fb.array([]);
+  // finalCombine$ = new BehaviorSubject<Dish>({ dishId: '', dishType: [], name: '', products: [], tags: [], steps: [] });
+  modelClone;
+  filteredOptions: Observable<string[]>;
 
   @Input() set dish(value: Array<{ day: string, meals: Array<{ meal: string, dishes: Array<{ dish: string }> }> }>) {
     this.forms.patchValue(value, { emitEvent: false });
@@ -58,11 +61,27 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
           this.writeValue(currentValue);
           updateInProgress = false;
         })
-      )
-    );
-
+      ));
+    // this.forms.valueChanges.pipe(
+    //   this.filteredOptions = this.forms.valueChanges.pipe(
+    //     startWith(''),
+    //     map(value => this._filter(value))
+    //   );
+    // tap((value: {
+    //   dish: string,
+    // }) => {
+    //   this.dishesList$.pipe(first()).subscribe((dishes) => {
+    //
+    //   });
+    // })
+    // ));
   }
 
+  // private _filter(value: string): string[] {
+  //   const filterValue = value.toLowerCase();
+  //
+  //   return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  // }
   addForm() {
     this.forms.push(
       new FormGroup({
@@ -89,5 +108,19 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
     this.forms.setControl(to, temp);
   }
 
+  displayFn(givenDishId) {
+    let dishName = '';
+    if (!!givenDishId) {
+      const selectedDish = this.dishesList$.pipe(
+        map((dishes) => {
+          return dishes.find(
+            ({ dishId }) =>
+              dishId === givenDishId
+          )?.name;
+        }));
+      selectedDish.pipe(first()).subscribe(dishName$ => dishName = dishName$);
+    }
+    return dishName;
+  }
 }
 

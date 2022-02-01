@@ -28,12 +28,13 @@
     "@ngrx/store-devtools": "^9.2.0",
     "chess.js": "^0.10.3",
     "cuid": "^2.1.8",
-    "fuse.js": "^5.2.3",
+    "dotenv": "^15.0.0",
+    "fuse.js": "^6.5.3",
     "lodash": "^4.17.19",
     "rxjs": "~6.5.4",
+    "ts-loader": "^8.3.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2",
-    "ts-loader": "^8.3.0"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.7",
@@ -42,13 +43,17 @@
     "@angular/language-service": "~9.0.7",
     "@babel/core": "^7.9.6",
     "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-knobs": "^5.3.18",
     "@storybook/addon-links": "^5.3.18",
     "@storybook/addon-notes": "^5.3.18",
+    "@storybook/addon-viewport": "^5.3.18",
     "@storybook/addons": "^5.3.18",
     "@storybook/angular": "^5.3.18",
     "@types/chess.js": "^0.10.1",
+    "@types/fuse": "^2.6.0",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
+    "@types/lodash": "^4.14.158",
     "@types/node": "^12.11.1",
     "babel-loader": "^8.2.3",
     "codelyzer": "^5.1.2",
@@ -59,15 +64,10 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
+    "prettier": "^2.0.5",
     "protractor": "~5.4.3",
     "ts-node": "~8.3.0",
     "tslint": "~5.18.0",
-    "typescript": "~3.7.5",
-    "@storybook/addon-viewport": "^5.3.18",
-    "@storybook/addon-knobs": "^5.3.18",
-    "@types/fuse": "^2.6.0",
-    "prettier": "^2.0.5",
-    "@types/lodash": "^4.14.158"
+    "typescript": "~3.7.5"
   }
 }
-

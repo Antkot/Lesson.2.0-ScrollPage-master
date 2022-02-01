@@ -5,13 +5,18 @@ import {MatMenuModule} from '@angular/material/menu';
 import { MealFormuleComponent } from './meal-formule.component';
 import { MatSelectModule } from '@angular/material/select';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 const decoration: NgModule = {
   declarations: [
     MealFormuleComponent
   ],
-  imports: [MatMenuModule, MatSelectModule, DragDropModule
+  imports: [
+    MatMenuModule,
+    MatSelectModule,
+    DragDropModule,
+    MatAutocompleteModule
   ],
   providers: []
 };

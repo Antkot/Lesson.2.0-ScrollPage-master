@@ -7,10 +7,8 @@
             <mat-icon>delete</mat-icon>
           </div>
           <div>
-            <select formControlName='dish'>
-              <option [ngValue]='null' disabled>Wybierz danie</option>
-              <option *ngFor='let dish of dishesList$ | async' [ngValue]='dish.dishId'>{{dish.name}}</option>
-            </select>
+            <input matInput type='text' [matAutocomplete]='autoDishComplete' [matAutocompleteDisabled]='false'
+                   formControlName='dish' />
             <mat-icon cdkDragHandle>open_with</mat-icon>
           </div>
         </div>
@@ -19,3 +17,9 @@
     <button (click)='addForm()'>Dodaj Danie</button>
   </div>
 </div>
+
+<mat-autocomplete #autoDishComplete='matAutocomplete' [displayWith]="displayFn.bind(this)">
+  <mat-option *ngFor='let dish of dishesList$ | async' [value]='dish.dishId'>
+    {{dish.name}}
+  </mat-option>
+</mat-autocomplete>
