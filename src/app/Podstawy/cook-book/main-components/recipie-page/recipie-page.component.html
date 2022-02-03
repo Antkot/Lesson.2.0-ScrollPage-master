@@ -1,5 +1,6 @@
 <div class='all'>
   <app-add-recipe
+    [dishId]='dishId$ | async'
     [reset]='reset$ | async'
     (usedProductToAdd)='addUsedProduct($event)'
     (usedProductToDelete)='deleteUsedProduct($event)'

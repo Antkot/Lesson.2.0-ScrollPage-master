@@ -3,7 +3,7 @@ import { first, map, tap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
 import { Dish } from '../../types';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DishStorageService } from '../services/dish-storage.service';
 import { AliveState } from '../../../../ActiveState';
 import { LoadingService } from '../services/loading.service';
@@ -31,8 +31,9 @@ export class AddRecipeComponent
   @Output() editionEnded = new EventEmitter();
   nameOfDish = { name: '' };
   @Input() reset = false;
-  dishId$ = this.route.url.pipe(
-    map(value => value[1].path));
+  @Input() dishId = '';
+    // this.route.url.pipe(
+  // map(value => value[1].path));
   recipe$: Observable<Dish> = this.dishService.dishesListCopied$;
   browserRefresh = false;
   filteredDishType$: Observable<string> = this.loadingService.filteredDishType$;
@@ -42,30 +43,34 @@ export class AddRecipeComponent
   });
 
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    // private route: ActivatedRoute,
               private fb: FormBuilder,
               private dishService: DishStorageService,
-              private loadingService: LoadingService,
+              private loadingService: LoadingService
   ) {
     super();
 
   }
 
+
   ngOnInit(): void {
     console.log('Add recipe initialised');
-    this.route.url.pipe(
-      map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.editCheckStorage(url)
-    );
+    // this.route.url.pipe(
+    //   map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.editCheckStorage(url)
+    // );
+    this.dishService.editCheckStorage(this.dishId);
     this.recipe$.pipe(first()).subscribe(value => {
         this.model.controls[`name`].setValue(value.name, { emitEvent: false });
         console.log('value');
         console.log(value);
       }
     );
+    this.dishService.newDish(this.dishId);
 
-    this.route.url.pipe(
-      map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.newDish(url)
-    );
+    // this.route.url.pipe(
+    //   map(value => value[1].path)).pipe(first()).subscribe(url => this.dishService.newDish(url)
+    // );
     this.filteredDishType$.pipe(first()).subscribe(dishId => {
       console.log('TUT: ', dishId);
       this.model.controls[`type`].setValue([{ dishId }]);
@@ -76,7 +81,7 @@ export class AddRecipeComponent
         tap((value: { name: string }) => {
             if (this.nameOfDish.name !== value.name) {
               this.nameOfDish = { name: value.name };
-              this.nameChange.emit(this.model.value.name);
+              this.nameChange.emit( value.name);
             }
           }
         )));
@@ -107,6 +112,7 @@ export class AddRecipeComponent
   addUsedProduct(newUsedProduct: { product: string, measure: string, amount: number }) {
     this.usedProductToAdd.emit(newUsedProduct);
   }
+
   addDeletedProduct(productId: string) {
     this.usedProductToDelete.emit(productId);
   }

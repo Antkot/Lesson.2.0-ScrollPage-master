@@ -12,21 +12,20 @@ import { DaysFormuleComponent } from '../days-formule/days-formule.component';
 import { MealFormuleComponent } from '../meal-formule/meal-formule.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddRecipeComponent } from '../../add-recipe/add-recipe.component';
+import { ChipsComponent } from '../../chips/chips.component';
+import { StepsComponent } from '../../steps/steps.component';
+import { IngredientsComponent } from '../../ingredients/ingredients.component';
+import { IngredientDialogComponent } from '../../ingredient-dialog/ingredient-dialog.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { DishTypeComponent } from '../../dish-type/dish-type.component';
+import { CookBookModule } from '../../../cook-book.module';
 
 const decoration: NgModule = {
-  declarations: [DaysFormuleComponent, MealFormuleComponent, DishFormuleComponent],
-  imports: [
-    MatIconModule,
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatOptionModule,
-    MatSelectModule,
-    DragDropModule,
-    MatAutocompleteModule
-
-  ],
+  declarations: [],
+  imports: [CookBookModule],
   exports: []
 };
 

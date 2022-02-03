@@ -151,7 +151,8 @@ const links = [
   ],
   entryComponents: [
     IngredientDialogComponent,
-    AbandonEditionComponent
+    AbandonEditionComponent,
+    AddRecipeComponent
   ]
 })
 export class CookBookModule {

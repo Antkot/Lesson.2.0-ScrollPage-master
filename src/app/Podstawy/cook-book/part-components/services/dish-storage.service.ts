@@ -26,7 +26,7 @@ export class DishStorageService {
     dishType: []
   });
   editState = false;
-  empty = {
+  empty: Dish = {
     dishId: '',
     name: '',
     tags: [],
@@ -176,7 +176,7 @@ export class DishStorageService {
   }
 
   newDish(url: string) {
-    console.log('newDish');
+    console.log('newDish', url);
     this.dishesList$.pipe(first()).subscribe(dishesList => {
       const findDish = dishesList.find(({ dishId }) => dishId === url);
       if (findDish) {
@@ -231,6 +231,8 @@ export class DishStorageService {
   }
 
   newStep(newStep: string, givenDishId: string) {
+    console.log(newStep);
+    console.log('newStep');
     this.dishesListCopied$.next({
       ...this.dishesListCopied$.value,
       dishId: givenDishId,
@@ -345,8 +347,27 @@ export class DishStorageService {
     // dishesList.map((value) => value.dishId === givenDishId ? this.dishesListCopied$.value : value);
     // this.dishesList$.next([...dishesList]);
 
-    this.dishesList$.next([...this.dishesList$.getValue().map((value) =>
-      value.dishId === givenDishId ? this.dishesListCopied$.value : value)]);
+    this.dishesList$.next([...this.dishesList$.value.filter(value => value.dishId !== givenDishId), { ...this.dishesListCopied$.value }]);
+
+
+    // this.dishesList$.next([...this.dishesList$.value.map(({ dishId, dishType, name, steps, tags, products }) =>
+    //   dishId === givenDishId ? {
+    //     dishId: this.dishesListCopied$.value.dishId,
+    //     steps: this.dishesListCopied$.value.steps,
+    //     tags: this.dishesListCopied$.value.tags,
+    //     dishType: this.dishesListCopied$.value.dishType,
+    //     name: this.dishesListCopied$.value.name,
+    //     products: this.dishesListCopied$.value.products
+    //   } : {
+    //     dishId,
+    //     tags,
+    //     dishType,
+    //     name,
+    //     steps,
+    //     products
+    //   })]);
+    console.log(this.dishesList$.value);
+
     this.edition$.next(false);
     this.editState = false;
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
@@ -397,24 +418,24 @@ export class DishStorageService {
     this.localStorageService.removeItem('editedDish');
   }
 
-  editCheck(givenDishId) {
+  editCheck(givenDishId: string) {
     this.empty.dishId = givenDishId;
     console.log('Edit Check');
     // !!! SIMPLIFY
-    let beforeEdition;
+    let beforeEdition: Dish = null;
     this.dishesList$.pipe(first()).subscribe(value => {
       beforeEdition = value.filter(({ dishId }) =>
         dishId === givenDishId
       )[0];
     });
-    let afterEdition;
+    let afterEdition: Dish = null;
     this.dishesListCopied$.pipe(first()).subscribe(value => afterEdition = value);
     console.log(1111);
-    console.table(stringify(afterEdition));
-    console.table(stringify(this.empty));
+    console.table(JSON.stringify(afterEdition));
+    console.table(JSON.stringify(this.empty));
     console.log(afterEdition === this.empty);
-    this.editionInProgress$.next((stringify(afterEdition) !== stringify(beforeEdition))
-      && (stringify(afterEdition) !== stringify(this.empty)));
+    this.editionInProgress$.next((JSON.stringify(afterEdition) !== JSON.stringify(beforeEdition))
+      && (JSON.stringify(afterEdition) !== JSON.stringify(this.empty)));
     this.editionInProgress$.pipe(first()).subscribe(value => console.log('Edycja trwa: ', value));
     this.localStorageService.setItem('dishList', JSON.stringify(this.dishesList$.value));
   }

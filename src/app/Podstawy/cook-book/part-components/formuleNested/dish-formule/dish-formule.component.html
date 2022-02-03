@@ -10,6 +10,8 @@
             <input matInput type='text' [matAutocomplete]='autoDishComplete' [matAutocompleteDisabled]='false'
                    formControlName='dish' />
             <mat-icon cdkDragHandle>open_with</mat-icon>
+            <!--            <mat-icon class='click' *ngIf='dishesListCombine$.value.length' (click)='searchChange()'>search</mat-icon>-->
+            <!--            <mat-icon class='click' (click)='open()'>add</mat-icon>-->
           </div>
         </div>
       </div>
@@ -18,8 +20,34 @@
   </div>
 </div>
 
-<mat-autocomplete #autoDishComplete='matAutocomplete' [displayWith]="displayFn.bind(this)">
-  <mat-option *ngFor='let dish of finalCombine' [value]='dish.item.dishId'>
-    {{dish.item.name}}
-  </mat-option>
+<mat-autocomplete #autoDishComplete='matAutocomplete' [displayWith]='displayFn.bind(this)'>
+  <mat-optgroup [label]='"lista: "' *ngIf='finalCombine.length !== 0'>
+    <mat-option *ngFor='let dish of finalCombine' [value]='dish.item.dishId'>
+      {{dish.item.name}}
+    </mat-option>
+  </mat-optgroup>
+  <mat-optgroup [label]="'Brak wyników:'" *ngIf='finalCombine.length === 0'>
+    <mat-option (click)='searchChange()'>
+      <mat-icon class='click'>search</mat-icon>
+    </mat-option>
+    <mat-option (click)='open()'>
+      <mat-icon class='click'>add</mat-icon>
+    </mat-option>
+    <!--    <div>-->
+    <!--      <button mat-button>-->
+    <!--        <mat-icon>search</mat-icon>-->
+    <!--      </button>-->
+    <!--      <button mat-button>-->
+    <!--        <mat-icon>add</mat-icon>-->
+    <!--      </button>-->
+    <!--    </div>-->
+  </mat-optgroup>
 </mat-autocomplete>
+
+
+<!--<mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"-->
+<!--              [disabled]="group.disabled">-->
+<!--  <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">-->
+<!--    {{pokemon.viewValue}}-->
+<!--  </mat-option>-->
+<!--</mat-optgroup>-->
