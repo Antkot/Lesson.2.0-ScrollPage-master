@@ -19,7 +19,7 @@
     <button (click)='addForm()'>Dodaj Danie</button>
   </div>
 </div>
-
+TU: {{addedDish}}
 <mat-autocomplete #autoDishComplete='matAutocomplete' [displayWith]='displayFn.bind(this)'>
   <mat-optgroup [label]='"lista: "' *ngIf='finalCombine.length !== 0'>
     <mat-option *ngFor='let dish of finalCombine' [value]='dish.item.dishId'>

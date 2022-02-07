@@ -1,6 +1,9 @@
 <div class='canvas'>
   <div class='all'>
     <div class='container' [formGroup]='model'>
+      <a>id: {{dishId}}</a><br />
+      <a>data: {{data.data}}</a><br />
+      <a>real_Id: {{realId}}</a>
       <div>
         <input *ngIf='edition$ | async'
                type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'

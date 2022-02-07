@@ -1,9 +1,9 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
-import { distinctUntilChanged, filter, first, map, tap } from 'rxjs/operators';
+import { distinctUntilChanged, filter, first, map, takeUntil, tap } from 'rxjs/operators';
 import { AliveState } from '../../../../../ActiveState';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Dish, DishType, Measure, Product, UsedProduct } from '../../../types';
+import { AddedProductType, BothIdType, Dish, DishType, Measure, Product, UsedProduct } from '../../../types';
 import { LoadingService } from '../../services/loading.service';
 import { DishStorageService } from '../../services/dish-storage.service';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
@@ -14,6 +14,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddRecipeComponent } from '../../add-recipe/add-recipe.component';
 import { UsedProductsStorageService } from '../../services/used-products-storage.service';
 import { ProductsStorageService } from '../../services/products-storage.service';
+import * as cuid from 'cuid';
+import { stringify } from 'querystring';
 
 
 @Component({
@@ -22,6 +24,7 @@ import { ProductsStorageService } from '../../services/products-storage.service'
   styleUrls: ['./dish-formule.component.scss']
 })
 export class DishFormuleComponent extends AbstractValueAccessor implements OnInit {
+  addedDish: string;
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   usedProducts$: Observable<Array<UsedProduct>> = this.usedProductsService.usedProducts$;
   products$: Observable<Array<Product>> = this.productsService.products$;
@@ -217,7 +220,13 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
 
   open() {
     this.edition$.next(true);
-    const dialogRef = this.dialog.open(AddRecipeComponent, {});
+    const dialogRef = this.dialog.open(AddRecipeComponent, { data: { data: cuid() } });
+    dialogRef.componentInstance.editionEnded.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: string) => {
+      this.addedDish = result;
+    });
+    dialogRef.componentInstance.editionEnded.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result) => {
+      console.table(result);
+    });
   }
 
   searchChange() {

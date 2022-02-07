@@ -19,14 +19,13 @@ export class RecipiePageComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private productService: ProductsStorageService,
-    private dishService: DishStorageService,    private usedProductService: UsedProductsStorageService,
-
+    private dishService: DishStorageService, private usedProductService: UsedProductsStorageService,
     private route: ActivatedRoute) {
   }
 
   edit$: Observable<boolean> = combineLatest([this.activatedRoute.paramMap
     .pipe(map(() => history.state))]).pipe(map(([{ edit }]) => edit));
-  dishId$ = new BehaviorSubject('')
+  dishId$ = new BehaviorSubject('');
   // dishId$: Observable<string> = combineLatest([this.route.url.pipe(
   //   map(value => value[1].path))]).pipe(map(([dishId]) => {
   //   console.log('Id posiłku', dishId);
@@ -42,68 +41,70 @@ export class RecipiePageComponent implements OnInit {
     this.dishId$.next(cuid());
   }
 
-  nameEdited(newName: string) {
-    console.log(111111111111111111111);
-    console.log('nazwa zmieniona');
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.nameChange(newName, dishId)
-    );
-  }
-
-  addUsedProduct(newUsedProduct: AddedUsedProductType) {
-    const newProd = this.usedProductService.addProduct(newUsedProduct);
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.addProduct(newProd, dishId)
-    );
-  }
-  deleteUsedProduct(deletedProductId: string) {
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.deleteProduct(deletedProductId, dishId)
-    );
-  }
-
-  addProduct(newProduct: AddedProductType) {
-    this.productService.addProduct(newProduct);
-  }
-
-  newStepEmitter(newStep: string) {
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.newStep(newStep, dishId)
-    );
-  }
-
-  deletedStepEmitter(index: number) {
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.deleteStep(index, dishId)
-    );
-  }
-
-  editStepEmitter(editedStep: { step: string, index: number }) {
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.editStep(editedStep, dishId)
-    );
-  }
-
-  reindexStepEmitter(reindex: { previousIndex: number, currentIndex: number }) {
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.reindexStep(reindex, dishId)
-    );
-  }
-
-
-  typeEdition(dishType: Array<{ dishId: string }>) {
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.typeChange(dishType, dishId)
-    );
-  }
-
-  deleteProdMeasure(bothId: BothIdType) {
-    this.productService.deleteProdMeasure(bothId);
-  }
-
-  endEdition() {
-    this.dishId$.pipe(first()).subscribe((dishId) =>
-      this.dishService.endEdition(dishId)
-    );
-  }
+  // nameEdited(newName: string) {
+  //   console.log(111111111111111111111);
+  //   console.log('nazwa zmieniona');
+  //   this.dishId$.pipe(first()).subscribe((dishId) =>
+  //     this.dishService.nameChange(newName, dishId)
+  //   );
+  // }
+  //
+  // addUsedProduct(newUsedProduct: AddedUsedProductType) {
+  //   const newProd = this.usedProductService.addProduct(newUsedProduct);
+  //   this.dishId$.pipe(first()).subscribe((dishId) =>
+  //     this.dishService.addProduct(newProd, dishId)
+  //   );
+  // }
+  //
+  // deleteUsedProduct(deletedProductId: string) {
+  //   this.dishId$.pipe(first()).subscribe((dishId) =>
+  //     this.dishService.deleteProduct(deletedProductId, dishId)
+  //   );
+  // }
+  //
+  // addProduct(newProduct: AddedProductType) {
+  //   this.productService.addProduct(newProduct);
+  // }
+  //
+  // newStepEmitter(newStep: string) {
+  //   console.log('error here?');
+  //   this.dishId$.pipe(first()).subscribe((dishId) =>
+  //     this.dishService.newStep(newStep, dishId)
+  //   );
+  // }
+  //
+  // deletedStepEmitter(index: number) {
+  //   this.dishId$.pipe(first()).subscribe((dishId) =>
+  //     this.dishService.deleteStep(index, dishId)
+  //   );
+  // }
+  //
+  // editStepEmitter(editedStep: { step: string, index: number }) {
+  //   this.dishId$.pipe(first()).subscribe((dishId) =>
+  //     this.dishService.editStep(editedStep, dishId)
+  //   );
+  // }
+  //
+  // reindexStepEmitter(reindex: { previousIndex: number, currentIndex: number }) {
+  //   this.dishId$.pipe(first()).subscribe((dishId) =>
+  //     this.dishService.reindexStep(reindex, dishId)
+  //   );
+  // }
+  //
+  //
+  // typeEdition(dishType: Array<{ dishId: string }>) {
+  //   this.dishId$.pipe(first()).subscribe((dishId) =>
+  //     this.dishService.typeChange(dishType, dishId)
+  //   );
+  // }
+  //
+  // deleteProdMeasure(bothId: BothIdType) {
+  //   this.productService.deleteProdMeasure(bothId);
+  // }
+  //
+  // endEdition() {
+  //   this.dishId$.pipe(first()).subscribe((dishId) =>
+  //     this.dishService.endEdition(dishId)
+  //   );
+  // }
 }

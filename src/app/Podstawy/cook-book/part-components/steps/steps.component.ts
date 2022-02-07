@@ -53,6 +53,8 @@ export class StepsComponent implements OnInit {
   }
 
   add() {
+    console.log();
+    console.log('step emited in steps.ts');
     this.newStep.emit(this.model.value.step);
     this.model.reset();
   }
