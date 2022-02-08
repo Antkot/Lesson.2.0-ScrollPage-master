@@ -2,7 +2,7 @@
   <div class='center'>
     <div cdkDropList (cdkDropListDropped)='drop($event)'>
       <div *ngFor='let form of forms.controls; index as i'>
-        <div [formGroup]='forms.controls[i]' cdkDrag class='inline'>
+        <div [formGroup]='forms.controls[i]' cdkDrag class='inline' (click)='operating(i)'>
           <div (click)='remove(i)' class='delete'>
             <mat-icon>delete</mat-icon>
           </div>
@@ -19,7 +19,9 @@
     <button (click)='addForm()'>Dodaj Danie</button>
   </div>
 </div>
-TU: {{addedDish}}
+TU: {{addedDish}}<br />
+<a *ngIf='!!addedDish'>I TU: {{addedDish | dishTranslator: 'name' | async}}
+</a>
 <mat-autocomplete #autoDishComplete='matAutocomplete' [displayWith]='displayFn.bind(this)'>
   <mat-optgroup [label]='"lista: "' *ngIf='finalCombine.length !== 0'>
     <mat-option *ngFor='let dish of finalCombine' [value]='dish.item.dishId'>

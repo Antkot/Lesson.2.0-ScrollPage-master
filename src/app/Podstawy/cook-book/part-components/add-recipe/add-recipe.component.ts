@@ -9,7 +9,7 @@ import { AliveState } from '../../../../ActiveState';
 import { LoadingService } from '../services/loading.service';
 import { validate } from 'codelyzer/walkerFactory/walkerFn';
 import { values } from 'lodash';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { number } from '@storybook/addon-knobs';
 import { ProductsStorageService } from '../services/products-storage.service';
@@ -24,6 +24,7 @@ export class AddRecipeComponent
   extends AliveState
   implements OnInit {
   edition$ = this.loadingService.edition$;
+  @Output() closed = new EventEmitter();
   @Output() prodMeasureDeleted = new EventEmitter();
   @Output() usedProductToAdd = new EventEmitter();
   @Output() usedProductToDelete = new EventEmitter();
@@ -49,6 +50,7 @@ export class AddRecipeComponent
   realId;
 
   constructor(
+    public dialogRef: MatDialogRef<AddRecipeComponent>,
     private activatedRoute: ActivatedRoute,
     private productService: ProductsStorageService,
     private usedProductService: UsedProductsStorageService,
@@ -256,6 +258,8 @@ export class AddRecipeComponent
     // this.dishId$.pipe(first()).subscribe((dishId) =>
     //   this.dishService.endEdition(dishId)
     // );
+    this.dialogRef.close('data');
+    this.closed.emit('data');
     this.dishService.endEdition(this.realId);
   }
 

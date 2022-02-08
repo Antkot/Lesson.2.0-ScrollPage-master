@@ -16,6 +16,7 @@ import { UsedProductsStorageService } from '../../services/used-products-storage
 import { ProductsStorageService } from '../../services/products-storage.service';
 import * as cuid from 'cuid';
 import { stringify } from 'querystring';
+import { date } from '@storybook/addon-knobs';
 
 
 @Component({
@@ -25,6 +26,7 @@ import { stringify } from 'querystring';
 })
 export class DishFormuleComponent extends AbstractValueAccessor implements OnInit {
   addedDish: string;
+  operatingAtIndex: number;
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   usedProducts$: Observable<Array<UsedProduct>> = this.usedProductsService.usedProducts$;
   products$: Observable<Array<Product>> = this.productsService.products$;
@@ -219,13 +221,19 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
   }
 
   open() {
+    this.addedDish = cuid();
     this.edition$.next(true);
-    const dialogRef = this.dialog.open(AddRecipeComponent, { data: { data: cuid() } });
+    const dialogRef = this.dialog.open(AddRecipeComponent, { data: { data: this.addedDish } });
+
     dialogRef.componentInstance.editionEnded.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result: string) => {
-      this.addedDish = result;
-    });
-    dialogRef.componentInstance.editionEnded.pipe(takeUntil(dialogRef.afterClosed())).subscribe((result) => {
       console.table(result);
+    });
+
+    dialogRef.componentInstance.closed.pipe(takeUntil(dialogRef.afterClosed())).subscribe(({ data }) => {
+      dialogRef.close();
+
+      this.forms.at(this.operatingAtIndex).patchValue(
+        { dish: this.addedDish });
     });
   }
 
@@ -233,4 +241,7 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
     this.productSearch = true;
   }
 
+  operating(index) {
+    this.operatingAtIndex = index;
+  }
 }
