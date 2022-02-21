@@ -7,11 +7,19 @@
             <mat-icon>delete</mat-icon>
           </div>
           <div>
-            <input matInput type='text' [matAutocomplete]='autoDishComplete' [matAutocompleteDisabled]='false'
-                   formControlName='dish' />
+            <mat-form-field class='example-full-width' appearance='fill'>
+              <mat-label>Nazwa listy</mat-label>
+              <input matInput type='text' formControlName='dish' [matAutocomplete]='autoDishComplete'
+                     [matAutocompleteDisabled]='false'
+                     placeholder='np. zupa grzybowa'>
+              <mat-hint>Wybierz danie z listy</mat-hint>
+              <mat-error
+                *ngIf='forms.controls[i].controls?.dish.touched && forms.controls[i].controls?.dish?.invalid'>
+                Wybrane danie <strong>nie istnieje</strong>
+              </mat-error>
+<!--              <mat-error> Błędne dane</mat-error>-->
+            </mat-form-field>
             <mat-icon cdkDragHandle>open_with</mat-icon>
-            <!--            <mat-icon class='click' *ngIf='dishesListCombine$.value.length' (click)='searchChange()'>search</mat-icon>-->
-            <!--            <mat-icon class='click' (click)='open()'>add</mat-icon>-->
           </div>
         </div>
       </div>
@@ -19,9 +27,6 @@
     <button (click)='addForm()'>Dodaj Danie</button>
   </div>
 </div>
-TU: {{addedDish}}<br />
-<a *ngIf='!!addedDish'>I TU: {{addedDish | dishTranslator: 'name' | async}}
-</a>
 <mat-autocomplete #autoDishComplete='matAutocomplete' [displayWith]='displayFn.bind(this)'>
   <mat-optgroup [label]='"lista: "' *ngIf='finalCombine.length !== 0'>
     <mat-option *ngFor='let dish of finalCombine' [value]='dish.item.dishId'>
@@ -35,21 +40,9 @@ TU: {{addedDish}}<br />
     <mat-option (click)='open()'>
       <mat-icon class='click'>add</mat-icon>
     </mat-option>
-    <!--    <div>-->
-    <!--      <button mat-button>-->
-    <!--        <mat-icon>search</mat-icon>-->
-    <!--      </button>-->
-    <!--      <button mat-button>-->
-    <!--        <mat-icon>add</mat-icon>-->
-    <!--      </button>-->
-    <!--    </div>-->
   </mat-optgroup>
 </mat-autocomplete>
 
 
-<!--<mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"-->
-<!--              [disabled]="group.disabled">-->
-<!--  <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">-->
-<!--    {{pokemon.viewValue}}-->
-<!--  </mat-option>-->
-<!--</mat-optgroup>-->
+<!--TODO: kiedy się nic nie wpisze nie ma wyników, a powinny być wszystkie przepisy-->
+<!--TODO: sumowanie kcal dish-->

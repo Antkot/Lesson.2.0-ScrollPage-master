@@ -1,8 +1,17 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Optional, Output, Self } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
-import { distinctUntilChanged, filter, first, map, takeUntil, tap } from 'rxjs/operators';
+import {
+  AbstractControl,
+  AsyncValidator, AsyncValidatorFn,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  NgControl,
+  Validators
+} from '@angular/forms';
+import { catchError, distinctUntilChanged, filter, first, map, switchMap, take, takeUntil, tap } from 'rxjs/operators';
 import { AliveState } from '../../../../../ActiveState';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { AddedProductType, BothIdType, Dish, DishType, Measure, Product, UsedProduct } from '../../../types';
 import { LoadingService } from '../../services/loading.service';
 import { DishStorageService } from '../../services/dish-storage.service';
@@ -18,6 +27,19 @@ import * as cuid from 'cuid';
 import { stringify } from 'querystring';
 import { date } from '@storybook/addon-knobs';
 
+// function priceHigherThanZero(): ValidatorFn {
+//   return (control: AbstractControl): { [key: string]: any } | null => {
+//     const priceSet = Array.isArray(control.value)
+//       ? control.value.reduce(
+//         (prev, { price }) => prev + (typeof price === 'number' ? price : 0),
+//         0
+//       )
+//       : false;
+//     const er = !priceSet ? { priceNotSet: true } : null;
+//     console.log(er);
+//     return er;
+//   };
+// }
 
 @Component({
   selector: 'app-fourth',
@@ -25,6 +47,7 @@ import { date } from '@storybook/addon-knobs';
   styleUrls: ['./dish-formule.component.scss']
 })
 export class DishFormuleComponent extends AbstractValueAccessor implements OnInit {
+  oldModel: string;
   addedDish: string;
   operatingAtIndex: number;
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
@@ -80,28 +103,63 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
           currentValue.forEach(
             ({ dish }) => {
               this.forms.push(
-                new FormGroup({ dish: new FormControl(dish) }));
+                new FormGroup({
+                  dish: new FormControl(dish, {
+                    validators: [Validators.minLength(4)],
+                    asyncValidators: [this.validator()]
+                  })
+                }));
             });
           updateInProgress = false;
         })
       ),
+      // this.forms.valueChanges.pipe(
+      //   filter(() => !updateInProgress),
+      //   tap((currentValue) => {
+      //     updateInProgress = true;
+      //     updateInProgress = false;
+      //
+      //   })
+      // ),
       this.forms.valueChanges.pipe(
-        filter(() => !updateInProgress),
+        filter((value) => JSON.stringify(value) !== this.oldModel && !updateInProgress),
         tap((currentValue) => {
           updateInProgress = true;
+          this.oldModel = JSON.stringify(currentValue);
+          const dish = this.forms.controls[0].get('dish');
+          dish.setAsyncValidators([this.validator()]);
+          this.forms.updateValueAndValidity();
           this.writeValue(currentValue);
-          updateInProgress = false;
           this.autocomplete(currentValue);
-
+          updateInProgress = false;
         })
-      ));
+      )
+    );
+  }
 
+  validator(): AsyncValidatorFn {
+    console.log('Validator running');
+    return (input: AbstractControl): Observable<{ [key: string]: any }> => {
+      console.log('INPUT DATA: ', input);
+      return this.dishesList$.pipe(
+        map((dishesList) => {
+          const x = this.change(dishesList, input.value);
+          return !!x ? null : { valid: 'ffff', nomatch: true };
+        }), take(1)
+      );
+    };
+    // return {nomatch: true};
+  }
+
+  change(dishesList, dish) {
+    // const value =
+    return dishesList.find(({ dishId }) => dishId === dish);
   }
 
   addForm() {
     this.forms.push(
       new FormGroup({
-        dish: new FormControl(`Danie ${this.forms.value.length + 1}`)
+        dish: new FormControl(``, { validators: [Validators.minLength(4)], asyncValidators: [this.validator()] })
       })
     );
   }
@@ -196,7 +254,7 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
             }
           });
 
-          console.log(this.dishesListCombine$.value);
+          // console.log(this.dishesListCombine$.value);
           this.formCopy = currentValue;
           const options = {
             isCaseSensitive: false,
@@ -245,3 +303,4 @@ export class DishFormuleComponent extends AbstractValueAccessor implements OnIni
     this.operatingAtIndex = index;
   }
 }
+

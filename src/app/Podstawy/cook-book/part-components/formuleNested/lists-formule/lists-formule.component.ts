@@ -13,6 +13,7 @@ import { distinctUntilChanged, filter, tap } from 'rxjs/operators';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
 import { AbstractValueAccessor } from '../formControl';
 import { LocalStorageService } from '../../services/local-storage-service';
+import { validate } from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
   selector: 'app-formule',
@@ -38,17 +39,15 @@ export class ListsFormuleComponent extends AbstractValueAccessor implements OnIn
 
   ngOnInit() {
     let loaded = false;
-    setTimeout(() => {
-      const storageData = JSON.parse(localStorage.getItem('formule'));
-      if (!!storageData) {
-        storageData.forEach(
-          ({ name, days }) => {
-            this.forms.push(
-              new FormGroup({ name: new FormControl(name), days: new FormControl(days) }));
-          });
-      }
-      loaded = true;
-    }, 2000);
+    const storageData = JSON.parse(localStorage.getItem('formule'));
+    if (!!storageData) {
+      storageData.forEach(
+        ({ name, days }) => {
+          this.forms.push(
+            new FormGroup({ name: new FormControl(name, { validators: [Validators.minLength(3)] }), days: new FormControl(days) }));
+        });
+    }
+    loaded = true;
     this.subscribeWhileAlive(
       this.valueSubject.pipe(
         tap((currentValue) => {
@@ -69,7 +68,7 @@ export class ListsFormuleComponent extends AbstractValueAccessor implements OnIn
     this.forms.push(
       new FormGroup({
         name: new FormControl(
-          `formularz ${this.forms.value.length + 1}`),
+          `formularz ${this.forms.value.length + 1}`, { validators: [Validators.minLength(3)] }),
         days: new FormControl([])
       })
     );
@@ -95,3 +94,13 @@ export class ListsFormuleComponent extends AbstractValueAccessor implements OnIn
   }
 }
 
+// @Component({
+//   selector: 'input-error-state-matcher-example',
+//   templateUrl: './input-error-state-matcher-example.html',
+//   styleUrls: ['./input-error-state-matcher-example.css'],
+// })
+// export class InputErrorStateMatcherExample {
+//   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+//
+//   matcher = new MyErrorStateMatcher();
+// }
