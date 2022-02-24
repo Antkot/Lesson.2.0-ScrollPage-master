@@ -14,11 +14,11 @@
 }
 
 .seenWindow {
-  margin-top: 50px;
   overflow: auto;
-  height: calc(100vh - 50px);
-  width: 100%;
-  background: palegoldenrod;
+  height: calc(100vh - 70px);
+  width: 80%;
+  margin: 70px auto 0 auto;
+  background: lightgoldenrodyellow;
 }
 
 .list {
@@ -27,19 +27,16 @@
 
 .record {
   display: flex;
-  //border: gold 12px double;
-  //border-radius: 50px;
-  //background: dodgerblue;
-  //padding: 10px 20px;
-  //height: 75px;
-  //position: relative;
 }
 
-.record:hover {
-  //border: darkgoldenrod 12px double;
+.background {
+  background: palegoldenrod;
 }
-.recMenu:hover, .recName:hover {
-  border: darkgoldenrod 12px double;
+
+.height {
+  min-height: calc(100% - 227px);
+  width: 100%;
+  background: palegoldenrod;
 }
 
 .hash {
@@ -82,62 +79,103 @@
 .add:hover {
   border: darkgoldenrod double 12px;
 }
-.record:active, .add:active{
+
+.record:active, .add:active {
   transform: scale(0.98);
 }
-.recMenu:active, .recName:active,  .add:active{
+
+.recMenu:active, .recName:active, .add:active {
   //transform: scale(0.95);
 }
-.topRight{
+
+.topRight {
   border: none;
   background: none;
   margin: auto;
-  top: 30%;
   position: absolute;
+  height: 48px;
+  width: 0;
+  display: flex;
+  justify-content: center;
 }
-.menuIcon{
+
+.menuIcon {
   font-size: 300%;
   cursor: pointer;
 }
-.recMenu{
-  cursor: pointer;
-  border: gold 12px double;
-  border-radius: 0 50px 50px 0;
-  background: dodgerblue;
-  padding: 10px 20px;
-  height: 75px;
-  position: relative;
-  width: 5%;
-  border-left: none;
-  float: left;
+
+.nameItself {
+  word-break: break-word;
 }
-.recName{
+
+.recMenu, .recName {
   cursor: pointer;
-  margin-right: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  background: dodgerblue;
   border: gold 12px double;
+  position: relative;
+}
+
+.recMenu {
+  border-left: none;
+  border-radius: 0 50px 50px 0;
+  padding: 10px 20px 10px 32px;
+  width: 5%;
+}
+
+.recMenu:hover {
+  padding: 10px 20px 10px 20px;
+  margin-left: 0;
+}
+
+.recName {
   border-right: none;
   border-radius: 50px 0 0 50px;
-  background: dodgerblue;
-  padding: 10px 20px;
-  height: 75px;
-  position: relative;
+  padding: 10px 32px 10px 20px;
   width: 85%;
 }
-.noRecords{
-  //display: none;
-  width: 20%;
+
+.recName:hover {
+  z-index: 1;
+  padding: 10px 20px 10px 20px;
+}
+
+.recMenu:hover, .recName:hover {
+  border: darkgoldenrod 12px double;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+
+.noRecords {
+  width: 300px;
   text-align: center;
   position: absolute;
   top: 50%;
-  right: 40%;
+  right: calc(50% - 150px);
+  background: palegoldenrod;
 }
-//.list:empty{
-  //height: 10px;
-  //background: red;
-  //.noRecords{
-  //  display: block;
-  //}
-//}
-.list:empty + .noRecords{
-  display: block;
+
+@media (max-width: 1000px) {
+  .seenWindow {
+    position: relative;
+    width: 100%;
+    margin-top: 70px;
+    margin-left: 0;
+    right: -100px;
+    margin-right: 0;
+    height: calc(100vh - 70px);
+  }
+}
+
+@media (max-width: 850px) {
+  .seenWindow {
+    width: 97%;
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+  }
 }

@@ -13,7 +13,7 @@
       <mat-form-field appearance='outline'>
         <mat-label>Miara</mat-label>
         <input matInput type='text' [matAutocomplete]='autoMeasure' [matAutocompleteDisabled]='false'
-               formControlName='measure'/>
+               formControlName='measure' />
       </mat-form-field>
     </div>
     <div class='twoInputs'>
@@ -24,7 +24,8 @@
       <mat-form-field appearance='outline'>
         <mat-label>Alergie</mat-label>
         <mat-select formControlName='allergens' multiple>
-          <mat-option *ngFor='let allergen of allergens$ | async' [value]='allergen.hashId' class='margin'>
+          <mat-option *ngFor='let allergen of allergens$ | async' [value]='{ allergenId: allergen.hashId}'
+                      class='margin'>
             {{allergen.name}}
           </mat-option>
         </mat-select>
@@ -32,15 +33,19 @@
     </div>
   </ng-container>
   <ng-container class='buttonDiv'>
-    <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid' *ngIf='!isMeasureDuplicated'>Dodaj</button>
+    <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid' *ngIf='!isMeasureDuplicated'>
+      Dodaj
+    </button>
   </ng-container>
   <ng-container class='buttonDiv'>
-    <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid' *ngIf='isMeasureDuplicated'>Edytuj</button>
+    <button class='addButton' mat-button (click)='newProduct()' [disabled]='model.invalid' *ngIf='isMeasureDuplicated'>
+      Edytuj
+    </button>
   </ng-container>
   <br />
-<!--  <div class='errors'>-->
-<!--    <a *ngIf='model.invalid'>Niepoprawne dane</a>-->
-<!--  </div>-->
+  <!--  <div class='errors'>-->
+  <!--    <a *ngIf='model.invalid'>Niepoprawne dane</a>-->
+  <!--  </div>-->
   <div class='gridTable'>
     <div>Nazwa</div>
     <div>Alergeny</div>
@@ -49,21 +54,25 @@
   </div>
 
   <mat-dialog-content class='mat-typography'>
+    <div class='content'>
       <div class='gridTable tableBorder' *ngFor='let product of products$ | async'>
         <div class='centerV'>{{product.name}}</div>
-        <div  class='centerV'>
+        <div class='centerV'>
           <a *ngFor='let allergen of product.allergens'>
-            1. {{allergen | json}}<br/>
-            2. {{allergen.allergenId | tagNameById: 'allergen' | async}}<br/>
-            3. {{allergen | tagNameById: 'allergen' | async}}
+            {{allergen.allergenId | tagNameById: 'allergen' | async}}<br />
           </a>
         </div>
-        <div class='centerV'><a   class='allergenHeight' *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
+        <div class='centerV'><a class='allergenHeight'
+                                *ngFor='let measure of product.measures'>{{ measure.measureId | measuresTranslator | async}}
           ({{measure.kcal}} kcal) <br />
         </a></div>
 
-        <div class='centerV'><button mat-button class='delButton' *ngFor='let measure of product.measures' (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br/>
-        </button></div>
+        <div class='centerV'>
+          <button mat-button class='delButton' *ngFor='let measure of product.measures'
+                  (click)='deleteProdMeasure(measure.measureId, product.productId)'>Usuń<br />
+          </button>
+        </div>
+      </div>
     </div>
   </mat-dialog-content>
 

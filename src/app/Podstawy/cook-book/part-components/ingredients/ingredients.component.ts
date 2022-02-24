@@ -13,6 +13,9 @@ import { cloneDeep, forEach, result } from 'lodash';
 import { number } from '@storybook/addon-knobs';
 import { AliveState } from '../../../../ActiveState';
 import { stringify } from 'querystring';
+import { LoadingService } from '../services/loading.service';
+import { DishStorageService } from '../services/dish-storage.service';
+import { UsedProductsStorageService } from '../services/used-products-storage.service';
 
 
 @Component({
@@ -23,20 +26,24 @@ import { stringify } from 'querystring';
 export class IngredientsComponent
   extends AliveState
   implements OnInit {
+  usedProducts$: Observable<Array<UsedProduct>> = this.usedProductsService.usedProducts$;
+  copiedDishes$: Observable<Dish> = this.dishService.dishesListCopied$;
   @Output() addUsedProduct = new EventEmitter();
+  @Output() addDeletedProduct = new EventEmitter();
   @Output() addedProduct = new EventEmitter();
   @Output() prodMeasureDeleted = new EventEmitter();
   products$: Observable<Array<Product>> = this.productsService.products$;
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
-  @Input() edit: boolean;
+  edition$ = this.loadingService.edition$;
+  // @Input() edit: boolean;
   @Input() products: Array<{ usedProductId: string }>;
   autoProducts$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
-  autoMeasure$ = new BehaviorSubject<Array<{ name: string, productId: string }>>([]);
+  autoMeasure$ = new BehaviorSubject<Array<{ name: string, measureId: string }>>([]);
   model = this.fb.group({
     product: ['', [Validators.required, Validators.minLength(1)]],
     measure: ['Wpisz produkt', [Validators.required, Validators.minLength(1)]],
     // amount: ['', [this.model.value.product.length === 0,  Validators.required, Validators.min(1)]]
-    amount: ['', [Validators.required, Validators.min(1)]]
+    amount: ['', [Validators.required, Validators.min(0.01)]]
   });
   finalCombine$ = new BehaviorSubject<Array<Measure>>([]);
   isMeasureDuplicated: boolean;
@@ -47,18 +54,20 @@ export class IngredientsComponent
   } = { product: '', amount: '' };
 
   constructor(
+    private usedProductsService: UsedProductsStorageService,
+    private dishService: DishStorageService,
     private productsService: ProductsStorageService,
     private measureService: MeasuresStorageService,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    private loadingService: LoadingService) {
     super();
   }
 
+// złe
   ngOnInit() {
     this.model.controls[`measure`].disable();
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
-        take(100),   // działa ? xD
-        // zmiana musi być na this.model
         filter((value) => this.modelClone.product !== value.product || (value?.measure && this.modelClone?.measure !== value.measure)),
         tap((value: {
           product: string,
@@ -78,19 +87,14 @@ export class IngredientsComponent
               this.isMeasureDuplicated = !!products.find(({ name }) => name === value.product)?.measures
                 .find(({ measureId }) => measureId === typedMeasureId);
               this.modelClone = { ...value };
-              console.log('this.productFromList', productFromList);
               if (productFromList) {
                 let onlyMeasureName = '';
                 if (products.find(({ name }) => name === value.product)?.measures.length === 1) {
-                  console.log('lenght: ', products.find(({ name }) => name === value.product)?.measures.length);
                   this.isMeasureDuplicated = true;
-                  this.measures$.pipe(
-                    first()).subscribe((measure) => {
-                    onlyMeasureName = measure.find(
-                      ({ measureId }) =>
-                        measureId === products.find(({ name }) => name === value.product).measures[0].measureId
-                    ).name;
-                  });
+                  onlyMeasureName = measures.find(
+                    ({ measureId }) =>
+                      measureId === products.find(({ name }) => name === value.product).measures[0].measureId
+                  ).name;
                 }
                 return this.modelReset(true, onlyMeasureName);
               } else if (!!value?.measure) {
@@ -117,16 +121,11 @@ export class IngredientsComponent
         this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
       });
       this.finalCombine$.pipe(first()).subscribe((measures) => {
-        let measuresResult = null;
-        if (value.measure?.length > 0 && value.measure) {
-          const options = {
+        const measuresResult: Array<Measure>  = value.measure?.length > 0 && value.measure ? new Fuse(measures, {
             keys: ['name']
-          };
-          const fuse = new Fuse(measures, options);
-          measuresResult = fuse.search(value.measure).map(({ item }) => item);
-        } else {
-          measuresResult = measures;
-        }
+          }).search(value.measure).map(({ item }) => item)
+          :
+          measures;
         this.autoMeasure$.next(measuresResult.map(({ name, measureId }) => ({ name, measureId })));
       });
     });
@@ -152,6 +151,23 @@ export class IngredientsComponent
     }
   }
 
+refactor(givenUsedProductId: string) {
+  this.usedProducts$.pipe(
+    map((usedProduct) => {
+      const x = usedProduct.find(
+        ({ usedProductId }) =>
+          usedProductId === givenUsedProductId
+      );
+      this.copiedDishes$.pipe(first()).subscribe(value =>
+        this.model.setValue({
+          product: x.productId,
+          measure: x.measuresId,
+          amount: x.amount,
+        })
+      );
+    }));
+
+}
 
   disabled() {
     return false;
@@ -163,5 +179,9 @@ export class IngredientsComponent
 
   deleteProdMeasure(bothId: BothIdType) {
     this.prodMeasureDeleted.emit(bothId);
+  }
+
+  deleteUsedProduct(productId: string) {
+    this.addDeletedProduct.emit(productId);
   }
 }

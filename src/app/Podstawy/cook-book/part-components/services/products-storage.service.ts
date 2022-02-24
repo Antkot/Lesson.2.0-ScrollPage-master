@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as cuid from 'cuid';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AddedProductType, BothIdType, Measure, Product } from '../../types';
+import { AddedProductType, BothIdType, Dish, Measure, Product } from '../../types';
 import { LocalStorageService } from './local-storage-service';
-import { find, first, map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { MeasuresStorageService } from './measures-storage.service';
-import { async } from '@angular/core/testing';
-import { number } from '@storybook/addon-knobs';
-import { add } from 'lodash';
+import { DishStorageService } from './dish-storage.service';
+import { UsedProductsStorageService } from './used-products-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,12 @@ export class ProductsStorageService {
   typedProductId = '';
   measureId = '';
 
-  constructor(private localStorageService: LocalStorageService, private measureService: MeasuresStorageService) {
+  constructor(
+    private dishesService: DishStorageService,
+    private localStorageService: LocalStorageService,
+    private measureService: MeasuresStorageService,
+    // private usedProductService: UsedProductsStorageService,
+) {
     if (!!localStorage.products) {
       const current = JSON.parse(this.localStorageService.getItem('products'));
       this.products$.next([...current]);
@@ -57,11 +61,7 @@ export class ProductsStorageService {
     if (!this.typedProductId) {
       this.typedProductId = cuid();
     } else {
-
-      // tu
-      console.log('Istniejący produkt zostanie nadpisany');
       if (addedProduct.duplicateState) {
-        console.log('Istniejąca miara zostanie nadpisana');
         this.measures$.pipe(first()).subscribe((measure) => {
           this.measureId = measure.find(
             ({ name }) =>
@@ -78,7 +78,6 @@ export class ProductsStorageService {
           ))] : measures
         })));
       } else {
-        console.log('Zostanie dodana nowa miara');
         this.products$.next(current.map(({ measures, allergens, ...value }) => ({
           ...value,
           allergens: value.productId === this.typedProductId ? addedProduct.product.allergens : allergens,
@@ -88,9 +87,7 @@ export class ProductsStorageService {
           }] : measures
         })));
       }
-      console.log('Istniejący produkt - zakończono procedurę');
       this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
-      // this.products$.pipe(first()).subscribe(value => console.log('Edytowano miary produktu', value));
       return;
     }
     //
@@ -123,5 +120,9 @@ export class ProductsStorageService {
     }
     this.products$.next([...newProducts]);
     this.localStorageService.setItem('products', JSON.stringify(this.products$.value));
+    // this.usedProductService.deleteAllOf(bothId);
+    // this.dishesService.deleteAllOf(bothId);
+
+
   }
 }

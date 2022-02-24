@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoadingService } from '../services/loading.service';
+import { replace } from 'lodash';
+import { WordPipe } from '../../pipes/OtherPipes/word.pipe';
 
 @Component({
   selector: 'app-steps',
@@ -11,8 +14,8 @@ export class StepsComponent implements OnInit {
   model = this.fb.group({
     step: ['', [Validators.required, Validators.minLength(1)]]
   });
-  @Input() edit = false;
-  edited: number = -1;
+  edition$ = this.loadingService.edition$;
+  edited = -1;
   @Input() steps = [
     'Krok z braku inputu',
     'Obierz cebulę i pokrój na drobne kawałeczki',
@@ -26,7 +29,7 @@ export class StepsComponent implements OnInit {
   @Output() editStep = new EventEmitter();
   @Output() reindexStep = new EventEmitter();
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private loadingService: LoadingService) {}
 
   ngOnInit(): void {}
 
@@ -50,6 +53,8 @@ export class StepsComponent implements OnInit {
   }
 
   add() {
+    console.log();
+    console.log('step emited in steps.ts');
     this.newStep.emit(this.model.value.step);
     this.model.reset();
   }

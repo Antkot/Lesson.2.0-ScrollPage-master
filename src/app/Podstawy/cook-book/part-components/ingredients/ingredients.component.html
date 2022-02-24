@@ -1,9 +1,9 @@
 <div class='container'>
-  <div class='headerButtons' *ngIf='edit'>
+  <div class='headerButtons' *ngIf='edition$ | async'>
     <app-add-ingredient (addProduct)='addProduct($event)' (prodMeasureDeleted)='deleteProdMeasure($event)'></app-add-ingredient>
   </div>
 
-    <span *ngIf='edit' [formGroup]='model' class='table'>
+    <span *ngIf='edition$ | async' [formGroup]='model' class='table x'>
         <ng-container class='mat-typography' [formGroup]='model'>
           <mat-form-field appearance='outline' class='listedOptions'>
             <mat-label>Nazwa produktu</mat-label>
@@ -11,11 +11,12 @@
                    formControlName='product' />
           </mat-form-field>
         </ng-container>
-        <mat-form-field appearance='outline' class='listedOptions'>
+      <div class='justify_ing'>
+        <mat-form-field appearance='outline' class='listedOptions double'>
           <mat-label>Ilość</mat-label>
           <input type='number' matInput formControlName='amount'>
         </mat-form-field>
-        <mat-form-field appearance='outline' class='listedOptions'>
+        <mat-form-field appearance='outline' class='listedOptions double'>
           <mat-label>Miara produktu</mat-label>
      <input matInput type='text' [matAutocomplete]='autoMeasure' [matAutocompleteDisabled]='false'
             formControlName='measure' />
@@ -25,13 +26,14 @@
       <!--        </mat-form-field>-->
             <button mat-button (click)='newUsedProduct()' [disabled]='model.invalid' class='middle_button' *ngIf='isMeasureDuplicated'>Dodaj</button>
             <button mat-button  disabled class='middle_button' *ngIf='!isMeasureDuplicated'>Dodaj</button>
+      </div>
     </span>
 <!--  <div class='errors'>-->
 <!--    <a *ngIf='model.invalid'>Niepoprawne dane</a>-->
 <!--  </div>-->
   <div>
 
-    <div class='colorizer' *ngIf='!edit'>
+    <div *ngIf='(edition$ | async) === false'>
       <div class='table'>
         <div class='grid-item'><h4>Produkt</h4></div>
         <div class='grid-item'><h4>ilość</h4></div>
@@ -58,7 +60,7 @@
       <div *ngIf='!products.length' > Brak produktów</div>
     </div>
 
-    <div class='colorizer' *ngIf='edit'>
+    <div class='colorizer' *ngIf='edition$ | async'>
       <div class='table table2'>
         <div class='grid-item'><h4>Produkt</h4></div>
         <div class='grid-item'><h4>ilość</h4></div>
@@ -88,11 +90,11 @@
             <mat-icon class='white-icon'>more_vert</mat-icon>
           </button>
           <mat-menu #menu='matMenu'>
-            <button mat-menu-item>
+            <button mat-menu-item (click)='refactor(product.usedProductId)'>
               <mat-icon>edit</mat-icon>
               <span>Edytuj</span>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)='deleteUsedProduct(product.usedProductId)'>
               <mat-icon>delete</mat-icon>
               <span>Usuń</span>
             </button>
@@ -100,6 +102,7 @@
         </div>
       </div>
       <div *ngIf='!products.length' > Brak produktów</div>
+      <div *ngIf='products.length' > Łącznie kcal: </div>
     </div>
 
   </div>

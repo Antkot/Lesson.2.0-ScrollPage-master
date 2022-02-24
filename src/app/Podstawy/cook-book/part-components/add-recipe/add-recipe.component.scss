@@ -1,11 +1,21 @@
 :host {
-  height: 100%;
+  height: 100vh;
+  max-width: 1000px;
+  overflow: scroll;
+  overflow: paged-x;
 }
-
-.all {
-  height: 100%;
-  //width: 100vw;
+.canvas{
   background: lightgoldenrodyellow;
+}
+.all {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  height: calc(100vh - 140px);
+  max-width: 100%;
+  width: 1015px;
+  margin: 70px auto auto auto;
+  //background: palegoldenrod;
 }
 
 .container {
@@ -23,7 +33,7 @@
     display: inline-block;
     text-align: left;
     background: palegoldenrod;
-    padding: 0px;
+    padding: 0;
   }
 
   .hash {
@@ -38,9 +48,6 @@
   padding: 5%;
   margin: auto;
 }
-.marg{
-  margin-bottom: 100px;
-}
 .single {
   padding: 5%;
 }
@@ -51,7 +58,9 @@
 
 .confirm {
   position: sticky;
-  bottom: 0px;
+  bottom: 0;
+  background: lightgoldenrodyellow;
+  height: 70px;
   width: 100%;
   text-align: center;
   float: bottom;
@@ -75,39 +84,53 @@
 
 .confirm:active {
 }
-
-.input, h1 {
+.title{
+  color: white;
+  text-align: center;
+  margin: 20px auto -30px auto;
+}
+.input, .nameh1 {
+  max-width: 90%;
+  resize: none;
+  word-break: break-word;
   text-align: center;
   border: gold 12px double;
   border-radius: 50px;
   background: dodgerblue;
   color: white;
-  height: 50px;
   font-size: 300%;
-  width: 80%;
-  padding: 20px;
+  //height: 100%;
+  width: calc(1000px - 128px);
+  padding: 20px 0 20px 88px;
+  margin: 0 auto;
 }
-
-.h1 {
-  width: 50%;
+.input{
+  //font-style: italic;
+  padding-left: 20px;
+  width: calc(1000px - 60px);
+  height: 50px;
+}
+.nameh1{
+  height: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  font-size: 150%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+h1 {
+  width: 90%;
+  margin: 10px;
 }
 
 .input:hover {
   border: darkgoldenrod 12px double;
 }
-
-h1:hover {
-  border: gold 12px double;
-}
-
-.header {
-  display: inline-block;
-}
-
 .block {
-  position: fixed;
   bottom: 0;
-  border-radius: 50px;
+  border-radius: 30px 30px 0 0;
   display: block;
   width: 1000px;
   max-width: 100%;
@@ -118,6 +141,8 @@ h1:hover {
   cursor: pointer;
   text-align: center;
   color: white;
+  margin: auto;
+  left: calc((100% - 1014px)/2);
 }
 
 button:disabled,
@@ -129,14 +154,27 @@ button[disabled] {
 .block:hover {
   border: darkgoldenrod 12px double;
 }
-
+.block_rest{
+  max-width: 98%;
+  position: relative;
+  left: -7px;
+  margin: auto;
+  width:fit-content;
+  height:fit-content;
+  background: palegoldenrod;
+}
+@media (max-width: 850px) {
+  .block_rest{
+    width: calc(100% - 19px);
+  }
+}
 .editButton {
   z-index: 0;
-  margin-top: -2px;
   justify-self: center;
   border: none;
   background: none;
-  margin-right: -2px;
+  position: center;
+  //margin-top: calc( 50% - 30px);
 }
 
 .editButton:hover {
@@ -151,5 +189,4 @@ button[disabled] {
 }
 .white-icon {
   color: white;
-  z-index: -1;
 }

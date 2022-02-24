@@ -17,6 +17,7 @@ export class UsedProductsStorageService {
   measures$: Observable<Array<Measure>> = this.measureService.measures$;
   productId = '';
   measureId = '';
+
   constructor(
     private tagsService: TagsStorageService,
     private localStorageService: LocalStorageService,
@@ -38,18 +39,18 @@ export class UsedProductsStorageService {
   addProduct(addedProduct: AddedUsedProductType) {
     const current = JSON.parse(this.localStorageService.getItem('usedProducts'));
     this.products$.pipe(first()).subscribe((usedProduct) => {
-        this.productId = usedProduct.find(
-          ({ name }) =>
-            name === addedProduct.product
-        ).productId;
-      });
+      this.productId = usedProduct.find(
+        ({ name }) =>
+          name === addedProduct.product
+      ).productId;
+    });
 
     this.measures$.pipe(first()).subscribe((usedProduct) => {
-        this.measureId = usedProduct.find(
-          ({ name }) =>
-            name === addedProduct.measure
-        ).measureId;
-      });
+      this.measureId = usedProduct.find(
+        ({ name }) =>
+          name === addedProduct.measure
+      ).measureId;
+    });
 
     const newProd: UsedProduct = {
       usedProductId: cuid(),
@@ -60,5 +61,18 @@ export class UsedProductsStorageService {
     this.usedProducts$.next([...current, newProd]);
     this.localStorageService.setItem('usedProducts', JSON.stringify(this.usedProducts$.value));
     return newProd;
+  }
+
+  deleteAllOf(bothId) {
+    // const current: Array<UsedProduct> = JSON.parse(this.localStorageService.getItem('usedProducts'));
+    // const current: Array<any> = JSON.parse(this.localStorageService.getItem('usedProducts'));
+    // current.filter(({usedProduct}) => usedProduct.find(({productId, measureId}) =>
+    //   productId !== bothId.givenProductId && measureId !== bothId.givenMeasureId));
+    // this.usedProducts$.next([...current]);
+    //
+    // this.usedProducts$.next([...current.filter(({usedProduct}) => usedProduct.find(({productId, measureId}) =>
+    //   productId !== bothId.givenProductId && measureId !== bothId.givenMeasureId))]);
+    //
+    // this.localStorageService.setItem('usedProducts', JSON.stringify(this.usedProducts$.value));
   }
 }

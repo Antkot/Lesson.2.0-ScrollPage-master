@@ -27,14 +27,14 @@ export class IngredientDialogComponent
   @Output() closed = new EventEmitter();
   @Output() addProduct = new EventEmitter();
   @Output() prodMeasureDeleted = new EventEmitter();
-  selectedName: string;
-  selectedProductId: string;
-  selectedMeasureId: string;
-  selectedMeasureKcal: number;
+  // selectedName: string;
+  // selectedProductId: string;
+  // selectedMeasureId: string;
+  // selectedMeasureKcal: number;
   model = this.fb.group({
     // name: new FormControl({ value: '', disabled: this.disabled }),
     product: ['', [Validators.required, Validators.minLength(1)]],
-    allergens: [[{ allergenId: '' }], []],
+    allergens: [[], []],
     kcal: ['', [Validators.required, Validators.min(0)]],
     measure: ['', [Validators.required, Validators.minLength(1)]]
   });
@@ -51,10 +51,9 @@ export class IngredientDialogComponent
     private fb: FormBuilder) {
     super();
   }
-
+// dobłe
   ngOnInit(): void {
     // const current = JSON.parse(this.localStorageService.getItem('measures'));
-
     this.subscribeWhileAlive(
       this.model.valueChanges.pipe(
         // filter(({ product }) => !!product),
@@ -66,15 +65,9 @@ export class IngredientDialogComponent
                   .measures.find((m) => m.measureId === measureId))));
             });
             this.counter(value.product, value.allergens, value.kcal, value.measure);
-
-            // console.log('TU PACZ MODEL (Jest)');
-            // console.log(this.model.value.allergens);
-
-
             this.measures$.pipe(first()).subscribe((measures) => {
               this.typedMeasureId = measures.find(({ name }) => name === value.measure)?.measureId;
             });
-
             let productsResult = null;
             if (value.product?.length > 0 && value.product) {
               const options = {
@@ -86,16 +79,12 @@ export class IngredientDialogComponent
               productsResult = products;
             }
             this.autoProducts$.next(productsResult.map(({ name, productId }) => ({ name, productId })));
-            console.log(111111111, this.typedMeasureId);
-            products.find(({ name }) => name === value.product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
-              ? console.log('Kopia miary wprowadzona! - zmiana przycisku') : console.log('Nowa miara');
             products.find(({ name }) => name === value.product)?.measures.find(({ measureId }) => measureId === this.typedMeasureId)
               ? this.isMeasureDuplicated = true : this.isMeasureDuplicated = false;
           });
         })
       )
     );
-
     this.model.valueChanges.subscribe((value: { measure: string }) => {
       // });
       this.finalCombine$.pipe(first()).subscribe((measures) => {

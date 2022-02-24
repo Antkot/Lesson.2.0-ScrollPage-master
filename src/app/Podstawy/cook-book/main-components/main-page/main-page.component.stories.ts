@@ -1,27 +1,14 @@
-import { Component, NgModule, OnInit } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { moduleMetadata, storiesOf } from '@storybook/angular';
 import { withKnobs } from '@storybook/addon-knobs';
 import { MatIconModule } from '@angular/material/icon';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { CookBookModule } from '../../cook-book.module';
-import { Observable } from 'rxjs';
-import { DishStorageService } from '../../part-components/services/dish-storage.service';
-import { first } from 'rxjs/operators';
+import { MainScreenComponent } from '../main-screen/main-screen.component';
 
-@Component({
-  selector: 'loader',
-  template: ``
-})
-export class LoadingComponent implements OnInit {
-
-  constructor(public myRouter: Router, private dishService: DishStorageService) {}
-  ngOnInit() {}
-}
 
 const decoration: NgModule = {
-  declarations: [
-    LoadingComponent
-  ],
+  declarations: [MainScreenComponent],
   imports: [
     CookBookModule,
     MatIconModule,
@@ -36,7 +23,5 @@ storiesOf('Podstawy / cook / main', module)
   .add('main page', () => ({
     props: {},
     template: `
-  <loader></loader>
-  <router-outlet></router-outlet>
-`
+<app-main-screen></app-main-screen>`
   }));

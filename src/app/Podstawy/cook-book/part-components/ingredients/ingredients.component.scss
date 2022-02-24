@@ -4,6 +4,7 @@
 }
 
 .container {
+  max-width: 100%;
   border: gold 12px double;
   border-radius: 50px;
   background: dodgerblue;
@@ -33,6 +34,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   width: 700px;
+  max-width: 90%;
   column-gap: 10px;
   row-gap: 10px;
 
@@ -69,11 +71,6 @@
   width: 100%;
 }
 
-.colorizer {
-  :nth-child(2n) {
-    //background: red;
-  }
-}
 
 .middle_button {
   height: 65px;
@@ -92,4 +89,23 @@ mat-label {
   border: none;
   background: none;
   cursor: pointer;
+}
+.justify_ing {
+  display: flex;
+}
+
+@media (max-width: 1000px) {
+  .x {
+    display: inline-block;
+  }
+  .double {
+    width: 39%;
+    margin-right: 2%;
+  }
+  .middle_button {
+    //padding: 0 5%;
+  }
+  .justify_ing {
+      justify-content: space-between;
+    }
 }

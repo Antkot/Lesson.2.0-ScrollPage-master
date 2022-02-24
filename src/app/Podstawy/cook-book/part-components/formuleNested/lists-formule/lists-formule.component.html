@@ -1,0 +1,28 @@
+<div class='container' cdkDropList (cdkDropListDropped)='drop($event)'>
+  <div>
+    <div *ngFor='let form of forms.controls; index as i'>
+      <div cdkDrag [formGroup]='forms.controls[i]' class='tile'>
+        <div class='inline'>
+          <mat-icon cdkDragHandle>open_with</mat-icon>
+          <mat-form-field class='example-full-width' appearance='fill'>
+            <mat-label>Nazwa listy</mat-label>
+            <input type='text' matInput formControlName='name'
+                   placeholder='np. lista 1'>
+            <mat-hint>Wpisz conajmniej 3 litery</mat-hint>
+            <mat-error *ngIf='forms.controls[i].controls?.name.touched && forms.controls[i].controls?.name?.errors?.minlength'>
+              Nazwa jest <strong>za krótka</strong>
+            </mat-error>
+          </mat-form-field>
+          <app-formule-input formControlName='days' class='content'></app-formule-input>
+          <div (click)='remove(i)' class='delete'>
+            <mat-icon>delete</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button (click)='addForm()'>Dodaj plan</button>
+  <div>
+    <pre>{{forms.value | json}}</pre>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+.container {
+  display: grid;
+  background: gold;
+}
+
+.tile {
+  padding: 5px;
+  margin-bottom: 20px;
+  background: goldenrod;
+}
+
+.add {
+  border: 5px ridge silver;
+  padding: 20px;
+  margin: auto;
+  background: goldenrod;
+}
+.add:hover{
+  background: darkgoldenrod;
+}
+.inline{
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  padding: 5px;
+  background: darkgoldenrod;
+}

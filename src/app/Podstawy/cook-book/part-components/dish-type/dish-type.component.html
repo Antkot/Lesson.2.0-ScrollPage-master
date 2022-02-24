@@ -1,14 +1,31 @@
-<div *ngIf='edit' [formGroup]='model'>
+<div *ngIf='edition$ | async ' [formGroup]='model'>
   <ng-container *ngFor='let dishId of dishes$ | async'>
   <span class='margin'>
-  <mat-checkbox [formControlName]='dishId'>
+  <mat-checkbox [formControlName]='dishId' class='check'>
         {{dishId | dishType | async}}
   </mat-checkbox>
   </span>
   </ng-container>
 </div>
-<div *ngIf='!edit'>
+<div *ngIf='(edition$ | async) === false'>
   <ng-container *ngFor='let dish of selectedDishes$ | async'>
     <span class='margin'>{{dish.dishId | dishType | async}}</span>
   </ng-container>
 </div>
+<!--dishes$ (te dania się wyświetlają)-->
+<!--<br>-->
+<!--{{dishes$ | async | json}}-->
+<!--<br>-->
+<!--<br>-->
+<!--selectedDishes$ (zaznaczone dania)-->
+<!--<br>-->
+<!--{{selectedDishes$ | async | json}}-->
+<!--<br>-->
+<!--<br>-->
+<!--dishesType$: (całe info o daniach)-->
+<!--<br>-->
+<!--{{dishesType$ | async | json}}-->
+<!--<br>-->
+<!--<br>-->
+<!--validateDishType$-->
+<!--{{validateDishType$ | async}}-->

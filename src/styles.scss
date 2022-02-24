@@ -5,23 +5,25 @@ html, body {
   width: 100%;
   height: 100%;
   background-color: palegoldenrod;
+  overflow: hidden;
 
-  //::-webkit-scrollbar
-  //{
-  //  max-height: 100px;
-  //  width: 22px;
-  //  background-color: black;
-  //
-  //}
+  ::-webkit-scrollbar
+  {
+    max-height: 100px;
+    width: 22px;
+    background-color: black;
 
-  //::-webkit-scrollbar-thumb
-  //{
-  //  border-radius: 10px;
-  //  background-image: radial-gradient(orchid, deeppink 70%);
-  //}
-  //::-webkit-scrollbar-thumb:hover {
-  //  background-image: radial-gradient(deeppink, orchid 70%);
-  //}
+  }
+
+  ::-webkit-scrollbar-thumb
+  {
+    border-radius: 10px;
+    border: 1px solid gold;
+    background-image: radial-gradient( dodgerblue, dodgerblue 99%);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-image: radial-gradient(dodgerblue, lightblue 99%);
+  }
 }
 
 .dialog-container-custom .mat-dialog-container {

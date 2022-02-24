@@ -1,17 +1,17 @@
-<app-menu></app-menu>
-<app-add-recipe
-  [edit]="edit$ | async"
-  [reset]="reset$ | async"
-  (usedProductToAdd)='addUsedProduct($event)'
-  (addedProduct)='addProduct($event);'
-  (deletedStep)='deletedStepEmitter($event)'
-  (editStep)='editStepEmitter($event)'
-  (newStep)='newStepEmitter($event)'
-  (reindexStep)='reindexStepEmitter($event)'
-  (nameChange)='nameEdited($event)'
-  (typeChange)='typeEdition($event)'
-  (prodMeasureDeleted)='deleteProdMeasure($event)'
-  (editionEnded)='endEdition()'
-></app-add-recipe>
-<!--  (stepsChange)='steps'-->
-
+<div class='all'>
+  <app-add-recipe
+    [dishId]='dishId$ | async'
+    [reset]='reset$ | async'
+    (usedProductToAdd)='addUsedProduct($event)'
+    (usedProductToDelete)='deleteUsedProduct($event)'
+    (addedProduct)='addProduct($event);'
+    (deletedStep)='deletedStepEmitter($event)'
+    (editStep)='editStepEmitter($event)'
+    (newStep)='newStepEmitter($event)'
+    (reindexStep)='reindexStepEmitter($event)'
+    (nameChange)='nameEdited($event)'
+    (typeChange)='typeEdition($event)'
+    (prodMeasureDeleted)='deleteProdMeasure($event)'
+    (editionEnded)='endEdition()'
+  ></app-add-recipe>
+</div>

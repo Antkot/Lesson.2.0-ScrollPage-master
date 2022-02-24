@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Dish } from '../../types';
-import { LoadingService } from '../services/loading.service';
 import { DishStorageService } from '../services/dish-storage.service';
-import { first, map } from 'rxjs/operators';
-import { xor } from 'lodash';
-import { ActivatedRoute } from '@angular/router';
+import { first, map, share, shareReplay } from 'rxjs/operators';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as cuid from 'cuid';
+import { LoadingService } from '../services/loading.service';
+import { DishIdGeneratorService } from '../services/dish-id-generator.service';
 
 @Component({
   selector: 'app-listed',
@@ -13,39 +14,57 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./listed.component.scss']
 })
 export class ListedComponent implements OnInit {
+  randomDishId = cuid();
+  filteredDishType$: Observable<string> = this.loadingService.filteredDishType$;
   dishesList$: Observable<Array<Dish>> = this.dishesService.dishesList$;
   dishType$: Observable<string> = combineLatest([this.activatedRoute.paramMap
-    .pipe(map(() => history.state))]).pipe(map(([{ dishTypeId }]) => dishTypeId));
+    .pipe(map(() => history.state))]).pipe(map(([{ dishTypeId }]) => {
+    return dishTypeId;
+  }));
 
   dishes = [];
-  shownDishesList$: Observable<Array<Dish>> = combineLatest([this.dishType$, this.dishesList$]).pipe(
+  // shownDishesList$: Observable<Array<Dish>> = combineLatest([this.dishType$, this.dishesList$]).pipe(
+  shownDishesList$: Observable<Array<Dish>> = combineLatest([this.filteredDishType$, this.dishesList$]).pipe(
     map(([dishTyped, dishesList]) => {
-      const lo = dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
+      return dishesList.filter(({ dishType }) => dishType.find(({ dishId }) => dishId === dishTyped));
+    }), shareReplay(1));
+  edition$ = this.loadingService.edition$;
+  lastLink$ = this.loadingService.lastLink$;
 
-      console.log('Dania przed filtrowaniem: ');
-      this.dishesList$.pipe(first()).subscribe(value => {
-        console.table(value);
-      });
-      console.log('Typ : ');
-      this.dishType$.pipe(first()).subscribe(value => {
-        console.table(value);
-      });
-      console.log('filtrowanie: ');
-      console.log(lo);
-
-      return lo;
-    }));
-
-  constructor(private dishesService: DishStorageService, public activatedRoute: ActivatedRoute
+  constructor(
+    private dishesService: DishStorageService,
+    private activatedRoute: ActivatedRoute,
+    private loadingService: LoadingService,
+    private idGenerator: DishIdGeneratorService,
+    private route: ActivatedRoute,
+    private myRouter: Router
   ) {
   }
 
-
-  ngOnInit(): void {
-
+  ngOnInit() {
   }
 
-  deleteDsih(dishId: string) {
+  deleteDish(dishId: string) {
     this.dishesService.deleteDish(dishId);
+  }
+
+  redirect() {
+    this.edition$.next(true);
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    );
+    this.myRouter.navigate(['../recipe/', this.idGenerator.generateId()]);
+  }
+
+  redirectView(edit: boolean, dishId: string) {
+    if (edit) {
+      this.edition$.next(true);
+    } else {
+      this.edition$.next(false);
+    }
+    this.route.url.pipe(
+      map(value => value[0].path)).pipe(first()).subscribe(url => this.lastLink$.next(url)
+    );
+    this.myRouter.navigate(['../recipe/', dishId]);
   }
 }

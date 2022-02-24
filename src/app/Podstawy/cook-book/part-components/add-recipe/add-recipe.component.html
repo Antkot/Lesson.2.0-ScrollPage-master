@@ -1,57 +1,74 @@
-<div class='all'>
-  <div class='container' [formGroup]='model'>
-    <mat-divider></mat-divider>
-
-    <!--  2{{(dishId | dishType) | async | json}}-->
-    <mat-divider></mat-divider>
-    <div class='name'>
-      <input *ngIf='edit'
-             type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
-             formControlName='name' />
-      <h1 *ngIf='!edit' class='header'>{{(recipe$ | async).name}}
-        <div class='editButton noColor' *ngIf='!edit'>
-          <button mat-fab (click)='redirectTo()' class='editButton'>
-            <mat-icon  class="white-icon">edit</mat-icon>
-          </button>
+<div class='canvas'>
+  <div class='all'>
+    <div class='container' [formGroup]='model'>
+      <a>id: {{dishId}}</a><br />
+      <a>data: {{data.data}}</a><br />
+      <a>real_Id: {{realId}}</a>
+      <div>
+        <input *ngIf='edition$ | async'
+               type='text' placeholder='Wpisz Nazwę Potrawy... ' class='input'
+               formControlName='name' />
+        <div *ngIf='(edition$ | async) === false' class='nameh1'>
+          <h1>
+            {{(recipe$ | async).name}}
+          </h1>
+          <div class='editButton noColor' *ngIf='(edition$ | async) === false'>
+            <button mat-fab (click)='redirectTo()' class='editButton'>
+              <mat-icon class='white-icon'>edit</mat-icon>
+            </button>
+          </div>
         </div>
-      </h1>
-    </div>
-    <mat-divider></mat-divider>
-    <div class='hash'>
-      <!--    <div class="divide">-->
-      <!--      <app-chips [removable]="edit" [entity]="'Tag'" [elements]="(dishId | dishTranslator: 'tags') | async "></app-chips>-->
-      <!--    </div>-->
-      <div class='single'>
-        <app-dish-type [edit]='edit' (typeOfDish)='typeEdition($event)'></app-dish-type>
-      </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div class='ingredients'>
-      <div class='divide'>
-        <app-ingredients [edit]='edit' [products]="(recipe$ | async).products"
-                         (addUsedProduct)='addUsedProduct($event)'
-                         (addedProduct)='addProduct($event)'
-        (prodMeasureDeleted)='deleteProdMeasure($event)'></app-ingredients>
       </div>
       <mat-divider></mat-divider>
-      <div class='divide marg'>
-        <app-steps [edit]='edit' [steps]="(recipe$ | async).steps"
-                   (deletedStep)='deletedStepEmitter($event)'
-                   (editStep)='editStepEmitter($event)'
-                   (newStep)='newStepEmitter($event)'
-                   (reindexStep)='reindexStepEmitter($event)'
-        ></app-steps>
+      <div class='hash'>
+        <!--    <div class="divide">-->
+        <!--      <app-chips [removable]="edit" [entity]="'Tag'" [elements]="(dishId | dishTranslator: 'tags') | async "></app-chips>-->
+        <!--    </div>-->
+        <div class='single'>
+          <app-dish-type
+            (typeOfDish)='typeEdition($event)'
+            [dishTypes]='(recipe$ | async).dishType'
+          ></app-dish-type>
+        </div>
+      </div>
+      <mat-divider></mat-divider>
+      <div class='ingredients'>
+        <h1 class='title'> Niezbędne składniki: </h1>
+        <div class='divide'>
+          <app-ingredients
+            [products]='(recipe$ | async).products'
+            (addUsedProduct)='addUsedProduct($event)'
+            (addedProduct)='addProduct($event)'
+            (addDeletedProduct)='addDeletedProduct($event)'
+            (prodMeasureDeleted)='deleteProdMeasure($event)'>
+          </app-ingredients>
+        </div>
+        <mat-divider></mat-divider>
+        <h1 class='title'> Kroki do przygotowania posiłku: </h1>
+
+        <div class='divide'>
+          <app-steps [steps]='(recipe$ | async).steps'
+                     (deletedStep)='deletedStepEmitter($event)'
+                     (editStep)='editStepEmitter($event)'
+                     (newStep)='newStepEmitter($event)'
+                     (reindexStep)='reindexStepEmitter($event)'
+          ></app-steps>
+        </div>
       </div>
     </div>
-    <footer class='confirm' *ngIf='edit' (click)='editable()'>
-      <button [disabled]='model.invalid' class='block' (click)='endEdition()'>
-        Zakończ edycję
-      </button>
-    </footer>
-    <footer class='confirm' *ngIf='!edit'>
-      <button class='block'>
-        Gotuj!
-      </button>
-    </footer>
   </div>
 </div>
+<footer class='confirm' *ngIf='edition$ | async' (click)='editable()'>
+  <div class='block_rest'>
+    <button [disabled]='model.invalid' class='block' (click)='endEdition()'>
+      Zakończ edycję
+    </button>
+  </div>
+</footer>
+<footer class='confirm' *ngIf='(edition$ | async) === false'>
+  <div class='block_rest'>
+    <button class='block'>
+      Gotuj!
+    </button>
+  </div>
+</footer>

@@ -1,7 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product, UsedProduct } from '../../types';
-import { UsedProductsStorageService } from '../../part-components/services/used-products-storage.service';
 import { map } from 'rxjs/operators';
 import { ProductsStorageService } from '../../part-components/services/products-storage.service';
 

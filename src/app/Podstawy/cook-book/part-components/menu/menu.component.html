@@ -1,7 +1,19 @@
 <div class='wraper'>
-<div class='option' routerLink="/main" routerLinkActive="active">LOGO</div>
-<div (click)='redirectTo()' class='option'>Dodaj przepis</div>
-  <div class='searchBar'>
-    <app-search-bar></app-search-bar>
+<div class='option' (click)='redirected("redirect")'>
+  <img src='../../../../../assets/cookBook/logo1.svg' class='logo'/>
+  <img src='../../../../../assets/cookBook/logo2.svg' class='logo'/>
+  <img src='../../../../../assets/cookBook/logo3.svg' class='logo'/>
+  <span class='marg'>
+  </span>
+</div>
+  <div (click)='redirected("redirectToNew")' class='option'>Dodaj przepis</div>
+  <div class='return'>
+<!--    <mat-icon class='icoUndo' (click)='goBack()'>undo</mat-icon>-->
+    <mat-icon class='icoUndo' (click)='redirected("backClicked")'>undo</mat-icon>
   </div>
+  <div class='searchBar'>
+    <app-search-bar class='x'></app-search-bar>
+  </div>
+<!--  <a>Edycja w trakcie: {{edition$ | async}}</a><br>-->
+<!--  <a>Różnica od orginału: {{editionInProgress$ | async}}</a><br>-->
 </div>

@@ -47,6 +47,13 @@ import { ProductAllMeasuresPipe } from './pipes/OtherPipes/product-all-measures.
 import { MultiplicationPipe } from './pipes/OtherPipes/multiplication.pipe';
 import { DishTypeComponent } from './part-components/dish-type/dish-type.component';
 import { AbandonEditionComponent } from './part-components/abandon-edition/abandon-edition.component';
+import { WordPipe } from './pipes/OtherPipes/word.pipe';
+import { DishFormuleComponent } from './part-components/formuleNested/dish-formule/dish-formule.component';
+import { ListsFormuleComponent } from './part-components/formuleNested/lists-formule/lists-formule.component';
+import { DaysFormuleComponent } from './part-components/formuleNested/days-formule/days-formule.component';
+import { MealFormuleComponent } from './part-components/formuleNested/meal-formule/meal-formule.component';
+import { ForbiddenNameDirective } from './part-components/formuleNested/forbidden-name.directive';
+import { HttpClientModule } from '@angular/common/http';
 
 const links = [
   {
@@ -69,7 +76,6 @@ const links = [
 
 @NgModule({
   declarations: [
-    SearchBarComponent,
     SideFilterComponent,
     MenuComponent,
     TimeSliderComponent,
@@ -97,7 +103,12 @@ const links = [
     MultiplicationPipe,
     DishTypeComponent,
     AbandonEditionComponent,
-
+    WordPipe,
+    ListsFormuleComponent,
+    DaysFormuleComponent,
+    DishFormuleComponent,
+    MealFormuleComponent,
+    ForbiddenNameDirective
   ],
   exports: [
     SideFilterComponent,
@@ -106,7 +117,12 @@ const links = [
     ChipsComponent,
     AddIngredientComponent,
     MainPageComponent,
-    IngredientDialogComponent
+    IngredientDialogComponent,
+    ListsFormuleComponent,
+    DaysFormuleComponent,
+    DishFormuleComponent,
+    MealFormuleComponent,
+
   ],
   imports: [
     RouterModule.forRoot(links, { useHash: true }),
@@ -131,10 +147,12 @@ const links = [
     MatButtonModule,
     MatDialogModule,
     MatInputModule,
-    MatRippleModule
+    MatRippleModule,
   ],
   entryComponents: [
-    IngredientDialogComponent
+    IngredientDialogComponent,
+    AbandonEditionComponent,
+    AddRecipeComponent
   ]
 })
 export class CookBookModule {

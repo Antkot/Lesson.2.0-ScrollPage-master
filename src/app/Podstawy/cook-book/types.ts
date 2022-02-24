@@ -66,3 +66,25 @@ export interface BothIdType {
   givenMeasureId: string;
   givenProductId: string;
 }
+
+export interface PlanList {
+  planListId: string;
+  planListName: string;
+  plans: Array<Plan>;
+}
+
+export interface Plan {
+  planId: string;
+  planName: string;
+  days: Day; // form array
+}
+
+export interface  Day { // form array
+  dayId: string;
+  dayNumber: number;
+  dishList: Array<{
+    dishes: Array<Dish>,
+    hour: string,
+    name: string
+  }>;
+}

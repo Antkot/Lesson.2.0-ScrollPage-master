@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { TableData } from './to-do-list.component.stories';
 import * as cuid from 'cuid';
 import { LocalStorageService } from './local-storage-service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,20 +14,23 @@ export class ToDoListService {
   backed = false;
 
   constructor(private localStorageService: LocalStorageService) {
-    this.table$.value.tableId = 'toDo';
-    if (!!localStorage.toDo) {
-      const current = JSON.parse(this.localStorageService.getItem('toDo'));
-      this.table$.next(
-        {
-          tableId: current.tableId,
-          parentId: current.parentId,
-          toDo: [
-            ...current.toDo
-          ]
-        });
-    }
+    // if (!!localStorage.toDo) {
+    //   const current = JSON.parse(this.localStorageService.getItem('toDo'));
+    //   this.table$.next(
+    //     {
+    //       tableId: current.tableId,
+    //       parentId: current.parentId,
+    //       toDo: [
+    //         ...current.toDo
+    //       ]
+    //     });
+    // }
   }
-
+  setId(id: string) {
+    console.log(111111111111, id);
+    this.table$.value.tableId = id;
+ // return this.table$.pipe(map((value) => value.))
+  }
   add(text: string) {
     const current = this.table$.value;
     this.table$.next(

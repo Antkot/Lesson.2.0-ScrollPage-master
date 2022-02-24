@@ -13,8 +13,12 @@
   overflow: hidden;
 }
 .example-box {
-  line-break: strict;
-  word-break: break-all;
+  //overflow-wrap: break-word;
+  //display: inline-block;
+  word-break: break-word;
+  //line-break: strict;
+  //word-break: break-all;
+  //white-space: pre-wrap;
   max-height: 200px;
   user-select: none;
   padding: 20px;
@@ -57,10 +61,9 @@
 }
 
 .editor {
-  padding-left: 20px;
+  padding-left: 30px;
   width: 90%;
 }
-
 .icon-container {
   border-radius: 50%;
   position: relative;
@@ -89,6 +92,7 @@
 .def {
   cursor: default;
   align-items: center;
+  margin: auto;
 }
 
 .alert {
@@ -97,8 +101,22 @@
   color: red;
 }
 .centerButton{
-//  vertical-align: top !important;
+  //padding-bottom: 28px;
+  //margin-top: -5px;
 }
 .white-icon {
   color: white;
+}
+//.mat-form-field-wrapper{
+//  padding-bottom: 0;
+//}
+//::ng-deep .mat-form-field-wrapper{
+//  padding-bottom: -1.25em;
+//}
+//.editor .mat-form-field-wrapper{
+//  margin-bottom: -1.25em;
+//}
+:host ::ng-deep .mat-form-field-wrapper{
+  margin: 0;
+  padding: 0;
 }

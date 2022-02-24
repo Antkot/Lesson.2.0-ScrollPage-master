@@ -1,0 +1,33 @@
+.container {
+  width: calc(50vw - 10px);
+  min-height: 100px;
+  border: palegoldenrod 1px ridge;
+  display: grid;
+  justify-content: center;
+  align-content: center;
+}
+
+.delete {
+  cursor: pointer;
+  height: max-content;
+  width: max-content;
+}
+
+.inline {
+  display: grid;
+  grid-template-columns: max-content max-content max-content max-content 1fr;
+}
+
+.tile {
+  border-bottom: 4px dashed palegoldenrod;
+  margin-bottom: 50px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 50px;
+  justify-items: center;
+}
+.add{
+  padding: 10px;
+  margin: 10px auto;
+}

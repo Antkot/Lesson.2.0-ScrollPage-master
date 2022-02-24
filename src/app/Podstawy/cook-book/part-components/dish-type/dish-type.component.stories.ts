@@ -17,7 +17,7 @@ const decoration: NgModule = {
 storiesOf('Podstawy / cook / parts ', module)
   .addDecorator(moduleMetadata(decoration))
   .addDecorator(withKnobs)
-  .add('dish-type', () => ({
+  .add('dish-formule-type', () => ({
     props: {} as Partial<DishTypeComponent>,
     component: DishTypeComponent
   }));

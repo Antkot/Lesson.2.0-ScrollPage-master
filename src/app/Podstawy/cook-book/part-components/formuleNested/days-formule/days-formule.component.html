@@ -1,0 +1,18 @@
+<div class='container' cdkDropList (cdkDropListDropped)='drop($event)'>
+  <div class='tile' *ngFor='let form of forms.controls; index as i'>
+    <div cdkDrag [formGroup]='forms.controls[i]'>
+      <div class='inline'>
+        <mat-icon cdkDragHandle>open_with</mat-icon>
+        {{form.value.day}}
+        <div (click)='remove(i)' class='delete'>
+          <mat-icon>delete</mat-icon>
+        </div>
+      </div>
+      <input formControlName='day'>
+      <app-third formControlName='meals'></app-third>
+    </div>
+  </div>
+  <div class='add' (click)='add()'>
+    Dodaj dzień
+  </div>
+</div>
